@@ -4,6 +4,19 @@
     .text-primary {
         color: var(--color-primary);
     }
+
+    .bg-primary {
+        background-color: var(--color-bg);
+    }
+
+    .w-primary {
+        width: var(--width-primary);
+        margin: 0 auto;
+    }
+
+    .border-primary {
+        border-color: var(--color-border);
+    }
 }
 
 :root {

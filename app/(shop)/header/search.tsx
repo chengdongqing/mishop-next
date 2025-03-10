@@ -28,7 +28,7 @@ export default function Search() {
         placeholder={placeholder}
         defaultValue={searchParams.get('q')?.toString()}
         className={clsx(
-          'h-full flex-1 border border-[var(--color-border)] px-[10px] text-sm',
+          'border-primary h-full flex-1 border-1 px-[10px] text-sm',
           'duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]',
           {
             '!border-[var(--color-primary)]': focused
@@ -40,7 +40,7 @@ export default function Search() {
       <button
         type="submit"
         className={clsx(
-          'ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border border-[var(--color-border)] duration-200',
+          'border-primary ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border-1 duration-200',
           'group-hover:border-[#b0b0b0] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white',
           {
             '!border-[var(--color-primary)]': focused

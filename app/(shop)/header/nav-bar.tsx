@@ -5,9 +5,7 @@ import Search from './search';
 export default function NavBar() {
   return (
     <div className={'h-[100px]'}>
-      <div
-        className={'mx-auto flex h-full w-[var(--width-primary)] items-center'}
-      >
+      <div className={'w-primary flex h-full items-center'}>
         <Logo />
         <Navs />
         <Search />

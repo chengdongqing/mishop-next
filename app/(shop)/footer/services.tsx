@@ -11,7 +11,7 @@ export default function Services() {
   return (
     <ul
       className={
-        'mx-auto flex h-[80px] w-[var(--width-primary)] items-center border-b-1 border-b-[var(--color-border)]'
+        'w-primary flex h-[80px] items-center border-b-1 border-b-[var(--color-border)]'
       }
     >
       {services.map((service, index) => {

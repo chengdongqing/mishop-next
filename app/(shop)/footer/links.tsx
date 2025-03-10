@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 export default function Links() {
   return (
-    <div className={'mx-auto flex w-[var(--width-primary)] py-10'}>
+    <div className={'w-primary flex py-10'}>
       <Left />
       <div className={'h-[80px] border-r-1 border-r-[var(--color-border)]'} />
       <Right />
