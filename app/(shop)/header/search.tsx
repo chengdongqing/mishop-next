@@ -28,8 +28,8 @@ export default function Search() {
         placeholder={placeholder}
         defaultValue={searchParams.get('q')?.toString()}
         className={clsx(
-          'h-full flex-1 border-1 border-[#e0e0e0] px-[10px] text-[14px]',
-          'duration-200 outline-none group-hover:border-[#b0b0b0]',
+          'h-full flex-1 border border-[var(--color-border)] px-[10px] text-sm',
+          'duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]',
           {
             '!border-[var(--color-primary)]': focused
           }
@@ -40,7 +40,7 @@ export default function Search() {
       <button
         type="submit"
         className={clsx(
-          'ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border-1 border-[#e0e0e0] duration-200',
+          'ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border border-[var(--color-border)] duration-200',
           'group-hover:border-[#b0b0b0] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white',
           {
             '!border-[var(--color-primary)]': focused
@@ -77,14 +77,14 @@ function RecommendedList() {
   return (
     <ul
       className={
-        'absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border-1 border-[var(--color-primary)] bg-white'
+        'absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border border-[var(--color-primary)] bg-white'
       }
     >
       {keywords.map((keyword) => (
         <li
           key={keyword}
           className={
-            'cursor-pointer p-[6px_15px] text-[12px] text-[#424242] hover:bg-[#fafafa]'
+            'cursor-pointer p-[6px_15px] text-xs text-[#424242] hover:bg-[#fafafa]'
           }
           onClick={() => searchAction(keyword)}
         >

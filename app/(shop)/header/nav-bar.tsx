@@ -36,7 +36,7 @@ function Logo() {
 
 function Navs() {
   return (
-    <div className={'flex'}>
+    <ul className={'flex'}>
       <NavItem title={'Xiaomi手机'} />
       <NavItem title={'REDMI手机'} />
       <NavItem title={'电视'} />
@@ -54,7 +54,7 @@ function Navs() {
         href={'https://www.xiaomi.cn'}
         target={'_blank'}
       />
-    </div>
+    </ul>
   );
 }
 
@@ -68,14 +68,14 @@ function NavItem({
   target?: string;
 }) {
   return (
-    <div
+    <li
       className={
-        'cursor-pointer px-[10px] text-[16px] text-[#333] duration-200 hover:text-[var(--color-primary)]'
+        'cursor-pointer px-[10px] text-base duration-200 hover:text-[var(--color-primary)]'
       }
     >
       <a rel={'nofollow'} href={href} target={target}>
         {title}
       </a>
-    </div>
+    </li>
   );
 }

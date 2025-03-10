@@ -6,7 +6,7 @@ export default function ShopLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className={'h-[50vh] bg-[var(--color-bg)]'}>{children}</main>
       <Footer />
     </>
   );

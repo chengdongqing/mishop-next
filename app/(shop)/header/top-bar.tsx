@@ -5,7 +5,7 @@ export default function TopBar() {
     <div className={'h-[40px] bg-[#333]'}>
       <div
         className={
-          'mx-auto flex w-[var(--width-primary)] justify-between text-[12px] text-[#b0b0b0]'
+          'mx-auto flex w-[var(--width-primary)] justify-between text-xs text-[#b0b0b0]'
         }
       >
         <Left />
@@ -17,7 +17,7 @@ export default function TopBar() {
 
 function Left() {
   return (
-    <div>
+    <ul className={'flex items-center'}>
       <NavItem title={'小米官网'} href={'https://www.mi.com/'} />
       <Sep />
       <NavItem title={'小米商城'} href={'https://www.mi.com/shop'} />
@@ -69,13 +69,13 @@ function Left() {
       />
       <Sep />
       <NavItem title={'Select Location'} />
-    </div>
+    </ul>
   );
 }
 
 function Right() {
   return (
-    <div className={'flex items-center'}>
+    <ul className={'flex items-center'}>
       <NavItem title={'登录'} />
       <Sep />
       <NavItem title={'注册'} />
@@ -85,7 +85,7 @@ function Right() {
         href={'https://www.mi.com/shop/user/message'}
       />
       <MiniCart />
-    </div>
+    </ul>
   );
 }
 
@@ -99,14 +99,16 @@ function NavItem({
   target?: string;
 }) {
   return (
-    <a
-      href={href}
-      target={target}
-      rel={'nofollow'}
-      className={'cursor-pointer leading-[40px] hover:text-white'}
-    >
-      {title}
-    </a>
+    <li>
+      <a
+        href={href}
+        target={target}
+        rel={'nofollow'}
+        className={'cursor-pointer leading-[40px] hover:text-white'}
+      >
+        {title}
+      </a>
+    </li>
   );
 }
 
