@@ -1,3 +1,5 @@
+import { BannerType } from '@/app/enums';
+import { findBannersByType } from '@/app/services/banners';
 import Image from 'next/image';
 import styles from './styles.module.css';
 
@@ -5,7 +7,7 @@ export default function HeroSub() {
   return (
     <div className={'w-primary !mt-4 !mb-[26] flex h-[170]'}>
       <Channels />
-      <Promos />
+      <Promotions />
     </div>
   );
 }
@@ -38,10 +40,12 @@ function Channels() {
   );
 }
 
-function Promos() {
+async function Promotions() {
+  const promotions = await findBannersByType(BannerType.HOME_HERO_SUB);
+
   return (
     <ul className={'flex'}>
-      {promos.slice(0, 3).map((promo) => (
+      {promotions.slice(0, 3).map((promo) => (
         <li
           key={promo.src}
           className={
@@ -81,26 +85,11 @@ const channels = [
   {
     title: '以旧换新',
     icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f4846bca6010a0deb9f85464409862af.png?w=48&h=48',
-    href: '//www.mi.com/a/h/16769.html'
+    href: 'https://www.mi.com/a/h/16769.html'
   },
   {
     title: '话费充值',
     icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9a76d7636b08e0988efb4fc384ae497b.png?w=48&h=48',
     href: 'https://recharge.10046.mi.com/'
-  }
-];
-
-const promos = [
-  {
-    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e981f78d2ac17c504975a719cb8b069d.png?w=632&h=340',
-    href: 'https://www.mi.com/shop/buy?product_id=10050081'
-  },
-  {
-    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6b04dfc206dec442fe161b33082681ec.png?w=632&h=340',
-    href: 'https://www.mi.com/shop/buy?product_id=10050079'
-  },
-  {
-    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6b0c7fadbd84a808287af5faad6e62d7.png?w=632&h=340',
-    href: 'https://www.mi.com/shop/buy?product_id=20588'
   }
 ];
