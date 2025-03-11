@@ -1,0 +1,28 @@
+.carouselBtn {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    width: 41px;
+    height: 69px;
+    transform: translateY(-50%);
+    background: url("https://i1.mifile.cn/f/i/2014/cn/icon/icon-slides.png") no-repeat;
+    cursor: pointer;
+
+    &.prev {
+        left: 234px;
+        background-position: -84px 50%;
+
+        &:hover {
+            background-position: 0 50%;
+        }
+    }
+
+    &.next {
+        right: 0;
+        background-position: -125px 50%;
+
+        &:hover {
+            background-position: -42px 50%;
+        }
+    }
+}
