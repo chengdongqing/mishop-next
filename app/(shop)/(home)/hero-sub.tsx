@@ -1,0 +1,106 @@
+import Image from 'next/image';
+import styles from './styles.module.css';
+
+export default function HeroSub() {
+  return (
+    <div className={'w-primary !mt-4 !mb-[26] flex h-[170]'}>
+      <Channels />
+      <Promos />
+    </div>
+  );
+}
+
+function Channels() {
+  return (
+    <ul className={'grid h-full w-[234] grid-cols-3 bg-[#5f5750]'}>
+      {channels.map((channel) => (
+        <li key={channel.title} className={styles.channelItem}>
+          <a
+            href={channel.href}
+            target={'_blank'}
+            rel={'nofollow'}
+            className={
+              'flex h-full w-full flex-col items-center justify-center text-xs text-white opacity-75 duration-200 hover:opacity-100'
+            }
+          >
+            <Image
+              src={channel.icon}
+              alt={channel.title}
+              width={24}
+              height={24}
+              className={'mb-1'}
+            />
+            <span>{channel.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Promos() {
+  return (
+    <ul className={'flex'}>
+      {promos.slice(0, 3).map((promo) => (
+        <li
+          key={promo.src}
+          className={
+            'ml-[14] cursor-pointer duration-200 ease-linear hover:shadow-[0_15px_30px_rgba(0,0,0,.1)]'
+          }
+        >
+          <a href={promo.href} target={'_blank'} rel={'nofollow'}>
+            <Image src={promo.src} alt={''} width={316} height={170} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const channels = [
+  {
+    title: '保障服务',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/82abdba456e8caaea5848a0cddce03db.png?w=48&h=48',
+    href: 'https://api.jr.mi.com/activity/scene/scenePCsearch.html?from=search'
+  },
+  {
+    title: '企业团购',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/806f2dfb2d27978e33fe3815d3851fa3.png?w=48&h=48',
+    href: 'https://business.qiye.mi.com'
+  },
+  {
+    title: 'F码通道',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eded6fa3b897a058163e2485532c4f10.png?w=48&h=48',
+    href: 'https://www.mi.com/order/fcode'
+  },
+  {
+    title: '米粉卡',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/43a3195efa6a3cc7662efed8e7abe8bf.png?w=48&h=48',
+    href: 'https://10046.mi.com'
+  },
+  {
+    title: '以旧换新',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f4846bca6010a0deb9f85464409862af.png?w=48&h=48',
+    href: '//www.mi.com/a/h/16769.html'
+  },
+  {
+    title: '话费充值',
+    icon: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9a76d7636b08e0988efb4fc384ae497b.png?w=48&h=48',
+    href: 'https://recharge.10046.mi.com/'
+  }
+];
+
+const promos = [
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e981f78d2ac17c504975a719cb8b069d.png?w=632&h=340',
+    href: 'https://www.mi.com/shop/buy?product_id=10050081'
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6b04dfc206dec442fe161b33082681ec.png?w=632&h=340',
+    href: 'https://www.mi.com/shop/buy?product_id=10050079'
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6b0c7fadbd84a808287af5faad6e62d7.png?w=632&h=340',
+    href: 'https://www.mi.com/shop/buy?product_id=20588'
+  }
+];

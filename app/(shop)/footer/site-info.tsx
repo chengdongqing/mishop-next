@@ -10,9 +10,9 @@ export default function SiteInfo() {
         <Image
           src={'/logo.png'}
           alt={'logo'}
-          width={56}
-          height={56}
-          className={'mr-5 h-[56px]'}
+          width={192}
+          height={192}
+          className={'mr-5 h-[56] w-[56]'}
         />
         <div className={'text-xs'}>
           <Navs />

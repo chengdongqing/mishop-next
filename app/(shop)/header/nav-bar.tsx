@@ -52,10 +52,10 @@ function Logo() {
           src={'/logo.png'}
           title={'小米官网'}
           alt={'logo'}
-          width={56}
-          height={56}
+          width={192}
+          height={192}
           draggable={false}
-          className={'duration-200 active:scale-85'}
+          className={'h-[56] w-[56] duration-200 active:scale-85'}
         />
       </Link>
     </div>

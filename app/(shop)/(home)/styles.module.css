@@ -26,3 +26,27 @@
         }
     }
 }
+
+.channelItem {
+    position: relative;
+
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        background-color: #665e57;
+    }
+
+    &::before {
+        right: 8px;
+        top: 0;
+        height: 1px;
+        width: 62px;
+    }
+
+    &::after {
+        right: 0;
+        top: 8px;
+        width: 1px;
+        height: 70px;
+    }
+}
