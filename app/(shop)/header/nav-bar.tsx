@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import Search from './search';
 
 export default function NavBar() {
@@ -31,7 +31,9 @@ export default function NavBar() {
               }, 300);
             }}
           />
-          <Search />
+          <Suspense>
+            <Search />
+          </Suspense>
         </div>
       </div>
 
