@@ -11,7 +11,7 @@
 
     .w-primary {
         width: var(--width-primary);
-        margin: 0 auto;
+        margin-inline: auto;
     }
 
     .border-primary {
