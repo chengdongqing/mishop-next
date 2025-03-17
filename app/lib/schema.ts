@@ -51,3 +51,15 @@ export const banners = mysqlTable('banners', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const videos = mysqlTable('videos', {
+  id: int('id').autoincrement().primaryKey(),
+  title: varchar('title', { length: 255 }).notNull(),
+  videoUrl: varchar('video_url', { length: 200 }).notNull(),
+  thumbnailUrl: varchar('thumbnail_url', { length: 200 }),
+  description: text('description'),
+  sortNo: int('sort_no').default(100).notNull(),
+  enabled: boolean('enabled').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
