@@ -4,5 +4,9 @@ import { eq } from 'drizzle-orm';
 import { banners } from '../lib/schema';
 
 export function findBannersByType(type: BannerType) {
-  return db.select().from(banners).where(eq(banners.type, type));
+  return db
+    .select()
+    .from(banners)
+    .where(eq(banners.type, type))
+    .orderBy(banners.sortNo);
 }

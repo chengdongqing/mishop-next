@@ -57,7 +57,12 @@ async function seedVideos(
   await tx.delete(videos);
 
   // 插入数据
-  await tx.insert(videos).values(videosData);
+  await tx.insert(videos).values(
+    videosData.map((video, index) => ({
+      ...video,
+      sortNo: index + 1
+    }))
+  );
 }
 
 async function seedBanners(
@@ -95,21 +100,24 @@ async function seedBanners(
   // 插入数据
   await Promise.all([
     tx.insert(banners).values(
-      carouselData.map((item) => ({
+      carouselData.map((banner, index) => ({
+        ...banner,
         type: BannerType.HOME_HERO,
-        ...item
+        sortNo: index + 1
       }))
     ),
     tx.insert(banners).values(
-      promotionsData.map((item) => ({
+      promotionsData.map((banner, index) => ({
+        ...banner,
         type: BannerType.HOME_HERO_SUB,
-        ...item
+        sortNo: index + 1
       }))
     ),
     tx.insert(banners).values(
-      bannersData.map((item) => ({
+      bannersData.map((banner, index) => ({
+        ...banner,
         type: BannerType.HOME_BANNER,
-        ...item
+        sortNo: index + 1
       }))
     )
   ]);

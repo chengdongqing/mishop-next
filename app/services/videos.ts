@@ -5,5 +5,6 @@ export function findVideos(limit?: number) {
   return db
     .select()
     .from(videos)
-    .limit(limit ?? -1);
+    .limit(limit ?? -1)
+    .orderBy(videos.sortNo);
 }
