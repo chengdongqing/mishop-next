@@ -14,11 +14,11 @@ export default async function VideoBar() {
     <section className={'w-primary pb-6'}>
       <Header />
 
-      <div className={'grid grid-cols-4 gap-x-3.5'}>
+      <ul className={'grid grid-cols-4 gap-x-3.5'}>
         {videos.map((video) => (
           <VideoCard key={video.id} video={video} />
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

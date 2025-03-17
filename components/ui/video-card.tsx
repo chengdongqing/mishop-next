@@ -13,8 +13,21 @@ export default function VideoCard({
   video: Video;
   large?: boolean;
 }) {
+  function openVideo() {
+    Popup.open({
+      title: video.title,
+      width: 880,
+      footer: null,
+      content: (
+        <div style={{ margin: '-20px' }}>
+          <video src={video.videoUrl} width={'100%'} autoPlay controls />
+        </div>
+      )
+    });
+  }
+
   return (
-    <div
+    <li
       className={clsx(
         'group cursor-pointer bg-white duration-200 ease-linear',
         'hover:translate-y-[-2px] hover:shadow-[0_15px_30px_rgba(0,0,0,.1)]'
@@ -22,25 +35,14 @@ export default function VideoCard({
     >
       <div
         className={clsx('relative', large ? 'h-[360]' : 'h-[180]')}
-        onClick={() => {
-          Popup.open({
-            title: video.title,
-            width: 880,
-            footer: null,
-            content: (
-              <div style={{ margin: '-20px' }}>
-                <video src={video.videoUrl} width={'100%'} autoPlay controls />
-              </div>
-            )
-          });
-        }}
+        onClick={openVideo}
       >
         <Image
           draggable={false}
           alt={'video cover'}
           src={video.coverUrl}
           width={large ? 606 : 296}
-          height={large ? 360 : 177}
+          height={large ? 364 : 177}
         />
         <div
           className={clsx(
@@ -71,6 +73,6 @@ export default function VideoCard({
           {video.description}
         </div>
       </div>
-    </div>
+    </li>
   );
 }

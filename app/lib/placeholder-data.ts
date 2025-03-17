@@ -86,5 +86,82 @@ export const videosData: Omit<Video, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/96563e75833ba4563bd469dd28203b09.jpg',
     videoUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7cdabcaa763392c86b944eaf4e68d6a3.mp4'
+  },
+  {
+    title: '小米5G新品手机发布会',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/395fdedf0f40206032397e33beed756e.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1443581f88b733750c7763b2b3d67c52.mp4'
+  },
+  {
+    title: 'Redmi Note 8 系列发布会',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3a134c9f8fffb85a47ac397e7eeba7e8.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/df3dc1da003b7db992e902f653326476.mp4'
+  },
+  {
+    title: '小米电视5 创新背后的故事',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9c37f64bada7b0b2758f50e50077fe6c.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/efea1979661bac0d1704d761e5e89ded.mp4'
+  },
+  {
+    title: '小米CC9',
+    description: '深蓝星球',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1541da85ac8b204056374641eee24726.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7a2e31bf18e8fb5abd2a32ea93f0d46b.mp4'
+  },
+  {
+    title: 'Redmi Note 7系列',
+    description: '镜花水月',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/af835147320dafa808331f156222223e.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0bfbd7781fc7531592994b82f2716006.mp4'
+  },
+  {
+    title: '黑鲨游戏手机2 Pro',
+    description: '指尖主宰 发布会',
+    coverUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c2e9a7fc809f7aeac30bf538baf8f156.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f51a274a73db915a9623ccdfd35f678.mp4'
+  },
+  {
+    title: '小米手环4',
+    description: '改变从今开始',
+    coverUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/bfc860e9877a601f9707006d31ddbd67.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f2661b967a319f358fabe822aed708e6.mp4'
+  },
+  {
+    title: '王源 & 小米9 全新广告大片',
+    description: '好看又能打！我反正被帅到了，Will You？',
+    coverUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2dd41120fded30fe1cedbcaa530b16b3.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/12e0189c132e21e064c8161d09816de5.mp4'
+  },
+  {
+    title: '雷军对话王源',
+    description: '聊了3小时，这9个秘密决定公开',
+    coverUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/48b1c8ef249822b330b5f360b87e8486.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/895d80d9283cb54da04fdc8c5d46f27a.mp4'
+  },
+  {
+    title: '小米MIX 3 磁动力滑盖全面屏',
+    description: '全新滑盖交互体验，不一样的新感觉',
+    coverUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9e42f2cd623b52b89f182b3b9d4db955.jpg',
+    videoUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9fccf360955848ba970e309cd7e3736e.mp4'
   }
 ];

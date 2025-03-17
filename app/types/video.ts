@@ -3,5 +3,5 @@ export interface Video {
   title: string;
   videoUrl: string;
   coverUrl: string;
-  description: string | null;
+  description?: string | null;
 }
