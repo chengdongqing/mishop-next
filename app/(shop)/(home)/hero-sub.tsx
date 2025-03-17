@@ -5,10 +5,10 @@ import styles from './styles.module.css';
 
 export default function HeroSub() {
   return (
-    <div className={'w-primary mt-4 mb-[26] flex h-[170]'}>
+    <section className={'w-primary mt-4 mb-[26] flex h-[170]'}>
       <Channels />
       <Promotions />
-    </div>
+    </section>
   );
 }
 

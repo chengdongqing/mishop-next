@@ -32,15 +32,19 @@ async function seedVideos(
     ExtractTablesWithRelations<Record<string, never>>
   >
 ) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.videos;');
+
   // 创建表
   await tx.execute(`
-      create table if not exists mishop.videos
+      create table mishop.videos
       (
           id          int auto_increment primary key,
-          name        varchar(32)                          not null comment '名称',
+          title       varchar(32)                          not null comment '名称',
           description varchar(64)                          null comment '描述',
           cover_url   varchar(200)                         not null comment '封面地址',
           video_url   varchar(200)                         not null comment '视频地址',
+          sort_no     int        default 100               not null,
           enabled     tinyint(1) default 1                 not null,
           created_at  timestamp  default CURRENT_TIMESTAMP not null,
           updated_at  timestamp  default (now())           null on update CURRENT_TIMESTAMP
@@ -63,9 +67,12 @@ async function seedBanners(
     ExtractTablesWithRelations<Record<string, never>>
   >
 ) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.banners;');
+
   // 创建表
   await tx.execute(`
-      create table if not exists mishop.banners
+      create table mishop.banners
       (
           id            int auto_increment primary key,
           type          varchar(16) default 'hero'            not null comment '类型',

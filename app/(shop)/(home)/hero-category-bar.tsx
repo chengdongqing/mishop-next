@@ -45,7 +45,7 @@ function ProductsPanel({ products }: { products: CategoryProduct[] }) {
       }
     >
       {products.slice(0, 24).map((product) => (
-        <li key={product.title}>
+        <li key={product.title} className={'bg-white'}>
           <a
             href={product.href}
             className={

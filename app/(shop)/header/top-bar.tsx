@@ -2,12 +2,12 @@ import MiniCart from './mini-cart';
 
 export default function TopBar() {
   return (
-    <div className={'h-[40px] bg-[#333]'}>
+    <section className={'h-[40px] bg-[#333]'}>
       <div className={'w-primary flex justify-between text-xs text-[#b0b0b0]'}>
         <Left />
         <Right />
       </div>
-    </div>
+    </section>
   );
 }
 

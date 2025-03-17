@@ -12,7 +12,7 @@ export default function NavBar() {
   const timer = useRef<NodeJS.Timeout>(null);
 
   return (
-    <div className={'relative'} onMouseLeave={() => setProducts([])}>
+    <section className={'relative'} onMouseLeave={() => setProducts([])}>
       <div className={'h-[100px]'}>
         <div className={'w-primary flex h-full items-center'}>
           <Logo />
@@ -42,7 +42,7 @@ export default function NavBar() {
         onMouseEnter={() => (isMouseEnter.current = true)}
         onMouseLeave={() => (isMouseEnter.current = false)}
       />
-    </div>
+    </section>
   );
 }
 

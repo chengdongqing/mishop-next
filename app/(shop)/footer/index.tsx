@@ -5,8 +5,10 @@ import SiteInfo from './site-info';
 export default function Footer() {
   return (
     <footer>
-      <Services />
-      <Links />
+      <section>
+        <Services />
+        <Links />
+      </section>
       <SiteInfo />
     </footer>
   );

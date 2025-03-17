@@ -6,10 +6,14 @@ import CategoryBar from './hero-category-bar';
 export default async function Hero() {
   const banners = await findBannersByType(BannerType.HOME_HERO);
 
+  if (!banners.length) {
+    return null;
+  }
+
   return (
-    <div className={'w-primary relative h-[460]'}>
+    <section className={'w-primary relative h-[460]'}>
       <HeroCarousel banners={banners} />
       <CategoryBar />
-    </div>
+    </section>
   );
 }

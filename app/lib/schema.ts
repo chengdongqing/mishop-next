@@ -56,7 +56,7 @@ export const videos = mysqlTable('videos', {
   id: int('id').autoincrement().primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   videoUrl: varchar('video_url', { length: 200 }).notNull(),
-  thumbnailUrl: varchar('thumbnail_url', { length: 200 }),
+  coverUrl: varchar('cover_url', { length: 200 }).notNull(),
   description: text('description'),
   sortNo: int('sort_no').default(100).notNull(),
   enabled: boolean('enabled').default(true).notNull(),

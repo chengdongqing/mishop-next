@@ -4,7 +4,7 @@ import { Banner } from '@/app/types/banner';
 import Carousel, { CarouselInstance } from '@/component/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { RefObject, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 export default function HeroCarousel({ banners }: { banners: Banner[] }) {
@@ -31,6 +31,26 @@ export default function HeroCarousel({ banners }: { banners: Banner[] }) {
         ))}
       </Carousel>
 
+      <CarouselControls
+        banners={banners}
+        carouselRef={carouselRef}
+        current={current}
+      />
+    </div>
+  );
+}
+
+function CarouselControls({
+  banners,
+  carouselRef,
+  current
+}: {
+  banners: Banner[];
+  carouselRef: RefObject<CarouselInstance | null>;
+  current: number;
+}) {
+  return (
+    <>
       <button
         className={clsx(styles.carouselBtn, styles.prev)}
         onClick={() => carouselRef.current?.prev()}
@@ -58,6 +78,6 @@ export default function HeroCarousel({ banners }: { banners: Banner[] }) {
           />
         ))}
       </ul>
-    </div>
+    </>
   );
 }

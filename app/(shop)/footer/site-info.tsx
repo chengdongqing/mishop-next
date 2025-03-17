@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 export default function SiteInfo() {
   return (
-    <div className={'bg-primary py-[30px]'}>
+    <section className={'bg-primary py-[30px]'}>
       <div className={'w-primary flex'}>
         <Image
           src={'/logo.png'}
@@ -21,7 +21,7 @@ export default function SiteInfo() {
         </div>
       </div>
       <Slogan />
-    </div>
+    </section>
   );
 }
 
@@ -68,7 +68,7 @@ function Securities() {
         }
         href={'https://www.mi.com/service/buy/commitment/'}
         width={85}
-        height={33}
+        height={28}
       />
       <SecurityItem
         src={
@@ -99,6 +99,7 @@ function SecurityItem(props: {
         src={props.src}
         width={props.width}
         height={props.height}
+        style={{ width: 'auto', height: 'auto' }}
       />
     </a>
   );

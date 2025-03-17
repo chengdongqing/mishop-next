@@ -1,0 +1,50 @@
+.container {
+    padding: 1rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes waving1 {
+    to {
+        opacity: 0.2;
+        transform: scaleY(0.7);
+    }
+}
+
+@keyframes waving2 {
+    to {
+        opacity: 0.2;
+        transform: scaleY(0.9);
+    }
+}
+
+@keyframes waving3 {
+    to {
+        opacity: 0.2;
+        transform: scaleY(0.8);
+    }
+}
+
+.icon {
+    display: inline-block;
+    width: 0.4rem;
+    margin-right: 0.5rem;
+    background-color: var(--color-primary);
+
+    &:nth-child(1) {
+        height: 1rem;
+        animation: waving1 0.3s linear infinite alternate-reverse;
+    }
+
+    &:nth-child(2) {
+        height: 2rem;
+        animation: waving2 0.5s linear infinite alternate-reverse;
+    }
+
+    &:nth-child(3) {
+        height: 1.8rem;
+        animation: waving3 0.4s linear infinite alternate-reverse;
+    }
+}
