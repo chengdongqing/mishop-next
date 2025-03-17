@@ -1,6 +1,7 @@
 import { BannerType } from '@/app/enums';
 import { db } from '@/app/lib/db';
 import {
+  bannersData,
   carouselData,
   promotionsData,
   videosData
@@ -102,6 +103,12 @@ async function seedBanners(
     tx.insert(banners).values(
       promotionsData.map((item) => ({
         type: BannerType.HOME_HERO_SUB,
+        ...item
+      }))
+    ),
+    tx.insert(banners).values(
+      bannersData.map((item) => ({
+        type: BannerType.HOME_BANNER,
         ...item
       }))
     )

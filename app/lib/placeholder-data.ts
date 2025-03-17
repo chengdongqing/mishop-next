@@ -1,7 +1,7 @@
 import { Banner } from '@/app/types/banner';
 import { Video } from '@/app/types/video';
 
-export const carouselData: Omit<Banner, 'id'>[] = [
+export const carouselData: Banner[] = [
   {
     src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e389157059c44d9352b42e04407cbb7.jpg?w=2452&h=920',
     href: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e389157059c44d9352b42e04407cbb7.jpg?w=2452&h=920'
@@ -28,7 +28,7 @@ export const carouselData: Omit<Banner, 'id'>[] = [
   }
 ];
 
-export const promotionsData: Omit<Banner, 'id'>[] = [
+export const promotionsData: Banner[] = [
   {
     src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e981f78d2ac17c504975a719cb8b069d.png?w=632&h=340',
     href: 'https://www.mi.com/shop/buy?product_id=10050081'
@@ -40,6 +40,17 @@ export const promotionsData: Omit<Banner, 'id'>[] = [
   {
     src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6b0c7fadbd84a808287af5faad6e62d7.png?w=632&h=340',
     href: 'https://www.mi.com/shop/buy?product_id=20588'
+  }
+];
+
+export const bannersData: Banner[] = [
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9e9c620dbad5c650b6ff0c573df76e14.jpg?thumb=1&w=1226&h=120&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20779'
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88e35cffc82cd98cd53172460067af17.jpg?thumb=1&w=1226&h=120&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=9836'
   }
 ];
 

@@ -59,13 +59,7 @@ function ProductsPanel({ products }: { products: CategoryProduct[] }) {
               height={40}
               className={'mr-4'}
             />
-            <span
-              className={
-                'w-[152] overflow-hidden text-ellipsis whitespace-nowrap'
-              }
-            >
-              {product.title}
-            </span>
+            <span className={'w-[152] text-ellipsis'}>{product.title}</span>
           </a>
         </li>
       ))}
