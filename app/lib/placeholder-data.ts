@@ -43,6 +43,64 @@ export const promotionsData: Banner[] = [
   }
 ];
 
+export const brickPromotionsData: Banner[] = [
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55d2e50dd3783b52244ea3938e9dfca7.png?thumb=1&w=234&h=614&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=10050081',
+    categoryId: 1
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/15bd8044e1dbe5cdc05806ef3dc7bdf6.png?thumb=1&w=234&h=614&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20588',
+    categoryId: 2
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bd88fa683214713a6acb1afcf738b89c.png?thumb=1&w=234&h=614&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=10050070',
+    categoryId: 3
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/71a8e491a39b9c246246140fe68d256b.jpg?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=10050068',
+    categoryId: 4
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/46a738e1b375a08dd691a43bb05767f9.png?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/mijia-wash-dryers/clean-pro-10kg',
+    categoryId: 4
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2455b7d57a782fb9283f49fb4792d11c.png?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20489',
+    categoryId: 5
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/de8ede1e3e9e10a6e44de7e55f03cde4.png?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20173',
+    categoryId: 5
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/499abd2f37095463c677a09f55cb2074.jpg?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20331',
+    categoryId: 6
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0e7310eb9e74b138865f32bf8a35c98e.jpg?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=19939',
+    categoryId: 6
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ec383d223d9f38f442268df684c526f6.png?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/xiaomi-sound',
+    categoryId: 7
+  },
+  {
+    src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a272e865889798daea372ad757d814b7.jpg?thumb=1&w=234&h=300&f=webp&q=90',
+    href: 'https://www.mi.com/shop/buy?product_id=20289',
+    categoryId: 7
+  }
+];
+
 export const bannersData: Banner[] = [
   {
     src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9e9c620dbad5c650b6ff0c573df76e14.jpg?thumb=1&w=1226&h=120&f=webp&q=90',

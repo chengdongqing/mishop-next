@@ -97,10 +97,10 @@ function CategoryPromotions({ promotions }: { promotions: Banner[] }) {
   return (
     <div className={styles.banners}>
       {promotions.slice(0, 2).map((item) => (
-        <a
+        <Link
           key={item.src}
           href={item.href}
-          target={'_blank'}
+          target={item.target}
           className={styles.banner_item}
         >
           <Image
@@ -110,7 +110,7 @@ function CategoryPromotions({ promotions }: { promotions: Banner[] }) {
             src={item.src}
             className={styles.picture}
           />
-        </a>
+        </Link>
       ))}
     </div>
   );

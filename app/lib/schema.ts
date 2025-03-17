@@ -1,4 +1,4 @@
-import { BannerType } from '@/app/enums';
+import { BannerType, TargetType } from '@/app/enums';
 import {
   boolean,
   decimal,
@@ -38,13 +38,15 @@ export const banners = mysqlTable('banners', {
     BannerType.HOME_BANNER,
     BannerType.HOME_HERO,
     BannerType.HOME_HERO_SUB,
-    BannerType.PRODUCT_CATEGORY
+    BannerType.HOME_BRICK
   ])
     .default(BannerType.HOME_HERO)
     .notNull(),
   src: varchar('src', { length: 200 }).notNull(),
   href: text('href').notNull(),
-  target: varchar('target', { length: 8 }).default('_self').notNull(),
+  target: mysqlEnum('target', [TargetType.BLANK, TargetType.SELF])
+    .default(TargetType.BLANK)
+    .notNull(),
   associatedId: int('associated_id'),
   sortNo: int('sort_no').default(100).notNull(),
   enabled: boolean('enabled').default(true).notNull(),

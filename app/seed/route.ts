@@ -2,6 +2,7 @@ import { BannerType } from '@/app/enums';
 import { db } from '@/app/lib/db';
 import {
   bannersData,
+  brickPromotionsData,
   carouselData,
   promotionsData,
   videosData
@@ -84,7 +85,7 @@ async function seedBanners(
           type          varchar(16) default 'hero'            not null comment '类型',
           src           varchar(200)                          not null comment '广告图地址',
           href          text                                  not null comment '链接地址',
-          target        varchar(8)  default '_self'           not null comment '打开方式',
+          target varchar(8) default '_blank' not null comment '打开方式',
           associated_id int                                   null comment '关联的id',
           sort_no       int         default 100               not null,
           enabled       tinyint(1)  default 1                 not null,
@@ -117,6 +118,14 @@ async function seedBanners(
       bannersData.map((banner, index) => ({
         ...banner,
         type: BannerType.HOME_BANNER,
+        sortNo: index + 1
+      }))
+    ),
+    tx.insert(banners).values(
+      brickPromotionsData.map((banner, index) => ({
+        ...banner,
+        associatedId: banner.categoryId,
+        type: BannerType.HOME_BRICK,
         sortNo: index + 1
       }))
     )
