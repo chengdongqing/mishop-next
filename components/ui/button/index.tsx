@@ -1,0 +1,43 @@
+import { LoadingOutlined } from '@/components/icons';
+import clsx from 'clsx';
+import { ButtonHTMLAttributes } from 'react';
+import styles from './styles.module.css';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  gray?: boolean;
+  outlined?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  size?: 'default' | 'small';
+}
+
+export default function Button({
+  gray,
+  size,
+  outlined,
+  loading,
+  className,
+  children,
+  type = 'button',
+  disabled,
+  ...rest
+}: ButtonProps) {
+  return (
+    <button
+      {...rest}
+      type={type}
+      disabled={disabled || loading}
+      className={clsx(
+        className,
+        styles.btn,
+        gray && styles.gray,
+        !!size && styles[size],
+        outlined && styles.outlined,
+        (disabled || loading) && styles.disabled
+      )}
+    >
+      {!!loading && <LoadingOutlined className={'mr-2 w-6 text-white'} />}
+      {children}
+    </button>
+  );
+}

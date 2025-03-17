@@ -1,4 +1,4 @@
-import Loading from '@/component/ui/loading';
+import Loading from '@/components/ui/loading';
 import { Suspense } from 'react';
 import Hero from './hero';
 import HeroSub from './hero-sub';

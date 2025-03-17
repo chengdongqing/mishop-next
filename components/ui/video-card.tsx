@@ -1,6 +1,7 @@
 'use client';
 
 import { Video } from '@/app/types/video';
+import Popup from '@/components/ui/popup';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -22,16 +23,16 @@ export default function VideoCard({
       <div
         className={clsx('relative', large ? 'h-[360]' : 'h-[180]')}
         onClick={() => {
-          // Popup.open({
-          //   title: props.title,
-          //   width: '88rem',
-          //   footer: null,
-          //   content: (
-          //     <div style={{ margin: '-2rem' }}>
-          //       <video src={props.videoUrl} width={'100%'} autoPlay controls />
-          //     </div>
-          //   )
-          // });
+          Popup.open({
+            title: video.title,
+            width: 880,
+            footer: null,
+            content: (
+              <div style={{ margin: '-20px' }}>
+                <video src={video.videoUrl} width={'100%'} autoPlay controls />
+              </div>
+            )
+          });
         }}
       >
         <Image

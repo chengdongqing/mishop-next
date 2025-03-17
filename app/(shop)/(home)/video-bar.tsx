@@ -1,5 +1,5 @@
 import { findVideos } from '@/app/services/videos';
-import VideoCard from '@/component/ui/video-card';
+import VideoCard from '@/components/ui/video-card';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { Banner } from '@/app/types/banner';
-import Carousel, { CarouselInstance } from '@/component/ui/carousel';
+import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { RefObject, useRef, useState } from 'react';

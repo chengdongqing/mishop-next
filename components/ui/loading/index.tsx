@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { HTMLAttributes } from 'react';
-import styles from './index.module.css';
+import styles from './styles.module.css';
 
 export default function Loading({
   className,

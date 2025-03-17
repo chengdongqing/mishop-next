@@ -16,7 +16,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        {children}
+        <div id="popup" />
+      </body>
     </html>
   );
 }
