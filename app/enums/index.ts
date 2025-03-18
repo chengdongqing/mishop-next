@@ -9,3 +9,11 @@ export enum TargetType {
   BLANK = '_blank',
   SELF = '_self'
 }
+
+export enum ProductOrderBy {
+  PRICE_ASC,
+  PRICE_DESC,
+  NEWEST,
+  SELLING,
+  RATING
+}

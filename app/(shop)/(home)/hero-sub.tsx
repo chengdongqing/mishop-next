@@ -1,13 +1,16 @@
 import { BannerType } from '@/app/enums';
 import { findBannersByType } from '@/app/services/banners';
 import Image from 'next/image';
+import { Suspense } from 'react';
 import styles from './styles.module.css';
 
 export default function HeroSub() {
   return (
-    <section className={'w-primary mt-4 mb-[26] flex h-[170]'}>
+    <section className={'w-primary mt-4 mb-[26] flex h-[170] gap-x-3.5'}>
       <Channels />
-      <Promotions />
+      <Suspense fallback={<PromotionsSkeleton />}>
+        <Promotions />
+      </Suspense>
     </section>
   );
 }
@@ -41,21 +44,34 @@ function Channels() {
 }
 
 async function Promotions() {
-  const promotions = await findBannersByType(BannerType.HOME_HERO_SUB);
+  const promotions = await findBannersByType(BannerType.HOME_HERO_SUB, 3);
 
   return (
-    <ul className={'flex'}>
-      {promotions.slice(0, 3).map((promo) => (
+    <ul className={'flex gap-x-3.5'}>
+      {promotions.map((promo) => (
         <li
           key={promo.src}
           className={
-            'ml-[14] cursor-pointer duration-200 ease-linear hover:shadow-[0_15px_30px_rgba(0,0,0,.1)]'
+            'cursor-pointer duration-200 ease-linear hover:shadow-[0_15px_30px_rgba(0,0,0,.1)]'
           }
         >
           <a href={promo.href} target={'_blank'} rel={'nofollow'}>
-            <Image src={promo.src} alt={''} width={316} height={170} />
+            <Image src={promo.src} alt={''} width={317} height={170} />
           </a>
         </li>
+      ))}
+    </ul>
+  );
+}
+
+function PromotionsSkeleton() {
+  return (
+    <ul className={'flex gap-x-3.5'}>
+      {[...Array(3)].map((_, index) => (
+        <li
+          key={index}
+          className={'h-[170px] w-[317px] animate-pulse bg-gray-200'}
+        />
       ))}
     </ul>
   );

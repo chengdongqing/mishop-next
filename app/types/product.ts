@@ -5,5 +5,13 @@ export interface Product {
   pictureUrl: string;
   price: number;
   originalPrice?: number;
-  isLowestPrice: boolean;
+  hasMultiplePrices: boolean;
+  categoryId: number;
+}
+
+export interface ProductCategory {
+  id: number;
+  name: string;
+  pictureUrl?: string;
+  children?: ProductCategory[];
 }

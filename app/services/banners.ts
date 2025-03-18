@@ -3,12 +3,13 @@ import { db } from '@/app/lib/db';
 import { and, eq } from 'drizzle-orm';
 import { banners } from '../lib/schema';
 
-export function findBannersByType(type: BannerType) {
+export function findBannersByType(type: BannerType, limit: number = -1) {
   return db
     .select()
     .from(banners)
     .where(eq(banners.type, type))
-    .orderBy(banners.sortNo);
+    .orderBy(banners.sortNo)
+    .limit(limit);
 }
 
 export function findBrickPromotions(categoryId: number) {
@@ -21,5 +22,6 @@ export function findBrickPromotions(categoryId: number) {
         eq(banners.associatedId, categoryId)
       )
     )
-    .orderBy(banners.sortNo);
+    .orderBy(banners.sortNo)
+    .limit(2);
 }

@@ -128,53 +128,54 @@ function CategoryProducts({
   const overflowProduct = products[7];
 
   return (
-    <div className={styles.products}>
+    <ul className={styles.products}>
       {products
         .slice(0, hasMultipleTabs && overflowProduct ? -1 : 8)
         .map((product) => (
-          <Link
-            key={product.name}
-            target={'_blank'}
-            href={buildProductUrl(product.id)}
-            className={styles.product_item}
-          >
-            <Image
-              className={styles.picture}
-              src={product.pictureUrl}
-              alt={product.name}
-              width={160}
-              height={160}
-            />
-            <div>
-              <div className={clsx(styles.label, 'text-ellipsis')}>
-                {product.name}
+          <li key={product.name} className={styles.product_item}>
+            <Link
+              target={'_blank'}
+              href={buildProductUrl(product.id)}
+              className={'block h-full w-full'}
+            >
+              <Image
+                className={styles.picture}
+                src={product.pictureUrl}
+                alt={product.name}
+                width={160}
+                height={160}
+              />
+              <div>
+                <div className={clsx(styles.label, 'text-ellipsis')}>
+                  {product.name}
+                </div>
+                <div className={clsx(styles.description, 'text-ellipsis')}>
+                  {product.description}
+                </div>
+                <Space>
+                  <span className={styles.price}>
+                    {formatAmount(product.price, product.hasMultiplePrices)}
+                  </span>
+                  {!!product.originalPrice &&
+                    product.originalPrice > product.price && (
+                      <span className={clsx(styles.price, styles.original)}>
+                        {formatAmount(
+                          product.originalPrice,
+                          product.hasMultiplePrices
+                        )}
+                      </span>
+                    )}
+                </Space>
               </div>
-              <div className={clsx(styles.description, 'text-ellipsis')}>
-                {product.description}
-              </div>
-              <Space>
-                <span className={styles.price}>
-                  {formatAmount(product.price, product.isLowestPrice)}
-                </span>
-                {!!product.originalPrice &&
-                  product.originalPrice > product.price && (
-                    <span className={clsx(styles.price, styles.original)}>
-                      {formatAmount(
-                        product.originalPrice,
-                        product.isLowestPrice
-                      )}
-                    </span>
-                  )}
-              </Space>
-            </div>
-          </Link>
+            </Link>
+          </li>
         ))}
 
       {hasMultipleTabs && (
-        <div>
+        <li>
           {!!overflowProduct && (
             <Link
-              style={{ marginBottom: '1.4rem' }}
+              style={{ marginBottom: 14 }}
               className={clsx(styles.product_item, styles.small)}
               href={buildProductUrl(overflowProduct.id)}
               target={'_blank'}
@@ -208,8 +209,8 @@ function CategoryProducts({
               </div>
             </div>
           </Link>
-        </div>
+        </li>
       )}
-    </div>
+    </ul>
   );
 }

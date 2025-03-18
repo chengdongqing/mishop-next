@@ -1,6 +1,8 @@
+import { TargetType } from '@/app/enums';
+
 export interface Banner {
   src: string;
   href: string;
-  target?: '_blank' | '_self';
+  target?: TargetType;
   categoryId?: number;
 }

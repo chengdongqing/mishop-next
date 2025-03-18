@@ -17,3 +17,7 @@ export default async function Hero() {
     </section>
   );
 }
+
+export function HeroSkeleton() {
+  return <div className={'w-primary h-[460] animate-pulse bg-gray-200'} />;
+}
