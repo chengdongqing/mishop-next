@@ -16,9 +16,6 @@ export default function Bricks() {
       <Suspense fallback={<BrickSkeleton />}>
         <LaptopsTabletsBrick />
       </Suspense>
-      {/*<Suspense fallback={<BrickSkeleton />}>
-        <HomeAppliancesBrick />
-      </Suspense>*/}
     </>
   );
 }
