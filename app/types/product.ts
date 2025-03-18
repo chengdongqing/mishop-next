@@ -15,3 +15,9 @@ export interface ProductCategory {
   pictureUrl?: string;
   children?: ProductCategory[];
 }
+
+export interface ProductLabel {
+  id: number;
+  name: string;
+  pictureUrl: string;
+}

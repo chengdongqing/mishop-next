@@ -41,6 +41,14 @@ export const productCategories = mysqlTable('product_categories', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const productLabels = mysqlTable('product_labels', {
+  id: int('id').autoincrement().primaryKey(),
+  name: varchar('name', { length: 100 }).notNull().unique(),
+  pictureUrl: varchar('picture_url', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const banners = mysqlTable('banners', {
   id: int('id').autoincrement().primaryKey(),
   type: mysqlEnum('type', [
@@ -71,6 +79,14 @@ export const videos = mysqlTable('videos', {
   description: text('description'),
   sortNo: int('sort_no').default(0).notNull(),
   enabled: boolean('enabled').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const layoutHeaderNavs = mysqlTable('layout_header_navs', {
+  id: int('id').autoincrement().primaryKey(),
+  name: varchar('name', { length: 100 }).notNull().unique(),
+  href: varchar('href', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });

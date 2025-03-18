@@ -1,6 +1,10 @@
 import { db } from '@/app/lib/db';
 import { seedBanners } from './banners';
-import { seedProductCategories, seedProducts } from './products';
+import {
+  seedProductCategories,
+  seedProductLabels,
+  seedProducts
+} from './products';
 import { seedVideos } from './videos';
 
 export async function GET() {
@@ -10,6 +14,7 @@ export async function GET() {
         seedBanners(tx),
         seedVideos(tx),
         seedProductCategories(tx),
+        seedProductLabels(tx),
         seedProducts(tx)
       ]);
     });

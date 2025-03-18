@@ -1,5 +1,5 @@
 import { Banner } from '@/app/types/banner';
-import { Product, ProductCategory } from '@/app/types/product';
+import { Product, ProductCategory, ProductLabel } from '@/app/types/product';
 import { Video } from '@/app/types/video';
 
 export const productCategoriesData: ProductCategory[] = [
@@ -554,6 +554,44 @@ export const productCategoriesData: ProductCategory[] = [
           'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/57d9989807dbc15c1a82bc49acc1f06f.jpg?thumb=1&w=40&h=40'
       }
     ]
+  }
+];
+
+export const productLabelsData: Omit<ProductLabel, 'id'>[] = [
+  {
+    name: 'Xiaomi 数字旗舰',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/182d59037498cad87202c36e1a8ea23c.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Xiaomi MIX系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb9e4a367f854221b60bb7b3b05e0173.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Xiaomi Civi系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8baabd4fc4255a2cf81636335b4cf0c1.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Redmi K系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55b0ecc7cc8ab3714f311cc5df3bd0ae.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Redmi Turbo系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e12d8f226458729f4c92063b09d4f0f2.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Redmi Note系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a57303e8ac0d52a8b714a078cc35bfa1.png?thumb=1&f=webp&q=90'
+  },
+  {
+    name: 'Redmi 数字系列',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c15a3d1b4e8bf2af17e6b5ad5559cfcb.png?thumb=1&f=webp&q=90'
   }
 ];
 
