@@ -1,4 +1,8 @@
-import { layoutHeaderNavs } from '@/app/lib/schema';
+import {
+  layoutHeaderNavItemsData,
+  layoutHeaderNavsData
+} from '@/app/lib/placeholder-data';
+import { layoutHeaderNavItems, layoutHeaderNavs } from '@/app/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -24,10 +28,11 @@ export async function seedLayoutHeader(
 
   // 清空表
   await tx.delete(layoutHeaderNavs);
-  // await tx.delete(layoutHeaderNavs)
+  await tx.delete(layoutHeaderNavItems);
 
   // 插入数据
-  // await tx.insert(layoutHeaderNavs).values([]);
+  await tx.insert(layoutHeaderNavs).values(layoutHeaderNavsData);
+  await tx.insert(layoutHeaderNavItems).values(layoutHeaderNavItemsData);
 }
 
 const createHeaderNavsTableSql = `
@@ -35,7 +40,7 @@ const createHeaderNavsTableSql = `
     (
         id         int auto_increment
             primary key,
-        name       int                                 not null comment '名称',
+        name varchar(100) not null comment '名称',
         href       varchar(255)                        null comment '链接地址',
         created_at timestamp default CURRENT_TIMESTAMP not null,
         updated_at timestamp default (now())           null,

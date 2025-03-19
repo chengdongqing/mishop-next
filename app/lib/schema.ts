@@ -90,3 +90,11 @@ export const layoutHeaderNavs = mysqlTable('layout_header_navs', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const layoutHeaderNavItems = mysqlTable('layout_header_nav_items', {
+  id: int('id').autoincrement().primaryKey(),
+  parentId: int('parent_id').notNull(),
+  productId: int('product_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});

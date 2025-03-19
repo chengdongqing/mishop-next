@@ -1,4 +1,5 @@
 import { Banner } from '@/app/types/banner';
+import { LayoutHeaderNav, LayoutHeaderNavItem } from '@/app/types/layout';
 import { Product, ProductCategory, ProductLabel } from '@/app/types/product';
 import { Video } from '@/app/types/video';
 
@@ -1153,5 +1154,73 @@ export const videosData: Omit<Video, 'id'>[] = [
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9e42f2cd623b52b89f182b3b9d4db955.jpg',
     videoUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9fccf360955848ba970e309cd7e3736e.mp4'
+  }
+];
+
+export const layoutHeaderNavsData: LayoutHeaderNav[] = [
+  {
+    id: 1,
+    name: 'Xiaomi手机'
+  },
+  {
+    id: 2,
+    name: 'REDMI手机'
+  },
+  {
+    id: 3,
+    name: '电视'
+  },
+  {
+    id: 4,
+    name: '笔记本'
+  },
+  {
+    id: 5,
+    name: '平板'
+  },
+  {
+    id: 6,
+    name: '家电'
+  },
+  {
+    id: 7,
+    name: '路由器'
+  },
+  {
+    id: 8,
+    name: '服务中心',
+    href: 'https://www.mi.com/service/'
+  },
+  {
+    id: 9,
+    name: '社区',
+    href: 'https://www.xiaomi.cn/'
+  }
+];
+
+export const layoutHeaderNavItemsData: Omit<LayoutHeaderNavItem, 'id'>[] = [
+  {
+    parentId: 1,
+    productId: 1
+  },
+  {
+    parentId: 1,
+    productId: 2
+  },
+  {
+    parentId: 1,
+    productId: 3
+  },
+  {
+    parentId: 1,
+    productId: 4
+  },
+  {
+    parentId: 1,
+    productId: 5
+  },
+  {
+    parentId: 1,
+    productId: 6
   }
 ];
