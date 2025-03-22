@@ -1,5 +1,4 @@
 import { Banner } from '@/app/types/banner';
-import { LayoutHeaderNav, LayoutHeaderNavItem } from '@/app/types/layout';
 import { Product, ProductCategory, ProductLabel } from '@/app/types/product';
 import { Video } from '@/app/types/video';
 
@@ -602,50 +601,50 @@ export const productsData: Omit<Product, 'id'>[] = [
     description:
       '徕卡1英寸主摄 | 徕卡2亿超级长焦 | 徕卡超纯光学系统 | 骁龙8至尊版移动平台 | 6000mAh 小米金沙江电池 | 小米澎湃OS 2',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202502251811_93715df0882e43e252843e3c7b775570.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c5728efe6a6ca16912c1ed60487a7447.png?thumb=1&f=webp&q=90',
     price: 6499,
     originalPrice: 6499,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
     name: 'REDMI Turbo 4',
     description: 'REDMI Turbo 4 好看又能打',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/00eb27ead9512a7f12604ad3469460b6.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b7b35c6e85b764c6d8b07ca0dc4924af.jpg?thumb=1&f=webp&q=90',
     price: 1999,
     originalPrice: 1999,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
     name: 'Redmi 14C',
     description: '【持久续航】5160mAh 大电池',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202412271148_a4cb76ca76ad26ac81da44ad1a69ebd1.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/07318b6d71b43c8f1093d0ceabe23e7a.png?thumb=1&f=webp&q=90',
     price: 499,
     originalPrice: 499,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
     name: 'REDMI K80 Pro',
     description: '骁龙8至尊版|2K新国屏|全焦段影像',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261127_8d9eefc4ea604b3c2c20ef4df1312591.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/08f9d298aa64bd81b4c01891266e4572.png?thumb=1&f=webp&q=90',
     price: 3699,
     originalPrice: 3699,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
     name: 'REDMI K80',
     description: '第三代骁龙8|2K新国屏|6550mAh 超长续航',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261112_496adbd3fa76742689e9b8f5c4251efc.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f9da01e805c1d61c650bc27b754f173.png?thumb=1&f=webp&q=90',
     price: 2499,
     originalPrice: 2499,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
@@ -653,10 +652,10 @@ export const productsData: Omit<Product, 'id'>[] = [
     description:
       '徕卡光学 Summilux 高速镜头｜骁龙®8至尊版移动平台｜5400mAh 小米金沙江电池 小米澎湃OS 2',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/089128152bd814096a99249a487e383d.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d0acdc0fc97f894fc1c698522e8e1cc9.png?thumb=1&f=webp&q=90',
     price: 4499,
     originalPrice: 4499,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
@@ -664,10 +663,10 @@ export const productsData: Omit<Product, 'id'>[] = [
     description:
       '徕卡光学 Summilux 高速镜头｜ 骁龙®8至尊版移动平台｜6100mAh 小米金沙江电池｜小米澎湃OS 2',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f4d5d4fa89236436e9d44e2b2e6ebac.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3fd13de87bcd8755fdbb804bfba467a.png?thumb=1&f=webp&q=90',
     price: 5299,
     originalPrice: 5299,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 1
   },
   {
@@ -675,10 +674,10 @@ export const productsData: Omit<Product, 'id'>[] = [
     description:
       '徕卡光学 Summilux 高速镜头｜骁龙®8至尊版移动平台｜5400mAh 小米金沙江电池 小米澎湃OS 2',
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410281157_6e91e1273cb084794dd8301ae6353159.png?thumb=1&amp;w=200&amp;h=200&amp;f=webp&amp;q=90',
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b17e107bd68b683c92e2245715bb7e54.png?thumb=1&f=webp&q=90',
     price: 4999,
     originalPrice: 4999,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 1
   },
   {
@@ -688,7 +687,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202502261429_9c6e3418562ed4404309aac4038abd2a.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 1299,
     originalPrice: 1299,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 9
   },
   {
@@ -698,7 +697,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261600_4ae42d79b9b21e0727c1bb7a2cddbbf6.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 399,
     originalPrice: 399,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 9
   },
   {
@@ -708,7 +707,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410112149_8c1b7e0aa8f1aca565ca4da1b3f609e6.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 139,
     originalPrice: 139,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -718,7 +717,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202409252052_478e3626f4c809beb3e6d65cddbcc77b.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -728,7 +727,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172252_14dde1819e157be030514edaddf0ead9.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 679,
     originalPrice: 699,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -738,7 +737,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0ed30ba825d2c0a27f9c9867c6376e02.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -748,7 +747,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202405161349_af5d2bb2e50bf45ff23d766e49da6cc5.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 99,
     originalPrice: 99,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -758,7 +757,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202404091941_350d7e8fb99f243754861b986168c187.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 599,
     originalPrice: 599,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -768,7 +767,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261459_d47c23aa207b6cb0e2e6feee7d9888c5.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 599,
     originalPrice: 599,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 8
   },
   {
@@ -778,7 +777,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410291552_19d4f0c5cf4b4cedc7443bb2963b9ffc.jpg?thumb=1&w=200&h=200&f=webp&q=90',
     price: 999,
     originalPrice: 999,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 8
   },
   {
@@ -788,7 +787,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410291455_6a011d078acca2c8d21b5ece4e680206.jpg?thumb=1&w=200&h=200&f=webp&q=90',
     price: 399,
     originalPrice: 399,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 8
   },
   {
@@ -798,7 +797,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410241417_9ef2404939fdf794fda9cd16953dd28c.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 159,
     originalPrice: 169,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -808,7 +807,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407191728_08a7317fb96cc5394a838eac9867ede3.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 239,
     originalPrice: 249,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -818,7 +817,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172345_d733abf05349f016af715feb12841bf8.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 279,
     originalPrice: 299,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 8
   },
   {
@@ -828,7 +827,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407180024_944832315a706120a005947cbd642dfc.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 1799,
     originalPrice: 1999,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 8
   },
   {
@@ -838,7 +837,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202312081723_8c6876edb9fd120f765149945f77a4f1.png?thumb=1&w=100&h=100&f=webp&q=90',
     price: 549,
     originalPrice: 549,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -848,7 +847,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410281957_cef79555890f4b13bbe6939cb16692e0.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 2399,
     originalPrice: 2499,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 5
   },
   {
@@ -858,7 +857,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410281949_cf5a01c8f94f82f116d95e7d719bba7d.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 1999,
     originalPrice: 1999,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 5
   },
   {
@@ -868,7 +867,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5daddaa651568673e87eaf7c15ebd1cb.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 1499,
     originalPrice: 1499,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 5
   },
   {
@@ -878,7 +877,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202402221350_8181b68062669419dcb35b42972021e3.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 2599,
     originalPrice: 2999,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 5
   },
   {
@@ -888,7 +887,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202501021001_8b5b5743c41a6c919b15bc4c566531e8.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 3999,
     originalPrice: 4399,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 4
   },
   {
@@ -898,7 +897,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202501020955_68f8eccb35bb474d12e041720fe56d5a.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 3499,
     originalPrice: 3799,
-    hasMultiplePrices: false,
+    hasMultipleSkus: false,
     categoryId: 4
   },
   {
@@ -908,7 +907,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202402211658_f8e48c3ab022eede514cc6ef6412a48b.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 6399,
     originalPrice: 6399,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 4
   },
   {
@@ -918,7 +917,7 @@ export const productsData: Omit<Product, 'id'>[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202402211712_15046d7abe233750b635d0ff3a53ae02.png?thumb=1&w=200&h=200&f=webp&q=90',
     price: 4999,
     originalPrice: 4999,
-    hasMultiplePrices: true,
+    hasMultipleSkus: true,
     categoryId: 4
   }
 ];
@@ -1157,6 +1156,12 @@ export const videosData: Omit<Video, 'id'>[] = [
   }
 ];
 
+interface LayoutHeaderNav {
+  id: number;
+  name: string;
+  href?: string;
+}
+
 export const layoutHeaderNavsData: LayoutHeaderNav[] = [
   {
     id: 1,
@@ -1198,6 +1203,12 @@ export const layoutHeaderNavsData: LayoutHeaderNav[] = [
   }
 ];
 
+interface LayoutHeaderNavItem {
+  id: number;
+  parentId: number;
+  productId: number;
+}
+
 export const layoutHeaderNavItemsData: Omit<LayoutHeaderNavItem, 'id'>[] = [
   {
     parentId: 1,
@@ -1205,22 +1216,22 @@ export const layoutHeaderNavItemsData: Omit<LayoutHeaderNavItem, 'id'>[] = [
   },
   {
     parentId: 1,
+    productId: 6
+  },
+  {
+    parentId: 2,
     productId: 2
   },
   {
-    parentId: 1,
+    parentId: 2,
     productId: 3
   },
   {
-    parentId: 1,
+    parentId: 2,
     productId: 4
   },
   {
-    parentId: 1,
+    parentId: 2,
     productId: 5
-  },
-  {
-    parentId: 1,
-    productId: 6
   }
 ];

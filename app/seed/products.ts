@@ -34,7 +34,7 @@ export async function seedProducts(
       ...product,
       price: product.price.toString(),
       originalPrice: product.originalPrice?.toString(),
-      hasMultipleSkus: product.hasMultiplePrices,
+      hasMultipleSkus: product.hasMultipleSkus,
       sortNo: index + 1
     }))
   );

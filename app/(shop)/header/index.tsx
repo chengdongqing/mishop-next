@@ -1,11 +1,14 @@
+import { findHeaderNavs } from '@/app/services/layout';
 import NavBar from './nav-bar';
 import TopBar from './top-bar';
 
-export default function Header() {
+export default async function Header() {
+  const navs = await findHeaderNavs();
+
   return (
     <header>
       <TopBar />
-      <NavBar />
+      <NavBar navs={navs} />
     </header>
   );
 }

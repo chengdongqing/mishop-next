@@ -1,13 +1,16 @@
 'use client';
 
+import { formatAmount } from '@/app/lib/utils';
+import { LayoutHeaderNav } from '@/app/types/layout';
+import { Product } from '@/app/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Search from './search';
 
-export default function NavBar() {
-  const [products, setProducts] = useState<CategoryProduct[]>([]);
+export default function NavBar({ navs }: { navs: LayoutHeaderNav[] }) {
+  const [products, setProducts] = useState<Product[]>([]);
   const isMouseEnter = useRef(false);
   const timer = useRef<NodeJS.Timeout>(null);
 
@@ -17,6 +20,7 @@ export default function NavBar() {
         <div className={'w-primary flex h-full items-center'}>
           <Logo />
           <Navs
+            navs={navs}
             onProductsChange={(products) => {
               if (timer.current) {
                 clearTimeout(timer.current);
@@ -31,9 +35,7 @@ export default function NavBar() {
               }, 300);
             }}
           />
-          <Suspense>
-            <Search />
-          </Suspense>
+          <Search />
         </div>
       </div>
 
@@ -65,21 +67,23 @@ function Logo() {
 }
 
 function Navs({
+  navs,
   onProductsChange,
   onMouseLeave
 }: {
-  onProductsChange: (products: CategoryProduct[]) => void;
+  navs: LayoutHeaderNav[];
+  onProductsChange: (products: Product[]) => void;
   onMouseLeave: () => void;
 }) {
   return (
     <ul className={'flex h-full'} onMouseLeave={onMouseLeave}>
-      {categories.map((category) => (
+      {navs.map((nav) => (
         <NavItem
-          key={category.title}
-          title={category.title}
-          href={category.href}
+          key={nav.id}
+          name={nav.name}
+          href={nav.href}
           target={'_blank'}
-          onMouseEnter={() => onProductsChange(category.children || [])}
+          onMouseEnter={() => onProductsChange(nav.children || [])}
         />
       ))}
     </ul>
@@ -87,12 +91,12 @@ function Navs({
 }
 
 function NavItem({
-  title,
+  name,
   href,
   target,
   onMouseEnter
 }: {
-  title: string;
+  name: string;
   href?: string;
   target?: string;
   onMouseEnter?: () => void;
@@ -105,7 +109,7 @@ function NavItem({
       onMouseEnter={onMouseEnter}
     >
       <a rel={'nofollow'} href={href} target={target}>
-        {title}
+        {name}
       </a>
     </li>
   );
@@ -116,11 +120,11 @@ function ProductsPanel({
   onMouseEnter,
   onMouseLeave
 }: {
-  products: CategoryProduct[];
+  products: Product[];
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 }) {
-  const [cachedProducts, setCachedProducts] = useState<CategoryProduct[]>([]);
+  const [cachedProducts, setCachedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const timeoutId = setTimeout(
@@ -148,47 +152,54 @@ function ProductsPanel({
       onMouseLeave={onMouseLeave}
     >
       <ul className={'w-primary flex'}>
-        {cachedProducts.map((product) => (
+        {cachedProducts.map((product, index) => (
           <li
-            key={product.title}
+            key={product.id}
             className={clsx(
               'relative flex-1 px-[12] pt-[35]',
-              'after:absolute after:top-[35] after:right-0 after:w-[1] after:bg-[var(--color-border)] not-last:after:h-[110]'
+              'after:absolute after:top-[35] after:right-0 after:w-[1] after:bg-[var(--color-border)]',
+              {
+                'after:h-[110]': index < cachedProducts.length - 1
+              }
             )}
           >
             <a className={'flex cursor-pointer flex-col items-center'}>
               <Image
-                src={product.src}
+                src={product.pictureUrl}
                 alt={''}
                 width={160}
                 height={110}
-                className={'mb-4'}
+                className={'mb-4 h-[110] w-[160]'}
               />
               <span className={'text-center text-xs leading-[20px]'}>
-                {product.title}
+                {product.name}
               </span>
               <span className={'text-primary text-xs leading-[20px]'}>
-                {product.price}元{product.isLowestPrice ? '起' : ''}
+                {formatAmount(product.price, product.hasMultipleSkus)}
               </span>
             </a>
           </li>
         ))}
+
+        {Array(6 - products.length)
+          .fill(null)
+          .map((_, index) => (
+            <li key={index} className={'flex-1'} />
+          ))}
       </ul>
     </div>
   );
 }
 
-interface CategoryProduct {
-  title: string;
-  src: string;
-  price: number;
-  isLowestPrice: boolean;
-}
-
 const categories: {
   title: string;
   href?: string;
-  children?: CategoryProduct[];
+  children?: {
+    title: string;
+    src: string;
+    price: number;
+    isLowestPrice: boolean;
+  }[];
 }[] = [
   {
     title: 'Xiaomi手机',

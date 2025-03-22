@@ -5,8 +5,8 @@ export interface Product {
   pictureUrl: string;
   price: number;
   originalPrice?: number;
-  hasMultiplePrices: boolean;
-  categoryId: number;
+  hasMultipleSkus: boolean;
+  categoryId?: number;
 }
 
 export interface ProductCategory {

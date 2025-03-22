@@ -154,14 +154,14 @@ function CategoryProducts({
                 </div>
                 <Space>
                   <span className={styles.price}>
-                    {formatAmount(product.price, product.hasMultiplePrices)}
+                    {formatAmount(product.price, product.hasMultipleSkus)}
                   </span>
                   {!!product.originalPrice &&
                     product.originalPrice > product.price && (
                       <span className={clsx(styles.price, styles.original)}>
                         {formatAmount(
                           product.originalPrice,
-                          product.hasMultiplePrices
+                          product.hasMultipleSkus
                         )}
                       </span>
                     )}
