@@ -1,3 +1,4 @@
+import { SchemaType } from '@/app/lib/db';
 import { videosData } from '@/app/lib/placeholder-data';
 import { videos } from '@/app/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
@@ -11,8 +12,8 @@ export async function seedVideos(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表

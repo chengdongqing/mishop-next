@@ -1,4 +1,5 @@
 import { BannerType } from '@/app/enums';
+import { SchemaType } from '@/app/lib/db';
 import {
   bannersData,
   brickPromotionsData,
@@ -17,8 +18,8 @@ export async function seedBanners(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表

@@ -2,7 +2,7 @@
 
 import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import { Banner } from '@/app/types/banner';
-import { Product } from '@/app/types/product';
+import { LayoutBrickTab } from '@/app/types/layout';
 import Space from '@/components/ui/space';
 import {
   ArrowRightCircleIcon,
@@ -17,13 +17,7 @@ import styles from './styles.module.css';
 interface BrickProps {
   name: string;
   promotions: Banner[];
-  tabs: BrickTab[];
-}
-
-interface BrickTab {
-  name?: string;
-  categoryId?: number;
-  products: Product[];
+  tabs: LayoutBrickTab[];
 }
 
 export default function Brick({ name, tabs, promotions }: BrickProps) {
@@ -52,7 +46,7 @@ function Header({
   onChange
 }: {
   title: string;
-  tabs: BrickTab[];
+  tabs: LayoutBrickTab[];
   current: number;
   onChange: (index: number) => void;
 }) {
@@ -79,7 +73,8 @@ function Header({
           </div>
         ) : (
           <Link
-            href={`/search?categoryId=${tabs[0].categoryId}`}
+            target={'_blank'}
+            href={`/search?q=${title}`}
             className={styles.more_link}
           >
             查看更多
@@ -120,11 +115,11 @@ function CategoryProducts({
   tabs,
   current
 }: {
-  tabs: BrickTab[];
+  tabs: LayoutBrickTab[];
   current: number;
 }) {
   const hasMultipleTabs = tabs.length > 1;
-  const products = tabs[current].products || [];
+  const products = tabs[current]?.children || [];
   const overflowProduct = products[7];
 
   return (
@@ -191,12 +186,18 @@ function CategoryProducts({
                 <div className={clsx(styles.label, 'text-ellipsis')}>
                   {overflowProduct.name}
                 </div>
-                <span className={styles.price}>{overflowProduct.price}</span>
+                <span className={styles.price}>
+                  {formatAmount(
+                    overflowProduct.originalPrice,
+                    overflowProduct.hasMultipleSkus
+                  )}
+                </span>
               </div>
             </Link>
           )}
           <Link
-            href={`/search?categoryId=${tabs[current].categoryId}`}
+            target={'_blank'}
+            href={`/search?q=${tabs[current].name}`}
             className={clsx(styles.product_item, styles.small)}
           >
             <div className={styles.picture}>

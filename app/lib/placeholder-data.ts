@@ -897,17 +897,6 @@ export const productsData: Product[] = [
     categoryId: 8
   },
   {
-    id: 27,
-    name: 'Redmi Pad Pro系列',
-    description: '12.1英寸2.5K旗舰机大屏 | 10000mAh超大电池',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5daddaa651568673e87eaf7c15ebd1cb.png?thumb=1&f=webp&q=90',
-    price: 1499,
-    originalPrice: 1499,
-    hasMultipleSkus: true,
-    categoryId: 5
-  },
-  {
     id: 33,
     name: 'Xiaomi MIX Fold 4',
     pictureUrl:
@@ -1044,6 +1033,7 @@ export const productsData: Product[] = [
   {
     id: 47,
     name: 'Redmi Book Pro 14 2024',
+    description: '65W 满血性能｜全新酷睿 Ultra 处理器',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3442ea8432af37766b3a1f900348469.png?thumb=1&f=webp&q=90',
     price: 4999,
@@ -1084,7 +1074,7 @@ export const productsData: Product[] = [
   {
     id: 51,
     name: 'Redmi Pad Pro',
-    description: null,
+    description: '12.1英寸2.5K旗舰机大屏 | 10000mAh超大电池',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f8dd1013092765f219fb3f90a1076539.png?thumb=1&f=webp&q=90',
     price: 1499,
@@ -1976,4 +1966,107 @@ export const layoutHeroCategoryItemsData: LayoutHeroCategoryItem[] = [
     type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 11
   }
+];
+
+interface LayoutBrick {
+  id: number;
+  name: string;
+}
+
+export const layoutBricksData: LayoutBrick[] = [
+  {
+    id: 1,
+    name: '手机'
+  },
+  {
+    id: 2,
+    name: '智能穿戴'
+  },
+  {
+    id: 3,
+    name: '笔记本 | 平板'
+  },
+  {
+    id: 4,
+    name: '家电'
+  },
+  {
+    id: 5,
+    name: '生活电器'
+  },
+  {
+    id: 6,
+    name: '厨房电器'
+  },
+  {
+    id: 7,
+    name: '智能家居'
+  }
+];
+
+interface LayoutBrickTab {
+  id: number;
+  parentId: number;
+  name?: string;
+}
+
+export const layoutBrickTabsData: LayoutBrickTab[] = [
+  {
+    id: 1,
+    parentId: 1
+  },
+  {
+    id: 2,
+    parentId: 2,
+    name: '耳机'
+  },
+  {
+    id: 3,
+    parentId: 2,
+    name: '穿戴'
+  },
+  {
+    id: 4,
+    parentId: 3
+  }
+];
+
+interface LayoutBrickTabItem {
+  parentId: number;
+  productId: number;
+}
+
+export const layoutBrickTabItemsData: LayoutBrickTabItem[] = [
+  { parentId: 1, productId: 1 },
+  { parentId: 1, productId: 2 },
+  { parentId: 1, productId: 3 },
+  { parentId: 1, productId: 4 },
+  { parentId: 1, productId: 5 },
+  { parentId: 1, productId: 6 },
+  { parentId: 1, productId: 7 },
+  { parentId: 1, productId: 8 },
+  { parentId: 2, productId: 9 },
+  { parentId: 2, productId: 10 },
+  { parentId: 2, productId: 11 },
+  { parentId: 2, productId: 12 },
+  { parentId: 2, productId: 13 },
+  { parentId: 2, productId: 14 },
+  { parentId: 2, productId: 15 },
+  { parentId: 2, productId: 16 },
+  { parentId: 3, productId: 17 },
+  { parentId: 3, productId: 18 },
+  { parentId: 3, productId: 19 },
+  { parentId: 3, productId: 20 },
+  { parentId: 3, productId: 21 },
+  { parentId: 3, productId: 22 },
+  { parentId: 3, productId: 23 },
+  { parentId: 3, productId: 24 },
+  { parentId: 4, productId: 49 },
+  { parentId: 4, productId: 50 },
+  { parentId: 4, productId: 51 },
+  { parentId: 4, productId: 52 },
+  { parentId: 4, productId: 45 },
+  { parentId: 4, productId: 46 },
+  { parentId: 4, productId: 47 },
+  { parentId: 4, productId: 48 }
 ];

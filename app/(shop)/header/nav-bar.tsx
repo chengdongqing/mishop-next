@@ -181,11 +181,9 @@ function ProductsPanel({
           </li>
         ))}
 
-        {Array(6 - cachedProducts.length)
-          .fill(null)
-          .map((_, index) => (
-            <li key={index} className={'flex-1 px-[12]'} />
-          ))}
+        {[...Array(6 - cachedProducts.length)].map((_, index) => (
+          <li key={index} className={'flex-1 px-[12]'} />
+        ))}
       </ul>
     </div>
   );

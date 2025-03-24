@@ -1,3 +1,4 @@
+import { SchemaType } from '@/app/lib/db';
 import {
   productCategoriesData,
   productLabelsData,
@@ -15,8 +16,8 @@ export async function seedProducts(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表
@@ -68,8 +69,8 @@ export async function seedProductCategories(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表
@@ -136,8 +137,8 @@ export async function seedProductLabels(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表

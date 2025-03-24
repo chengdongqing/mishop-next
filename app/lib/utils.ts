@@ -1,3 +1,5 @@
+import { products } from '@/app/lib/schema';
+
 export const EmptyValue = '--';
 
 export function buildProductUrl(productId: number) {
@@ -10,4 +12,12 @@ export function formatAmount(value: unknown = 0, hasMultiplePrices = false) {
         '元' +
         (hasMultiplePrices ? '起' : '')
     : EmptyValue;
+}
+
+export function mapProduct(product: typeof products.$inferSelect) {
+  return {
+    ...product,
+    price: Number(product.price),
+    originalPrice: Number(product.originalPrice)
+  };
 }

@@ -1,10 +1,17 @@
+import { SchemaType } from '@/app/lib/db';
 import {
+  layoutBricksData,
+  layoutBrickTabItemsData,
+  layoutBrickTabsData,
   layoutHeaderNavItemsData,
   layoutHeaderNavsData,
   layoutHeroCategoriesData,
   layoutHeroCategoryItemsData
 } from '@/app/lib/placeholder-data';
 import {
+  layoutBricks,
+  layoutBrickTabItems,
+  layoutBrickTabs,
   layoutHeaderNavItems,
   layoutHeaderNavs,
   layoutHeroCategories,
@@ -21,8 +28,8 @@ export async function seedLayoutHeader(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表
@@ -47,7 +54,7 @@ const createHeaderNavsTableSql = `
     (
         id         int auto_increment
             primary key,
-        name varchar(100) not null comment '名称',
+        name       varchar(100)                        not null comment '名称',
         href       varchar(255)                        null comment '链接地址',
         created_at timestamp default CURRENT_TIMESTAMP not null,
         updated_at timestamp default (now())           null,
@@ -73,8 +80,8 @@ export async function seedLayoutHeroCategories(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   // 删除表
@@ -121,6 +128,35 @@ const createHeroCategoryItemsTableSql = `
     );
 `;
 
+export async function seedLayoutBricks(
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
+  >
+) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.layout_bricks;');
+  await tx.execute('drop table if exists mishop.layout_brick_tabs;');
+  await tx.execute('drop table if exists mishop.layout_brick_tab_items;');
+
+  // 创建表
+  await tx.execute(createBricksTableSql);
+  await tx.execute(createBrickTabsTableSql);
+  await tx.execute(createBrickTabItemsTableSql);
+
+  // 清空表
+  await tx.delete(layoutBricks);
+  await tx.delete(layoutBrickTabs);
+  await tx.delete(layoutBrickTabItems);
+
+  // 插入数据
+  await tx.insert(layoutBricks).values(layoutBricksData);
+  await tx.insert(layoutBrickTabs).values(layoutBrickTabsData);
+  await tx.insert(layoutBrickTabItems).values(layoutBrickTabItemsData);
+}
+
 const createBricksTableSql = `
     create table if not exists mishop.layout_bricks
     (
@@ -140,12 +176,12 @@ const createBrickTabsTableSql = `
     (
         id         int auto_increment
             primary key,
-        name       varchar(100)                        not null comment '名称',
-        keyword    varchar(100)                        not null comment '搜索关键词',
-        created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null,
-        constraint layout_brick_tabs_pk_2
-            unique (name)
+        parent_id  int                                    not null,
+        name       varchar(100) default ('热门')          not null comment '名称',
+        created_at timestamp    default CURRENT_TIMESTAMP not null,
+        updated_at timestamp    default (now())           null,
+        constraint layout_brick_tabs_pk
+            unique (name, id)
     );
 `;
 

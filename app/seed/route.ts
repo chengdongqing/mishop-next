@@ -1,5 +1,9 @@
-import { db } from '@/app/lib/db';
-import { seedLayoutHeader, seedLayoutHeroCategories } from '@/app/seed/layouts';
+import { db, SchemaType } from '@/app/lib/db';
+import {
+  seedLayoutBricks,
+  seedLayoutHeader,
+  seedLayoutHeroCategories
+} from '@/app/seed/layouts';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -28,8 +32,8 @@ function getSeeds(
   tx: MySqlTransaction<
     MySql2QueryResultHKT,
     MySql2PreparedQueryHKT,
-    Record<string, never>,
-    ExtractTablesWithRelations<Record<string, never>>
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
   >
 ) {
   return Promise.all([
@@ -39,6 +43,7 @@ function getSeeds(
     seedBanners(tx),
     seedVideos(tx),
     seedLayoutHeader(tx),
-    seedLayoutHeroCategories(tx)
+    seedLayoutHeroCategories(tx),
+    seedLayoutBricks(tx)
   ]);
 }

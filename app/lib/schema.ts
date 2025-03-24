@@ -3,6 +3,7 @@ import {
   LayoutHeroCategoryItemType,
   TargetType
 } from '@/app/enums';
+import { relations } from 'drizzle-orm';
 import {
   boolean,
   decimal,
@@ -10,13 +11,15 @@ import {
   json,
   mysqlEnum,
   mysqlTable,
+  serial,
   text,
   timestamp,
+  unique,
   varchar
 } from 'drizzle-orm/mysql-core';
 
 export const products = mysqlTable('products', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   name: varchar('name', { length: 32 }).notNull().unique(),
   pictureUrl: varchar('picture_url', { length: 200 }).notNull(),
   description: text('description'),
@@ -36,7 +39,7 @@ export const products = mysqlTable('products', {
 });
 
 export const productCategories = mysqlTable('product_categories', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   name: varchar('name', { length: 32 }).notNull().unique(),
   parentId: int('parent_id').default(0).notNull(),
   pictureUrl: varchar('picture_url', { length: 200 }),
@@ -46,7 +49,7 @@ export const productCategories = mysqlTable('product_categories', {
 });
 
 export const productLabels = mysqlTable('product_labels', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull().unique(),
   pictureUrl: varchar('picture_url', { length: 255 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -54,7 +57,7 @@ export const productLabels = mysqlTable('product_labels', {
 });
 
 export const banners = mysqlTable('banners', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   type: mysqlEnum('type', [
     BannerType.HOME_BANNER,
     BannerType.HOME_HERO,
@@ -76,7 +79,7 @@ export const banners = mysqlTable('banners', {
 });
 
 export const videos = mysqlTable('videos', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   videoUrl: varchar('video_url', { length: 200 }).notNull(),
   coverUrl: varchar('cover_url', { length: 200 }).notNull(),
@@ -88,7 +91,7 @@ export const videos = mysqlTable('videos', {
 });
 
 export const layoutHeaderNavs = mysqlTable('layout_header_navs', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull().unique(),
   href: varchar('href', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -96,7 +99,7 @@ export const layoutHeaderNavs = mysqlTable('layout_header_navs', {
 });
 
 export const layoutHeaderNavItems = mysqlTable('layout_header_nav_items', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   parentId: int('parent_id').notNull(),
   productId: int('product_id').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -104,7 +107,7 @@ export const layoutHeaderNavItems = mysqlTable('layout_header_nav_items', {
 });
 
 export const layoutHeroCategories = mysqlTable('layout_hero_categories', {
-  id: int('id').autoincrement().primaryKey(),
+  id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
@@ -113,7 +116,7 @@ export const layoutHeroCategories = mysqlTable('layout_hero_categories', {
 export const layoutHeroCategoryItems = mysqlTable(
   'layout_hero_category_items',
   {
-    id: int('id').autoincrement().primaryKey(),
+    id: serial('id').primaryKey(),
     parentId: int('parent_id').notNull(),
     type: mysqlEnum('type', [
       LayoutHeroCategoryItemType.PRODUCT,
@@ -124,4 +127,52 @@ export const layoutHeroCategoryItems = mysqlTable(
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
   }
+);
+
+export const layoutBricks = mysqlTable('layout_bricks', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 100 }).notNull().unique(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const layoutBrickTabs = mysqlTable(
+  'layout_brick_tabs',
+  {
+    id: serial('id').primaryKey(),
+    parentId: int('parent_id').notNull(),
+    name: varchar('name', { length: 100 }).default('热门').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+  },
+  (t) => [unique().on(t.name, t.id)]
+);
+
+export const layoutBrickTabsRelations = relations(
+  layoutBrickTabs,
+  ({ many }) => ({
+    items: many(layoutBrickTabItems)
+  })
+);
+
+export const layoutBrickTabItems = mysqlTable('layout_brick_tab_items', {
+  id: serial('id').primaryKey(),
+  parentId: int('parent_id').notNull(),
+  productId: int('product_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const layoutBrickTabItemsRelations = relations(
+  layoutBrickTabItems,
+  ({ one }) => ({
+    tab: one(layoutBrickTabs, {
+      fields: [layoutBrickTabItems.parentId],
+      references: [layoutBrickTabs.id]
+    }),
+    product: one(products, {
+      fields: [layoutBrickTabItems.productId],
+      references: [products.id]
+    })
+  })
 );

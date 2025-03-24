@@ -1,6 +1,8 @@
-import { LayoutHeroCategoryItemType } from '@/app/enums';
+import { BannerType, LayoutHeroCategoryItemType } from '@/app/enums';
 import { db } from '@/app/lib/db';
 import {
+  banners,
+  layoutBricks,
   layoutHeaderNavItems,
   layoutHeaderNavs,
   layoutHeroCategories,
@@ -9,8 +11,14 @@ import {
   productLabels,
   products
 } from '@/app/lib/schema';
-import { LayoutHeaderNav, LayoutHeroCategory } from '@/app/types/layout';
-import { eq } from 'drizzle-orm';
+import { mapProduct } from '@/app/lib/utils';
+import {
+  LayoutBrick,
+  LayoutBrickTab,
+  LayoutHeaderNav,
+  LayoutHeroCategory
+} from '@/app/types/layout';
+import { and, eq } from 'drizzle-orm';
 
 export async function findHeaderNavs() {
   const navs = await db.select().from(layoutHeaderNavs).limit(9);
@@ -111,4 +119,52 @@ async function findHeroCategoryItems(
       pictureUrl: pictureUrl!
     };
   });
+}
+
+export async function findBricks() {
+  const bricks = await db.select().from(layoutBricks).limit(10);
+
+  const brickPromises = bricks.map(async (brick) => {
+    const [promotions, tabs] = await Promise.all([
+      db
+        .select()
+        .from(banners)
+        .where(
+          and(
+            eq(banners.type, BannerType.HOME_BRICK),
+            eq(banners.associatedId, brick.id)
+          )
+        )
+        .limit(2),
+      db.query.layoutBrickTabs.findMany({
+        with: {
+          items: {
+            with: {
+              product: true
+            },
+            limit: 8
+          }
+        },
+        limit: 4,
+        where: (tabs, { eq }) => eq(tabs.parentId, brick.id)
+      })
+    ]);
+
+    const children = tabs.map((tab) => {
+      return {
+        id: tab.id,
+        name: tab.name,
+        children: tab.items.map((item) => mapProduct(item.product))
+      } as LayoutBrickTab;
+    });
+
+    return {
+      id: brick.id,
+      name: brick.name,
+      promotions,
+      children
+    } as LayoutBrick;
+  });
+
+  return Promise.all(brickPromises);
 }

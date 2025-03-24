@@ -1,4 +1,5 @@
 import { LayoutHeroCategoryItemType } from '@/app/enums';
+import { Banner } from '@/app/types/banner';
 import { Product } from '@/app/types/product';
 
 export interface LayoutHeaderNav {
@@ -20,4 +21,17 @@ export interface LayoutHeroCategoryItem {
   name: string;
   pictureUrl: string;
   type: LayoutHeroCategoryItemType;
+}
+
+export interface LayoutBrick {
+  id: number;
+  name: string;
+  promotions: Banner[];
+  children: LayoutBrickTab[];
+}
+
+export interface LayoutBrickTab {
+  id: number;
+  name: string;
+  children: Product[];
 }
