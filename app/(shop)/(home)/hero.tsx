@@ -1,19 +1,23 @@
 import { BannerType } from '@/app/enums';
 import { findBannersByType } from '@/app/services/banners';
+import { findHeroCategories } from '@/app/services/layout';
 import HeroCarousel from './hero-carousel';
 import CategoryBar from './hero-category-bar';
 
 export default async function Hero() {
-  const banners = await findBannersByType(BannerType.HOME_HERO);
+  const [banners, categories] = await Promise.all([
+    findBannersByType(BannerType.HOME_HERO),
+    findHeroCategories()
+  ]);
 
-  if (!banners.length) {
+  if (!banners.length || !categories.length) {
     return null;
   }
 
   return (
     <section className={'w-primary relative h-[460]'}>
       <HeroCarousel banners={banners} />
-      <CategoryBar />
+      <CategoryBar categories={categories} />
     </section>
   );
 }

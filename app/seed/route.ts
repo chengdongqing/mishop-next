@@ -1,5 +1,5 @@
 import { db } from '@/app/lib/db';
-import { seedLayoutHeader } from '@/app/seed/layouts';
+import { seedLayoutHeader, seedLayoutHeroCategories } from '@/app/seed/layouts';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -38,6 +38,7 @@ function getSeeds(
     seedProducts(tx),
     seedBanners(tx),
     seedVideos(tx),
-    seedLayoutHeader(tx)
+    seedLayoutHeader(tx),
+    seedLayoutHeroCategories(tx)
   ]);
 }

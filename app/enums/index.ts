@@ -17,3 +17,9 @@ export enum ProductOrderBy {
   SELLING,
   RATING
 }
+
+export enum LayoutHeroCategoryItemType {
+  PRODUCT = 'product',
+  CATEGORY = 'category',
+  LABEL = 'label'
+}

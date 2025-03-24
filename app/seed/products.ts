@@ -32,9 +32,9 @@ export async function seedProducts(
   await tx.insert(products).values(
     productsData.map((product, index) => ({
       ...product,
+      categoryId: product.categoryId!,
       price: product.price.toString(),
       originalPrice: product.originalPrice?.toString(),
-      hasMultipleSkus: product.hasMultipleSkus,
       sortNo: index + 1
     }))
   );
@@ -102,7 +102,7 @@ export async function seedProductCategories(
       });
       category.children?.forEach((child, childIndex) => {
         acc.push({
-          id: Number('' + index + category.id + childIndex),
+          id: child.id,
           name: child.name,
           pictureUrl: child.pictureUrl,
           parentId: category.id,

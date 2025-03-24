@@ -1,8 +1,15 @@
 import {
   layoutHeaderNavItemsData,
-  layoutHeaderNavsData
+  layoutHeaderNavsData,
+  layoutHeroCategoriesData,
+  layoutHeroCategoryItemsData
 } from '@/app/lib/placeholder-data';
-import { layoutHeaderNavItems, layoutHeaderNavs } from '@/app/lib/schema';
+import {
+  layoutHeaderNavItems,
+  layoutHeaderNavs,
+  layoutHeroCategories,
+  layoutHeroCategoryItems
+} from '@/app/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -62,6 +69,31 @@ const createHeaderNavItemsTableSql = `
     );
 `;
 
+export async function seedLayoutHeroCategories(
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    Record<string, never>,
+    ExtractTablesWithRelations<Record<string, never>>
+  >
+) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.layout_hero_categories;');
+  await tx.execute('drop table if exists mishop.layout_hero_category_items;');
+
+  // 创建表
+  await tx.execute(createHeroCategoriesTableSql);
+  await tx.execute(createHeroCategoryItemsTableSql);
+
+  // 清空表
+  await tx.delete(layoutHeroCategories);
+  await tx.delete(layoutHeroCategoryItems);
+
+  // 插入数据
+  await tx.insert(layoutHeroCategories).values(layoutHeroCategoriesData);
+  await tx.insert(layoutHeroCategoryItems).values(layoutHeroCategoryItemsData);
+}
+
 const createHeroCategoriesTableSql = `
     create table if not exists mishop.layout_hero_categories
     (
@@ -82,7 +114,6 @@ const createHeroCategoryItemsTableSql = `
         id            int auto_increment
             primary key,
         parent_id     int                                   not null,
-        name          varchar(100)                          null comment '名称',
         type          varchar(16) default 'product'         not null comment '类型（product 商品、category 商品类别、label 商品标签）',
         associated_id int                                   not null comment '关联的id（商品id/商品类别id/商品标签id）',
         created_at    timestamp   default CURRENT_TIMESTAMP not null,
