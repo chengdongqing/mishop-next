@@ -99,11 +99,11 @@ function CategoryPromotions({ promotions }: { promotions: Banner[] }) {
           className={styles.banner_item}
         >
           <Image
-            width={234}
-            height={614}
             alt={''}
-            src={item.src}
+            width={234}
+            height={promotions.length === 2 ? 300 : 614}
             className={styles.picture}
+            src={item.src}
           />
         </Link>
       ))}

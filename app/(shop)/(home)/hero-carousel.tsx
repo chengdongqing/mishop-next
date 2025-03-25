@@ -26,7 +26,13 @@ export default function HeroCarousel({ banners }: { banners: Banner[] }) {
             target={'_blank'}
             rel={'nofollow'}
           >
-            <Image src={banner.src} alt={''} width={1226} height={460} />
+            <Image
+              src={banner.src}
+              alt={''}
+              width={1226}
+              height={460}
+              unoptimized
+            />
           </a>
         ))}
       </Carousel>

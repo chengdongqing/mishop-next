@@ -56,7 +56,13 @@ async function Promotions() {
           }
         >
           <a href={promo.href} target={'_blank'} rel={'nofollow'}>
-            <Image src={promo.src} alt={''} width={317} height={170} />
+            <Image
+              src={promo.src}
+              alt={''}
+              width={317}
+              height={170}
+              unoptimized
+            />
           </a>
         </li>
       ))}
