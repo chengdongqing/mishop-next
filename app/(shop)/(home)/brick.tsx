@@ -74,7 +74,7 @@ function Header({
         ) : (
           <Link
             target={'_blank'}
-            href={`/search?q=${title}`}
+            href={`/search?q=${tabs[0]?.keyword ?? title}`}
             className={styles.more_link}
           >
             查看更多
@@ -104,6 +104,7 @@ function CategoryPromotions({ promotions }: { promotions: Banner[] }) {
             height={promotions.length === 2 ? 300 : 614}
             className={styles.picture}
             src={item.src}
+            unoptimized
           />
         </Link>
       ))}
@@ -118,8 +119,9 @@ function CategoryProducts({
   tabs: LayoutBrickTab[];
   current: number;
 }) {
+  const tab = tabs[current];
   const hasMultipleTabs = tabs.length > 1;
-  const products = tabs[current]?.children || [];
+  const products = tab?.children || [];
   const overflowProduct = products[7];
 
   return (
@@ -188,7 +190,7 @@ function CategoryProducts({
                 </div>
                 <span className={styles.price}>
                   {formatAmount(
-                    overflowProduct.originalPrice,
+                    overflowProduct.price,
                     overflowProduct.hasMultipleSkus
                   )}
                 </span>
@@ -197,7 +199,7 @@ function CategoryProducts({
           )}
           <Link
             target={'_blank'}
-            href={`/search?q=${tabs[current].name}`}
+            href={`/search?q=${tab.keyword ?? tab.name}`}
             className={clsx(styles.product_item, styles.small)}
           >
             <div className={styles.picture}>
@@ -206,7 +208,7 @@ function CategoryProducts({
             <div>
               <div className={styles.label}>浏览更多</div>
               <div className={clsx(styles.description, 'text-ellipsis')}>
-                {tabs[current].name}
+                {tab.name}
               </div>
             </div>
           </Link>

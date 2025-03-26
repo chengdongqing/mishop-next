@@ -178,6 +178,7 @@ const createBrickTabsTableSql = `
             primary key,
         parent_id  int                                    not null,
         name       varchar(100) default ('热门')          not null comment '名称',
+        keyword varchar(100) null comment '搜索关键词',
         created_at timestamp    default CURRENT_TIMESTAMP not null,
         updated_at timestamp    default (now())           null,
         constraint layout_brick_tabs_pk

@@ -5,7 +5,7 @@ export interface Product {
   pictureUrl: string;
   price: number;
   originalPrice?: number;
-  hasMultipleSkus: boolean;
+  hasMultipleSkus?: boolean;
   categoryId?: number;
 }
 

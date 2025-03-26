@@ -142,6 +142,7 @@ export const layoutBrickTabs = mysqlTable(
     id: serial('id').primaryKey(),
     parentId: int('parent_id').notNull(),
     name: varchar('name', { length: 100 }).default('热门').notNull(),
+    keyword: varchar('keyword', { length: 100 }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
   },

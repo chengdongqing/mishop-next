@@ -33,5 +33,6 @@ export interface LayoutBrick {
 export interface LayoutBrickTab {
   id: number;
   name: string;
+  keyword: string;
   children: Product[];
 }

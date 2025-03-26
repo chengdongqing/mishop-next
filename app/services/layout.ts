@@ -154,6 +154,7 @@ export async function findBricks() {
       return {
         id: tab.id,
         name: tab.name,
+        keyword: tab.keyword,
         children: tab.items.map((item) => mapProduct(item.product))
       } as LayoutBrickTab;
     });

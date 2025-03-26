@@ -717,7 +717,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b17e107bd68b683c92e2245715bb7e54.png?thumb=1&f=webp&q=90',
     price: 4999,
     originalPrice: 4999,
-    hasMultipleSkus: false,
     categoryId: 1
   },
   {
@@ -750,7 +749,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410112149_8c1b7e0aa8f1aca565ca4da1b3f609e6.png?thumb=1&f=webp&q=90',
     price: 139,
     originalPrice: 139,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -761,7 +759,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202409252052_478e3626f4c809beb3e6d65cddbcc77b.png?thumb=1&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -772,7 +769,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172252_14dde1819e157be030514edaddf0ead9.png?thumb=1&f=webp&q=90',
     price: 679,
     originalPrice: 699,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -783,7 +779,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0ed30ba825d2c0a27f9c9867c6376e02.png?thumb=1&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -794,7 +789,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202405161349_af5d2bb2e50bf45ff23d766e49da6cc5.png?thumb=1&f=webp&q=90',
     price: 99,
     originalPrice: 99,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -805,7 +799,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202404091941_350d7e8fb99f243754861b986168c187.png?thumb=1&f=webp&q=90',
     price: 599,
     originalPrice: 599,
-    hasMultipleSkus: false,
     categoryId: 9
   },
   {
@@ -849,7 +842,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410241417_9ef2404939fdf794fda9cd16953dd28c.png?thumb=1&f=webp&q=90',
     price: 159,
     originalPrice: 169,
-    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -860,7 +852,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407191728_08a7317fb96cc5394a838eac9867ede3.png?thumb=1&f=webp&q=90',
     price: 239,
     originalPrice: 249,
-    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -893,7 +884,6 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202312081723_8c6876edb9fd120f765149945f77a4f1.png?thumb=1&&f=webp&q=90',
     price: 549,
     originalPrice: 549,
-    hasMultipleSkus: false,
     categoryId: 8
   },
   {
@@ -935,6 +925,7 @@ export const productsData: Product[] = [
   {
     id: 37,
     name: '小米电视S Pro Mini LED',
+    description: '144Hz超高刷、4+64G大存储',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c3e9eafd588b3994ec7f370379ecd2f4.jpg?thumb=1&f=webp&q=90',
     price: 4799,
@@ -945,6 +936,7 @@ export const productsData: Product[] = [
   {
     id: 38,
     name: '小米电视S Mini LED',
+    description: 'Mini LED 高分区背光、1200nits峰值亮度',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/300ebd5f0fa66a25a52da567134db676.png?thumb=1&f=webp&q=90',
     price: 3499,
@@ -965,6 +957,7 @@ export const productsData: Product[] = [
   {
     id: 40,
     name: 'REDMI智能电视 X 2025',
+    description: '240Hz竞技模式|4+64GB|全色温双色域色准管控',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81ae6882d5145e6b823b6c09040f7722.png?thumb=1&f=webp&q=90',
     price: 2899,
@@ -1118,7 +1111,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/531efbd4fd88b64a94079436851f56f1.png?thumb=1&f=webp&q=90',
     price: 2099,
-    hasMultipleSkus: false,
     categoryId: 3
   },
   {
@@ -1128,27 +1120,26 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/52c8cab6760eadd9e01871dfbf27817f.png?thumb=1&f=webp&q=90',
     price: 1999,
-    hasMultipleSkus: false,
     categoryId: 3
   },
   {
     id: 57,
     name: '巨省电Pro 立式3匹 超一级能效 米家空调',
-    description: null,
+    description: '强劲制冷 | 高效节能 | 智能互联',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e5bc8371b1e2efb551605cf2eb1baa87.png?thumb=1&f=webp&q=90',
     price: 6299,
-    hasMultipleSkus: false,
+    originalPrice: 6499,
     categoryId: 3
   },
   {
     id: 58,
     name: '小米空调 1.5匹新1级能效',
-    description: null,
+    description: '强劲制冷 | 高效节能 | 智能互联',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/80416c1c7040aabbafa527a6ea652948.png?thumb=1&f=webp&q=90',
     price: 2199,
-    hasMultipleSkus: false,
+    originalPrice: 2499,
     categoryId: 3
   },
   {
@@ -1158,7 +1149,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/85009f514f7505825899635daeb761b0.png?thumb=1&f=webp&q=90',
     price: 1999,
-    hasMultipleSkus: false,
     categoryId: 3
   },
   {
@@ -1168,7 +1158,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3b6361cf5069af62f4208ee326bd0e43.png?thumb=1&f=webp&q=90',
     price: 799,
-    hasMultipleSkus: false,
     categoryId: 3
   },
   {
@@ -1178,7 +1167,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b5de7ae24c438974939453553420f1a0.png?thumb=1&f=webp&q=90',
     price: 159,
-    hasMultipleSkus: false,
     categoryId: 16
   },
   {
@@ -1188,7 +1176,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f6ae2a9be0012e6ee477b6aed44c88a3.png?thumb=1&f=webp&q=90',
     price: 699,
-    hasMultipleSkus: false,
     categoryId: 16
   },
   {
@@ -1198,7 +1185,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a8cc8ccb1c0e8cc58d96b7ec00df6634.png?thumb=1&f=webp&q=90',
     price: 219,
-    hasMultipleSkus: false,
     categoryId: 16
   },
   {
@@ -1208,7 +1194,6 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e4e053bd4dd41341ce8950ae1c3896d.png?thumb=1&f=webp&q=90',
     price: 599,
-    hasMultipleSkus: false,
     categoryId: 16
   },
   {
@@ -1218,8 +1203,35 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81f833a72b840274af1cf5931fb516f8.png?thumb=1&f=webp&q=90',
     price: 279,
-    hasMultipleSkus: false,
     categoryId: 16
+  },
+  {
+    id: 66,
+    name: '米家迷你波轮洗衣机Pro 3kg',
+    description: '高温煮洗 杀菌除螨',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202212131701_80db3da0f97aeb6b724039a4c5a24dd7.png?thumb=1&q=90',
+    price: 749,
+    originalPrice: 1599,
+    categoryId: 3
+  },
+  {
+    id: 67,
+    name: '米家双门冰箱 185L',
+    description: '小体积大容量 节能低噪',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6852696ece843f1a1f9667e21bb09c71.jpg?thumb=1&f=webp&q=90',
+    price: 799,
+    originalPrice: 1299,
+    categoryId: 3
+  },
+  {
+    id: 68,
+    name: '米家电烤箱',
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1612c93ad4756215774a0dbec7a81bb2.jpg?thumb=1&f=webp&q=90',
+    price: 299,
+    categoryId: 3
   }
 ];
 
@@ -2008,6 +2020,7 @@ interface LayoutBrickTab {
   id: number;
   parentId: number;
   name?: string;
+  keyword?: string;
 }
 
 export const layoutBrickTabsData: LayoutBrickTab[] = [
@@ -2027,7 +2040,24 @@ export const layoutBrickTabsData: LayoutBrickTab[] = [
   },
   {
     id: 4,
-    parentId: 3
+    parentId: 3,
+    keyword: '笔记本'
+  },
+  {
+    id: 5,
+    parentId: 4,
+    name: '热门',
+    keyword: '家用电器'
+  },
+  {
+    id: 6,
+    parentId: 4,
+    name: '电视影音'
+  },
+  {
+    id: 7,
+    parentId: 4,
+    name: '空调'
   }
 ];
 
@@ -2068,5 +2098,13 @@ export const layoutBrickTabItemsData: LayoutBrickTabItem[] = [
   { parentId: 4, productId: 45 },
   { parentId: 4, productId: 46 },
   { parentId: 4, productId: 47 },
-  { parentId: 4, productId: 48 }
+  { parentId: 4, productId: 48 },
+  { parentId: 5, productId: 37 },
+  { parentId: 5, productId: 38 },
+  { parentId: 5, productId: 40 },
+  { parentId: 5, productId: 58 },
+  { parentId: 5, productId: 57 },
+  { parentId: 5, productId: 66 },
+  { parentId: 5, productId: 67 },
+  { parentId: 5, productId: 68 }
 ];
