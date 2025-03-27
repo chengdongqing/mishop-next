@@ -1,4 +1,7 @@
-import { CheckIcon } from '@heroicons/react/24/outline';
+'use client';
+
+import useToggle from '@/app/hooks/useToggle';
+import { CheckIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { Key, PropsWithChildren } from 'react';
 
@@ -13,24 +16,31 @@ interface CheckboxProps {
 }
 
 export default function Checkbox(props: PropsWithChildren<CheckboxProps>) {
-  const active = false;
+  const [checked, toggleChecked] = useToggle();
 
   return (
     <label
       className={'group flex cursor-pointer items-center gap-x-1.5 select-none'}
+      onClick={toggleChecked}
     >
       <span
         className={clsx(
           'flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
-          active
+          checked
             ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
             : 'border-primary bg-white',
-          '!group:hover:border-[var(--color-primary)]'
+          'group-hover:border-[var(--color-primary)]'
         )}
       >
         <CheckIcon />
       </span>
-      <span className={'text-sm text-[#424242]'}>{props.children}</span>
+      <span
+        className={
+          'text-sm text-[#424242] group-hover:text-[var(--color-primary)]'
+        }
+      >
+        {props.children}
+      </span>
     </label>
   );
 }

@@ -1,10 +1,12 @@
-import { drizzle } from 'drizzle-orm/mysql2';
+import { drizzle, MySql2Database } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
 import * as schema from './schema';
 
+export type SchemaType = typeof schema;
+
 declare global {
   // eslint-disable-next-line no-var
-  var _db: ReturnType<typeof drizzle> | undefined;
+  var _db: MySql2Database<SchemaType> | undefined;
 }
 
 const poolConnection = mysql.createPool({
@@ -25,7 +27,5 @@ const db = globalThis._db || createDatabaseConnection();
 if (process.env.NODE_ENV !== 'production') {
   globalThis._db = db;
 }
-
-export type SchemaType = typeof schema;
 
 export { db, schema };
