@@ -23,6 +23,10 @@ interface BrickProps {
 export default function Brick({ name, tabs, promotions }: BrickProps) {
   const [currentTab, setCurrentTab] = useState(0);
 
+  if (!tabs.length) {
+    return null;
+  }
+
   return (
     <div className={styles.brick}>
       <Header
