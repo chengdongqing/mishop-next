@@ -1,4 +1,6 @@
+import Checkbox from '@/components/ui/checkbox';
 import FilterBar from '@/components/ui/filter-bar';
+import Sorter from './sorter';
 
 export default function FilterGroup() {
   return (
@@ -8,8 +10,11 @@ export default function FilterGroup() {
         <div className={'w-full border-b-1 border-[#ededed]'} />
         <FilterBar label={'标签'} options={labels} />
       </div>
-      <div className={'bg-primary'}>
-        <div className={'w-primary'}>12</div>
+      <div className={'bg-primary py-5'}>
+        <div className={'w-primary flex justify-between pt-5'}>
+          <Sorter />
+          <Checkbox>仅看有货</Checkbox>
+        </div>
       </div>
     </form>
   );

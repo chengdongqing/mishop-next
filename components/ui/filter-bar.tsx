@@ -4,15 +4,16 @@ import useToggle from '@/app/hooks/useToggle';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
+import { Key } from 'react';
 
 interface FilterBarProps {
   label: string;
   options: {
-    id: number;
+    id: Key;
     name: string;
   }[];
-  value?: number;
-  onChange?: (value: number | undefined) => void;
+  value?: Key;
+  onChange?: (value: Key | undefined) => void;
 }
 
 export default function FilterBar({
@@ -30,9 +31,8 @@ export default function FilterBar({
       </div>
       <motion.div
         className={'grid flex-1 grid-cols-7 overflow-hidden'}
-        animate={{
-          height: expanded ? undefined : 48
-        }}
+        animate={{ height: expanded ? 'auto' : 48 }}
+        initial={{ height: 48 }}
       >
         <div className={'h-[48] cursor-pointer leading-[48px]'}>
           <span
