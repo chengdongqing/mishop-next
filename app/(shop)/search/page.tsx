@@ -20,6 +20,7 @@ export default async function SearchPage() {
         <div className={'w-primary'}>
           <ProductList products={products} />
           <Pagination totalSize={100} />
+          <div className={'h-[80]'} />
           <RecommendProducts />
         </div>
       </section>
