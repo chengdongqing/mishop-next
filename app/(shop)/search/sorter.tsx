@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 export default function Sorter() {
-  const [value, setValue] = useState(ProductOrderBy.RATING);
+  const [value, setValue] = useState(ProductOrderBy.NEWEST);
 
   return (
     <Space
@@ -56,15 +56,15 @@ export default function Sorter() {
 
 const options = [
   {
-    label: '评分',
-    type: ProductOrderBy.RATING
-  },
-  {
     label: '新品',
     type: ProductOrderBy.NEWEST
   },
   {
     label: '销量',
     type: ProductOrderBy.SELLING
+  },
+  {
+    label: '评分',
+    type: ProductOrderBy.RATING
   }
 ];

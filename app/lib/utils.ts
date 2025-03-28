@@ -7,7 +7,7 @@ export function buildProductUrl(productId: number) {
 }
 
 export function formatAmount(value: unknown = 0, hasMultiplePrices = false) {
-  return typeof value === 'number'
+  return typeof value === 'number' || typeof value === 'string'
     ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
         '元' +
         (hasMultiplePrices ? '起' : '')

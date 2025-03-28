@@ -29,12 +29,12 @@ export default function FilterBar({
       <div className={'h-[48] w-[124] text-sm leading-[48px] text-[#b0b0b0]'}>
         {label}:
       </div>
-      <motion.div
+      <motion.ul
         className={'grid flex-1 grid-cols-7 overflow-hidden'}
         animate={{ height: expanded ? 'auto' : 48 }}
         initial={{ height: 48 }}
       >
-        <div className={'h-[48] cursor-pointer leading-[48px]'}>
+        <li className={'h-[48] cursor-pointer leading-[48px]'}>
           <span
             className={clsx({
               'text-primary': value === undefined
@@ -43,9 +43,9 @@ export default function FilterBar({
           >
             全部
           </span>
-        </div>
+        </li>
         {options.map((item) => (
-          <div
+          <li
             key={item.id}
             className={'h-[48] cursor-pointer leading-[48px] text-[#424242]'}
           >
@@ -57,9 +57,9 @@ export default function FilterBar({
             >
               {item.name}
             </span>
-          </div>
+          </li>
         ))}
-      </motion.div>
+      </motion.ul>
       <div className={'w-[60] leading-[48px]'}>
         {options.length >= 7 && (
           <span

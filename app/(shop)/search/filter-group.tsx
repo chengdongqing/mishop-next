@@ -11,7 +11,7 @@ export default function FilterGroup() {
         <FilterBar label={'标签'} options={labels} />
       </div>
       <div className={'bg-primary py-5'}>
-        <div className={'w-primary flex justify-between pt-5'}>
+        <div className={'w-primary flex justify-between pt-5 pb-2'}>
           <Sorter />
           <Checkbox>仅看有货</Checkbox>
         </div>
