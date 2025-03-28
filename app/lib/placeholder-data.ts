@@ -1248,7 +1248,7 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
-    pictureUrls: [],
+    gallery: [],
     attributes: [
       {
         name: '版本',
@@ -1271,7 +1271,7 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
-    pictureUrls: [],
+    gallery: [],
     attributes: [
       {
         name: '版本',
@@ -1294,7 +1294,7 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png',
-    pictureUrls: [],
+    gallery: [],
     attributes: [
       {
         name: '版本',
@@ -1317,7 +1317,7 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
-    pictureUrls: [],
+    gallery: [],
     attributes: [
       {
         name: '版本',

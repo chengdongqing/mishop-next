@@ -32,7 +32,7 @@ export default function Checkbox(props: PropsWithChildren<Props>) {
           'group-hover:border-[var(--color-primary)]'
         )}
       >
-        <CheckIcon />
+        <CheckIcon className={'w-4'} />
       </span>
       <span
         className={

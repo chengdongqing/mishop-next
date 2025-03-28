@@ -22,10 +22,12 @@ export async function searchProducts(
       id: products.id,
       name: products.name,
       price: products.price,
-      originPrice: products.originalPrice,
+      originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
       pictureUrls: sql<string>`group_concat
-          (${productSkus.pictureUrl})`
+      (
+      ${productSkus.pictureUrl}
+      )`
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
@@ -51,7 +53,7 @@ export async function searchProducts(
     name: product.name,
     pictureUrl: product.pictureUrl,
     price: Number(product.price),
-    originPrice: Number(product.originPrice || 0),
+    originalPrice: Number(product.originalPrice ?? product.price),
     pictureUrls: product.pictureUrls
       ? product.pictureUrls.split(',')
       : [product.pictureUrl]
