@@ -36,6 +36,7 @@ function ProductItem({ product }: { product: SearchProduct }) {
           alt={product.name}
           width={200}
           height={200}
+          unoptimized
           className={'mb-4 h-[200] w-[200] object-scale-down'}
         />
         <div className={'text-sm text-[rgb(117,117,117)]'}>{product.name}</div>

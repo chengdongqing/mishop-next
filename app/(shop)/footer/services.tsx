@@ -9,36 +9,38 @@ import {
 
 export default function Services() {
   return (
-    <ul
-      className={
-        'w-primary flex h-[80px] items-center border-b-1 border-b-[var(--color-border)]'
-      }
-    >
-      {services.map((service, index) => {
-        const Icon = service.icon;
-        return (
-          <li
-            key={service.title}
-            className={clsx('flex flex-1 justify-center', {
-              'border-r-1 border-r-[var(--color-border)]':
-                index < services.length - 1
-            })}
-          >
-            <a
-              href={service.href}
-              rel={'nofollow'}
-              target={'_blank'}
-              className={
-                'flex items-center text-base text-[#616161] duration-200 hover:text-[var(--color-primary)]'
-              }
+    <nav>
+      <ul
+        className={
+          'w-primary flex h-[80px] items-center border-b-1 border-b-[var(--color-border)]'
+        }
+      >
+        {services.map((service, index) => {
+          const Icon = service.icon;
+          return (
+            <li
+              key={service.title}
+              className={clsx('flex flex-1 justify-center', {
+                'border-r-1 border-r-[var(--color-border)]':
+                  index < services.length - 1
+              })}
             >
-              <Icon className={'mr-1 h-8 w-8'} />
-              {service.title}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+              <a
+                href={service.href}
+                rel={'nofollow'}
+                target={'_blank'}
+                className={
+                  'flex items-center text-base text-[#616161] duration-200 hover:text-[var(--color-primary)]'
+                }
+              >
+                <Icon className={'mr-1 h-8 w-8'} />
+                {service.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }
 

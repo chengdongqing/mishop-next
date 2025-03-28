@@ -13,7 +13,7 @@ export default function Links() {
 
 function Left() {
   return (
-    <div className={'flex flex-1 justify-center'}>
+    <nav className={'flex flex-1 justify-center'}>
       {links.map((link) => (
         <dl key={link.title} className={'w-[160px]'}>
           <dt className={'mb-[26px] text-sm text-[#424242]'}>{link.title}</dt>
@@ -33,7 +33,7 @@ function Left() {
           ))}
         </dl>
       ))}
-    </div>
+    </nav>
   );
 }
 

@@ -15,12 +15,12 @@ export default async function SearchPage() {
     <>
       <Breadcrumb value={'全部结果'} split={'>'} />
       <FilterGroup />
-      <div className={'bg-primary pb-[30]'}>
+      <section className={'bg-primary pb-[30]'}>
         <div className={'w-primary'}>
           <ProductList products={products} />
           <Pagination totalSize={100} />
         </div>
-      </div>
+      </section>
     </>
   );
 }

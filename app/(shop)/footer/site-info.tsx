@@ -125,58 +125,62 @@ function Remarks() {
 
 function Navs() {
   return (
-    <ul className={'flex flex-wrap items-center'}>
-      <NavItem title={'小米商城'} href={'https://www.mi.com/shop'} />
-      <Sep />
-      <NavItem title={'小米澎湃OS'} href={'https://hyperos.mi.com/'} />
-      <Sep />
-      <NavItem title={'米家'} href={'https://home.mi.com/index.html'} />
-      <Sep />
-      <NavItem title={'多看'} href={'https://www.duokan.com/'} />
-      <Sep />
-      <NavItem title={'游戏'} href={'https://game.xiaomi.com/'} />
-      <Sep />
-      <NavItem title={'音乐'} href={'https://www.mi.com/music'} />
-      <Sep />
-      <NavItem
-        title={'政企服务'}
-        href={'https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358'}
-      />
-      <Sep />
-      <NavItem title={'小米天猫店'} href={'https://xiaomi.tmall.com/'} />
-      <Sep />
-      <NavItem
-        title={'小米集团隐私政策'}
-        href={'https://privacy.mi.com/all/zh_CN/'}
-      />
-      <Sep />
-      <NavItem
-        title={'小米公司儿童信息保护规则'}
-        href={'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html'}
-      />
-      <Sep />
-      <NavItem
-        title={'小米商城隐私政策'}
-        href={'https://m.mi.com/support/module?id=63&amp;headless=1'}
-      />
-      <Sep />
-      <NavItem
-        title={'小米商城用户协议'}
-        href={'https://www.mi.com/aptitude/list?id=62'}
-      />
-      <Sep />
-      <NavItem title={'问题反馈'} href={'https://static.mi.com/feedback/'} />
-      <Sep />
-      <NavItem title={'Select Location'} />
-      <NavItem
-        title={'北京互联网法院法律服务工作站'}
-        href={'https://www.mi.com/beihu'}
-      />
-      <Sep />
-      <NavItem title={'中国消费者协会'} href={'https://www.cca.org.cn/'} />
-      <Sep />
-      <NavItem title={'北京市消费者协会'} href={'https://www.bj315.org/'} />
-    </ul>
+    <nav>
+      <ul className={'flex flex-wrap items-center'}>
+        <NavItem title={'小米商城'} href={'https://www.mi.com/shop'} />
+        <Sep />
+        <NavItem title={'小米澎湃OS'} href={'https://hyperos.mi.com/'} />
+        <Sep />
+        <NavItem title={'米家'} href={'https://home.mi.com/index.html'} />
+        <Sep />
+        <NavItem title={'多看'} href={'https://www.duokan.com/'} />
+        <Sep />
+        <NavItem title={'游戏'} href={'https://game.xiaomi.com/'} />
+        <Sep />
+        <NavItem title={'音乐'} href={'https://www.mi.com/music'} />
+        <Sep />
+        <NavItem
+          title={'政企服务'}
+          href={'https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358'}
+        />
+        <Sep />
+        <NavItem title={'小米天猫店'} href={'https://xiaomi.tmall.com/'} />
+        <Sep />
+        <NavItem
+          title={'小米集团隐私政策'}
+          href={'https://privacy.mi.com/all/zh_CN/'}
+        />
+        <Sep />
+        <NavItem
+          title={'小米公司儿童信息保护规则'}
+          href={
+            'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html'
+          }
+        />
+        <Sep />
+        <NavItem
+          title={'小米商城隐私政策'}
+          href={'https://m.mi.com/support/module?id=63&amp;headless=1'}
+        />
+        <Sep />
+        <NavItem
+          title={'小米商城用户协议'}
+          href={'https://www.mi.com/aptitude/list?id=62'}
+        />
+        <Sep />
+        <NavItem title={'问题反馈'} href={'https://static.mi.com/feedback/'} />
+        <Sep />
+        <NavItem title={'Select Location'} />
+        <NavItem
+          title={'北京互联网法院法律服务工作站'}
+          href={'https://www.mi.com/beihu'}
+        />
+        <Sep />
+        <NavItem title={'中国消费者协会'} href={'https://www.cca.org.cn/'} />
+        <Sep />
+        <NavItem title={'北京市消费者协会'} href={'https://www.bj315.org/'} />
+      </ul>
+    </nav>
   );
 }
 

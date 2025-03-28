@@ -28,7 +28,7 @@ export default function Brick({ name, tabs, promotions }: BrickProps) {
   }
 
   return (
-    <div className={styles.brick}>
+    <section className={styles.brick}>
       <Header
         title={name}
         tabs={tabs}
@@ -39,7 +39,7 @@ export default function Brick({ name, tabs, promotions }: BrickProps) {
         <CategoryPromotions promotions={promotions} />
         <CategoryProducts tabs={tabs} current={currentTab} />
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -94,25 +94,22 @@ function Header({
 
 function CategoryPromotions({ promotions }: { promotions: Banner[] }) {
   return (
-    <div className={styles.banners}>
+    <ul className={styles.banners}>
       {promotions.slice(0, 2).map((item) => (
-        <Link
-          key={item.src}
-          href={item.href}
-          target={item.target}
-          className={styles.banner_item}
-        >
-          <Image
-            alt={''}
-            width={234}
-            height={promotions.length === 2 ? 300 : 614}
-            className={styles.picture}
-            src={item.src}
-            unoptimized
-          />
-        </Link>
+        <li key={item.src} className={styles.banner_item}>
+          <Link href={item.href} target={item.target}>
+            <Image
+              alt={''}
+              width={234}
+              height={promotions.length === 2 ? 300 : 614}
+              className={styles.picture}
+              src={item.src}
+              unoptimized
+            />
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

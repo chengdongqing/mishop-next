@@ -13,59 +13,65 @@ export default function TopBar() {
 
 function Left() {
   return (
-    <ul className={'flex items-center'}>
-      <NavItem title={'小米官网'} href={'https://www.mi.com/'} />
-      <Sep />
-      <NavItem title={'小米商城'} href={'https://www.mi.com/shop'} />
-      <Sep />
-      <NavItem
-        title={'小米澎湃OS'}
-        href={'https://hyperos.mi.com/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem
-        title={'小米汽车'}
-        href={'https://www.xiaomiev.com/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem title={'云服务'} href={'https://i.mi.com/'} target={'_blank'} />
-      <Sep />
-      <NavItem title={'IoT'} href={'https://iot.mi.com'} target={'_blank'} />
-      <Sep />
-      <NavItem
-        title={'有品'}
-        href={'https://youpin.mi.com/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem
-        title={'小爱开放平台'}
-        href={'https://xiaoai.mi.com/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem
-        title={'资质证照'}
-        href={'https://www.mi.com/aptitude/list/?id=88'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem
-        title={'协议规则'}
-        href={'https://www.mi.com/aptitude/list/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem
-        title={'下载app'}
-        href={'https://www.mi.com/appdownload/'}
-        target={'_blank'}
-      />
-      <Sep />
-      <NavItem title={'Select Location'} />
-    </ul>
+    <nav>
+      <ul className={'flex items-center'}>
+        <NavItem title={'小米官网'} href={'https://www.mi.com/'} />
+        <Sep />
+        <NavItem title={'小米商城'} href={'https://www.mi.com/shop'} />
+        <Sep />
+        <NavItem
+          title={'小米澎湃OS'}
+          href={'https://hyperos.mi.com/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'小米汽车'}
+          href={'https://www.xiaomiev.com/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'云服务'}
+          href={'https://i.mi.com/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem title={'IoT'} href={'https://iot.mi.com'} target={'_blank'} />
+        <Sep />
+        <NavItem
+          title={'有品'}
+          href={'https://youpin.mi.com/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'小爱开放平台'}
+          href={'https://xiaoai.mi.com/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'资质证照'}
+          href={'https://www.mi.com/aptitude/list/?id=88'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'协议规则'}
+          href={'https://www.mi.com/aptitude/list/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem
+          title={'下载app'}
+          href={'https://www.mi.com/appdownload/'}
+          target={'_blank'}
+        />
+        <Sep />
+        <NavItem title={'Select Location'} />
+      </ul>
+    </nav>
   );
 }
 
