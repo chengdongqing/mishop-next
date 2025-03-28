@@ -1,6 +1,11 @@
 import { LayoutHeroCategoryItemType } from '@/app/enums';
 import { Banner } from '@/app/types/banner';
-import { Product, ProductCategory, ProductLabel } from '@/app/types/product';
+import {
+  Product,
+  ProductCategory,
+  ProductLabel,
+  ProductSku
+} from '@/app/types/product';
 import { Video } from '@/app/types/video';
 
 export const productCategoriesData: ProductCategory[] = [
@@ -1232,6 +1237,101 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1612c93ad4756215774a0dbec7a81bb2.jpg?thumb=1&f=webp&q=90',
     price: 299,
     categoryId: 3
+  }
+];
+
+export const productSkusData: ProductSku[] = [
+  {
+    id: 1,
+    productId: 1,
+    name: '16GB+512GB 经典黑银 标准版',
+    price: 6999,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+    pictureUrls: [],
+    attributes: [
+      {
+        name: '版本',
+        value: '16GB+512GB'
+      },
+      {
+        name: '颜色',
+        value: '经典黑银'
+      },
+      {
+        name: '套装',
+        value: '标准版'
+      }
+    ]
+  },
+  {
+    id: 2,
+    productId: 1,
+    name: '16GB+512GB 白色 标准版',
+    price: 6999,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+    pictureUrls: [],
+    attributes: [
+      {
+        name: '版本',
+        value: '16GB+512GB'
+      },
+      {
+        name: '颜色',
+        value: '白色'
+      },
+      {
+        name: '套装',
+        value: '标准版'
+      }
+    ]
+  },
+  {
+    id: 3,
+    productId: 1,
+    name: '16GB+512GB 松柏绿 标准版',
+    price: 6999,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png',
+    pictureUrls: [],
+    attributes: [
+      {
+        name: '版本',
+        value: '16GB+512GB'
+      },
+      {
+        name: '颜色',
+        value: '松柏绿'
+      },
+      {
+        name: '套装',
+        value: '标准版'
+      }
+    ]
+  },
+  {
+    id: 4,
+    productId: 1,
+    name: '16GB+512GB 黑色 标准版',
+    price: 6999,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+    pictureUrls: [],
+    attributes: [
+      {
+        name: '版本',
+        value: '16GB+512GB'
+      },
+      {
+        name: '颜色',
+        value: '黑色'
+      },
+      {
+        name: '套装',
+        value: '标准版'
+      }
+    ]
   }
 ];
 

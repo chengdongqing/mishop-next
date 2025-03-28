@@ -2,9 +2,15 @@ import { SchemaType } from '@/app/lib/db';
 import {
   productCategoriesData,
   productLabelsData,
-  productsData
+  productsData,
+  productSkusData
 } from '@/app/lib/placeholder-data';
-import { productCategories, productLabels, products } from '@/app/lib/schema';
+import {
+  productCategories,
+  productLabels,
+  products,
+  productSkus
+} from '@/app/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -63,6 +69,53 @@ const createTableSql = `
         constraint products_pk
             unique (name)
     ) comment '商品表';
+`;
+
+export async function seedProductSkus(
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
+  >
+) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.product_skus;');
+
+  // 创建表
+  await tx.execute(createProductSkuTableSql);
+
+  // 清空表
+  await tx.delete(productSkus);
+
+  // 插入数据
+  await tx.insert(productSkus).values(
+    productSkusData.map((sku) => ({
+      ...sku,
+      price: sku.price.toString(),
+      originalPrice: sku.originalPrice?.toString()
+    }))
+  );
+}
+
+const createProductSkuTableSql = `
+    create table mishop.product_skus
+    (
+        id             int auto_increment
+            primary key,
+        product_id     int            not null comment '商品id',
+        name           varchar(32)    not null comment '规格名称',
+        price          decimal(10, 2) not null comment '价格',
+        original_price decimal(10, 2) comment '原价',
+        picture_url    varchar(200)   not null comment '图片地址',
+        gallery        json           not null comment '商品图库',
+        attributes     json           not null comment '属性集合',
+        stocks         int            not null default '100' comment '库存',
+        limits         int comment '购买限制数量',
+        sales          int            not null default '0' comment '销量',
+        created_at     timestamp      not null default CURRENT_TIMESTAMP,
+        updated_at     timestamp      null     default (now()) on update CURRENT_TIMESTAMP
+    )
 `;
 
 export async function seedProductCategories(

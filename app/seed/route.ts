@@ -14,7 +14,8 @@ import { seedBanners } from './banners';
 import {
   seedProductCategories,
   seedProductLabels,
-  seedProducts
+  seedProducts,
+  seedProductSkus
 } from './products';
 import { seedVideos } from './videos';
 
@@ -37,9 +38,10 @@ function getSeeds(
   >
 ) {
   return Promise.all([
-    seedProductCategories(tx),
-    seedProductLabels(tx),
     seedProducts(tx),
+    seedProductSkus(tx),
+    seedProductLabels(tx),
+    seedProductCategories(tx),
     seedBanners(tx),
     seedVideos(tx),
     seedLayoutHeader(tx),

@@ -9,6 +9,21 @@ export interface Product {
   categoryId?: number;
 }
 
+export interface ProductSku {
+  id: number;
+  productId: number;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  limits?: number;
+  pictureUrl: string;
+  gallery: string[];
+  attributes: {
+    name: string;
+    value: string;
+  }[];
+}
+
 export interface ProductCategory {
   id: number;
   name: string;
@@ -20,4 +35,8 @@ export interface ProductLabel {
   id: number;
   name: string;
   pictureUrl: string;
+}
+
+export interface SearchProduct extends Product {
+  pictureUrls: string[];
 }

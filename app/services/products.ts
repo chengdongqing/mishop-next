@@ -1,9 +1,10 @@
 import { ProductOrderBy } from '@/app/enums';
 import { db } from '@/app/lib/db';
-import { products } from '@/app/lib/schema';
-import { and, desc, eq, like } from 'drizzle-orm';
+import { products, productSkus } from '@/app/lib/schema';
+import { SearchProduct } from '@/app/types/product';
+import { and, desc, eq, like, sql } from 'drizzle-orm';
 
-interface FindProductsRequest {
+interface SearchRequest {
   keyword: string;
   categoryId: number;
   orderBy: ProductOrderBy;
@@ -11,26 +12,23 @@ interface FindProductsRequest {
   limit: number;
 }
 
-export function findProducts(request: Partial<FindProductsRequest> = {}) {
-  const orderBy = function getOrderBy() {
-    switch (request.orderBy) {
-      case ProductOrderBy.PRICE_ASC:
-        return products.price;
-      case ProductOrderBy.PRICE_DESC:
-        return desc(products.price);
-      case ProductOrderBy.SELLING:
-        return desc(products.sales);
-      case ProductOrderBy.RATING:
-        return desc(products.rating);
-      case ProductOrderBy.NEWEST:
-      default:
-        return desc(products.createdAt);
-    }
-  };
+export async function searchProducts(
+  request: Partial<SearchRequest> = {}
+): Promise<SearchProduct[]> {
+  const orderBy = getOrderBy(request.orderBy);
 
-  return db
-    .select()
+  const list = await db
+    .select({
+      id: products.id,
+      name: products.name,
+      price: products.price,
+      originPrice: products.originalPrice,
+      pictureUrl: products.pictureUrl,
+      pictureUrls: sql<string>`group_concat
+          (${productSkus.pictureUrl})`
+    })
     .from(products)
+    .leftJoin(productSkus, eq(products.id, productSkus.productId))
     .where(
       and(
         request.categoryId
@@ -41,9 +39,37 @@ export function findProducts(request: Partial<FindProductsRequest> = {}) {
           : undefined
       )
     )
+    .groupBy(products.id)
     .orderBy(orderBy)
     .limit(request.limit ?? -1)
     .offset(
       request.page && request.limit ? (request.page - 1) * request.limit : 0
     );
+
+  return list.map((product) => ({
+    id: product.id,
+    name: product.name,
+    pictureUrl: product.pictureUrl,
+    price: Number(product.price),
+    originPrice: Number(product.originPrice || 0),
+    pictureUrls: product.pictureUrls
+      ? product.pictureUrls.split(',')
+      : [product.pictureUrl]
+  }));
+}
+
+function getOrderBy(orderBy?: ProductOrderBy) {
+  switch (orderBy) {
+    case ProductOrderBy.PRICE_ASC:
+      return products.price;
+    case ProductOrderBy.PRICE_DESC:
+      return desc(products.price);
+    case ProductOrderBy.SELLING:
+      return desc(products.sales);
+    case ProductOrderBy.RATING:
+      return desc(products.rating);
+    case ProductOrderBy.NEWEST:
+    default:
+      return desc(products.createdAt);
+  }
 }

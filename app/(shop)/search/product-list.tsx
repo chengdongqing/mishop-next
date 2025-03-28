@@ -1,15 +1,17 @@
 'use client';
 
-import { products } from '@/app/lib/schema';
 import { buildProductUrl, formatAmount } from '@/app/lib/utils';
+import { SearchProduct } from '@/app/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-type ProductType = typeof products.$inferSelect;
-
-export default function ProductList({ products }: { products: ProductType[] }) {
+export default function ProductList({
+  products
+}: {
+  products: SearchProduct[];
+}) {
   return (
     <div className={'bg-primary pb-[30]'}>
       <ul className={'w-primary grid grid-cols-4 gap-3.5'}>
@@ -21,7 +23,9 @@ export default function ProductList({ products }: { products: ProductType[] }) {
   );
 }
 
-function ProductItem({ product }: { product: typeof products.$inferSelect }) {
+function ProductItem({ product }: { product: SearchProduct }) {
+  const [currentImage, setCurrentImage] = useState(0);
+
   return (
     <Link href={buildProductUrl(product.id)}>
       <li
@@ -30,7 +34,7 @@ function ProductItem({ product }: { product: typeof products.$inferSelect }) {
         }
       >
         <Image
-          src={product.pictureUrl}
+          src={product.pictureUrls[currentImage]}
           alt={product.name}
           width={200}
           height={200}
@@ -47,18 +51,28 @@ function ProductItem({ product }: { product: typeof products.$inferSelect }) {
             </span>
           )}
         </div>
-        <ProductThumbs pictureUrls={[product.pictureUrl, product.pictureUrl]} />
+        <ProductPictures
+          urls={product.pictureUrls}
+          current={currentImage}
+          onChange={setCurrentImage}
+        />
       </li>
     </Link>
   );
 }
 
-function ProductThumbs({ pictureUrls }: { pictureUrls: string[] }) {
-  const [current, setCurrent] = useState(0);
-
+function ProductPictures({
+  urls,
+  current,
+  onChange
+}: {
+  urls: string[];
+  current: number;
+  onChange: (index: number) => void;
+}) {
   return (
     <ul className={'mt-4 flex gap-2'}>
-      {pictureUrls.map((pictureUrl, index) => (
+      {urls.map((pictureUrl, index) => (
         <li
           key={index}
           className={clsx(
@@ -67,7 +81,7 @@ function ProductThumbs({ pictureUrls }: { pictureUrls: string[] }) {
               ? 'border-[var(--color-primary)]'
               : 'border-primary'
           )}
-          onMouseEnter={() => setCurrent(index)}
+          onMouseEnter={() => onChange(index)}
         >
           <Image
             src={pictureUrl}

@@ -38,6 +38,22 @@ export const products = mysqlTable('products', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const productSkus = mysqlTable('product_skus', {
+  id: serial('id').primaryKey(),
+  productId: int('product_id').notNull(),
+  name: varchar('name', { length: 32 }).notNull(),
+  price: decimal('price', { precision: 10, scale: 2 }).notNull(),
+  originalPrice: decimal('original_price', { precision: 10, scale: 2 }),
+  pictureUrl: varchar('picture_url', { length: 200 }).notNull(),
+  gallery: json('gallery').notNull(),
+  attributes: json('attributes').notNull(),
+  stocks: int('stocks').default(100).notNull(),
+  limits: int('limits'),
+  sales: int('sales').default(0).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const productCategories = mysqlTable('product_categories', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 32 }).notNull().unique(),
