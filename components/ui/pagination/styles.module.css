@@ -1,0 +1,26 @@
+.item {
+    width: 48px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 200;
+    color: #b0b0b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(.active, .disabled):hover {
+        color: #fff;
+        background-color: #b0b0b0;
+    }
+
+    &.active {
+        cursor: default;
+        color: #fff;
+        background-color: #757575;
+    }
+
+    &.disabled {
+        cursor: default;
+    }
+}

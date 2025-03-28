@@ -13,13 +13,11 @@ export default function ProductList({
   products: SearchProduct[];
 }) {
   return (
-    <div className={'bg-primary pb-[30]'}>
-      <ul className={'w-primary grid grid-cols-4 gap-3.5'}>
-        {products.map((product) => (
-          <ProductItem key={product.id} product={product} />
-        ))}
-      </ul>
-    </div>
+    <ul className={'grid grid-cols-4 gap-3.5'}>
+      {products.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </ul>
   );
 }
 
