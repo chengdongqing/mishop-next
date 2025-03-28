@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useMemo } from 'react';
 import styles from './styles.module.css';
 
-interface PaginationProps {
+interface Props {
   current?: number;
   pageSize?: number;
   totalSize?: number;
@@ -18,7 +18,7 @@ export default function Pagination({
   pageSize = 10,
   totalSize = 10,
   onChange
-}: PaginationProps) {
+}: Props) {
   const pages = useMemo(() => {
     return totalSize > 0 ? Math.ceil(totalSize / pageSize) : 0;
   }, [pageSize, totalSize]);

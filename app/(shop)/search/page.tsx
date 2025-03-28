@@ -2,6 +2,7 @@ import { ProductOrderBy } from '@/app/enums';
 import { searchProducts } from '@/app/services/products';
 import Breadcrumb from '@/components/ui/breadcrumb';
 import Pagination from '@/components/ui/pagination';
+import RecommendProducts from '@/components/ui/recommend-products';
 import FilterGroup from './filter-group';
 import ProductList from './product-list';
 
@@ -19,6 +20,7 @@ export default async function SearchPage() {
         <div className={'w-primary'}>
           <ProductList products={products} />
           <Pagination totalSize={100} />
+          <RecommendProducts />
         </div>
       </section>
     </>

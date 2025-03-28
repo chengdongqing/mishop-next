@@ -14,13 +14,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from './styles.module.css';
 
-interface BrickProps {
+interface Props {
   name: string;
   promotions: Banner[];
   tabs: LayoutBrickTab[];
 }
 
-export default function Brick({ name, tabs, promotions }: BrickProps) {
+export default function Brick({ name, tabs, promotions }: Props) {
   const [currentTab, setCurrentTab] = useState(0);
 
   if (!tabs.length) {

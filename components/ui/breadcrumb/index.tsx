@@ -5,12 +5,12 @@ import styles from './styles.module.css';
 
 type Item = { label: string; href?: string };
 
-interface BreadcrumbProps {
+interface Props {
   value: Item[] | Item | string;
   split?: ReactNode;
 }
 
-export default function Breadcrumb({ value, split = '/' }: BreadcrumbProps) {
+export default function Breadcrumb({ value, split = '/' }: Props) {
   const items = useMemo(() => {
     const items1: Item[] = [{ label: '首页', href: '/' }];
     if (Array.isArray(value)) {

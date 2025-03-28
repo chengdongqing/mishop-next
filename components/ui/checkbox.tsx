@@ -5,7 +5,7 @@ import { CheckIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { Key, PropsWithChildren } from 'react';
 
-interface CheckboxProps {
+interface Props {
   value?: Key;
   checked?: boolean;
   defaultChecked?: boolean;
@@ -15,7 +15,7 @@ interface CheckboxProps {
   onChange?(checked: boolean): void;
 }
 
-export default function Checkbox(props: PropsWithChildren<CheckboxProps>) {
+export default function Checkbox(props: PropsWithChildren<Props>) {
   const [checked, toggleChecked] = useToggle();
 
   return (

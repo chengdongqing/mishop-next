@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { motion } from 'motion/react';
 import { Key } from 'react';
 
-interface FilterBarProps {
+interface Props {
   label: string;
   options: {
     id: Key;
@@ -16,12 +16,7 @@ interface FilterBarProps {
   onChange?: (value: Key | undefined) => void;
 }
 
-export default function FilterBar({
-  label,
-  options,
-  value,
-  onChange
-}: FilterBarProps) {
+export default function FilterBar({ label, options, value, onChange }: Props) {
   const [expanded, toggleExpanded] = useToggle();
 
   return (
