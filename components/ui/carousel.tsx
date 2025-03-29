@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import {
   Children,
+  CSSProperties,
   PropsWithChildren,
   RefObject,
   useCallback,
@@ -20,19 +21,23 @@ export interface CarouselInstance {
 }
 
 interface CarouselProps extends PropsWithChildren {
+  style?: CSSProperties;
   autoplay?: boolean;
   interval?: number;
   duration?: number;
+  animation?: 'scrollX' | 'scrollY' | 'fade';
   onChange?: (index: number) => void;
   ref?: RefObject<CarouselInstance | null>;
 }
 
 export default function Carousel({
   ref,
+  style,
   children,
   autoplay = true,
   interval = 3000,
   duration = 500,
+  animation = 'fade',
   onChange
 }: CarouselProps) {
   const [current, setCurrent] = useState(0);
@@ -85,7 +90,12 @@ export default function Carousel({
   }, [current]);
 
   return (
-    <ul className={'relative'} onMouseEnter={pause} onMouseLeave={start}>
+    <ul
+      style={style}
+      className={'relative'}
+      onMouseEnter={pause}
+      onMouseLeave={start}
+    >
       {Children.map(children, (child, index) => {
         return (
           <li
