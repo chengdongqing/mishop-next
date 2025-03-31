@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
         hostname: '*'
       }
     ]
+  },
+  experimental: {
+    useCache: true
   }
 };
 

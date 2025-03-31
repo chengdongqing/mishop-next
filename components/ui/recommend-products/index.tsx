@@ -1,3 +1,5 @@
+'use cache';
+
 import { ProductOrderBy } from '@/app/enums';
 import { searchProducts } from '@/app/services/products';
 import clsx from 'clsx';
@@ -15,7 +17,7 @@ export default async function RecommendProducts({
   size = 10
 }: Props) {
   const { data: products } = await searchProducts({
-    orderBy: ProductOrderBy.RATING,
+    orderBy: ProductOrderBy.SELLING,
     size
   });
 
