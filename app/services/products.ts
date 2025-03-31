@@ -6,25 +6,42 @@ import {
   products,
   productSkus
 } from '@/app/lib/schema';
+import { Page, PageRequest } from '@/app/types/common';
 import { SearchProduct } from '@/app/types/product';
 import { and, desc, eq, gt, like, sql } from 'drizzle-orm';
 
-interface SearchRequest {
+interface SearchRequest extends PageRequest {
   keyword: string;
   categoryId: number;
   labelId: number;
   orderBy: ProductOrderBy;
   onlyAvailable: boolean;
-  page: number;
-  limit: number;
 }
 
 export async function searchProducts(
   request: Partial<SearchRequest> = {}
-): Promise<SearchProduct[]> {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  const orderBy = getOrderBy(request.orderBy);
+): Promise<Page<SearchProduct>> {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
 
+  const orderBy = getOrderBy(request.orderBy);
+  const conditions = getSearchConditions(request);
+
+  // 获取符合条件的产品总数
+  const totalQuery = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(products)
+    .leftJoin(productSkus, eq(products.id, productSkus.productId))
+    .where(conditions)
+    .groupBy(products.id);
+  const total = totalQuery.length;
+
+  // 计算分页参数
+  const page = request.page ?? 1;
+  const size = request.size ?? 10;
+  const offset = (page - 1) * size;
+  const pages = Math.ceil(total / size);
+
+  // 获取当前页的产品数据
   const list = await db
     .select({
       id: products.id,
@@ -33,38 +50,44 @@ export async function searchProducts(
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
       pictureUrls: sql<string>`group_concat
-          ( ${productSkus.pictureUrl})`
+      (
+      ${productSkus.pictureUrl}
+      )`
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
-    .where(
-      and(
-        request.categoryId
-          ? eq(products.categoryId, request.categoryId)
-          : undefined,
-        request.keyword
-          ? like(products.name, `%${request.keyword}%`)
-          : undefined,
-        request.onlyAvailable ? gt(productSkus.stocks, 0) : undefined
-      )
-    )
+    .where(conditions)
     .groupBy(products.id)
     .orderBy(orderBy)
-    .limit(request.limit ?? -1)
-    .offset(
-      request.page && request.limit ? (request.page - 1) * request.limit : 0
-    );
+    .limit(size)
+    .offset(offset);
 
-  return list.map((product) => ({
-    id: product.id,
-    name: product.name,
-    pictureUrl: product.pictureUrl,
-    price: Number(product.price),
-    originalPrice: Number(product.originalPrice ?? product.price),
-    pictureUrls: product.pictureUrls
-      ? product.pictureUrls.split(',')
-      : [product.pictureUrl]
-  }));
+  return {
+    total,
+    page,
+    size,
+    pages,
+    data: list.map((product) => ({
+      id: product.id,
+      name: product.name,
+      pictureUrl: product.pictureUrl,
+      price: Number(product.price),
+      originalPrice: Number(product.originalPrice ?? product.price),
+      pictureUrls: product.pictureUrls
+        ? product.pictureUrls.split(',')
+        : [product.pictureUrl]
+    }))
+  };
+}
+
+function getSearchConditions(request: Partial<SearchRequest>) {
+  return and(
+    request.categoryId
+      ? eq(products.categoryId, request.categoryId)
+      : undefined,
+    request.keyword ? like(products.name, `%${request.keyword}%`) : undefined,
+    request.onlyAvailable ? gt(productSkus.stocks, 0) : undefined
+  );
 }
 
 function getOrderBy(orderBy?: ProductOrderBy) {

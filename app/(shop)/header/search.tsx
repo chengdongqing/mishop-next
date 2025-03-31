@@ -12,8 +12,13 @@ export default function Search() {
   const [focused, setFocused] = useState(false);
 
   function searchAction(formData: FormData) {
-    const value = (formData.get('q') as string) || placeholder;
-    const params = new URLSearchParams({ q: value });
+    const q = formData.get('q') as string;
+    const params = new URLSearchParams(searchParams);
+    if (q.trim()) {
+      params.set('q', q);
+    } else {
+      params.delete('q');
+    }
     router.replace(`/search?${params.toString()}`);
   }
 

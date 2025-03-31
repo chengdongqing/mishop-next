@@ -1,6 +1,6 @@
 'use client';
 
-import { formatAmount } from '@/app/lib/utils';
+import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import { LayoutHeaderNav } from '@/app/types/layout';
 import { Product } from '@/app/types/product';
 import Loading from '@/components/ui/loading';
@@ -180,7 +180,10 @@ function ProductsPanel({
               }
             )}
           >
-            <a className={'flex cursor-pointer flex-col items-center text-xs'}>
+            <Link
+              className={'flex cursor-pointer flex-col items-center text-xs'}
+              href={buildProductUrl(product.id)}
+            >
               <Image
                 src={product.pictureUrl}
                 alt={''}
@@ -194,7 +197,7 @@ function ProductsPanel({
               <span className={'text-primary leading-[20px]'}>
                 {formatAmount(product.price, product.hasMultipleSkus)}
               </span>
-            </a>
+            </Link>
           </li>
         ))}
 

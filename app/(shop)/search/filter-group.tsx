@@ -5,15 +5,16 @@ import { ProductCategory, ProductLabel } from '@/app/types/product';
 import Checkbox from '@/components/ui/checkbox';
 import FilterBar from '@/components/ui/filter-bar';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Key } from 'react';
+import { Key, use } from 'react';
 import Sorter from './sorter';
 
-interface Props {
-  categories: ProductCategory[];
-  labels: ProductLabel[];
-}
+export default function FilterGroup({
+  filtersPromise
+}: {
+  filtersPromise: Promise<[ProductCategory[], ProductLabel[]]>;
+}) {
+  const [categories, labels] = use(filtersPromise);
 
-export default function FilterGroup({ categories, labels }: Props) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
@@ -37,7 +38,7 @@ export default function FilterGroup({ categories, labels }: Props) {
     <>
       <div className={'w-primary py-4.5'}>
         <FilterBar
-          label={'类别'}
+          label={'分类'}
           options={categories}
           value={categoryId ? Number(categoryId) : undefined}
           onChange={(id) => handleSearch('categoryId', id)}
