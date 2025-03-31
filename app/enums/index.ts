@@ -11,11 +11,11 @@ export enum TargetType {
 }
 
 export enum ProductOrderBy {
-  PRICE_ASC,
-  PRICE_DESC,
-  NEWEST,
-  SELLING,
-  RATING
+  PRICE_ASC = 'price_asc',
+  PRICE_DESC = 'price_desc',
+  NEWEST = 'newest',
+  SELLING = 'selling',
+  RATING = 'rating'
 }
 
 export enum LayoutHeroCategoryItemType {

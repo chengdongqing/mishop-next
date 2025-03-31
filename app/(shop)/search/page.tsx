@@ -1,27 +1,59 @@
+import SearchResult from '@/app/(shop)/search/search-result';
 import { ProductOrderBy } from '@/app/enums';
-import { searchProducts } from '@/app/services/products';
+import {
+  findProductCategories,
+  findProductLabels,
+  searchProducts
+} from '@/app/services/products';
 import Breadcrumb from '@/components/ui/breadcrumb';
-import Pagination from '@/components/ui/pagination';
+import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
+import { Suspense } from 'react';
 import FilterGroup from './filter-group';
-import ProductList from './product-list';
 
-export default async function SearchPage() {
-  const products = await searchProducts({
-    orderBy: ProductOrderBy.PRICE_DESC,
+export default async function SearchPage({
+  searchParams
+}: {
+  searchParams: Promise<
+    Partial<{
+      keyword: string;
+      categoryId: string;
+      labelId: string;
+      orderBy: string;
+      onlyAvailable: string;
+    }>
+  >;
+}) {
+  const [categories, labels] = await Promise.all([
+    findProductCategories(),
+    findProductLabels()
+  ]);
+
+  const { keyword, categoryId, labelId, orderBy, onlyAvailable } =
+    await searchParams;
+
+  const search = searchProducts({
+    orderBy: orderBy ? (orderBy as ProductOrderBy) : undefined,
+    categoryId: categoryId ? Number(categoryId) : undefined,
+    labelId: labelId ? Number(labelId) : undefined,
+    onlyAvailable: onlyAvailable ? Boolean(Number(onlyAvailable)) : false,
+    keyword: keyword,
     limit: 20
   });
 
   return (
     <>
       <Breadcrumb value={'全部结果'} split={'>'} />
-      <FilterGroup />
+      <Suspense>
+        <FilterGroup categories={categories} labels={labels} />
+      </Suspense>
       <section className={'bg-primary pb-[30]'}>
         <div className={'w-primary'}>
-          <ProductList products={products} />
-          <Pagination totalSize={100} />
-          <div className={'h-[80]'} />
-          <RecommendProducts />
+          <Suspense fallback={<Loading className={'bg-primary h-[20vh]'} />}>
+            <SearchResult search={search} />
+            <div className={'h-[80]'} />
+            <RecommendProducts />
+          </Suspense>
         </div>
       </section>
     </>

@@ -4,16 +4,15 @@ import useToggle from '@/app/hooks/useToggle';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
-import { Key } from 'react';
 
 interface Props {
   label: string;
   options: {
-    id: Key;
+    id: number;
     name: string;
   }[];
-  value?: Key;
-  onChange?: (value: Key | undefined) => void;
+  value: number | undefined;
+  onChange?: (value: number | undefined) => void;
 }
 
 export default function FilterBar({ label, options, value, onChange }: Props) {
@@ -29,9 +28,9 @@ export default function FilterBar({ label, options, value, onChange }: Props) {
         animate={{ height: expanded ? 'auto' : 48 }}
         initial={{ height: 48 }}
       >
-        <li className={'h-[48] cursor-pointer leading-[48px]'}>
+        <li className={'h-[48] leading-[48px]'}>
           <span
-            className={clsx({
+            className={clsx('cursor-pointer', {
               'text-primary': value === undefined
             })}
             onClick={() => onChange?.(undefined)}
@@ -40,12 +39,9 @@ export default function FilterBar({ label, options, value, onChange }: Props) {
           </span>
         </li>
         {options.map((item) => (
-          <li
-            key={item.id}
-            className={'h-[48] cursor-pointer leading-[48px] text-[#424242]'}
-          >
+          <li key={item.id} className={'h-[48] leading-[48px] text-[#424242]'}>
             <span
-              className={clsx({
+              className={clsx('cursor-pointer', {
                 'text-primary': value === item.id
               })}
               onClick={() => onChange?.(item.id)}

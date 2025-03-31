@@ -1,5 +1,4 @@
 import useUpdateEffect from '@/app/hooks/useUpdateEffect';
-import { CarouselProps } from '@/components/ui/carousel/index';
 import {
   Children,
   useCallback,
@@ -8,6 +7,7 @@ import {
   useRef,
   useState
 } from 'react';
+import { CarouselProps } from './index';
 
 export default function useCarousel({
   direction: direction1,

@@ -84,7 +84,7 @@ export default function Carousel({
   }));
 
   return (
-    <div
+    <ul
       style={
         {
           ...style,
@@ -98,7 +98,7 @@ export default function Carousel({
       onMouseLeave={startPlay}
     >
       {Children.map(children, (child, index) => (
-        <div
+        <li
           className={clsx(
             styles.carouselItem,
             styles[animation],
@@ -109,8 +109,8 @@ export default function Carousel({
           )}
         >
           {child}
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

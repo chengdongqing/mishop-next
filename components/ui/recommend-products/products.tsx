@@ -36,9 +36,9 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
           <ProductGrid key={index} products={products} />
         ))}
       </Carousel>
-      <div className={'flex justify-center p-3.5'}>
+      <ul className={'flex justify-center p-3.5'}>
         {[...Array(panels.length)].map((_, index) => (
-          <div
+          <li
             key={index}
             className={clsx(
               'mx-2 h-2.5 w-2.5 cursor-pointer rounded-full border-2 border-[#f5f5f5] opacity-80 duration-500',
@@ -51,7 +51,7 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
             }}
           />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
@@ -84,7 +84,7 @@ function ProductCard({ product }: { product: SearchProduct }) {
           className={'mt-[40] mb-[20] h-[140] w-[140] object-scale-down'}
         />
         <h4 className={'mb-2.5'}>{product.name}</h4>
-        <span className={'mb-2.5 text-[var(--color-primary)]'}>
+        <span className={'text-primary mb-2.5'}>
           {formatAmount(product.price)}
         </span>
         <span className={'text-[#757575]'}>20.4万人好评</span>

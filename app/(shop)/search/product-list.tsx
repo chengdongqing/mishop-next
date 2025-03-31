@@ -41,9 +41,7 @@ function ProductItem({ product }: { product: SearchProduct }) {
         />
         <div className={'text-sm text-[rgb(117,117,117)]'}>{product.name}</div>
         <div>
-          <span className={'text-[var(--color-primary)]'}>
-            {formatAmount(product.price)}
-          </span>
+          <span className={'text-primary'}>{formatAmount(product.price)}</span>
           {product.originalPrice && product.originalPrice > product.price && (
             <span className={'ml-1 text-[rgb(176,176,176)] line-through'}>
               {formatAmount(product.originalPrice)}

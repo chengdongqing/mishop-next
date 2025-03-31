@@ -1,13 +1,20 @@
 import { ProductOrderBy } from '@/app/enums';
 import { db } from '@/app/lib/db';
-import { products, productSkus } from '@/app/lib/schema';
+import {
+  productCategories,
+  productLabels,
+  products,
+  productSkus
+} from '@/app/lib/schema';
 import { SearchProduct } from '@/app/types/product';
-import { and, desc, eq, like, sql } from 'drizzle-orm';
+import { and, desc, eq, gt, like, sql } from 'drizzle-orm';
 
 interface SearchRequest {
   keyword: string;
   categoryId: number;
+  labelId: number;
   orderBy: ProductOrderBy;
+  onlyAvailable: boolean;
   page: number;
   limit: number;
 }
@@ -15,6 +22,7 @@ interface SearchRequest {
 export async function searchProducts(
   request: Partial<SearchRequest> = {}
 ): Promise<SearchProduct[]> {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const orderBy = getOrderBy(request.orderBy);
 
   const list = await db
@@ -25,9 +33,7 @@ export async function searchProducts(
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
       pictureUrls: sql<string>`group_concat
-      (
-      ${productSkus.pictureUrl}
-      )`
+          ( ${productSkus.pictureUrl})`
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
@@ -38,7 +44,8 @@ export async function searchProducts(
           : undefined,
         request.keyword
           ? like(products.name, `%${request.keyword}%`)
-          : undefined
+          : undefined,
+        request.onlyAvailable ? gt(productSkus.stocks, 0) : undefined
       )
     )
     .groupBy(products.id)
@@ -74,4 +81,23 @@ function getOrderBy(orderBy?: ProductOrderBy) {
     default:
       return desc(products.createdAt);
   }
+}
+
+export function findProductCategories() {
+  return db
+    .select({
+      id: productCategories.id,
+      name: productCategories.name
+    })
+    .from(productCategories)
+    .where(eq(productCategories.parentId, 0));
+}
+
+export function findProductLabels() {
+  return db
+    .select({
+      id: productLabels.id,
+      name: productLabels.name
+    })
+    .from(productLabels);
 }

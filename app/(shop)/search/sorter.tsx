@@ -4,11 +4,16 @@ import { ProductOrderBy } from '@/app/enums';
 import Space from '@/components/ui/space';
 import { ArrowLongDownIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
-import { useState } from 'react';
 
-export default function Sorter() {
-  const [value, setValue] = useState(ProductOrderBy.NEWEST);
+interface Props {
+  value: ProductOrderBy | undefined;
+  onChange?: (value: ProductOrderBy) => void;
+}
 
+export default function Sorter({
+  value = ProductOrderBy.NEWEST,
+  onChange
+}: Props) {
   return (
     <Space
       size={30}
@@ -18,9 +23,9 @@ export default function Sorter() {
         <span
           key={option.label}
           className={clsx('cursor-pointer text-sm text-[#424242] select-none', {
-            'text-[var(--color-primary)]': option.type === value
+            'text-primary': option.type === value
           })}
-          onClick={() => setValue(option.type)}
+          onClick={() => onChange?.(option.type)}
         >
           {option.label}
         </span>
@@ -29,7 +34,7 @@ export default function Sorter() {
         className={clsx(
           'flex cursor-pointer text-sm text-[#424242] select-none',
           {
-            'text-[var(--color-primary)]': [
+            'text-primary': [
               ProductOrderBy.PRICE_ASC,
               ProductOrderBy.PRICE_DESC
             ].includes(value)
@@ -40,7 +45,7 @@ export default function Sorter() {
             value === ProductOrderBy.PRICE_DESC
               ? ProductOrderBy.PRICE_ASC
               : ProductOrderBy.PRICE_DESC;
-          setValue(newValue);
+          onChange?.(newValue);
         }}
       >
         价格

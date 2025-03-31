@@ -213,7 +213,7 @@ const createLabelTableSql = `
         id          int auto_increment
             primary key,
         name        varchar(100)                        not null comment '名称',
-        picture_url varchar(255)                        not null comment '图片地址',
+        picture_url varchar(255) comment '图片地址',
         created_at  timestamp default CURRENT_TIMESTAMP not null,
         updated_at  timestamp default (now())           null,
         constraint product_labels_pk_2
