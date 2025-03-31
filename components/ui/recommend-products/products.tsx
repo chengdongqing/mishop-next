@@ -27,7 +27,6 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
     <div>
       <Carousel
         ref={carouselRef}
-        autoplay={false}
         interval={5000}
         animation={'scrollX'}
         afterChange={setCurrent}
