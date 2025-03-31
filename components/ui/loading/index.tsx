@@ -7,12 +7,10 @@ export default function Loading({
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={clsx(styles.container, className)} {...rest}>
-      {Array(3)
-        .fill(0)
-        .map((_, index) => (
-          <span key={index} className={styles.icon} />
-        ))}
+    <div className={clsx(styles.loading, className)} {...rest}>
+      {[...Array(3)].map((_, index) => (
+        <span key={index} className={styles.indicatorItem} />
+      ))}
     </div>
   );
 }

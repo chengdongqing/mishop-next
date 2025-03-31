@@ -21,7 +21,7 @@ export default async function SearchPage() {
           <ProductList products={products} />
           <Pagination totalSize={100} />
           <div className={'h-[80]'} />
-          <RecommendProducts />
+          <RecommendProducts size={20} />
         </div>
       </section>
     </>

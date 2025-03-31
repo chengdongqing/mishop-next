@@ -1,4 +1,4 @@
-.container {
+.loading {
     padding: 10px;
     margin: auto;
     display: flex;
@@ -27,7 +27,7 @@
     }
 }
 
-.icon {
+.indicatorItem {
     display: inline-block;
     width: 4px;
     margin-right: 5px;

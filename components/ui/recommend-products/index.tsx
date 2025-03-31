@@ -1,7 +1,7 @@
 import { ProductOrderBy } from '@/app/enums';
 import { searchProducts } from '@/app/services/products';
 import clsx from 'clsx';
-import { ProductCarousel, ProductGrid } from './panels';
+import { ProductCarousel, ProductGrid } from './products';
 
 interface Props {
   title?: string;

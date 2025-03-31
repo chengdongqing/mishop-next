@@ -30,7 +30,7 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
         autoplay={false}
         interval={5000}
         animation={'scrollX'}
-        onChange={setCurrent}
+        afterChange={setCurrent}
         style={{ height: 300 }}
       >
         {panels.map((products, index) => (

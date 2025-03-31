@@ -17,7 +17,7 @@ export default function HeroCarousel({ banners }: { banners: Banner[] }) {
         ref={carouselRef}
         interval={6000}
         duration={800}
-        onChange={setCurrent}
+        afterChange={setCurrent}
       >
         {banners.map((banner) => (
           <a
