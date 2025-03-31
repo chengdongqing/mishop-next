@@ -3,13 +3,18 @@
 import { formatAmount } from '@/app/lib/utils';
 import { LayoutHeaderNav } from '@/app/types/layout';
 import { Product } from '@/app/types/product';
+import Loading from '@/components/ui/loading';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, use, useEffect, useRef, useState } from 'react';
 import Search from './search';
 
-export default function NavBar({ navs }: { navs: LayoutHeaderNav[] }) {
+export default function NavBar({
+  navsPromise
+}: {
+  navsPromise: Promise<LayoutHeaderNav[]>;
+}) {
   const [products, setProducts] = useState<Product[]>([]);
   const isMouseEnter = useRef(false);
   const timer = useRef<NodeJS.Timeout>(null);
@@ -19,22 +24,30 @@ export default function NavBar({ navs }: { navs: LayoutHeaderNav[] }) {
       <div className={'h-[100px]'}>
         <div className={'w-primary flex h-full items-center'}>
           <Logo />
-          <Navs
-            navs={navs}
-            onProductsChange={(products) => {
-              if (timer.current) {
-                clearTimeout(timer.current);
-              }
-              setProducts(products);
-            }}
-            onMouseLeave={() => {
-              timer.current = setTimeout(() => {
-                if (!isMouseEnter.current) {
-                  setProducts([]);
+          <Suspense
+            fallback={
+              <div className={'flex-1 text-center'}>
+                <Loading />
+              </div>
+            }
+          >
+            <Navs
+              navsPromise={navsPromise}
+              onProductsChange={(products) => {
+                if (timer.current) {
+                  clearTimeout(timer.current);
                 }
-              }, 300);
-            }}
-          />
+                setProducts(products);
+              }}
+              onMouseLeave={() => {
+                timer.current = setTimeout(() => {
+                  if (!isMouseEnter.current) {
+                    setProducts([]);
+                  }
+                }, 300);
+              }}
+            />
+          </Suspense>
           <Suspense>
             <Search />
           </Suspense>
@@ -69,14 +82,16 @@ function Logo() {
 }
 
 function Navs({
-  navs,
+  navsPromise,
   onProductsChange,
   onMouseLeave
 }: {
-  navs: LayoutHeaderNav[];
+  navsPromise: Promise<LayoutHeaderNav[]>;
   onProductsChange: (products: Product[]) => void;
   onMouseLeave: () => void;
 }) {
+  const navs = use(navsPromise);
+
   return (
     <ul className={'flex h-full'} onMouseLeave={onMouseLeave}>
       {navs.map((nav) => (

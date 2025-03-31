@@ -6,7 +6,7 @@ import Banner from './banner';
 import Bricks, { BrickSkeleton } from './bricks';
 import Hero, { HeroSkeleton } from './hero';
 import HeroSub from './hero-sub';
-import VideoBar from './video-bar';
+import Videos from './videos';
 
 export default async function HomePage() {
   const banners = await findBannersByType(BannerType.HOME_BANNER, 2);
@@ -24,7 +24,7 @@ export default async function HomePage() {
         </Suspense>
         {banners[1] && <Banner banner={banners[1]} />}
         <Suspense fallback={<Loading className={'h-[289]'} />}>
-          <VideoBar />
+          <Videos />
         </Suspense>
       </div>
     </>

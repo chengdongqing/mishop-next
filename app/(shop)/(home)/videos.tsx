@@ -3,7 +3,7 @@ import VideoCard from '@/components/ui/video-card';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
-export default async function VideoBar() {
+export default async function Videos() {
   const videos = await findVideos(4);
 
   if (!videos.length) {
