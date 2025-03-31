@@ -14,10 +14,10 @@ export default function CategoryBar({
   const [items, setItems] = useState<LayoutHeroCategoryItem[]>([]);
 
   return (
-    <div className={'z-20'} onMouseLeave={() => setItems([])}>
+    <div onMouseLeave={() => setItems([])}>
       <ul
         className={
-          'absolute top-0 left-0 h-[460] w-[234] bg-[rgba(105,101,101,.6)] py-[20]'
+          'absolute top-0 left-0 z-10 h-[460] w-[234] bg-[rgba(105,101,101,.6)] py-[20]'
         }
       >
         {categories.map((category) => (
@@ -47,7 +47,7 @@ function ProductsPanel({ items }: { items: LayoutHeroCategoryItem[] }) {
   return (
     <ul
       className={
-        'border-primary absolute top-0 left-[234] z-20 grid h-[460] grid-flow-col grid-rows-6 border-1 bg-white shadow-[0_8px_16px_rgba(0,0,0,.18)]'
+        'border-primary absolute top-0 left-[234] z-10 grid h-[460] grid-flow-col grid-rows-6 border-1 bg-white shadow-[0_8px_16px_rgba(0,0,0,.18)]'
       }
     >
       {items.slice(0, 24).map((item) => (

@@ -1,28 +1,29 @@
 import { ProductOrderBy } from '@/app/enums';
 import { searchProducts } from '@/app/services/products';
 import clsx from 'clsx';
-import ProductGrid from './product-grid';
-import ProductSwiper from './product-swiper';
+import { ProductCarousel, ProductGrid } from './panels';
 
 interface Props {
   title?: string;
-  type?: 'swiper' | 'grid';
+  type?: 'carousel' | 'grid';
+  size?: number;
 }
 
 export default async function RecommendProducts({
   title = '猜你喜欢',
-  type = 'swiper'
+  type = 'carousel',
+  size = 10
 }: Props) {
   const products = await searchProducts({
     orderBy: ProductOrderBy.RATING,
-    limit: 10
+    limit: size
   });
 
   return (
     <section>
       <Header title={title} />
-      {type === 'swiper' ? (
-        <ProductSwiper products={products} />
+      {type === 'carousel' ? (
+        <ProductCarousel products={products} />
       ) : (
         <ProductGrid products={products} />
       )}

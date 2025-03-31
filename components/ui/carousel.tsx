@@ -1,5 +1,6 @@
 'use client';
 
+import useLatest from '@/app/hooks/useLatest';
 import clsx from 'clsx';
 import {
   Children,
@@ -25,7 +26,7 @@ interface CarouselProps extends PropsWithChildren {
   autoplay?: boolean;
   interval?: number;
   duration?: number;
-  animation?: 'scrollX' | 'scrollY' | 'fade';
+  animation?: 'scrollX' | 'fade';
   onChange?: (index: number) => void;
   ref?: RefObject<CarouselInstance | null>;
 }
@@ -84,10 +85,10 @@ export default function Carousel({
     }
   }));
 
+  const onChangeRef = useLatest(onChange);
   useEffect(() => {
-    onChange?.(current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current]);
+    onChangeRef.current?.(current);
+  }, [current, onChangeRef]);
 
   return (
     <ul

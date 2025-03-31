@@ -9,11 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useRef, useState } from 'react';
 
-export default function ProductSwiper({
-  products
-}: {
-  products: SearchProduct[];
-}) {
+export function ProductCarousel({ products }: { products: SearchProduct[] }) {
   const carouselRef = useRef<CarouselInstance>(null);
   const [current, setCurrent] = useState(0);
 
@@ -31,13 +27,14 @@ export default function ProductSwiper({
     <div>
       <Carousel
         ref={carouselRef}
+        autoplay={false}
         interval={5000}
         animation={'scrollX'}
         onChange={setCurrent}
         style={{ height: 300 }}
       >
         {panels.map((products, index) => (
-          <ProductBlocks key={index} products={products} />
+          <ProductGrid key={index} products={products} />
         ))}
       </Carousel>
       <div className={'flex justify-center p-3.5'}>
@@ -60,7 +57,7 @@ export default function ProductSwiper({
   );
 }
 
-function ProductBlocks({ products }: { products: SearchProduct[] }) {
+export function ProductGrid({ products }: { products: SearchProduct[] }) {
   return (
     <ul className={'w-primary grid grid-cols-5 gap-3.5'}>
       {products.map((product) => (
