@@ -3,16 +3,20 @@
 import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import { SearchProduct } from '@/app/types/product';
 import Button from '@/components/ui/button';
-import Carousel from '@/components/ui/carousel';
+import Carousel, { CarouselInstance } from '@/components/ui/carousel';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 export default function ProductSwiper({
   products
 }: {
   products: SearchProduct[];
 }) {
+  const carouselRef = useRef<CarouselInstance>(null);
+  const [current, setCurrent] = useState(0);
+
   const panels = useMemo(() => {
     const data = [];
     for (let i = 0; i < products.length; i++) {
@@ -25,11 +29,33 @@ export default function ProductSwiper({
 
   return (
     <div>
-      <Carousel interval={5000} animation={'scrollX'} style={{ height: 300 }}>
+      <Carousel
+        ref={carouselRef}
+        interval={5000}
+        animation={'scrollX'}
+        onChange={setCurrent}
+        style={{ height: 300 }}
+      >
         {panels.map((products, index) => (
           <ProductBlocks key={index} products={products} />
         ))}
       </Carousel>
+      <div className={'flex justify-center p-3.5'}>
+        {[...Array(panels.length)].map((_, index) => (
+          <div
+            key={index}
+            className={clsx(
+              'mx-2 h-2.5 w-2.5 cursor-pointer rounded-full border-2 border-[#f5f5f5] opacity-80 duration-500',
+              index === current
+                ? 'border-[var(--color-primary)] bg-[#f5f5f5] opacity-100'
+                : 'bg-[rgba(0,0,0,.4)]'
+            )}
+            onClick={() => {
+              carouselRef.current?.to(index);
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -45,11 +71,13 @@ function ProductBlocks({ products }: { products: SearchProduct[] }) {
 }
 
 function ProductCard({ product }: { product: SearchProduct }) {
+  const [isActive, setIsActive] = useState(false);
+
   return (
     <Link key={product.id} href={buildProductUrl(product.id)}>
       <li
         className={
-          'group flex h-[300] flex-col items-center overflow-hidden bg-white text-sm'
+          'group relative flex h-[300] flex-col items-center overflow-hidden bg-white text-sm'
         }
       >
         <Image
@@ -67,10 +95,28 @@ function ProductCard({ product }: { product: SearchProduct }) {
         <Button
           outlined
           size={'small'}
-          className={'absolute bottom-[-35px] group-hover:bottom-3.5'}
+          className={'absolute bottom-[-30] group-hover:bottom-3.5'}
+          onClick={(e) => {
+            e.preventDefault();
+
+            setIsActive(true);
+            setTimeout(() => {
+              setIsActive(false);
+            }, 1000);
+          }}
         >
           加入购物车
         </Button>
+        <div
+          className={clsx(
+            'absolute top-0 right-0 left-0 flex h-[38] items-center justify-center bg-[var(--color-success)] text-white duration-200 ease-linear',
+            isActive
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-[-10px] opacity-0'
+          )}
+        >
+          成功加入购物车
+        </div>
       </li>
     </Link>
   );

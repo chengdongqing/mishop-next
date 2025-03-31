@@ -101,7 +101,7 @@ export default function Carousel({
           <li
             className={clsx(
               'absolute top-0 left-0',
-              index === current ? 'opacity-100' : 'opacity-0'
+              index === current ? 'z-1 opacity-100' : 'z-0 opacity-0'
             )}
             style={{ transition: `${duration}ms` }}
           >

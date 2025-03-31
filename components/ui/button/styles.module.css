@@ -2,6 +2,7 @@
     width: 160px;
     height: 40px;
     font-size: 14px;
+    line-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,6 +42,7 @@
     &.small {
         width: 120px;
         height: 30px;
+        line-height: 30px;
         font-size: 12px;
     }
 
