@@ -35,7 +35,12 @@ export async function findHeaderNavs() {
           })
           .from(layoutHeaderNavItems)
           .leftJoin(products, eq(layoutHeaderNavItems.productId, products.id))
-          .where(eq(layoutHeaderNavItems.parentId, nav.id))
+          .where(
+            and(
+              eq(products.enabled, true),
+              eq(layoutHeaderNavItems.parentId, nav.id)
+            )
+          )
           .limit(6)
       : [];
 
@@ -91,7 +96,12 @@ async function findHeroCategoryItems(
       eq(layoutHeroCategoryItems.associatedId, productCategories.id)
     )
     .leftJoin(products, eq(layoutHeroCategoryItems.associatedId, products.id))
-    .where(eq(layoutHeroCategoryItems.parentId, category.id))
+    .where(
+      and(
+        eq(products.enabled, true),
+        eq(layoutHeroCategoryItems.parentId, category.id)
+      )
+    )
     .limit(24);
 
   return items.map((item) => {
@@ -155,7 +165,9 @@ export async function findBricks() {
         id: tab.id,
         name: tab.name,
         keyword: tab.keyword,
-        children: tab.items.map((item) => mapProduct(item.product))
+        children: tab.items
+          .map((item) => mapProduct(item.product))
+          .filter((item) => item.enabled)
       } as LayoutBrickTab;
     });
 

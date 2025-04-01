@@ -28,7 +28,9 @@ export async function searchProducts(
 
   // 获取符合条件的产品总数
   const totalQuery = await db
-    .select({ count: sql<number>`count(*)` })
+    .select({
+      id: products.id
+    })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
     .where(conditions)
@@ -50,9 +52,7 @@ export async function searchProducts(
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
       pictureUrls: sql<string>`group_concat
-      (
-      ${productSkus.pictureUrl}
-      )`
+          ( ${productSkus.pictureUrl})`
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
@@ -82,6 +82,7 @@ export async function searchProducts(
 
 function getSearchConditions(request: Partial<SearchRequest>) {
   return and(
+    eq(products.enabled, true),
     request.categoryId
       ? eq(products.categoryId, request.categoryId)
       : undefined,
@@ -124,3 +125,5 @@ export function findProductLabels() {
     })
     .from(productLabels);
 }
+
+export async function findRecommendedProducts() {}
