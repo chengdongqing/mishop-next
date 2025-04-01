@@ -59,7 +59,9 @@ export default function FilterGroup({
           />
           <Checkbox
             checked={onlyAvailable ? Boolean(Number(onlyAvailable)) : false}
-            onChange={(value) => handleSearch('onlyAvailable', value ? 1 : 0)}
+            onChange={(value) =>
+              handleSearch('onlyAvailable', value ? 1 : undefined)
+            }
           >
             仅看有货
           </Checkbox>
