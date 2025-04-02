@@ -21,8 +21,6 @@ interface SearchRequest extends PageRequest {
 export async function searchProducts(
   request: Partial<SearchRequest> = {}
 ): Promise<Page<SearchProduct>> {
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const orderBy = getOrderBy(request.orderBy);
   const conditions = getSearchConditions(request);
 

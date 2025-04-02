@@ -46,6 +46,8 @@ export default async function SearchPage({
     size: pageSize
   });
 
+  const searchKey = `${q ?? ''}-${categoryId ?? ''}-${labelId ?? ''}-${orderBy ?? ''}-${onlyAvailable ?? ''}-${currentPage}`;
+
   return (
     <>
       <Breadcrumb value={'全部结果'} split={'>'} />
@@ -54,7 +56,10 @@ export default async function SearchPage({
       </Suspense>
       <section className={'bg-primary pb-[30]'}>
         <div className={'w-primary'}>
-          <Suspense fallback={<Loading className={'bg-primary h-[20vh]'} />}>
+          <Suspense
+            key={searchKey}
+            fallback={<Loading className={'bg-primary h-[20vh]'} />}
+          >
             <SearchResult search={search} />
             <div className={'h-[80]'} />
             <RecommendProducts />
