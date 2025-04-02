@@ -3,6 +3,7 @@
 import { Page } from '@/app/types/common';
 import { SearchProduct } from '@/app/types/product';
 import Pagination from '@/components/ui/pagination';
+import { DocumentMagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { use } from 'react';
 import ProductList from './product-list';
@@ -25,7 +26,16 @@ export default function SearchResult({
   }
 
   if (!products.length) {
-    return <div>no data...</div>;
+    return (
+      <div
+        className={
+          'flex flex-col items-center py-[10vh] text-center text-lg text-[#b0b0b0]'
+        }
+      >
+        <DocumentMagnifyingGlassIcon className={'mb-5 w-20'} />
+        对应筛选条件下没有找到商品，换个筛选条件吧
+      </div>
+    );
   }
 
   return (
