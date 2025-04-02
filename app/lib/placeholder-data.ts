@@ -1335,6 +1335,26 @@ export const productSkusData: ProductSku[] = [
   }
 ];
 
+interface ProductReview {
+  id: number;
+  productId: number;
+  orderId: number;
+  userId: number;
+  rating: number;
+  content?: string;
+  photoUrls?: string[];
+}
+
+export const productReviewsData: ProductReview[] = [
+  {
+    id: 1,
+    productId: 1,
+    orderId: 1,
+    userId: 1,
+    rating: 5
+  }
+];
+
 export const carouselsData: Banner[] = [
   {
     src: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e389157059c44d9352b42e04407cbb7.jpg?w=2452&h=920',

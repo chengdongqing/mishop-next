@@ -2,12 +2,14 @@ import { SchemaType } from '@/app/lib/db';
 import {
   productCategoriesData,
   productLabelsData,
+  productReviewsData,
   productsData,
   productSkusData
 } from '@/app/lib/placeholder-data';
 import {
   productCategories,
   productLabels,
+  productReviews,
   products,
   productSkus
 } from '@/app/lib/schema';
@@ -220,4 +222,41 @@ const createLabelTableSql = `
             unique (name)
     )
         comment '商品标签表';
+`;
+
+export async function seedProductReviews(
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
+  >
+) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.product_reviews;');
+
+  // 创建表
+  await tx.execute(createReviewTableSql);
+
+  // 清空表
+  await tx.delete(productReviews);
+
+  // 插入数据
+  await tx.insert(productReviews).values(productReviewsData);
+}
+
+const createReviewTableSql = `
+    create table mishop.product_reviews
+    (
+        id           int auto_increment primary key,
+        product_id   int                                 not null comment '商品id',
+        order_id     int                                 not null comment '订单id',
+        user_id      int                                 not null comment '用户id',
+        rating       int                                 not null comment '评分',
+        content      text comment '评价的内容',
+        photo_urls   text comment '上传的图片',
+        is_anonymous boolean   default false comment '是否匿名',
+        created_at   timestamp default CURRENT_TIMESTAMP not null,
+        updated_at   timestamp default (now())           null
+    );
 `;

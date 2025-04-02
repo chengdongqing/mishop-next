@@ -14,6 +14,7 @@ import { seedBanners } from './banners';
 import {
   seedProductCategories,
   seedProductLabels,
+  seedProductReviews,
   seedProducts,
   seedProductSkus
 } from './products';
@@ -42,6 +43,7 @@ function getSeeds(
     seedProductSkus(tx),
     seedProductLabels(tx),
     seedProductCategories(tx),
+    seedProductReviews(tx),
     seedBanners(tx),
     seedVideos(tx),
     seedLayoutHeader(tx),

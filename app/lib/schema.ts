@@ -72,6 +72,19 @@ export const productLabels = mysqlTable('product_labels', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const productReviews = mysqlTable('product_reviews', {
+  id: serial('id').primaryKey(),
+  productId: int('product_id').notNull(),
+  orderId: int('order_id').notNull(),
+  userId: int('user_id').notNull(),
+  rating: int('rating').default(5).notNull(),
+  content: text('content'),
+  photoUrls: json('photo_urls'),
+  isAnonymous: boolean('is_anonymous').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const banners = mysqlTable('banners', {
   id: serial('id').primaryKey(),
   type: mysqlEnum('type', [

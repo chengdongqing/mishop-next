@@ -124,4 +124,38 @@ export function findProductLabels() {
     .from(productLabels);
 }
 
-export async function findRecommendedProducts() {}
+export async function findRecommendedProducts(limits: number = 10) {
+  const res = await db.execute(sql<
+    {
+      id: number;
+      name: string;
+      pictureUrl: string;
+      skuId: number;
+      skuName: string;
+      price: number;
+      limits: number;
+      reviews: number;
+    }[]
+  >`
+      select any_value(p.id)      as id,
+             any_value(p.name)    as name,
+             ps.picture_url       as pictureUrl,
+             any_value(ps.id)     as skuId,
+             any_value(ps.name)   as skuName,
+             any_value(ps.price)  as price,
+             any_value(ps.limits) as limits,
+             (select count(*)
+              from mishop.product_reviews
+              where product_id = any_value(p.id)
+                and rating >= 3)  as reviews
+      from mishop.products p
+               inner join mishop.product_skus ps on p.id = ps.product_id
+      where p.enabled = true
+        and ps.stocks > 0
+      group by ps.picture_url
+      order by rand()
+      limit ${limits}
+  `);
+
+  return res[0];
+}

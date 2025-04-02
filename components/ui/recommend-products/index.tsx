@@ -16,6 +16,8 @@ export default async function RecommendProducts({
   type = 'carousel',
   size = 10
 }: Props) {
+  // const products1 = await findRecommendedProducts();
+
   const { data: products } = await searchProducts({
     orderBy: ProductOrderBy.SELLING,
     size
