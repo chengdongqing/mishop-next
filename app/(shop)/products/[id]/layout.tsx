@@ -32,7 +32,9 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
               <ProductLink href={'/products/1/specs'}>参数页</ProductLink>
               <ProductLink href={'/products/1/reviews'}>用户评价</ProductLink>
             </Space>
-            <Button size={'small'}>立即购买</Button>
+            <Link href={'/products/1/buy'}>
+              <Button size={'small'}>立即购买</Button>
+            </Link>
           </Space>
         </div>
       </div>
@@ -50,7 +52,7 @@ function ProductLink({ children, href }: ProductLinkProps) {
     <Link
       href={href}
       className={
-        'cursor-pointer text-sm text-[#616161] hover:text-[var(--color-primary)]'
+        'cursor-pointer text-sm leading-[10px] text-[#616161] hover:text-[var(--color-primary)]'
       }
     >
       {children}
