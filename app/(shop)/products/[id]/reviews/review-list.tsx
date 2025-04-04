@@ -8,15 +8,27 @@ import Image from 'next/image';
 
 export default function ReviewList() {
   return (
-    <ul className={'w-[792]'}>
-      <ReviewItem />
-    </ul>
+    <div className={'w-[792]'}>
+      <ul>
+        {[...Array(10)].map((_, index) => (
+          <ReviewItem key={index} />
+        ))}
+      </ul>
+
+      <button
+        className={
+          'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white text-sm'
+        }
+      >
+        加载更多
+      </button>
+    </div>
   );
 }
 
 function ReviewItem() {
   return (
-    <li className={'relative bg-white p-[40_40_46_103]'}>
+    <li className={'relative mb-3.5 bg-white p-[40_40_46_103] last:mb-0'}>
       <ReviewHeader />
       <ReviewContent />
       <ReviewPhotos />
@@ -70,7 +82,7 @@ function ReviewPhotos() {
   const photoSize = singlePhoto ? 330 : 160;
 
   return (
-    <div className={'mt-3.5 flex gap-2'}>
+    <div className={'mt-3.5 grid grid-cols-4 gap-2'}>
       {urls.map((url, index) => (
         <Image
           key={url}

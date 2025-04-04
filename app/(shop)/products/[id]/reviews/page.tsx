@@ -1,3 +1,4 @@
+import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
 import SatisfactionLevel from './satisfaction-level';
@@ -10,9 +11,12 @@ export default function ProductReviewsPage() {
           all={1212234}
           scoresMap={{ 1: 34334, 2: 3847, 3: 349543, 4: 2342, 5: 123 }}
         />
-        <div className={'mt-3.5 flex w-full gap-x-3.5'}>
+        <div className={'relative mt-3.5 flex w-full gap-x-3.5'}>
           <ReviewList />
-          <SatisfactionLevel />
+          <div className={'h-full flex-1'}>
+            <SatisfactionLevel />
+            <GoTopButton />
+          </div>
         </div>
       </div>
     </div>

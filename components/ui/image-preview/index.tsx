@@ -1,3 +1,4 @@
+import { useKeyboardEscape } from '@/app/hooks/useKeyboardShortcuts';
 import useSetState, { SetStateAction } from '@/app/hooks/useSetState';
 import { downloadFileCrossOrigin } from '@/app/lib/utils';
 import {
@@ -20,27 +21,29 @@ import { createRoot, Root } from 'react-dom/client';
 import styles from './styles.module.css';
 
 interface ImagePreviewProps {
-  // 图片源地址
   urls: string[];
-  // 默认选中的图片索引
   index?: number;
 
-  // 关闭事件
   onClose(): void;
 }
 
 function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    setOpen(true);
+    setTimeout(() => setOpen(true));
   }, []);
 
+  function handleClose() {
+    setOpen(false);
+    setTimeout(onClose, 500);
+  }
+
+  useKeyboardEscape(handleClose);
+
   const [current, setCurrent] = useState(index);
-  const [transform, setTransform] = useSetState({
-    scale: 1,
-    rotate: 0
-  });
-  const isFirst = useMemo(() => current === 0, [current]);
+  const isFirst = useMemo(() => {
+    return current === 0;
+  }, [current]);
   const isLast = useMemo(() => {
     return current === urls.length - 1;
   }, [current, urls.length]);
@@ -48,17 +51,18 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
     setCurrent(index);
   }, [urls, index]);
 
+  const [transform, setTransform] = useSetState({
+    scale: 1,
+    rotate: 0
+  });
+
+  useEffect(() => {}, []);
+
   return (
     <div className={clsx(styles.container, open && styles.open)}>
-      <div
-        className={styles.btn_close}
-        onClick={() => {
-          setOpen(false);
-          setTimeout(onClose, 500);
-        }}
-      >
-        <XMarkIcon className={'w-4'} />
-      </div>
+      <button className={styles.btn_close} onClick={handleClose}>
+        <XMarkIcon className={styles.icon} />
+      </button>
 
       <div className={styles.image_wrapper}>
         <img
@@ -70,7 +74,7 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
         />
       </div>
 
-      <div
+      <button
         className={clsx(
           styles.btn_switch,
           styles.left,
@@ -83,9 +87,9 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
           }
         }}
       >
-        <ChevronLeftIcon className={'w-4'} />
-      </div>
-      <div
+        <ChevronLeftIcon className={styles.icon} />
+      </button>
+      <button
         className={clsx(
           styles.btn_switch,
           styles.right,
@@ -98,15 +102,15 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
           }
         }}
       >
-        <ChevronRightIcon className={'w-4'} />
-      </div>
+        <ChevronRightIcon className={styles.icon} />
+      </button>
 
-      <FooterBar src={urls[current]} onChange={setTransform} />
+      <ActionBar src={urls[current]} onChange={setTransform} />
     </div>
   );
 }
 
-function FooterBar({
+function ActionBar({
   src,
   onChange
 }: {
@@ -117,35 +121,37 @@ function FooterBar({
     <div className={styles.footer}>
       <Space split={'|'} size={30}>
         <Space size={20}>
-          <MinusCircleIcon
-            className={'w-4'}
+          <button
             title={'缩小图片'}
             onClick={() => {
               onChange((value) => ({
                 scale: value.scale - 0.3
               }));
             }}
-          />
-          <PlusCircleIcon
-            className={'w-4'}
+          >
+            <MinusCircleIcon className={styles.icon} />
+          </button>
+          <button
             title={'放大图片'}
             onClick={() => {
               onChange((value) => ({
                 scale: value.scale + 0.3
               }));
             }}
-          />
+          >
+            <PlusCircleIcon className={styles.icon} />
+          </button>
         </Space>
-        <Space>
-          <ArrowDownTrayIcon
-            className={'w-4'}
-            title={'下载到本地'}
+        <Space size={20}>
+          <button
+            title={'下载'}
             onClick={() => {
               downloadFileCrossOrigin('', src);
             }}
-          />
-          <ReloadIcon
-            className={'w-4'}
+          >
+            <ArrowDownTrayIcon className={styles.icon} />
+          </button>
+          <button
             title={'还原缩放'}
             onClick={() => {
               onChange({
@@ -153,27 +159,31 @@ function FooterBar({
                 rotate: 0
               });
             }}
-          />
+          >
+            <ReloadIcon className={styles.icon1} />
+          </button>
         </Space>
         <Space size={20}>
-          <RotateLeftIcon
-            className={'w-4'}
+          <button
             title={'向左旋转'}
             onClick={() => {
               onChange((value) => ({
                 rotate: value.rotate - 90
               }));
             }}
-          />
-          <RotateRightIcon
-            className={'w-4'}
+          >
+            <RotateLeftIcon className={styles.icon1} />
+          </button>
+          <button
             title={'向右旋转'}
             onClick={() => {
               onChange((value) => ({
                 rotate: value.rotate + 90
               }));
             }}
-          />
+          >
+            <RotateRightIcon className={styles.icon1} />
+          </button>
         </Space>
       </Space>
     </div>
@@ -183,7 +193,7 @@ function FooterBar({
 let popup: Root | undefined;
 export default function previewImages(urls: string[], index?: number) {
   popup?.unmount();
-  popup = createRoot(document.getElementById('popup') as HTMLElement);
+  popup = createRoot(document.getElementById('popup')!);
   popup.render(
     <ImagePreview
       urls={urls}

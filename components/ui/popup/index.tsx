@@ -1,3 +1,4 @@
+import { useKeyboardEscape } from '@/app/hooks/useKeyboardShortcuts';
 import Button from '@/components/ui/button';
 import CloseIcon from '@/components/ui/close-icon';
 import clsx from 'clsx';
@@ -52,6 +53,8 @@ function Popup({
   const [closing, setClosing] = useState(false);
   const [loading, setLoading] = useState(false);
   const finalLoading = loading || confirmLoading;
+
+  useKeyboardEscape(close);
 
   function close() {
     setClosing(true);
