@@ -3,9 +3,9 @@
 import { ProductOrderBy } from '@/app/enums';
 import { ProductCategory, ProductLabel } from '@/app/types/product';
 import Checkbox from '@/components/ui/checkbox';
-import FilterBar from '@/components/ui/filter-bar';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Key, use } from 'react';
+import FilterBar from './filter-bar';
 import Sorter from './sorter';
 
 export default function FilterGroup({
@@ -25,7 +25,7 @@ export default function FilterGroup({
 
   function handleSearch(field: string, value: Key | undefined) {
     const params = new URLSearchParams(searchParams);
-    if (value !== undefined) {
+    if (value) {
       params.set(field, value.toString());
     } else {
       params.delete(field);
@@ -64,9 +64,7 @@ export default function FilterGroup({
           />
           <Checkbox
             checked={onlyAvailable ? Boolean(Number(onlyAvailable)) : false}
-            onChange={(value) =>
-              handleSearch('onlyAvailable', value ? 1 : undefined)
-            }
+            onChange={(value) => handleSearch('onlyAvailable', value ? 1 : 0)}
           >
             仅看有货
           </Checkbox>

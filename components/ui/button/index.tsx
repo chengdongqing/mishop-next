@@ -1,4 +1,4 @@
-import { LoadingOutlined } from '@/components/icons';
+import { LoadingIcon } from '@/components/icons';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes } from 'react';
 import styles from './styles.module.css';
@@ -36,7 +36,7 @@ export default function Button({
         (disabled || loading) && styles.disabled
       )}
     >
-      {!!loading && <LoadingOutlined className={'mr-2 w-6 text-white'} />}
+      {!!loading && <LoadingIcon className={'mr-2 w-6 text-white'} />}
       {children}
     </button>
   );

@@ -24,6 +24,7 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
           </Space>
           <Space>
             <Space
+              className={'pt-1'}
               split={
                 <span className={'text-xs text-[var(--color-border)]'}>|</span>
               }

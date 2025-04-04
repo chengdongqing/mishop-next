@@ -33,7 +33,7 @@ const spaceAlign = {
 export default function Space({
   direction = 'horizontal',
   align = 'center',
-  size = '0.8rem',
+  size = 8,
   split,
   wrap,
   style,
