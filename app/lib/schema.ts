@@ -66,8 +66,8 @@ export const productCategories = mysqlTable('product_categories', {
 
 export const productLabels = mysqlTable('product_labels', {
   id: serial('id').primaryKey(),
-  name: varchar('name', { length: 100 }).notNull().unique(),
   categoryId: int('category_id').notNull(),
+  name: varchar('name', { length: 100 }).notNull().unique(),
   pictureUrl: varchar('picture_url', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()

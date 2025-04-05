@@ -33,8 +33,8 @@ export interface ProductCategory {
 
 export interface ProductLabel {
   id: number;
+  categoryId: number;
   name: string;
-  categoryId?: number;
   pictureUrl?: string;
 }
 

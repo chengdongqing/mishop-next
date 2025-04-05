@@ -41,7 +41,9 @@ export const productCategoriesData: ProductCategory[] = [
       },
       {
         id: 303,
-        name: '冰箱'
+        name: '冰箱',
+        pictureUrl:
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e6fe32cdaf14e104013384d89100f9c6.png?thumb=1&w=40&h=40&f=webp&q=90'
       },
       {
         id: 304,
@@ -278,68 +280,90 @@ export const productCategoriesData: ProductCategory[] = [
 export const productLabelsData: ProductLabel[] = [
   {
     id: 101,
-    name: '小米手机',
-    categoryId: 1
+    categoryId: 1,
+    name: '小米手机'
   },
   {
     id: 102,
-    name: 'Redmi手机',
-    categoryId: 1
+    categoryId: 1,
+    name: 'Redmi手机'
   },
   {
     id: 1,
+    categoryId: 1,
     name: 'Xiaomi 数字旗舰',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/182d59037498cad87202c36e1a8ea23c.png?thumb=1&f=webp&q=90'
   },
   {
     id: 2,
+    categoryId: 1,
     name: 'Xiaomi MIX系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb9e4a367f854221b60bb7b3b05e0173.png?thumb=1&f=webp&q=90'
   },
   {
     id: 3,
+    categoryId: 1,
     name: 'Xiaomi Civi系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8baabd4fc4255a2cf81636335b4cf0c1.png?thumb=1&f=webp&q=90'
   },
   {
     id: 4,
+    categoryId: 1,
     name: 'Redmi K系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55b0ecc7cc8ab3714f311cc5df3bd0ae.png?thumb=1&f=webp&q=90'
   },
   {
     id: 5,
+    categoryId: 1,
     name: 'Redmi Turbo系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e12d8f226458729f4c92063b09d4f0f2.png?thumb=1&f=webp&q=90'
   },
   {
     id: 6,
+    categoryId: 1,
     name: 'Redmi Note系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a57303e8ac0d52a8b714a078cc35bfa1.png?thumb=1&f=webp&q=90'
   },
   {
     id: 7,
+    categoryId: 1,
     name: 'Redmi 数字系列',
-    categoryId: 1
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c15a3d1b4e8bf2af17e6b5ad5559cfcb.png?thumb=1&f=webp&q=90'
   },
   {
     id: 8,
+    categoryId: 202,
     name: 'Redmi 平板',
-    categoryId: 202
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/627ca9afd92d4efa4e29dce497c7bf8b.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 9,
+    categoryId: 202,
     name: 'Xiaomi 平板',
-    categoryId: 202
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/01093ece938a05e0e6e6b64299eb89ae.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 10,
+    categoryId: 1205,
     name: '办公娱乐显示器',
-    categoryId: 1205
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/721960abfd3ba99426d74595124c0820.jpg?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 11,
+    categoryId: 1205,
     name: '游戏电竞显示器',
-    categoryId: 1205
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/722dcf898f2db1e5689a6df08e87b525.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 12,
@@ -373,33 +397,45 @@ export const productLabelsData: ProductLabel[] = [
   },
   {
     id: 18,
+    categoryId: 302,
     name: '壁挂空调',
-    categoryId: 302
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/630b9e523bb2e1387ce6c7be1edaca18.png?thumb=1&w=40&h=40'
   },
   {
     id: 19,
+    categoryId: 302,
     name: '立式空调',
-    categoryId: 302
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/20e478a62b19d36ff05e92763fe7396f.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 20,
+    categoryId: 302,
     name: '中央空调',
-    categoryId: 302
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/afcf69ccc6c889edb4ceeca205799d23.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 21,
+    categoryId: 304,
     name: '滚筒洗衣机',
-    categoryId: 304
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f23bac0cfa0082b79230350b87d27eea.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 22,
+    categoryId: 304,
     name: '波轮洗衣机',
-    categoryId: 304
+    pictureUrl:
+      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fd480335781b6c6d6c0ba586c5bb209c.png?thumb=1&w=40&h=40&f=webp&q=90'
   },
   {
     id: 23,
+    categoryId: 305,
     name: '落地风扇',
-    categoryId: 305
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3a3e4238b70ef8db89ae77f8a3762fc8.png?thumb=1&w=40&h=40'
   },
   {
     id: 24,
@@ -1847,123 +1883,38 @@ export const layoutHeroCategoryItemsData: LayoutHeroCategoryItem[] = [
   },
   {
     parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
+    type: LayoutHeroCategoryItemType.LABEL,
+    associatedId: 18
+  },
+  {
+    parentId: 3,
+    type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 19
   },
   {
     parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
+    type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 20
   },
   {
     parentId: 3,
     type: LayoutHeroCategoryItemType.CATEGORY,
+    associatedId: 303
+  },
+  {
+    parentId: 3,
+    type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 21
   },
   {
     parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
+    type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 22
   },
   {
     parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
+    type: LayoutHeroCategoryItemType.LABEL,
     associatedId: 23
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 24
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 25
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 26
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 27
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 28
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 29
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 30
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 31
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 32
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 33
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 34
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 35
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 36
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 37
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 38
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 39
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 40
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 41
-  },
-  {
-    parentId: 3,
-    type: LayoutHeroCategoryItemType.CATEGORY,
-    associatedId: 42
   },
   {
     parentId: 4,

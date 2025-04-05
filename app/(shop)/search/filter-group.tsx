@@ -12,7 +12,7 @@ export default function FilterGroup({
   filtersPromise
 }: {
   filtersPromise: Promise<
-    [ProductCategory[], ProductCategory[], ProductLabel[]]
+    [ProductCategory[], ProductCategory[], Omit<ProductLabel, 'categoryId'>[]]
   >;
 }) {
   const [categories, subCategories, labels] = use(filtersPromise);

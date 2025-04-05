@@ -60,7 +60,8 @@ export async function findHeroCategories() {
   const categories = await db.select().from(layoutHeroCategories).limit(10);
 
   const categoryPromises = categories.map(async (category) => {
-    const items = await findHeroCategoryItems(category);
+    const itemsPromise = await findHeroCategoryItems(category);
+    const items = await Promise.all(itemsPromise);
 
     return {
       ...category,
@@ -84,7 +85,9 @@ async function findHeroCategoryItems(
       name2: productCategories.name,
       pictureUrl2: productCategories.pictureUrl,
       name3: products.name,
-      pictureUrl3: products.pictureUrl
+      pictureUrl3: products.pictureUrl,
+      categoryId1: productLabels.categoryId,
+      categoryId2: productCategories.parentId
     })
     .from(layoutHeroCategoryItems)
     .leftJoin(
@@ -96,25 +99,34 @@ async function findHeroCategoryItems(
       eq(layoutHeroCategoryItems.associatedId, productCategories.id)
     )
     .leftJoin(products, eq(layoutHeroCategoryItems.associatedId, products.id))
-    .where(
-      and(
-        eq(products.enabled, true),
-        eq(layoutHeroCategoryItems.parentId, category.id)
-      )
-    )
+    .where(eq(layoutHeroCategoryItems.parentId, category.id))
     .limit(24);
 
-  return items.map((item) => {
-    let name: string | null, pictureUrl: string | null;
+  return items.map(async (item) => {
+    let name: string | null,
+      pictureUrl: string | null,
+      categoryId: number | null = null,
+      parentCategoryId: number | null = null;
 
     switch (item.type) {
       case LayoutHeroCategoryItemType.LABEL:
         name = item.name1;
         pictureUrl = item.pictureUrl1;
+        categoryId = item.categoryId1;
+        if (categoryId) {
+          parentCategoryId = (
+            await db
+              .select({ parentId: productCategories.parentId })
+              .from(productCategories)
+              .where(eq(productCategories.id, categoryId))
+              .limit(1)
+          )[0]?.parentId;
+        }
         break;
       case LayoutHeroCategoryItemType.CATEGORY:
         name = item.name2;
         pictureUrl = item.pictureUrl2;
+        categoryId = item.categoryId2;
         break;
       case LayoutHeroCategoryItemType.PRODUCT:
         name = item.name3;
@@ -126,7 +138,9 @@ async function findHeroCategoryItems(
       type: item.type,
       associatedId: item.associatedId,
       name: name!,
-      pictureUrl: pictureUrl!
+      pictureUrl: pictureUrl!,
+      categoryId,
+      parentCategoryId
     };
   });
 }

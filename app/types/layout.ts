@@ -21,6 +21,8 @@ export interface LayoutHeroCategoryItem {
   name: string;
   pictureUrl: string;
   type: LayoutHeroCategoryItemType;
+  categoryId: number | null;
+  parentCategoryId: number | null;
 }
 
 export interface LayoutBrick {

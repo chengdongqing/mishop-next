@@ -76,9 +76,9 @@ function ProductsPanel({ items }: { items: LayoutHeroCategoryItem[] }) {
 function getHref(item: LayoutHeroCategoryItem) {
   switch (item.type) {
     case LayoutHeroCategoryItemType.LABEL:
-      return `/search?labelId=${item.associatedId}`;
+      return `/search?labelId=${item.associatedId}&categoryId=${item.parentCategoryId || item.categoryId || ''}&subCategoryId=${item.categoryId || ''}`;
     case LayoutHeroCategoryItemType.CATEGORY:
-      return `/search?categoryId=${item.associatedId}`;
+      return `/search?categoryId=${item.categoryId || item.associatedId}&subCategoryId=${item.associatedId || ''}`;
     case LayoutHeroCategoryItemType.PRODUCT:
       return `/products/${item.associatedId}`;
   }

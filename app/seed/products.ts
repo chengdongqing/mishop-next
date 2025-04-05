@@ -216,8 +216,8 @@ const createLabelTableSql = `
     (
         id          int auto_increment
             primary key,
-        name        varchar(100)                        not null comment '名称',
         category_id int                                 not null comment '类别id',
+        name varchar(100) not null comment '名称',
         picture_url varchar(255) comment '图片地址',
         created_at  timestamp default CURRENT_TIMESTAMP not null,
         updated_at  timestamp default (now())           null on update CURRENT_TIMESTAMP,
