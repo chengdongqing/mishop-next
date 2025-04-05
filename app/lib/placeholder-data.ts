@@ -15,549 +15,261 @@ export const productCategoriesData: ProductCategory[] = [
   },
   {
     id: 2,
-    name: '电视'
+    name: '电脑',
+    children: [
+      {
+        id: 201,
+        name: '笔记本电脑'
+      },
+      {
+        id: 202,
+        name: '平板电脑'
+      }
+    ]
   },
   {
     id: 3,
     name: '家电',
     children: [
       {
-        id: 19,
-        name: '壁挂空调',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/630b9e523bb2e1387ce6c7be1edaca18.png?thumb=1&w=40&h=40'
+        id: 301,
+        name: '电视'
       },
       {
-        id: 20,
-        name: '立式空调',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/20e478a62b19d36ff05e92763fe7396f.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 302,
+        name: '空调'
       },
       {
-        id: 21,
-        name: '中央空调',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/afcf69ccc6c889edb4ceeca205799d23.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 303,
+        name: '冰箱'
       },
       {
-        id: 22,
-        name: '冰箱',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e6fe32cdaf14e104013384d89100f9c6.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 304,
+        name: '洗衣机'
       },
       {
-        id: 23,
-        name: '滚筒洗衣机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f23bac0cfa0082b79230350b87d27eea.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 305,
+        name: '风扇'
       },
       {
-        id: 24,
-        name: '波轮洗衣机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fd480335781b6c6d6c0ba586c5bb209c.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 25,
-        name: '除湿机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ce2cb16bdc44b5336c90e2d788d6c8e2.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 26,
-        name: '洗地机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/00d73a63bf8fb50cb0cf071d903333b2.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 27,
-        name: '电暖器',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/6aa1871d84aaae98cd676f5e2cf5c2f2.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 28,
-        name: '净水器',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/12f4b26ced3716d07bfcc6beba751188.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 29,
-        name: '微蒸烤',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f7dcbb8c268574041ce0b4b98e591cf1.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 30,
-        name: '烟灶',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bf07e32a082098cc81a433fe360811c8.gif?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 31,
-        name: '洗碗机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/91ccbb3270bcfd72a3c3ae98f15aed9d.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 32,
-        name: '扫地机器人',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d068f740ef433d49ba1304b0c70e39e3.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 33,
-        name: '吸尘器',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/26deda5474eb7eb7e5b34547c58b9893.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 34,
-        name: '加湿器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3630f1d92e44f1518b982020986ee953.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 35,
-        name: '空气净化器',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e997ed31cd5199ec0a24eeb48a37b1e7.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 36,
-        name: '电饭煲',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/390e15818dd103b2f96f4ac742d47379.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 37,
-        name: '电磁炉',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/d93e6a98403262a506c9e9b22293cdae.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 38,
-        name: '水壶',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/39c8ccbebd08687bc6780373b7ef2a95.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 39,
-        name: '落地风扇',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/3a3e4238b70ef8db89ae77f8a3762fc8.png?thumb=1&w=40&h=40'
-      },
-      {
-        id: 40,
-        name: '投影仪',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c12fd1da9fed662842d6f5c57d7737c9.png?thumb=1&w=40&h=40'
-      },
-      {
-        id: 41,
-        name: '灯具',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c0a6b523433a492dbf32035b2983d98e.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 42,
-        name: '除螨仪',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4b611c8e68c0b9424e66857646c4b264.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 306,
+        name: '烤箱'
       }
     ]
   },
   {
     id: 4,
-    name: '笔记本'
+    name: '出行',
+    children: [
+      {
+        id: 401,
+        name: '平衡车'
+      },
+      {
+        id: 402,
+        name: '对讲机'
+      }
+    ]
   },
   {
     id: 5,
-    name: '平板'
-  },
-  {
-    id: 6,
-    name: '显示器'
-  },
-  {
-    id: 7,
-    name: '出行'
-  },
-  {
-    id: 8,
-    name: '穿戴'
-  },
-  {
-    id: 9,
-    name: '耳机'
-  },
-  {
-    id: 10,
-    name: '音箱'
-  },
-  {
-    id: 11,
     name: '健康',
     children: [
       {
-        id: 43,
-        name: '洗手机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/da43c3dd6b171ee267f1fd1ec01b9208.jpg?thumb=1&w=40&h=40'
+        id: 501,
+        name: '洗手机'
       },
       {
-        id: 44,
-        name: '剃须刀',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/60d7bdf307ceaba08b3275246ad3ab53.jpg?thumb=1&w=40&h=40'
+        id: 502,
+        name: '吹风机'
       },
       {
-        id: 45,
-        name: '修剪器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/96b5d738ce5926e3a6969ad68fa1521d.jpg?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 503,
+        name: '牙刷'
       },
       {
-        id: 46,
-        name: '牙刷',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/15447769c461fdc71e84a7badb83f09b.jpg?thumb=1&w=40&h=40'
+        id: 504,
+        name: '剃须刀'
       },
       {
-        id: 47,
-        name: '吹风机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/bba7ce79f4d61939c69b7a26bf507bae.jpg?thumb=1&w=40&h=40'
+        id: 505,
+        name: '理发器'
       },
       {
-        id: 48,
-        name: '体重秤',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/459afd0eb2a3bc6313e7ac62bd3a52df.png?thumb=1&w=40&h=40'
+        id: 506,
+        name: '毛巾'
       },
       {
-        id: 49,
-        name: '体脂秤',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fe6166ca2026008abb86bc67dfd8211d.jpg?thumb=1&w=40&h=40'
+        id: 507,
+        name: '跑步机'
+      }
+    ]
+  },
+  {
+    id: 6,
+    name: '儿童',
+    children: [
+      {
+        id: 601,
+        name: '益智积木'
       },
       {
-        id: 50,
-        name: '米家跑步机',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9e04107f99edded4a64b7e92ae25641d.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 602,
+        name: '儿童手表'
       },
       {
-        id: 51,
-        name: '米家动感单车',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/84ca0dbb3d7b8debc2e531109d7c2b58.jpg?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 603,
+        name: '儿童滑板车'
       },
       {
-        id: 52,
-        name: '走步机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/fb1fee7e2f2963baae34d3611a2b7e9f.jpg?thumb=1&w=40&h=40'
+        id: 604,
+        name: '婴儿推车'
+      }
+    ]
+  },
+  {
+    id: 7,
+    name: '服饰',
+    children: [
+      {
+        id: 701,
+        name: 'T恤'
+      }
+    ]
+  },
+  {
+    id: 8,
+    name: '箱包',
+    children: [
+      {
+        id: 801,
+        name: '旅行箱'
       },
       {
-        id: 53,
-        name: '理发器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c4568ec9535a8707cea88dcd0148dda8.jpeg?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 802,
+        name: '书包'
+      },
+      {
+        id: 803,
+        name: '胸包'
+      },
+      {
+        id: 804,
+        name: '单肩包'
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: '路由器'
+  },
+  {
+    id: 10,
+    name: '智能',
+    children: [
+      {
+        id: 1001,
+        name: '摄像机'
+      },
+      {
+        id: 1002,
+        name: '门铃'
+      },
+      {
+        id: 1003,
+        name: '门锁'
+      }
+    ]
+  },
+  {
+    id: 11,
+    name: '电源',
+    children: [
+      {
+        id: 1101,
+        name: '移动电源'
+      },
+      {
+        id: 1102,
+        name: '电池'
       }
     ]
   },
   {
     id: 12,
-    name: '儿童',
+    name: '配件',
     children: [
       {
-        id: 54,
-        name: '益智积木',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d9d211ae20e700690ce9eec644ac3f31.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 1201,
+        name: '手机壳'
       },
       {
-        id: 55,
-        name: '儿童手表',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a0b3a592784632760a7ef25de50147a7.jpg?thumb=1&w=40&h=40'
+        id: 1202,
+        name: '充电器'
       },
       {
-        id: 56,
-        name: '儿童滑板车',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9f6a34ed8071b821ee5aa8d32a7be95d.jpg?thumb=1&w=40&h=40'
+        id: 1203,
+        name: '手机贴膜'
       },
       {
-        id: 57,
-        name: '婴儿推车',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/12235daeb49fd45e709e68c7dacd3336.jpg?thumb=1&w=40&h=40'
+        id: 1204,
+        name: '数据线'
+      },
+      {
+        id: 1205,
+        name: '显示器'
       }
     ]
   },
   {
     id: 13,
-    name: '生活',
+    name: '穿戴',
     children: [
       {
-        id: 58,
-        name: '运动鞋',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e899d08e36c306570d4fe3c75df90a42.jpg?thumb=1&w=40&h=40'
+        id: 1301,
+        name: '眼镜'
       },
       {
-        id: 59,
-        name: '服饰',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6c6b6895044b55858102f72d87a6c39f.jpg?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 1302,
+        name: '手环'
       },
       {
-        id: 60,
-        name: '眼镜',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/d521bd58668f66c50562b8fa8949f67c.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 61,
-        name: '床垫',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/aba45662667dceaf4ba0e5b08f44d3a7.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 62,
-        name: '枕头',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/744306b95df4d130bdfc346ff2b3c871.png?thumb=1&w=40&h=40'
-      },
-      {
-        id: 63,
-        name: '螺丝刀',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/458169c8138413666feb860068ce1a56.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 64,
-        name: '水杯',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/813d173eff50a83abb8abd5abde5f5a6.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 65,
-        name: '驱蚊器',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/59d3a701ac0bbb78f1b1d0ea7ebc7505.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 66,
-        name: '毛巾/浴巾',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/21c3ec8638dd75f5c54f1a69864a1cc9.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 67,
-        name: '笔',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c9279a17e9399958420af64e449e3214.jpg?thumb=1&w=40&h=40'
+        id: 1303,
+        name: '手表'
       }
     ]
   },
   {
     id: 14,
-    name: '箱包',
+    name: '文具',
     children: [
       {
-        id: 68,
-        name: '小背包',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9f26030d7d914b86daca51233a3ac5f9.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 69,
-        name: '双肩包',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/f628feba0f2f8253f9cc41f9984194a7.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 70,
-        name: '胸包',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2846c64ffd97969c639979da9bb97974.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 71,
-        name: '旅行箱',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6c5138635ef1396e35856ec942e3b6c0.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 72,
-        name: '收纳袋',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/77aa97808ebf4965cf823fd2199433ec.jpg?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 1401,
+        name: '笔'
       }
     ]
   },
   {
     id: 15,
-    name: '智能',
+    name: '办公',
     children: [
       {
-        id: 73,
-        name: 'MIJIA K歌麦克风',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/435f8b56d41de210d1c4598f4f00fa50.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 74,
-        name: '打印机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/5ef6c2d63df78e140afab6ac3c088fac.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 75,
-        name: '智能家庭',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/aa7c5302bf6c8e040b084dee50fa699f.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 76,
-        name: '对讲机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/21fedf7ba9019bce59cbc4856f907076.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 77,
-        name: '摄像机',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/067f4a6f0ffb264ed40734a97deae52d.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 78,
-        name: '智能门锁',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/4fb7885d49255b93f7245aa53501294c.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 79,
-        name: '门铃/猫眼',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b2f1afe3f26a673a736c0927fefe238a.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 80,
-        name: '小爱音箱',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/286f1b9527d8df27c43ca28fcf71f062.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 81,
-        name: '家庭屏',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7242436b36197a81d73b67ce6a5f26f5.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 1501,
+        name: '打印机'
       }
     ]
   },
   {
     id: 16,
-    name: '路由器',
+    name: '音乐',
     children: [
       {
-        id: 82,
-        name: '小米路由器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4670a965ac5f0dd32689e06c27cea78f.png?thumb=1&w=40&h=40&f=webp&q=90'
+        id: 1601,
+        name: '耳机'
       },
       {
-        id: 83,
-        name: 'Redmi路由器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/399b717a9d27252f21e32a981403c1c0.png?thumb=1&w=40&h=40&f=webp&q=90'
-      }
-    ]
-  },
-  {
-    id: 17,
-    name: '电源',
-    children: [
-      {
-        id: 84,
-        name: '插座插排',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/458adc268050c17312da7c12328395e8.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 85,
-        name: '移动电源',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8c55361386a46857f962e5142baeefcf.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 86,
-        name: '充电器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/864bcd18999a7b0fe22365f7ea7909e0.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 87,
-        name: '电池',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/10ec831749f1c657fc0a494feab15ed4.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 88,
-        name: '无线充电器',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/27074367aa02371a3c3c417c41195346.png?thumb=1&w=40&h=40&f=webp&q=90'
-      }
-    ]
-  },
-  {
-    id: 18,
-    name: '配件',
-    children: [
-      {
-        id: 89,
-        name: '数据线',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/45dd7a2c4fc3d17d5d261ed3eed7cd15.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 90,
-        name: '穿戴配件',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9027b032a6afc6ba9d4d2acb962cb220.jpg?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 91,
-        name: '平板配件',
-        pictureUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/49f1917ed50c197e7b27407a10256fa3.png?thumb=1&w=40&h=40&f=webp&q=90'
-      },
-      {
-        id: 92,
-        name: '自拍杆',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2725e04c955dc060ac142fabbf809c1e.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 93,
-        name: '手机壳',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/5c6e60e48edf17219724faad95963b93.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 94,
-        name: '手机贴膜',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/e9e248c899fd895c9267f494ea1aaebf.jpg?thumb=1&w=40&h=40'
-      },
-      {
-        id: 95,
-        name: '其他配件',
-        pictureUrl:
-          'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/57d9989807dbc15c1a82bc49acc1f06f.jpg?thumb=1&w=40&h=40'
+        id: 1602,
+        name: '音箱'
       }
     ]
   }
@@ -565,70 +277,139 @@ export const productCategoriesData: ProductCategory[] = [
 
 export const productLabelsData: ProductLabel[] = [
   {
+    id: 101,
+    name: '小米手机',
+    categoryId: 1
+  },
+  {
+    id: 102,
+    name: 'Redmi手机',
+    categoryId: 1
+  },
+  {
     id: 1,
     name: 'Xiaomi 数字旗舰',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/182d59037498cad87202c36e1a8ea23c.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 2,
     name: 'Xiaomi MIX系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bb9e4a367f854221b60bb7b3b05e0173.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 3,
     name: 'Xiaomi Civi系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8baabd4fc4255a2cf81636335b4cf0c1.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 4,
     name: 'Redmi K系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55b0ecc7cc8ab3714f311cc5df3bd0ae.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 5,
     name: 'Redmi Turbo系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e12d8f226458729f4c92063b09d4f0f2.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 6,
     name: 'Redmi Note系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a57303e8ac0d52a8b714a078cc35bfa1.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 7,
     name: 'Redmi 数字系列',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c15a3d1b4e8bf2af17e6b5ad5559cfcb.png?thumb=1&f=webp&q=90'
+    categoryId: 1
   },
   {
     id: 8,
     name: 'Redmi 平板',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/627ca9afd92d4efa4e29dce497c7bf8b.png?thumb=1&w=40&h=40&f=webp&q=90'
+    categoryId: 202
   },
   {
     id: 9,
     name: 'Xiaomi 平板',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/01093ece938a05e0e6e6b64299eb89ae.png?thumb=1&w=40&h=40&f=webp&q=90'
+    categoryId: 202
   },
   {
     id: 10,
     name: '办公娱乐显示器',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/721960abfd3ba99426d74595124c0820.jpg?thumb=1&w=40&h=40&f=webp&q=90'
+    categoryId: 1205
   },
   {
     id: 11,
     name: '游戏电竞显示器',
-    pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/722dcf898f2db1e5689a6df08e87b525.png?thumb=1&w=40&h=40&f=webp&q=90'
+    categoryId: 1205
+  },
+  {
+    id: 12,
+    name: '入耳式耳机',
+    categoryId: 1601
+  },
+  {
+    id: 13,
+    name: '头戴式耳机',
+    categoryId: 1601
+  },
+  {
+    id: 14,
+    name: '开放式耳机',
+    categoryId: 1601
+  },
+  {
+    id: 15,
+    name: '骨传导耳机',
+    categoryId: 1601
+  },
+  {
+    id: 16,
+    name: '有线耳机',
+    categoryId: 1601
+  },
+  {
+    id: 17,
+    name: '蓝牙耳机',
+    categoryId: 1601
+  },
+  {
+    id: 18,
+    name: '壁挂空调',
+    categoryId: 302
+  },
+  {
+    id: 19,
+    name: '立式空调',
+    categoryId: 302
+  },
+  {
+    id: 20,
+    name: '中央空调',
+    categoryId: 302
+  },
+  {
+    id: 21,
+    name: '滚筒洗衣机',
+    categoryId: 304
+  },
+  {
+    id: 22,
+    name: '波轮洗衣机',
+    categoryId: 304
+  },
+  {
+    id: 23,
+    name: '落地风扇',
+    categoryId: 305
+  },
+  {
+    id: 24,
+    name: '台式风扇',
+    categoryId: 305
+  },
+  {
+    id: 25,
+    name: '风扇灯',
+    categoryId: 305
   }
 ];
 
@@ -733,7 +514,7 @@ export const productsData: Product[] = [
     price: 1299,
     originalPrice: 1299,
     hasMultipleSkus: true,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 10,
@@ -744,7 +525,7 @@ export const productsData: Product[] = [
     price: 399,
     originalPrice: 399,
     hasMultipleSkus: true,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 11,
@@ -754,7 +535,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410112149_8c1b7e0aa8f1aca565ca4da1b3f609e6.png?thumb=1&f=webp&q=90',
     price: 139,
     originalPrice: 139,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 12,
@@ -764,7 +545,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202409252052_478e3626f4c809beb3e6d65cddbcc77b.png?thumb=1&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 13,
@@ -774,7 +555,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172252_14dde1819e157be030514edaddf0ead9.png?thumb=1&f=webp&q=90',
     price: 679,
     originalPrice: 699,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 14,
@@ -784,7 +565,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0ed30ba825d2c0a27f9c9867c6376e02.png?thumb=1&f=webp&q=90',
     price: 199,
     originalPrice: 199,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 15,
@@ -794,7 +575,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202405161349_af5d2bb2e50bf45ff23d766e49da6cc5.png?thumb=1&f=webp&q=90',
     price: 99,
     originalPrice: 99,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 16,
@@ -804,7 +585,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202404091941_350d7e8fb99f243754861b986168c187.png?thumb=1&f=webp&q=90',
     price: 599,
     originalPrice: 599,
-    categoryId: 9
+    categoryId: 1601
   },
   {
     id: 17,
@@ -815,7 +596,7 @@ export const productsData: Product[] = [
     price: 599,
     originalPrice: 599,
     hasMultipleSkus: true,
-    categoryId: 8
+    categoryId: 1303
   },
   {
     id: 18,
@@ -826,7 +607,7 @@ export const productsData: Product[] = [
     price: 999,
     originalPrice: 999,
     hasMultipleSkus: true,
-    categoryId: 8
+    categoryId: 1303
   },
   {
     id: 19,
@@ -837,7 +618,7 @@ export const productsData: Product[] = [
     price: 399,
     originalPrice: 399,
     hasMultipleSkus: true,
-    categoryId: 8
+    categoryId: 1302
   },
   {
     id: 20,
@@ -847,7 +628,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410241417_9ef2404939fdf794fda9cd16953dd28c.png?thumb=1&f=webp&q=90',
     price: 159,
     originalPrice: 169,
-    categoryId: 8
+    categoryId: 1302
   },
   {
     id: 21,
@@ -857,7 +638,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407191728_08a7317fb96cc5394a838eac9867ede3.png?thumb=1&f=webp&q=90',
     price: 239,
     originalPrice: 249,
-    categoryId: 8
+    categoryId: 1302
   },
   {
     id: 22,
@@ -868,7 +649,7 @@ export const productsData: Product[] = [
     price: 279,
     originalPrice: 299,
     hasMultipleSkus: true,
-    categoryId: 8
+    categoryId: 1302
   },
   {
     id: 23,
@@ -879,7 +660,7 @@ export const productsData: Product[] = [
     price: 1799,
     originalPrice: 1999,
     hasMultipleSkus: true,
-    categoryId: 8
+    categoryId: 1303
   },
   {
     id: 24,
@@ -889,7 +670,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202312081723_8c6876edb9fd120f765149945f77a4f1.png?thumb=1&&f=webp&q=90',
     price: 549,
     originalPrice: 549,
-    categoryId: 8
+    categoryId: 1302
   },
   {
     id: 33,
@@ -936,7 +717,7 @@ export const productsData: Product[] = [
     price: 4799,
     originalPrice: 4999,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 38,
@@ -947,7 +728,7 @@ export const productsData: Product[] = [
     price: 3499,
     originalPrice: 3999,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 39,
@@ -957,7 +738,7 @@ export const productsData: Product[] = [
     price: 4599,
     originalPrice: 4999,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 40,
@@ -968,7 +749,7 @@ export const productsData: Product[] = [
     price: 2899,
     originalPrice: 3499,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 41,
@@ -978,7 +759,7 @@ export const productsData: Product[] = [
     price: 1399,
     originalPrice: 1699,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 42,
@@ -988,7 +769,7 @@ export const productsData: Product[] = [
     price: 699,
     originalPrice: 899,
     hasMultipleSkus: true,
-    categoryId: 2
+    categoryId: 301
   },
   {
     id: 43,
@@ -997,7 +778,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/259137ab3669314d5db646bb10ea874d.png?thumb=1&f=webp&q=90',
     price: 6499,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 44,
@@ -1006,7 +787,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f865ec1d50cda194589e084fc6c0647c.png?thumb=1&f=webp&q=90',
     price: 5699,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 45,
@@ -1016,7 +797,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1e3e74dfb320c28e0264fd52427a94b3.jpg?thumb=1&f=webp&q=90',
     price: 3999,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 46,
@@ -1026,7 +807,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2705ad0c89bebc151a7dc480c77f64e4.png?thumb=1&f=webp&q=90',
     price: 3499,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 47,
@@ -1036,7 +817,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3442ea8432af37766b3a1f900348469.png?thumb=1&f=webp&q=90',
     price: 4999,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 48,
@@ -1046,7 +827,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a1f6a20434940961e37aa3ab8f956217.png?thumb=1&f=webp&q=90',
     price: 6399,
     hasMultipleSkus: true,
-    categoryId: 4
+    categoryId: 201
   },
   {
     id: 49,
@@ -1057,7 +838,7 @@ export const productsData: Product[] = [
     price: 2399,
     originalPrice: 2499,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 50,
@@ -1067,7 +848,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a87263f635654280e26c605090caaa16.png?thumb=1&f=webp&q=90',
     price: 1999,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 51,
@@ -1077,7 +858,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f8dd1013092765f219fb3f90a1076539.png?thumb=1&f=webp&q=90',
     price: 1499,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 52,
@@ -1087,7 +868,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/02afd89b3e5ca18b30e73b4ff7a31893.png?thumb=1&f=webp&q=90',
     price: 2599,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 53,
@@ -1097,7 +878,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/75f234c4bc74c6a3cc6b054b24a5a94c.png?thumb=1&f=webp&q=90',
     price: 999,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 54,
@@ -1107,7 +888,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/dca0249868dc6938fda3f71baafe10db.png?thumb=1&f=webp&q=90',
     price: 3399,
     hasMultipleSkus: true,
-    categoryId: 5
+    categoryId: 202
   },
   {
     id: 55,
@@ -1116,7 +897,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/531efbd4fd88b64a94079436851f56f1.png?thumb=1&f=webp&q=90',
     price: 2099,
-    categoryId: 3
+    categoryId: 303
   },
   {
     id: 56,
@@ -1125,7 +906,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/52c8cab6760eadd9e01871dfbf27817f.png?thumb=1&f=webp&q=90',
     price: 1999,
-    categoryId: 3
+    categoryId: 303
   },
   {
     id: 57,
@@ -1135,7 +916,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e5bc8371b1e2efb551605cf2eb1baa87.png?thumb=1&f=webp&q=90',
     price: 6299,
     originalPrice: 6499,
-    categoryId: 3
+    categoryId: 302
   },
   {
     id: 58,
@@ -1145,7 +926,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/80416c1c7040aabbafa527a6ea652948.png?thumb=1&f=webp&q=90',
     price: 2199,
     originalPrice: 2499,
-    categoryId: 3
+    categoryId: 302
   },
   {
     id: 59,
@@ -1154,7 +935,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/85009f514f7505825899635daeb761b0.png?thumb=1&f=webp&q=90',
     price: 1999,
-    categoryId: 3
+    categoryId: 304
   },
   {
     id: 60,
@@ -1163,7 +944,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3b6361cf5069af62f4208ee326bd0e43.png?thumb=1&f=webp&q=90',
     price: 799,
-    categoryId: 3
+    categoryId: 303
   },
   {
     id: 61,
@@ -1172,7 +953,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b5de7ae24c438974939453553420f1a0.png?thumb=1&f=webp&q=90',
     price: 159,
-    categoryId: 16
+    categoryId: 9
   },
   {
     id: 62,
@@ -1181,7 +962,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f6ae2a9be0012e6ee477b6aed44c88a3.png?thumb=1&f=webp&q=90',
     price: 699,
-    categoryId: 16
+    categoryId: 9
   },
   {
     id: 63,
@@ -1190,7 +971,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a8cc8ccb1c0e8cc58d96b7ec00df6634.png?thumb=1&f=webp&q=90',
     price: 219,
-    categoryId: 16
+    categoryId: 9
   },
   {
     id: 64,
@@ -1199,7 +980,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e4e053bd4dd41341ce8950ae1c3896d.png?thumb=1&f=webp&q=90',
     price: 599,
-    categoryId: 16
+    categoryId: 9
   },
   {
     id: 65,
@@ -1208,7 +989,7 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81f833a72b840274af1cf5931fb516f8.png?thumb=1&f=webp&q=90',
     price: 279,
-    categoryId: 16
+    categoryId: 9
   },
   {
     id: 66,
@@ -1218,7 +999,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202212131701_80db3da0f97aeb6b724039a4c5a24dd7.png?thumb=1&q=90',
     price: 749,
     originalPrice: 1599,
-    categoryId: 3
+    categoryId: 304
   },
   {
     id: 67,
@@ -1228,7 +1009,7 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6852696ece843f1a1f9667e21bb09c71.jpg?thumb=1&f=webp&q=90',
     price: 799,
     originalPrice: 1299,
-    categoryId: 3
+    categoryId: 303
   },
   {
     id: 68,
@@ -1236,7 +1017,143 @@ export const productsData: Product[] = [
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1612c93ad4756215774a0dbec7a81bb2.jpg?thumb=1&f=webp&q=90',
     price: 299,
-    categoryId: 3
+    categoryId: 306
+  }
+];
+
+interface ProductLabelRelation {
+  productId: number;
+  labelId: number;
+}
+
+export const productLabelRelationsData: ProductLabelRelation[] = [
+  {
+    productId: 1,
+    labelId: 101
+  },
+  {
+    productId: 1,
+    labelId: 1
+  },
+  {
+    productId: 2,
+    labelId: 102
+  },
+  {
+    productId: 2,
+    labelId: 5
+  },
+  {
+    productId: 3,
+    labelId: 102
+  },
+  {
+    productId: 3,
+    labelId: 7
+  },
+  {
+    productId: 57,
+    labelId: 19
+  },
+  {
+    productId: 58,
+    labelId: 18
+  },
+  {
+    productId: 59,
+    labelId: 21
+  },
+  {
+    productId: 66,
+    labelId: 22
+  },
+  {
+    productId: 49,
+    labelId: 9
+  },
+  {
+    productId: 50,
+    labelId: 9
+  },
+  {
+    productId: 52,
+    labelId: 9
+  },
+  {
+    productId: 54,
+    labelId: 9
+  },
+  {
+    productId: 51,
+    labelId: 8
+  },
+  {
+    productId: 53,
+    labelId: 8
+  },
+  {
+    productId: 9,
+    labelId: 12
+  },
+  {
+    productId: 9,
+    labelId: 17
+  },
+  {
+    productId: 16,
+    labelId: 14
+  },
+  {
+    productId: 16,
+    labelId: 17
+  },
+  {
+    productId: 10,
+    labelId: 17
+  },
+  {
+    productId: 11,
+    labelId: 17
+  },
+  {
+    productId: 12,
+    labelId: 17
+  },
+  {
+    productId: 13,
+    labelId: 17
+  },
+  {
+    productId: 14,
+    labelId: 17
+  },
+  {
+    productId: 15,
+    labelId: 17
+  },
+  {
+    productId: 10,
+    labelId: 12
+  },
+  {
+    productId: 11,
+    labelId: 12
+  },
+  {
+    productId: 12,
+    labelId: 12
+  },
+  {
+    productId: 13,
+    labelId: 12
+  },
+  {
+    productId: 14,
+    labelId: 12
+  },
+  {
+    productId: 15,
+    labelId: 12
   }
 ];
 

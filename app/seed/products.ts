@@ -1,6 +1,7 @@
 import { SchemaType } from '@/app/lib/db';
 import {
   productCategoriesData,
+  productLabelRelationsData,
   productLabelsData,
   productReviewsData,
   productsData,
@@ -8,6 +9,7 @@ import {
 } from '@/app/lib/placeholder-data';
 import {
   productCategories,
+  productLabelRelations,
   productLabels,
   productReviews,
   products,
@@ -215,13 +217,50 @@ const createLabelTableSql = `
         id          int auto_increment
             primary key,
         name        varchar(100)                        not null comment '名称',
+        category_id int                                 not null comment '类别id',
         picture_url varchar(255) comment '图片地址',
         created_at  timestamp default CURRENT_TIMESTAMP not null,
-        updated_at  timestamp default (now())           null,
+        updated_at  timestamp default (now())           null on update CURRENT_TIMESTAMP,
         constraint product_labels_pk_2
             unique (name)
     )
         comment '商品标签表';
+`;
+
+export async function seedProductLabelRelations(
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
+  >
+) {
+  // 删除表
+  await tx.execute('drop table if exists mishop.product_label_relations;');
+
+  // 创建表
+  await tx.execute(createProductLabelRelationTableSql);
+
+  // 清空表
+  await tx.delete(productLabelRelations);
+
+  // 插入数据
+  await tx.insert(productLabelRelations).values(productLabelRelationsData);
+}
+
+const createProductLabelRelationTableSql = `
+    create table if not exists mishop.product_label_relations
+    (
+        id         int auto_increment
+            primary key,
+        product_id int                                 not null,
+        label_id   int                                 not null,
+        created_at timestamp default CURRENT_TIMESTAMP not null,
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP,
+        constraint product_label_relations_pk_2
+            unique (product_id, label_id)
+    )
+        comment '商品和标签关联表';
 `;
 
 export async function seedProductReviews(
@@ -257,6 +296,6 @@ const createReviewTableSql = `
         photo_urls   text comment '上传的图片',
         is_anonymous boolean   default false comment '是否匿名',
         created_at   timestamp default CURRENT_TIMESTAMP not null,
-        updated_at   timestamp default (now())           null
+        updated_at   timestamp default (now())           null on update CURRENT_TIMESTAMP
     );
 `;

@@ -34,6 +34,7 @@ export interface ProductCategory {
 export interface ProductLabel {
   id: number;
   name: string;
+  categoryId?: number;
   pictureUrl?: string;
 }
 

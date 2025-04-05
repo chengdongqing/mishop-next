@@ -2,6 +2,7 @@ import { ProductOrderBy } from '@/app/enums';
 import { db } from '@/app/lib/db';
 import {
   productCategories,
+  productLabelRelations,
   productLabels,
   products,
   productSkus
@@ -31,6 +32,10 @@ export async function searchProducts(
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
+    .leftJoin(
+      productLabelRelations,
+      eq(products.id, productLabelRelations.productId)
+    )
     .where(conditions)
     .groupBy(products.id);
   const total = totalQuery.length;
@@ -49,11 +54,14 @@ export async function searchProducts(
       price: products.price,
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
-      pictureUrls: sql<string>`group_concat
-          ( ${productSkus.pictureUrl})`
+      pictureUrls: sql<string>`group_concat(distinct ${productSkus.pictureUrl})`
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
+    .leftJoin(
+      productLabelRelations,
+      eq(products.id, productLabelRelations.productId)
+    )
     .where(conditions)
     .groupBy(products.id)
     .orderBy(orderBy)
@@ -82,7 +90,16 @@ function getSearchConditions(request: Partial<SearchRequest>) {
   return and(
     eq(products.enabled, true),
     request.categoryId
-      ? eq(products.categoryId, request.categoryId)
+      ? sql`
+        ${products.categoryId} in (
+          select id from ${productCategories} 
+          where ${productCategories.id} = ${request.categoryId} 
+          or ${productCategories.parentId} = ${request.categoryId}
+        )
+      `
+      : undefined,
+    request.labelId
+      ? eq(productLabelRelations.labelId, request.labelId)
       : undefined,
     request.keyword ? like(products.name, `%${request.keyword}%`) : undefined,
     request.onlyAvailable ? gt(productSkus.stocks, 0) : undefined
@@ -105,23 +122,24 @@ function getOrderBy(orderBy?: ProductOrderBy) {
   }
 }
 
-export function findProductCategories() {
+export function findProductCategories(parentId: number = 0) {
   return db
     .select({
       id: productCategories.id,
       name: productCategories.name
     })
     .from(productCategories)
-    .where(eq(productCategories.parentId, 0));
+    .where(eq(productCategories.parentId, parentId));
 }
 
-export function findProductLabels() {
+export function findProductLabels(categoryId: number) {
   return db
     .select({
       id: productLabels.id,
       name: productLabels.name
     })
-    .from(productLabels);
+    .from(productLabels)
+    .where(eq(productLabels.categoryId, categoryId));
 }
 
 export async function findRecommendedProducts(limits: number = 10) {

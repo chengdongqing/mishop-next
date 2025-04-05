@@ -57,7 +57,7 @@ const createHeaderNavsTableSql = `
         name       varchar(100)                        not null comment '名称',
         href       varchar(255)                        null comment '链接地址',
         created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null,
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP,
         constraint layout_header_navs_pk_2
             unique (name)
     )
@@ -72,7 +72,7 @@ const createHeaderNavItemsTableSql = `
         parent_id  int                                 not null,
         product_id int                                 not null comment '商品id',
         created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP
     );
 `;
 
@@ -108,7 +108,7 @@ const createHeroCategoriesTableSql = `
             primary key,
         name       varchar(100)                        not null comment '名称',
         created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null,
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP,
         constraint home_hero_categories_pk_2
             unique (name)
     )
@@ -164,7 +164,7 @@ const createBricksTableSql = `
             primary key,
         name       varchar(100)                        not null comment '名称',
         created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null,
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP,
         constraint layout_bricks_pk_2
             unique (name)
     )
@@ -194,6 +194,6 @@ const createBrickTabItemsTableSql = `
         parent_id  int                                 not null,
         product_id int                                 not null comment '商品id',
         created_at timestamp default CURRENT_TIMESTAMP not null,
-        updated_at timestamp default (now())           null
+        updated_at timestamp default (now())           null on update CURRENT_TIMESTAMP
     );
 `;

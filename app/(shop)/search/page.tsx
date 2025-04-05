@@ -20,6 +20,7 @@ export default async function SearchPage({
     Partial<{
       q: string;
       categoryId: string;
+      subCategoryId: string;
       labelId: string;
       orderBy: string;
       onlyAvailable: string;
@@ -27,18 +28,30 @@ export default async function SearchPage({
     }>
   >;
 }) {
-  const filtersPromise = Promise.all([
-    findProductCategories(),
-    findProductLabels()
-  ]);
-
-  const { q, categoryId, labelId, orderBy, onlyAvailable, page } =
-    await searchParams;
+  const {
+    q,
+    categoryId: category,
+    subCategoryId: subCategory,
+    labelId,
+    orderBy,
+    onlyAvailable,
+    page
+  } = await searchParams;
+  const categoryId = category ? Number(category) : undefined;
+  const subCategoryId = subCategory ? Number(subCategory) : undefined;
   const currentPage = page ? Number(page) : 1;
 
-  const search = searchProducts({
+  const filtersPromise = Promise.all([
+    findProductCategories(),
+    categoryId ? findProductCategories(categoryId) : [],
+    (subCategoryId ?? categoryId)
+      ? findProductLabels(subCategoryId ?? categoryId!)
+      : []
+  ]);
+
+  const searchPromise = searchProducts({
     orderBy: orderBy ? (orderBy as ProductOrderBy) : undefined,
-    categoryId: categoryId ? Number(categoryId) : undefined,
+    categoryId: subCategoryId ?? categoryId,
     labelId: labelId ? Number(labelId) : undefined,
     onlyAvailable: onlyAvailable ? Boolean(Number(onlyAvailable)) : false,
     keyword: q,
@@ -46,7 +59,7 @@ export default async function SearchPage({
     size: pageSize
   });
 
-  const searchKey = `${q ?? ''}-${categoryId ?? ''}-${labelId ?? ''}-${orderBy ?? ''}-${onlyAvailable ?? ''}-${currentPage}`;
+  const searchKey = `${q ?? ''}-${categoryId ?? ''}-${subCategoryId ?? ''}-${labelId ?? ''}-${orderBy ?? ''}-${onlyAvailable ?? ''}-${currentPage}`;
 
   return (
     <>
@@ -60,7 +73,7 @@ export default async function SearchPage({
             key={searchKey}
             fallback={<Loading className={'bg-primary h-[20vh]'} />}
           >
-            <SearchResult search={search} />
+            <SearchResult searchPromise={searchPromise} />
             <div className={'h-[80]'} />
             <RecommendProducts />
           </Suspense>

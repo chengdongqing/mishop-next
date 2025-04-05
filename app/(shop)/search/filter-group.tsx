@@ -11,14 +11,17 @@ import Sorter from './sorter';
 export default function FilterGroup({
   filtersPromise
 }: {
-  filtersPromise: Promise<[ProductCategory[], ProductLabel[]]>;
+  filtersPromise: Promise<
+    [ProductCategory[], ProductCategory[], ProductLabel[]]
+  >;
 }) {
-  const [categories, labels] = use(filtersPromise);
+  const [categories, subCategories, labels] = use(filtersPromise);
 
   const pathname = usePathname();
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('categoryId');
+  const subCategoryId = searchParams.get('subCategoryId');
   const labelId = searchParams.get('labelId');
   const orderBy = searchParams.get('orderBy');
   const onlyAvailable = searchParams.get('onlyAvailable');
@@ -30,6 +33,14 @@ export default function FilterGroup({
     } else {
       params.delete(field);
     }
+
+    if (field === 'categoryId') {
+      params.delete('subCategoryId');
+    }
+    if (field.toLowerCase().includes('category')) {
+      params.delete('labelId');
+    }
+
     params.delete('page');
     replace(`${pathname}?${params.toString()}`);
   }
@@ -43,13 +54,28 @@ export default function FilterGroup({
           value={categoryId ? Number(categoryId) : undefined}
           onChange={(id) => handleSearch('categoryId', id)}
         />
-        <div className={'w-full border-b-1 border-[#ededed]'} />
-        <FilterBar
-          label={'标签'}
-          options={labels}
-          value={labelId ? Number(labelId) : undefined}
-          onChange={(id) => handleSearch('labelId', id)}
-        />
+        {subCategories.length > 0 && (
+          <>
+            <div className={'w-full border-b-1 border-[#ededed]'} />
+            <FilterBar
+              label={'子分类'}
+              options={subCategories}
+              value={subCategoryId ? Number(subCategoryId) : undefined}
+              onChange={(id) => handleSearch('subCategoryId', id)}
+            />
+          </>
+        )}
+        {labels.length > 0 && (
+          <>
+            <div className={'w-full border-b-1 border-[#ededed]'} />
+            <FilterBar
+              label={'标签'}
+              options={labels}
+              value={labelId ? Number(labelId) : undefined}
+              onChange={(id) => handleSearch('labelId', id)}
+            />
+          </>
+        )}
       </div>
       <div className={'bg-primary py-5'}>
         <div className={'w-primary flex justify-between pt-5 pb-2'}>

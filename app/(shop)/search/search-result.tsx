@@ -9,11 +9,11 @@ import { use } from 'react';
 import ProductList from './product-list';
 
 export default function SearchResult({
-  search
+  searchPromise
 }: {
-  search: Promise<Page<SearchProduct>>;
+  searchPromise: Promise<Page<SearchProduct>>;
 }) {
-  const { page, size, total, pages, data: products } = use(search);
+  const { page, size, total, pages, data: products } = use(searchPromise);
 
   const searchParams = useSearchParams();
   const router = useRouter();

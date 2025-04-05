@@ -67,10 +67,23 @@ export const productCategories = mysqlTable('product_categories', {
 export const productLabels = mysqlTable('product_labels', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull().unique(),
+  categoryId: int('category_id').notNull(),
   pictureUrl: varchar('picture_url', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const productLabelRelations = mysqlTable(
+  'product_label_relations',
+  {
+    id: serial('id').primaryKey(),
+    productId: int('product_id').notNull(),
+    labelId: int('label_id').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+  },
+  (t) => [unique().on(t.productId, t.labelId)]
+);
 
 export const productReviews = mysqlTable('product_reviews', {
   id: serial('id').primaryKey(),
