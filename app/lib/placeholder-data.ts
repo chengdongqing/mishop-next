@@ -460,7 +460,8 @@ export const productsData: Product[] = [
     price: 6499,
     originalPrice: 6499,
     hasMultipleSkus: true,
-    categoryId: 1
+    categoryId: 1,
+    tags: ['小米', '手机', '新款', '旗舰机', '2025年']
   },
   {
     id: 2,

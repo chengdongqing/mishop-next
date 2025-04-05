@@ -7,6 +7,7 @@ export interface Product {
   originalPrice?: number;
   hasMultipleSkus?: boolean;
   categoryId?: number;
+  tags?: string[];
 }
 
 export interface ProductSku {
