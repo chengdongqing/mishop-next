@@ -1,3 +1,5 @@
+'use client';
+
 import useUpdateEffect from '@/app/hooks/useUpdateEffect';
 import {
   Children,

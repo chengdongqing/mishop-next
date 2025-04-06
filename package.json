@@ -12,7 +12,6 @@
     "@heroicons/react": "^2.2.0",
     "drizzle-orm": "^0.40.0",
     "drizzle-zod": "^0.7.0",
-    "meilisearch": "^0.49.0",
     "motion": "^12.6.2",
     "mysql2": "^3.13.0",
     "next": "15.2.4",
@@ -30,7 +29,7 @@
     "eslint-config-next": "15.2.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1",
     "typescript": "^5"
   },
   "prettier": {

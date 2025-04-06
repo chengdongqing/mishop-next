@@ -1970,11 +1970,6 @@ math-intrinsics@^1.1.0:
   resolved "https://registry.npmmirror.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
   integrity sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==
 
-meilisearch@^0.49.0:
-  version "0.49.0"
-  resolved "https://registry.npmmirror.com/meilisearch/-/meilisearch-0.49.0.tgz#21584739588cd33cc970e1abbcb4d6240e6928d6"
-  integrity sha512-oMJ/e6Or6cz2+owcEKeB11p2OWiWW9NmssqOZC/KIwQB0sBGKLJ7RCpYzf+GhUIZIZ9FRYZ419ox3RGebVQX5g==
-
 merge2@^1.3.0:
   version "1.4.1"
   resolved "https://registry.npmmirror.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
@@ -2653,10 +2648,15 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmmirror.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-tailwindcss@4.0.12, tailwindcss@^4:
+tailwindcss@4.0.12:
   version "4.0.12"
   resolved "https://registry.npmmirror.com/tailwindcss/-/tailwindcss-4.0.12.tgz#71ab22c78810303b1156354bcc561a747169b5bd"
   integrity sha512-bT0hJo91FtncsAMSsMzUkoo/iEU0Xs5xgFgVC9XmdM9bw5MhZuQFjPNl6wxAE0SiQF/YTZJa+PndGWYSDtuxAg==
+
+tailwindcss@^4.1:
+  version "4.1.3"
+  resolved "https://registry.npmmirror.com/tailwindcss/-/tailwindcss-4.1.3.tgz#f5a6b4451295c06e213013697f7193be1630fa46"
+  integrity sha512-2Q+rw9vy1WFXu5cIxlvsabCwhU2qUwodGq03ODhLJ0jW4ek5BUtoCsnLB0qG+m8AHgEsSJcJGDSDe06FXlP74g==
 
 tapable@^2.2.0:
   version "2.2.1"
