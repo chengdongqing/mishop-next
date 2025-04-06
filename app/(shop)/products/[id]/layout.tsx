@@ -1,7 +1,7 @@
 import Space from '@/components/ui/space';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
-import BuyButton from './buy-button';
+import BuyButton from './buy-now-button';
 
 export default function ProductsLayout({ children }: PropsWithChildren) {
   return (
@@ -22,7 +22,7 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
               Xiaomi 14 Ultra
             </a>
           </Space>
-          <Space>
+          <div className={'flex items-center'}>
             <Space
               className={'pt-1'}
               split={
@@ -34,7 +34,7 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
               <ProductLink href={'/products/1/reviews'}>用户评价</ProductLink>
             </Space>
             <BuyButton />
-          </Space>
+          </div>
         </div>
       </div>
       {children}
