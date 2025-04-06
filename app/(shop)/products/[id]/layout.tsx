@@ -1,7 +1,7 @@
-import Button from '@/components/ui/button';
 import Space from '@/components/ui/space';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
+import BuyButton from './buy-button';
 
 export default function ProductsLayout({ children }: PropsWithChildren) {
   return (
@@ -33,9 +33,7 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
               <ProductLink href={'/products/1/specs'}>参数页</ProductLink>
               <ProductLink href={'/products/1/reviews'}>用户评价</ProductLink>
             </Space>
-            <Link href={'/products/1/buy'}>
-              <Button size={'small'}>立即购买</Button>
-            </Link>
+            <BuyButton />
           </Space>
         </div>
       </div>
