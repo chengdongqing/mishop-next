@@ -4,6 +4,7 @@ import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import { LayoutHeaderNav } from '@/app/types/layout';
 import { Product } from '@/app/types/product';
 import Loading from '@/components/ui/loading';
+import Logo from '@/components/ui/logo';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,7 +24,9 @@ export default function NavBar({
     <section className={'relative'} onMouseLeave={() => setProducts([])}>
       <div className={'h-[100px]'}>
         <div className={'w-primary flex h-full items-center'}>
-          <Logo />
+          <div className={'flex w-[234px]'}>
+            <Logo />
+          </div>
           <Suspense
             fallback={
               <div className={'flex-1 text-center'}>
@@ -60,24 +63,6 @@ export default function NavBar({
         onMouseLeave={() => (isMouseEnter.current = false)}
       />
     </section>
-  );
-}
-
-function Logo() {
-  return (
-    <div className={'flex w-[234px]'}>
-      <Link href={'/'}>
-        <Image
-          src={'/logo.png'}
-          title={'小米官网'}
-          alt={'logo'}
-          width={192}
-          height={192}
-          draggable={false}
-          className={'h-[56] w-[56] duration-200 active:scale-85'}
-        />
-      </Link>
-    </div>
   );
 }
 
