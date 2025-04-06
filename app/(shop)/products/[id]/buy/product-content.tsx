@@ -8,6 +8,7 @@ import Button from '@/components/ui/button';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
@@ -93,7 +94,16 @@ function SelectedInfo() {
 }
 
 function AddToCartButton() {
-  return <Button className={'!h-[54] !w-[300] !text-base'}>加入购物车</Button>;
+  const router = useRouter();
+
+  return (
+    <Button
+      className={'!h-[54] !w-[300] !text-base'}
+      onClick={() => router.push('/cart/success')}
+    >
+      加入购物车
+    </Button>
+  );
 }
 
 function FavoriteButton() {

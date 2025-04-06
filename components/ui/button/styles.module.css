@@ -9,6 +9,7 @@
     color: #fff;
     border: none;
     background-color: var(--color-primary);
+    user-select: none;
     cursor: pointer;
     transition: 0.4s;
 
