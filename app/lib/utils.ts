@@ -22,9 +22,6 @@ export function mapProduct(product: typeof products.$inferSelect) {
   };
 }
 
-/**
- * 下载文件
- */
 export function downloadFile(filename: string, src: string) {
   const a = document.createElement('a');
   a.download = filename;
@@ -32,9 +29,6 @@ export function downloadFile(filename: string, src: string) {
   a.click();
 }
 
-/**
- * 下载文件
- */
 export function downloadFileCrossOrigin(filename: string, src: string) {
   const params = new URLSearchParams({ filename, remoteUrl: src });
   fetch(`/api/download?${params.toString()}`)
@@ -50,4 +44,17 @@ export function downloadFileCrossOrigin(filename: string, src: string) {
       downloadFile(filename, url);
       URL.revokeObjectURL(url);
     });
+}
+
+export function arrayToObject(
+  source: Record<string, unknown>[],
+  apply: (value: Record<string, unknown>) => Record<string, unknown> = (
+    item
+  ) => ({
+    [item.name as string]: item.value
+  })
+) {
+  return source.reduce((sum, item) => {
+    return Object.assign(sum, apply(item));
+  }, {});
 }

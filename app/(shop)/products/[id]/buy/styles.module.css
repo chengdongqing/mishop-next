@@ -1,0 +1,19 @@
+@keyframes heart {
+    from {
+        opacity: 1;
+        transform: scale(1) translate(0);
+    }
+    10% {
+        transform: scale(1) translate3d(-30%, -30%, 0);
+        opacity: 0.7;
+    }
+    to {
+        transform: scale(3) translate3d(-0.5%, -0.5%, 0);
+        opacity: 0;
+    }
+}
+
+.animation {
+    position: absolute;
+    animation: heart 1s ease-out forwards;
+}

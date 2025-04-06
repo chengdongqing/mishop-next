@@ -7,7 +7,7 @@ export default function BuyProductPage() {
   return (
     <>
       <SigninTips />
-      <section className={'w-primary flex gap-x-5'}>
+      <section className={'w-primary flex gap-x-5 pt-8'}>
         <ProductGallery />
         <ProductContent />
       </section>
