@@ -1,3 +1,4 @@
+import { countReviewsByRatings } from '@/app/services/product-reviews';
 import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
@@ -5,7 +6,10 @@ import SatisfactionLevel from './satisfaction-level';
 
 const isEmpty = false;
 
-export default function ProductReviewsPage() {
+export default async function ProductReviewsPage() {
+  const res = await countReviewsByRatings(1);
+  console.log(res);
+
   return (
     <div className={'bg-primary'}>
       <div className={'w-primary py-[30]'}>
