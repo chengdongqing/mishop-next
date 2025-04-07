@@ -17,14 +17,14 @@ export default function Header() {
 
         <div className={'text-xs'}>
           <Link
-            className={'text-[#757575] hover:text-[var(--color-primary)]'}
+            className={'hover:text-primary text-[#757575]'}
             href={'/auth/signin'}
           >
             登录
           </Link>
           <span className={'mx-1.5 text-[#b0b0b0]'}>|</span>
           <Link
-            className={'text-[#757575] hover:text-[var(--color-primary)]'}
+            className={'hover:text-primary text-[#757575]'}
             href={'/auth/signup'}
           >
             注册

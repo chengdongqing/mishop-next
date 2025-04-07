@@ -16,7 +16,7 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
             <h2 className={'text-lg text-[#424242]'}>Xiaomi 15 Ultra</h2>
             <a
               className={
-                'cursor-pointer text-xs text-[#616161] hover:text-[var(--color-primary)]'
+                'hover:text-primary cursor-pointer text-xs text-[#616161]'
               }
             >
               Xiaomi 14 Ultra
@@ -51,7 +51,7 @@ function ProductLink({ children, href }: ProductLinkProps) {
     <Link
       href={href}
       className={
-        'cursor-pointer text-sm leading-[10px] text-[#616161] hover:text-[var(--color-primary)]'
+        'hover:text-primary cursor-pointer text-sm leading-[10px] text-[#616161]'
       }
     >
       {children}

@@ -23,7 +23,7 @@ export default function CartBar() {
       )}
     >
       <div className={'flex items-center pl-8 text-[#757575]'}>
-        <Link href={'/'} className={'hover:text-[var(--color-primary)]'}>
+        <Link href={'/'} className={'hover:text-primary'}>
           继续购物
         </Link>
         <Sep />

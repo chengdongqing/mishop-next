@@ -191,9 +191,7 @@ function NavItem({ title, href }: { title: string; href?: string }) {
         rel={'nofollow'}
         target={'_blank'}
         href={href}
-        className={
-          'cursor-pointer text-[#757575] hover:text-[var(--color-primary)]'
-        }
+        className={'hover:text-primary cursor-pointer text-[#757575]'}
       >
         {title}
       </a>

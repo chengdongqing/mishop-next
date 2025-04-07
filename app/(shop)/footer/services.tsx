@@ -30,7 +30,7 @@ export default function Services() {
                 rel={'nofollow'}
                 target={'_blank'}
                 className={
-                  'flex items-center text-base text-[#616161] duration-200 hover:text-[var(--color-primary)]'
+                  'hover:text-primary flex items-center text-base text-[#616161] duration-200'
                 }
               >
                 <Icon className={'mr-1 h-8 w-8'} />

@@ -55,7 +55,7 @@ function ProductsPanel({ items }: { items: LayoutHeroCategoryItem[] }) {
           <a
             href={getHref(item)}
             className={
-              'flex cursor-pointer items-center px-[20] py-[18] hover:text-[var(--color-primary)]'
+              'hover:text-primary flex cursor-pointer items-center px-[20] py-[18]'
             }
           >
             <Image

@@ -23,9 +23,7 @@ function Left() {
                 rel={'nofollow'}
                 target={'_blank'}
                 href={child.href}
-                className={
-                  'text-xs text-[#757575] hover:text-[var(--color-primary)]'
-                }
+                className={'hover:text-primary text-xs text-[#757575]'}
               >
                 {child.title}
               </a>

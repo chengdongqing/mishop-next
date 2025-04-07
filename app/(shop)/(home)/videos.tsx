@@ -29,7 +29,7 @@ function Header() {
       <h2 className={'text-[22px]'}>视频</h2>
       <Link
         className={
-          'group flex items-center text-base font-extralight text-[#424242] duration-200 hover:text-[var(--color-primary)]'
+          'group hover:text-primary flex items-center text-base font-extralight text-[#424242] duration-200'
         }
         href={'/videos'}
         target={'_blank'}

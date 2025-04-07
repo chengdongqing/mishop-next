@@ -62,7 +62,7 @@ function ProductSkus({
                 key={item1}
                 className={clsx(
                   'flex h-[44] cursor-pointer items-center justify-center border-1 text-base duration-200 ease-in-out select-none',
-                  'hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]',
+                  'hover:text-primary hover:border-[var(--color-primary)]',
                   activeSkus[item.name] === item1
                     ? 'text-primary border-[var(--color-primary)]'
                     : 'border-primary text-[#757575]'

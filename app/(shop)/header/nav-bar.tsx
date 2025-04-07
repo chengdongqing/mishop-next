@@ -106,7 +106,7 @@ function NavItem({
   return (
     <li
       className={
-        'flex h-full cursor-pointer items-center px-[10px] text-base duration-200 hover:text-[var(--color-primary)]'
+        'hover:text-primary flex h-full cursor-pointer items-center px-[10px] text-base duration-200'
       }
       onMouseEnter={onMouseEnter}
     >

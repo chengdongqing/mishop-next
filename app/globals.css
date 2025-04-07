@@ -5,6 +5,10 @@
         color: var(--color-primary);
     }
 
+    .hover\:text-primary:hover {
+        color: var(--color-primary);
+    }
+
     .bg-primary {
         background-color: var(--color-bg);
     }
