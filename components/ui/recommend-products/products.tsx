@@ -81,6 +81,7 @@ function ProductCard({ product }: { product: SearchProduct }) {
           alt={'product image'}
           width={140}
           height={140}
+          unoptimized
           className={'mt-[40] mb-[20] h-[140] w-[140] object-scale-down'}
         />
         <h4 className={'mb-2.5'}>{product.name}</h4>

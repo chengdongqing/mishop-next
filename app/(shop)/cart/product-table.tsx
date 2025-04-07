@@ -23,7 +23,7 @@ function TableHeader() {
     <thead>
       <tr className={'h-[70]'}>
         <th className={'w-[110] pl-6 font-normal text-[#424242]'}>
-          <Checkbox checked>全选</Checkbox>
+          <Checkbox>全选</Checkbox>
         </th>
         <th className={'w-[120]'} />
         <th className={'w-[380] text-left font-normal text-[#424242]'}>
