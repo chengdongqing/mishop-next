@@ -1,15 +1,24 @@
+import { XMarkIcon as XMarkIcon1 } from '@heroicons/react/16/solid';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
 import { HTMLAttributes } from 'react';
 import styles from './styles.module.css';
 
-export default function CloseIcon({
-  className,
-  ...rest
-}: HTMLAttributes<HTMLDivElement>) {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  size?: 30 | 24;
+}
+
+export default function CloseIcon({ size = 30, ...rest }: Props) {
   return (
-    <div {...rest} className={clsx(styles.container, className)}>
-      <XMarkIcon className={'w-6'} />
+    <div
+      {...rest}
+      className={styles.container}
+      style={{ width: size, height: size }}
+    >
+      {size === 30 ? (
+        <XMarkIcon className={'w-6'} />
+      ) : (
+        <XMarkIcon1 className={'w-4'} />
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import useLatest from '@/app/hooks/useLatest';
+import useLatest from '@/hooks/useLatest';
 import { useCallback, useRef } from 'react';
 
 export default function useDebounce(

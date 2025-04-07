@@ -1,6 +1,6 @@
-import { useKeyboardEscape } from '@/app/hooks/useKeyboardShortcuts';
 import Button from '@/components/ui/button';
 import CloseIcon from '@/components/ui/close-icon';
+import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
 import clsx from 'clsx';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';

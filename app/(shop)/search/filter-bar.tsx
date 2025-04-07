@@ -1,6 +1,6 @@
 'use client';
 
-import useToggle from '@/app/hooks/useToggle';
+import useToggle from '@/hooks/useToggle';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { motion } from 'motion/react';

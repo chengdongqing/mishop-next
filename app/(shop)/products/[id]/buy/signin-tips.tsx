@@ -1,6 +1,6 @@
 'use client';
 
-import useToggle from '@/app/hooks/useToggle';
+import useToggle from '@/hooks/useToggle';
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 

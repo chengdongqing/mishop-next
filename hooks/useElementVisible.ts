@@ -1,8 +1,8 @@
-import useDebounce from '@/app/hooks/useDebounce';
+import useDebounce from '@/hooks/useDebounce';
 import { RefObject, useEffect, useState } from 'react';
 
 export default function useElementVisible(
-  target: HTMLElement | RefObject<HTMLElement> | null,
+  target: HTMLElement | RefObject<HTMLElement | null> | null,
   predicate: (rect: DOMRect | undefined) => boolean,
   deps: unknown[] = []
 ) {

@@ -1,4 +1,4 @@
-import useLatest from '@/app/hooks/useLatest';
+import useLatest from '@/hooks/useLatest';
 import { useEffect } from 'react';
 
 function useKeyboardEvent(

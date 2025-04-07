@@ -1,6 +1,6 @@
 'use client';
 
-import useElementVisible from '@/app/hooks/useElementVisible';
+import useElementVisible from '@/hooks/useElementVisible';
 import clsx from 'clsx';
 
 export default function GoTopButton() {

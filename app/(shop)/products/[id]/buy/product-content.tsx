@@ -1,10 +1,10 @@
 'use client';
 
-import useToggle from '@/app/hooks/useToggle';
 import { productSkusData } from '@/app/lib/placeholder-data';
 import { formatAmount } from '@/app/lib/utils';
 import { ProductSku } from '@/app/types/product';
 import Button from '@/components/ui/button';
+import useToggle from '@/hooks/useToggle';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';

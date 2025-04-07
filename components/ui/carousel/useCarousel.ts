@@ -1,6 +1,6 @@
 'use client';
 
-import useUpdateEffect from '@/app/hooks/useUpdateEffect';
+import useUpdateEffect from '@/hooks/useUpdateEffect';
 import {
   Children,
   useCallback,
