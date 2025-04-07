@@ -6,7 +6,21 @@ import { FaceSmileIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
 
+const count = 10;
+
 export default function ReviewList() {
+  if (!count) {
+    return (
+      <div
+        className={
+          'flex w-[792] items-center justify-center text-lg text-[#b0b0b0]'
+        }
+      >
+        暂无数据
+      </div>
+    );
+  }
+
   return (
     <div className={'w-[792]'}>
       <ul>

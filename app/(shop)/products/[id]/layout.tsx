@@ -1,7 +1,6 @@
 import Space from '@/components/ui/space';
-import Link from 'next/link';
 import { PropsWithChildren } from 'react';
-import BuyButton from './buy-now-button';
+import Links from './links';
 
 export default function ProductsLayout({ children }: PropsWithChildren) {
   return (
@@ -22,39 +21,10 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
               Xiaomi 14 Ultra
             </a>
           </Space>
-          <div className={'flex items-center'}>
-            <Space
-              className={'pt-1'}
-              split={
-                <span className={'text-xs text-[var(--color-border)]'}>|</span>
-              }
-            >
-              <ProductLink href={'/products/1'}>概述页</ProductLink>
-              <ProductLink href={'/products/1/specs'}>参数页</ProductLink>
-              <ProductLink href={'/products/1/reviews'}>用户评价</ProductLink>
-            </Space>
-            <BuyButton />
-          </div>
+          <Links />
         </div>
       </div>
       {children}
     </>
-  );
-}
-
-interface ProductLinkProps extends PropsWithChildren {
-  href: string;
-}
-
-function ProductLink({ children, href }: ProductLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={
-        'hover:text-primary cursor-pointer text-sm leading-[10px] text-[#616161]'
-      }
-    >
-      {children}
-    </Link>
   );
 }
