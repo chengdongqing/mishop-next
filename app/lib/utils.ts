@@ -1,4 +1,5 @@
 import { products } from '@/app/lib/schema';
+import { PageRequest } from '@/app/types/common';
 
 export const EmptyValue = '--';
 
@@ -57,4 +58,18 @@ export function arrayToObject(
   return source.reduce((sum, item) => {
     return Object.assign(sum, apply(item));
   }, {});
+}
+
+export function createPaginationMeta(request: PageRequest, total: number) {
+  const page = request.page ?? 1;
+  const size = request.size ?? 10;
+  const offset = (page - 1) * size;
+  const pages = Math.ceil(total / size);
+
+  return {
+    page,
+    size,
+    offset,
+    pages
+  };
 }

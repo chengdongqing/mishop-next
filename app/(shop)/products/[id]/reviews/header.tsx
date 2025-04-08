@@ -4,19 +4,18 @@ import Checkbox from '@/components/ui/checkbox';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export default function Header({
-  scoresMap = {},
-  all = 0
-}: {
-  scoresMap: Record<number, number>;
+interface Props {
+  ratingsMap: Record<number, number>;
   all: number;
-}) {
+}
+
+export default function Header({ ratingsMap = {}, all = 0 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
   const currentCategory = category ? Number(category) : undefined;
-  const withPhotosOnly = searchParams.get('withPhotosOnly');
+  const onlyWithPhotos = searchParams.get('onlyWithPhotos');
 
   function handleSearch(field: string, value: number | undefined) {
     const params = new URLSearchParams(searchParams);
@@ -38,7 +37,7 @@ export default function Header({
               key={category.label}
               isActive={category.value === currentCategory}
               label={category.label}
-              value={category.value ? (scoresMap[category.value] ?? 0) : all}
+              value={category.value ? (ratingsMap[category.value] ?? 0) : all}
               onClick={() => handleSearch('category', category.value)}
             />
           ))}
@@ -48,8 +47,8 @@ export default function Header({
       <div className={'mt-[30] flex w-[792] items-center justify-between'}>
         <h2 className={'text-[22px] text-[#616161]'}>热门评价</h2>
         <Checkbox
-          checked={withPhotosOnly ? Boolean(Number(withPhotosOnly)) : false}
-          onChange={(value) => handleSearch('withPhotosOnly', value ? 1 : 0)}
+          checked={onlyWithPhotos ? Boolean(Number(onlyWithPhotos)) : false}
+          onChange={(value) => handleSearch('onlyWithPhotos', value ? 1 : 0)}
         >
           <span className={'text-[#b0b0b0]'}>只显示带图评价</span>
         </Checkbox>

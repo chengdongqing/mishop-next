@@ -7,6 +7,7 @@ import {
   products,
   productSkus
 } from '@/app/lib/schema';
+import { createPaginationMeta } from '@/app/lib/utils';
 import { Page, PageRequest } from '@/app/types/common';
 import { SearchProduct } from '@/app/types/product';
 import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
@@ -22,10 +23,10 @@ interface SearchRequest extends PageRequest {
 export async function searchProducts(
   request: Partial<SearchRequest> = {}
 ): Promise<Page<SearchProduct>> {
-  const orderBy = getOrderBy(request.orderBy);
+  // 构建查询条件
   const conditions = getSearchConditions(request);
 
-  // 获取符合条件的产品总数
+  // 查询总数量
   const totalQuery = await db
     .select({
       id: products.id
@@ -41,12 +42,12 @@ export async function searchProducts(
   const total = totalQuery.length;
 
   // 计算分页参数
-  const page = request.page ?? 1;
-  const size = request.size ?? 10;
-  const offset = (page - 1) * size;
-  const pages = Math.ceil(total / size);
+  const { page, size, offset, pages } = createPaginationMeta(request, total);
 
-  // 获取当前页的产品数据
+  // 获取排序方式
+  const orderBy = getOrderBy(request.orderBy);
+
+  // 查询商品数据
   const list = await db
     .select({
       id: products.id,

@@ -1,28 +1,36 @@
-import { countReviewsByRatings } from '@/app/services/product-reviews';
+import {
+  countReviewsByRatings,
+  findReviewsByPage
+} from '@/app/services/product-reviews';
 import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
 import SatisfactionLevel from './satisfaction-level';
 
-const isEmpty = false;
-
-export default async function ProductReviewsPage() {
-  const res = await countReviewsByRatings(1);
-  console.log(res);
+export default async function ProductReviewsPage({
+  params
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const productId = Number(id);
+  const res = await countReviewsByRatings(productId);
+  const page = await findReviewsByPage({ productId });
+  console.log(page);
 
   return (
     <div className={'bg-primary'}>
       <div className={'w-primary py-[30]'}>
-        {!isEmpty ? (
+        {res.totalCount ? (
           <>
-            <Header
-              all={1212234}
-              scoresMap={{ 1: 34334, 2: 3847, 3: 349543, 4: 2342, 5: 123 }}
-            />
+            <Header all={res.totalCount} ratingsMap={res.ratingsMap} />
             <div className={'relative mt-3.5 flex w-full gap-x-3.5'}>
               <ReviewList />
               <div className={'h-full flex-1'}>
-                <SatisfactionLevel />
+                <SatisfactionLevel
+                  positiveCount={res.positiveCount}
+                  positiveRate={res.positiveRate}
+                />
                 <GoTopButton />
               </div>
             </div>
