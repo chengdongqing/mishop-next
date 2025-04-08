@@ -14,7 +14,7 @@ export async function countReviewsByRatings(productId: number) {
                          from ${productReviews}
                          where ${productReviews.productId} = ${productId}
                          group by ${productReviews.rating}`);
-  const ratingCountArray = ratingCountRes[0] as {
+  const ratingCountArray = ratingCountRes[0] as unknown as {
     rating: number;
     value: number;
   }[];

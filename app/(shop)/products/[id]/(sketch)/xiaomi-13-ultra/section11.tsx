@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import styles from './styles.module.css';
 
 const options = [
@@ -54,9 +55,11 @@ export default function Section11() {
         {options.map((item) => (
           <div key={item.label} className={styles.feature_item}>
             <div className={styles.img_wrapper}>
-              <img
+              <Image
                 src={item.icon}
                 alt={item.label}
+                width={89}
+                height={111}
                 style={{ width: item.iconWidth }}
               />
             </div>

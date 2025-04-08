@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import styles from './styles.module.css';
 
 export default function Xiaomi13UltraSpecs() {
@@ -12,11 +13,13 @@ export default function Xiaomi13UltraSpecs() {
         )}
       >
         <div>
-          <img
+          <Image
             src={
               'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4363.png'
             }
             alt={''}
+            width={463}
+            height={92}
           />
           <div className={styles.features}>
             徕卡光学全焦段四摄
@@ -48,11 +51,13 @@ export default function Xiaomi13UltraSpecs() {
             IP68级防尘防水*
           </div>
         </div>
-        <img
+        <Image
           src={
             'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/99999.png'
           }
           alt={''}
+          width={628}
+          height={396}
           style={{ width: 568 }}
         />
       </div>
@@ -74,11 +79,13 @@ export default function Xiaomi13UltraSpecs() {
           <div className={styles.remark}>
             *以上数据为小米实验室测试数据，依据行业内测量方式不同，实际结果可能略有差异。
           </div>
-          <img
+          <Image
             src={
               'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4028.png'
             }
             alt={''}
+            width={764}
+            height={363}
             style={{ width: 687, marginTop: 40 }}
           />
         </div>
@@ -123,11 +130,13 @@ export default function Xiaomi13UltraSpecs() {
       <div className={clsx('flex justify-between', styles.section)}>
         <div className={styles.title}>屏幕显示</div>
         <div className={styles.content}>
-          <img
+          <Image
             src={
               'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/3935.png'
             }
             alt={''}
+            width={468}
+            height={219}
             style={{ width: 420, marginBottom: 30 }}
           />
           <div className={styles.subtitle}>6.73 英寸 2K 专业原色屏</div>

@@ -9,7 +9,7 @@ import {
 } from '@/app/lib/schema';
 import { Page, PageRequest } from '@/app/types/common';
 import { SearchProduct } from '@/app/types/product';
-import { and, desc, eq, gt, like, sql } from 'drizzle-orm';
+import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
 
 interface SearchRequest extends PageRequest {
   keyword: string;
@@ -87,23 +87,29 @@ export async function searchProducts(
 }
 
 function getSearchConditions(request: Partial<SearchRequest>) {
-  return and(
-    eq(products.enabled, true),
-    request.categoryId
-      ? sql`
+  const filters: SQL[] = [];
+
+  filters.push(eq(products.enabled, true));
+  if (request.categoryId) {
+    filters.push(sql`
         ${products.categoryId} in (
           select id from ${productCategories} 
           where ${productCategories.id} = ${request.categoryId} 
           or ${productCategories.parentId} = ${request.categoryId}
         )
-      `
-      : undefined,
-    request.labelId
-      ? eq(productLabelRelations.labelId, request.labelId)
-      : undefined,
-    request.keyword ? like(products.name, `%${request.keyword}%`) : undefined,
-    request.onlyAvailable ? gt(productSkus.stocks, 0) : undefined
-  );
+      `);
+  }
+  if (request.labelId) {
+    filters.push(eq(productLabelRelations.labelId, request.labelId));
+  }
+  if (request.keyword) {
+    filters.push(like(products.name, `%${request.keyword}%`));
+  }
+  if (request.onlyAvailable) {
+    filters.push(gt(productSkus.stocks, 0));
+  }
+
+  return and(...filters);
 }
 
 function getOrderBy(orderBy?: ProductOrderBy) {

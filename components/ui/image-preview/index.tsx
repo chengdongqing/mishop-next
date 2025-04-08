@@ -65,6 +65,7 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
       </button>
 
       <div className={styles.image_wrapper}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={urls[current]}
           alt={''}

@@ -20,12 +20,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    :is(img) {
-        max-width: 100%;
-        max-height: 100%;
-        transition: 0.6s;
-    }
+.image_wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    transition: 0.6s;
 }
 
 .btn_close {
@@ -110,24 +110,24 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.8);
+}
 
-    button {
-        padding: 10px;
-        color: #c9c9c9;
-        border-radius: 50%;
-        transition: 0.2s;
-        cursor: pointer;
+.footer button {
+    padding: 10px;
+    color: #c9c9c9;
+    border-radius: 50%;
+    transition: 0.2s;
+    cursor: pointer;
 
-        .icon {
-            width: 22px;
-        }
+    .icon {
+        width: 22px;
+    }
 
-        .icon1 {
-            width: 19px;
-        }
+    .icon1 {
+        width: 19px;
+    }
 
-        &:hover {
-            background-color: #1a1a1a;
-        }
+    &:hover {
+        background-color: #1a1a1a;
     }
 }

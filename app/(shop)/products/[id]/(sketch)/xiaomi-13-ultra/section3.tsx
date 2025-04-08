@@ -1,5 +1,6 @@
 import popup from '@/components/ui/popup';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useRef } from 'react';
 import styles from './styles.module.css';
 import useVisible from './useVisible';
@@ -28,11 +29,13 @@ export default function Section3() {
         />
 
         <div className={styles.mask}>
-          <img
+          <Image
             src={
               'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/15132.png?x-fds-process=image/resize,q_90'
             }
             alt={'btn'}
+            width={74}
+            height={74}
             className={styles.btn}
             onClick={() => {
               popup.open({

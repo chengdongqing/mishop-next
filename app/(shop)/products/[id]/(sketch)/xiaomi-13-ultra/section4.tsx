@@ -1,5 +1,6 @@
 import Space from '@/components/ui/space';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useMemo, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import useVisible from './useVisible';
@@ -54,7 +55,13 @@ export default function Section4() {
           </div>
         </div>
 
-        <img src={item.src} alt={item.label} width={'100%'} height={'100%'} />
+        <Image
+          src={item.src}
+          alt={item.label}
+          width={2560}
+          height={1450}
+          className={'h-full w-full'}
+        />
 
         <Space size={20} className={styles.color_switch}>
           {options.map((item, index) => (
@@ -70,10 +77,12 @@ export default function Section4() {
               }}
             >
               <div className={styles.icon_wrapper}>
-                <img
+                <Image
                   src={index === current ? item.iconActive : item.icon}
                   className={styles.icon}
                   alt={item.label}
+                  width={42}
+                  height={41}
                 />
               </div>
               <span className={styles.label}>{item.label}</span>

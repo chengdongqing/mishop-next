@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useState } from 'react';
 import styles from './styles.module.css';
 
@@ -46,18 +47,22 @@ export default function Section8() {
       </div>
 
       <div className={styles.images_composing}>
-        <img
+        <Image
           src={
             'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/14483.png?x-fds-process=image/resize,q_90'
           }
-          alt={'background'}
+          alt={''}
+          width={1441}
+          height={665}
           draggable={false}
           className={styles.background}
         />
-        <img
+        <Image
           src={options[current].src}
           alt={options[current].label}
           className={styles.content}
+          width={1393}
+          height={644}
         />
       </div>
 

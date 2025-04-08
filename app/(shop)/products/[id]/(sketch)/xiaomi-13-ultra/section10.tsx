@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import styles from './styles.module.css';
 
 const options = [
@@ -31,12 +32,14 @@ const options = [
 export default function Section10() {
   return (
     <div className={styles.section10}>
-      <img
+      <Image
         src={
           'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/14554.png?x-fds-process=image/resize,q_90'
         }
         alt={''}
-        width={'100%'}
+        width={2560}
+        height={1480}
+        className={'w-full'}
       />
       <div className={styles.content}>
         <div className={styles.title}>

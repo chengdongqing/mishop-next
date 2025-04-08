@@ -1,5 +1,6 @@
 import Space from '@/components/ui/space';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useRef } from 'react';
 import styles from './styles.module.css';
 import useVisible from './useVisible';
@@ -82,12 +83,14 @@ export default function Section6() {
         )}
       >
         <div className={styles.header}>
-          <img
+          <Image
             src={
               'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/4397.jpg?x-fds-process=image/resize,q_90'
             }
             alt={''}
-            width={'100%'}
+            width={1440}
+            height={628}
+            className={'w-full'}
           />
           <div className={styles.description}>
             <div className={styles.keypoint}>徕卡光学全焦段四摄</div>
@@ -102,11 +105,13 @@ export default function Section6() {
         <div className={styles.body}>
           <div className={styles.left}>
             <div className={styles.group}>
-              <img
+              <Image
                 src={
                   'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2302.png?x-fds-process=image/resize,q_90'
                 }
                 alt={''}
+                width={554}
+                height={896}
               />
               <div className={styles.description}>
                 <div className={styles.keypoint}>徕卡经典相机设计</div>
@@ -124,7 +129,12 @@ export default function Section6() {
                 key={item.pictureUrl}
                 className={clsx(styles.group, item.className)}
               >
-                <img src={item.pictureUrl} alt={''} />
+                <Image
+                  src={item.pictureUrl}
+                  alt={''}
+                  width={426}
+                  height={416}
+                />
                 <div className={styles.description}>
                   <div className={styles.keypoint}>{item.keypoint}</div>
                   <div className={styles.other_points}>{item.otherPoints}</div>
@@ -135,11 +145,13 @@ export default function Section6() {
         </div>
         <div className={styles.footer}>
           <div className={styles.group}>
-            <img
+            <Image
               src={
                 'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2877.png?x-fds-process=image/resize,q_90'
               }
               alt={''}
+              width={998}
+              height={301}
             />
             <div className={styles.description}>
               <div className={styles.keypoint}>
@@ -155,11 +167,13 @@ export default function Section6() {
             </div>
           </div>
           <div className={styles.group}>
-            <img
+            <Image
               src={
                 'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2353.png?x-fds-process=image/resize,q_90'
               }
               alt={''}
+              width={426}
+              height={301}
             />
             <div className={styles.description}>
               <div className={styles.keypoint}>

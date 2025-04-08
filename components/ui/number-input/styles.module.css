@@ -20,19 +20,19 @@
             -webkit-appearance: none !important;
         }
     }
+}
 
-    button {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #757575;
-        cursor: pointer;
-        transition: 0.3s;
+.container button {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #757575;
+    cursor: pointer;
+    transition: 0.3s;
 
-        &:hover {
-            background-color: var(--color-border);
-        }
+    &:hover {
+        background-color: var(--color-border);
     }
 }

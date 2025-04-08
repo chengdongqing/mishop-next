@@ -31,14 +31,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    :is(div) {
-        color: #fff;
-        font-size: 14px;
-        font-weight: 200;
-        text-align: center;
-        line-height: 30px;
-    }
+.section2 div {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 200;
+    text-align: center;
+    line-height: 30px;
 }
 
 .section3 {
@@ -138,15 +138,13 @@
     }
 }
 
-.section5 {
-    :is(div) {
-        z-index: 1;
-        position: absolute;
-        top: 100px;
-        left: 22%;
-        font-size: 36px;
-        color: #fff;
-    }
+.section5 div {
+    z-index: 1;
+    position: absolute;
+    top: 100px;
+    left: 22%;
+    font-size: 36px;
+    color: #fff;
 }
 
 .section6 {
@@ -157,10 +155,6 @@
     .group {
         background-color: #151515;
         border-radius: 10px;
-
-        :is(img) {
-            width: 100%;
-        }
 
         .description {
             position: absolute;
@@ -178,6 +172,10 @@
                 font-size: 12px;
             }
         }
+    }
+
+    .group img {
+        width: 100%;
     }
 
     .header .description {
@@ -207,24 +205,22 @@
         .left {
             width: 290px;
             margin-right: 10px;
+        }
 
-            :is(img) {
-                width: 100%;
-            }
+        .left img {
+            width: 100%;
         }
 
         .right .group {
             width: 223px;
         }
 
-        .group_cpu {
-            :is(img) {
-                width: 89px;
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 30px;
-            }
+        .group_cpu img {
+            width: 89px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 30px;
         }
     }
 
@@ -269,12 +265,12 @@
             -webkit-text-fill-color: rgba(0, 0, 0, 0);
             margin-top: 10px;
         }
+    }
 
-        :is(img) {
-            width: 120px;
-            height: 22px;
-            margin-top: 30px;
-        }
+    .content img {
+        width: 120px;
+        height: 22px;
+        margin-top: 30px;
     }
 }
 
@@ -300,20 +296,20 @@
     .images_composing {
         height: 348px;
         margin: 30px auto;
+    }
 
-        :is(img) {
-            width: 100%;
+    .images_composing img {
+        width: 100%;
 
-            &.background {
-                z-index: 1;
-            }
+        &.background {
+            z-index: 1;
+        }
 
-            &.content {
-                position: absolute;
-                top: 0;
-                left: 0;
-                transform: scale(0.97);
-            }
+        &.content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.97);
         }
     }
 
@@ -365,13 +361,13 @@
             color: #fff;
             font-size: 50px;
         }
+    }
 
-        :is(img) {
-            width: 18px;
-            height: 35px;
-            margin-top: 10px;
-            margin-left: 100px;
-        }
+    .content img {
+        width: 18px;
+        height: 35px;
+        margin-top: 10px;
+        margin-left: 100px;
     }
 }
 
@@ -397,18 +393,16 @@
         .features {
             margin-top: 40px;
 
-            .feature_item {
-                :is(div) {
-                    color: #000;
-                    font-size: 14px;
-                    font-weight: 500;
-                    line-height: 30px;
-                }
+            .feature_item div {
+                color: #000;
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 30px;
+            }
 
-                :is(span) {
-                    color: #666;
-                    font-size: 12px;
-                }
+            .feature_item span {
+                color: #666;
+                font-size: 12px;
             }
         }
 
@@ -448,21 +442,21 @@
                 height: 50px;
                 line-height: 50px;
             }
+        }
 
-            :is(div) {
-                color: #000;
-                font-size: 16px;
-                font-weight: bold;
-                margin-top: 30px;
-                margin-bottom: 10px;
-            }
+        .feature_item div {
+            color: #000;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
 
-            :is(span) {
-                height: 50px;
-                color: #999;
-                font-size: 12px;
-                line-height: 18px;
-            }
+        .feature_item span {
+            height: 50px;
+            color: #999;
+            font-size: 12px;
+            line-height: 18px;
         }
     }
 
