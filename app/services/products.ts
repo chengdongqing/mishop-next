@@ -150,7 +150,7 @@ export function findProductLabels(categoryId: number) {
 }
 
 export async function findRecommendedProducts(limits: number = 10) {
-  const res = await db.execute(sql<
+  const [res] = await db.execute(sql<
     {
       id: number;
       name: string;
@@ -182,5 +182,11 @@ export async function findRecommendedProducts(limits: number = 10) {
       limit ${limits}
   `);
 
-  return res[0];
+  return res;
+}
+
+export function findDetails(id: number) {
+  return db.query.products.findFirst({
+    where: and(eq(products.id, id), eq(products.enabled, true))
+  });
 }

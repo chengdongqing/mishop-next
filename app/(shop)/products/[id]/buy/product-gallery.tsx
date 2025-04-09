@@ -1,11 +1,15 @@
 'use client';
 
+import { useProduct } from '@/app/(shop)/products/[id]/product-context';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 export default function ProductGallery() {
+  const { product } = useProduct();
+  console.log({ product });
+
   const carouselRef = useRef<CarouselInstance>(null);
   const [current, setCurrent] = useState(0);
 

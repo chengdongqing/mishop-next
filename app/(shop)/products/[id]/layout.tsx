@@ -1,8 +1,20 @@
-import Space from '@/components/ui/space';
+import { ProductProvider } from '@/app/(shop)/products/[id]/product-context';
+import { findDetails } from '@/app/services/products';
+import { notFound } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
 
-export default function ProductsLayout({ children }: PropsWithChildren) {
+export default async function ProductsLayout({
+  children,
+  params
+}: PropsWithChildren<{ params: Promise<{ id: string }> }>) {
+  const { id } = await params;
+  const product = await findDetails(Number(id));
+
+  if (!product) {
+    notFound();
+  }
+
   return (
     <>
       <div
@@ -11,20 +23,11 @@ export default function ProductsLayout({ children }: PropsWithChildren) {
         }
       >
         <div className={'w-primary flex h-[65] items-center justify-between'}>
-          <Space split={<span className={'text-xs text-[#424242]'}>|</span>}>
-            <h2 className={'text-lg text-[#424242]'}>Xiaomi 15 Ultra</h2>
-            <a
-              className={
-                'hover:text-primary cursor-pointer text-xs text-[#616161]'
-              }
-            >
-              Xiaomi 14 Ultra
-            </a>
-          </Space>
+          <h2 className={'text-lg text-[#424242]'}>{product.name}</h2>
           <Links />
         </div>
       </div>
-      {children}
+      <ProductProvider product={product}>{children}</ProductProvider>
     </>
   );
 }
