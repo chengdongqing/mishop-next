@@ -19,10 +19,12 @@ export interface ProductSku {
   limits?: number;
   pictureUrl: string;
   gallery: string[];
-  attributes: {
-    name: string;
-    value: string;
-  }[];
+  attributes: SkuAttribute[];
+}
+
+export interface SkuAttribute {
+  name: string;
+  value: string;
 }
 
 export interface ProductCategory {

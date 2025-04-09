@@ -1,7 +1,4 @@
-import {
-  countReviewsByRatings,
-  findReviewsByPage
-} from '@/app/services/product-reviews';
+import { countReviews, findReviews } from '@/app/services/product-reviews';
 import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
@@ -14,8 +11,8 @@ export default async function ProductReviewsPage({
 }) {
   const { id } = await params;
   const productId = Number(id);
-  const res = await countReviewsByRatings(productId);
-  const page = await findReviewsByPage({ productId });
+  const res = await countReviews(productId);
+  const page = await findReviews({ productId });
   console.log(page);
 
   return (

@@ -3,9 +3,11 @@ import {
   LayoutHeroCategoryItemType,
   TargetType
 } from '@/app/enums';
+import { SkuAttribute } from '@/app/types/product';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
+  customType,
   decimal,
   int,
   json,
@@ -17,6 +19,19 @@ import {
   unique,
   varchar
 } from 'drizzle-orm/mysql-core';
+
+const customJson = <T>(name: string) =>
+  customType<{ data: T; driverData: string }>({
+    dataType() {
+      return 'json';
+    },
+    toDriver(value: T) {
+      return JSON.stringify(value);
+    },
+    fromDriver(value: string): T {
+      return JSON.parse(value);
+    }
+  })(name);
 
 export const products = mysqlTable('products', {
   id: serial('id').primaryKey(),
@@ -45,8 +60,8 @@ export const productSkus = mysqlTable('product_skus', {
   price: decimal('price', { precision: 10, scale: 2 }).notNull(),
   originalPrice: decimal('original_price', { precision: 10, scale: 2 }),
   pictureUrl: varchar('picture_url', { length: 200 }).notNull(),
-  gallery: json('gallery').notNull(),
-  attributes: json('attributes').notNull(),
+  gallery: customJson<string[]>('gallery').notNull(),
+  attributes: customJson<SkuAttribute[]>('attributes').notNull(),
   stocks: int('stocks').default(100).notNull(),
   limits: int('limits'),
   sales: int('sales').default(0).notNull(),
@@ -92,7 +107,7 @@ export const productReviews = mysqlTable('product_reviews', {
   userId: int('user_id').notNull(),
   rating: int('rating').default(5).notNull(),
   content: text('content'),
-  photoUrls: json('photo_urls'),
+  photoUrls: customJson<string[]>('photo_urls'),
   isAnonymous: boolean('is_anonymous').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()

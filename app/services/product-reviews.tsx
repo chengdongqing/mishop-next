@@ -5,7 +5,7 @@ import { Page, PageRequest } from '@/app/types/common';
 import { ProductReview } from '@/app/types/product-review';
 import { and, eq, gte, isNotNull, SQL, sql } from 'drizzle-orm';
 
-export async function countReviewsByRatings(productId: number) {
+export async function countReviews(productId: number) {
   // 评价总数
   const totalCount = await db.$count(
     productReviews,
@@ -55,7 +55,7 @@ interface ReviewsRequest extends PageRequest {
   onlyWithPhotos?: boolean;
 }
 
-export async function findReviewsByPage(
+export async function findReviews(
   request: ReviewsRequest
 ): Promise<Page<ProductReview>> {
   // 构建查询条件
@@ -92,7 +92,7 @@ export async function findReviewsByPage(
       id: review.id,
       rating: review.rating,
       content: review.content,
-      photoUrls: review.photoUrls ? JSON.parse(review.photoUrls as string) : [],
+      photoUrls: review.photoUrls ? review.photoUrls : [],
       user: {
         id: 1,
         name: '萌团子',
