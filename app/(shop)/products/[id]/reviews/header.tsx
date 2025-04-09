@@ -13,7 +13,7 @@ export default function Header({ ratingsMap = {}, all = 0 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const category = searchParams.get('category');
+  const category = searchParams.get('rating');
   const currentCategory = category ? Number(category) : undefined;
   const onlyWithPhotos = searchParams.get('onlyWithPhotos');
 
@@ -38,7 +38,7 @@ export default function Header({ ratingsMap = {}, all = 0 }: Props) {
               isActive={category.value === currentCategory}
               label={category.label}
               value={category.value ? (ratingsMap[category.value] ?? 0) : all}
-              onClick={() => handleSearch('category', category.value)}
+              onClick={() => handleSearch('rating', category.value)}
             />
           ))}
         </ul>

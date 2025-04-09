@@ -5,6 +5,6 @@ export interface ProductReview {
   user: User;
   rating: number;
   content: string | null;
-  photoUrls: string[] | null;
+  photoUrls: string[];
   createdAt: Date;
 }

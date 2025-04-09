@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const maxSize = 5 * 1024 * 1024; // 限制5MB
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
   const remoteUrl = searchParams.get('remoteUrl');
   const filename = searchParams.get('filename');
 

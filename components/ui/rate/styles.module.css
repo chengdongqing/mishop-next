@@ -1,0 +1,26 @@
+.item {
+    color: rgba(0, 0, 0, 0.06);
+    font-size: 20px;
+    cursor: pointer;
+
+    &.active {
+        color: var(--color-primary);
+    }
+
+    &.disabled {
+        cursor: default;
+    }
+}
+
+.prefix {
+    font-size: 16px;
+    margin-top: 4px;
+    padding-right: 16px;
+}
+
+.suffix {
+    color: #666;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-left: 16px;
+}

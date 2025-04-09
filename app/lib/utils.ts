@@ -73,3 +73,7 @@ export function createPaginationMeta(request: PageRequest, total: number) {
     pages
   };
 }
+
+export function sleep(ms: number = 2000) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

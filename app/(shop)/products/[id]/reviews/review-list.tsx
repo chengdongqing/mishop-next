@@ -1,62 +1,115 @@
 'use client';
 
+import { sleep } from '@/app/lib/utils';
+import { Page } from '@/app/types/common';
+import { ProductReview } from '@/app/types/product-review';
 import previewImages from '@/components/ui/image-preview';
-import Space from '@/components/ui/space';
-import { FaceSmileIcon } from '@heroicons/react/24/solid';
+import Loading from '@/components/ui/loading';
+import Rate from '@/components/ui/rate';
+import { FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import Image from 'next/image';
-
-const count = 10;
+import { useParams, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState, useTransition } from 'react';
 
 export default function ReviewList() {
-  if (!count) {
+  const [reviews, setReviews] = useState<ProductReview[]>([]);
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+
+  const { id } = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
+  const loadReviews = useCallback(
+    (page?: number) => {
+      const params = new URLSearchParams(searchParams);
+      if (page) {
+        params.set('page', page.toString());
+      }
+
+      startTransition(async () => {
+        const start = new Date().getTime();
+        const res: Page<ProductReview> = await fetch(
+          `/api/products/${id}/reviews?${params.toString()}`
+        ).then((res) => res.json());
+        const end = new Date().getTime();
+        const duration = end - start;
+        // 避免页面闪烁
+        if (duration < 300) {
+          await sleep(300 - duration);
+        }
+
+        setPage(res.page);
+        setPages(res.pages);
+        setReviews((prevState) => {
+          if (page) {
+            return prevState.concat(res.data);
+          }
+          return res.data;
+        });
+      });
+    },
+    [id, searchParams]
+  );
+
+  useEffect(() => {
+    setReviews([]);
+    loadReviews();
+  }, [loadReviews]);
+
+  if (!reviews.length && !isPending) {
     return (
       <div
-        className={
-          'flex w-[792] items-center justify-center text-lg text-[#b0b0b0]'
-        }
+        className={'flex items-center justify-center text-lg text-[#b0b0b0]'}
       >
         暂无数据
       </div>
     );
   }
 
+  const hasMore = page < pages;
+
   return (
-    <div className={'w-[792]'}>
+    <>
       <ul>
-        {[...Array(10)].map((_, index) => (
-          <ReviewItem key={index} />
+        {reviews.map((review) => (
+          <ReviewItem key={review.id} review={review} />
         ))}
       </ul>
 
-      <button
-        className={
-          'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white text-sm'
-        }
-      >
-        加载更多
-      </button>
-    </div>
+      {isPending ? (
+        <Loading className={'h-[100]'} />
+      ) : hasMore ? (
+        <button
+          className={
+            'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white text-sm'
+          }
+          onClick={() => loadReviews(page + 1)}
+        >
+          加载更多
+        </button>
+      ) : null}
+    </>
   );
 }
 
-function ReviewItem() {
+function ReviewItem({ review }: { review: ProductReview }) {
   return (
     <li className={'relative mb-3.5 bg-white p-[40_40_46_103] last:mb-0'}>
-      <ReviewHeader />
-      <ReviewContent />
-      <ReviewPhotos />
+      <ReviewHeader review={review} />
+      <ReviewContent content={review.content} />
+      <ReviewPhotos urls={review.photoUrls} />
     </li>
   );
 }
 
-function ReviewHeader() {
+function ReviewHeader({ review }: { review: ProductReview }) {
   return (
     <>
       <Image
-        src={
-          'https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/0f2e4308-6768-4ad4-945a-30a86e294b88.jpg'
-        }
+        src={review.user.avatarUrl}
         alt={'user avatar'}
         width={47}
         height={47}
@@ -64,34 +117,40 @@ function ReviewHeader() {
       />
       <div className={'flex flex-1 justify-between'}>
         <div>
-          <div className={'text-base text-[#8d665a]'}>萌团子</div>
-          <div className={'mt-1 text-sm text-[#b0b0b0]'}>2025-04-04</div>
+          <div className={'text-base text-[#8d665a]'}>{review.user.name}</div>
+          <div className={'mt-1 text-sm text-[#b0b0b0]'}>
+            {dayjs(review.createdAt).format('YYYY-MM-DD')}
+          </div>
         </div>
-        <Space className={'text-base text-[var(--color-primary)]'} size={4}>
-          <FaceSmileIcon className={'w-6'} />
-          超爱
-        </Space>
+        <Rate
+          disabled
+          value={review.rating}
+          character={(value) => {
+            return value >= 3 ? (
+              <FaceSmileIcon className={'w-6'} />
+            ) : (
+              <FaceFrownIcon className={'w-6'} />
+            );
+          }}
+        />
       </div>
     </>
   );
 }
 
-function ReviewContent() {
+function ReviewContent({ content }: { content: string | null }) {
+  if (!content) {
+    return null;
+  }
+
   return (
     <div className={'mt-2 text-lg leading-[27px] text-[#5e5e5e]'}>
-      看到了小米su7好漂亮
-      工作人员小姐姐很热情讲解，体验了一下小米15ultra很喜欢拍照视频很高清心动入手了😍
+      {content}
     </div>
   );
 }
 
-const urls = [
-  'https://i1.mifile.cn/a2/1743749502_4877976_s1536_2048wh.jpg',
-  'https://i1.mifile.cn/a2/1743749501_4078797_s2048_1536wh.jpg',
-  'https://i1.mifile.cn/a2/1743749500_4541285_s1536_2048wh.jpg'
-];
-
-function ReviewPhotos() {
+function ReviewPhotos({ urls }: { urls: string[] }) {
   const singlePhoto = urls.length === 1;
   const photoSize = singlePhoto ? 330 : 160;
 
@@ -108,9 +167,7 @@ function ReviewPhotos() {
             'cursor-pointer object-cover',
             singlePhoto ? 'h-[330] w-[330]' : 'h-[160] w-[160]'
           )}
-          onClick={() => {
-            previewImages(urls, index);
-          }}
+          onClick={() => previewImages(urls, index)}
         />
       ))}
     </div>

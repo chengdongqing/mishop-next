@@ -1,4 +1,4 @@
-import { countReviews, findReviews } from '@/app/services/product-reviews';
+import { countReviews } from '@/app/services/product-reviews';
 import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
@@ -12,8 +12,6 @@ export default async function ProductReviewsPage({
   const { id } = await params;
   const productId = Number(id);
   const res = await countReviews(productId);
-  const page = await findReviews({ productId });
-  console.log(page);
 
   return (
     <div className={'bg-primary'}>
@@ -22,7 +20,13 @@ export default async function ProductReviewsPage({
           <>
             <Header all={res.totalCount} ratingsMap={res.ratingsMap} />
             <div className={'relative mt-3.5 flex w-full gap-x-3.5'}>
-              <ReviewList />
+              <div
+                className={
+                  'flex min-h-[200] w-[792] flex-col items-center justify-center'
+                }
+              >
+                <ReviewList />
+              </div>
               <div className={'h-full flex-1'}>
                 <SatisfactionLevel
                   positiveCount={res.positiveCount}
