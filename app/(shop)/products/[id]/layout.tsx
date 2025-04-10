@@ -1,5 +1,5 @@
-import { findAllProducts, findProductDetails } from '@/app/services/products';
-import { notFound } from 'next/navigation';
+import { findProductDetails } from '@/app/services/products';
+import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
 import { ProductProvider } from './product-context';
@@ -21,16 +21,6 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const products = await findAllProducts();
-
-  return products.map((product) => ({
-    id: product.slug ?? product.id.toString()
-  }));
-}
-
-export const revalidate = 3600; // 秒
-
 export default async function ProductsLayout({
   children,
   params
@@ -39,7 +29,8 @@ export default async function ProductsLayout({
   const product = await findProductDetails(id);
 
   if (!product) {
-    notFound();
+    // notFound()
+    redirect('/404');
   }
 
   return (

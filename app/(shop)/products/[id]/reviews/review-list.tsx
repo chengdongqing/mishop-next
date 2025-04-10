@@ -62,7 +62,9 @@ export default function ReviewList() {
   if (!reviews.length && !isPending) {
     return (
       <div
-        className={'flex items-center justify-center text-lg text-[#b0b0b0]'}
+        className={
+          'flex h-full items-center justify-center text-lg text-[#b0b0b0]'
+        }
       >
         暂无数据
       </div>
@@ -80,7 +82,7 @@ export default function ReviewList() {
       </ul>
 
       {isPending ? (
-        <Loading className={'h-[100]'} />
+        <Loading className={'h-full min-h-[100]'} />
       ) : hasMore ? (
         <button
           className={

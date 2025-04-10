@@ -1306,7 +1306,35 @@ export const productReviewsData: ProductReview[] = [
     productId: 1,
     orderId: 1,
     userId: 1,
-    rating: 5
+    rating: 5,
+    content:
+      '看到了小米su7好漂亮\n工作人员小姐姐很热情讲解，体验了一下小米15ultra很喜欢拍照视频很高清心动入手了😍',
+    photoUrls: [
+      'https://i1.mifile.cn/a2/1743749502_4877976_s1536_2048wh.jpg',
+      'https://i1.mifile.cn/a2/1743749501_4078797_s2048_1536wh.jpg',
+      'https://i1.mifile.cn/a2/1743749500_4541285_s1536_2048wh.jpg'
+    ]
+  },
+  {
+    id: 2,
+    productId: 1,
+    orderId: 1,
+    userId: 1,
+    rating: 1,
+    photoUrls: [
+      'https://i1.mifile.cn/a2/1743749502_4877976_s1536_2048wh.jpg',
+      'https://i1.mifile.cn/a2/1743749501_4078797_s2048_1536wh.jpg',
+      'https://i1.mifile.cn/a2/1743749500_4541285_s1536_2048wh.jpg'
+    ]
+  },
+  {
+    id: 3,
+    productId: 1,
+    orderId: 1,
+    userId: 1,
+    rating: 5,
+    content:
+      '看到了小米su7好漂亮\n工作人员小姐姐很热情讲解，体验了一下小米15ultra很喜欢拍照视频很高清心动入手了😍'
   }
 ];
 

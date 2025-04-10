@@ -1,4 +1,5 @@
 import { countReviews } from '@/app/services/product-reviews';
+import { Suspense } from 'react';
 import GoTopButton from './go-top-button';
 import Header from './header';
 import ReviewList from './review-list';
@@ -17,14 +18,10 @@ export default async function ProductReviewsPage({
     <div className={'bg-primary'}>
       <div className={'w-primary py-[30]'}>
         {res.totalCount ? (
-          <>
+          <Suspense>
             <Header all={res.totalCount} ratingsMap={res.ratingsMap} />
             <div className={'relative mt-3.5 flex w-full gap-x-3.5'}>
-              <div
-                className={
-                  'flex min-h-[200] w-[792] flex-col items-center justify-center'
-                }
-              >
+              <div className={'min-h-[200] w-[792]'}>
                 <ReviewList />
               </div>
               <div className={'h-full flex-1'}>
@@ -35,7 +32,7 @@ export default async function ProductReviewsPage({
                 <GoTopButton />
               </div>
             </div>
-          </>
+          </Suspense>
         ) : (
           <div className={'w-full bg-white py-[50] text-center text-xl'}>
             该商品暂无评论

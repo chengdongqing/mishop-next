@@ -230,11 +230,11 @@ export const findProductDetails = cache(
   }
 );
 
-export async function findAllProducts() {
+export const findAllProducts = cache(async () => {
   return await db.query.products.findMany({
     columns: { id: true, slug: true }
   });
-}
+});
 
 function isNumericId(value: string) {
   return /^\d+$/.test(value);
