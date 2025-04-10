@@ -10,7 +10,6 @@ import {
   customType,
   decimal,
   int,
-  json,
   mysqlEnum,
   mysqlTable,
   serial,
@@ -29,7 +28,7 @@ const customJson = <T>(name: string) =>
       return JSON.stringify(value);
     },
     fromDriver(value: string): T {
-      return JSON.parse(value);
+      return value.trim?.() ? JSON.parse(value) : (value as T);
     }
   })(name);
 
@@ -46,12 +45,16 @@ export const products = mysqlTable('products', {
   sales: int('sales').default(0).notNull(),
   rating: int('rating').default(5).notNull(),
   categoryId: int('category_id').notNull(),
-  staticDetails: json('static_details'),
+  staticDetails: customJson<string[]>('static_details'),
   enabled: boolean('enabled').default(true).notNull(),
   sortNo: int('sort_no').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const productsRelations = relations(products, ({ many }) => ({
+  skus: many(productSkus)
+}));
 
 export const productSkus = mysqlTable('product_skus', {
   id: serial('id').primaryKey(),
@@ -68,6 +71,13 @@ export const productSkus = mysqlTable('product_skus', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const productSkusRelations = relations(productSkus, ({ one }) => ({
+  product: one(products, {
+    fields: [productSkus.productId],
+    references: [products.id]
+  })
+}));
 
 export const productCategories = mysqlTable('product_categories', {
   id: serial('id').primaryKey(),

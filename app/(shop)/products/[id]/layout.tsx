@@ -1,15 +1,32 @@
-import { ProductProvider } from '@/app/(shop)/products/[id]/product-context';
-import { findDetails } from '@/app/services/products';
+import { findProductDetails } from '@/app/services/products';
 import { notFound } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
+import { ProductProvider } from './product-context';
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const product = await findProductDetails(Number(id));
+  if (!product) {
+    return null;
+  }
+
+  return {
+    title: product.name,
+    description: product.description
+  };
+}
 
 export default async function ProductsLayout({
   children,
   params
 }: PropsWithChildren<{ params: Promise<{ id: string }> }>) {
   const { id } = await params;
-  const product = await findDetails(Number(id));
+  const product = await findProductDetails(Number(id));
 
   if (!product) {
     notFound();

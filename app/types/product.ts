@@ -16,7 +16,7 @@ export interface ProductSku {
   name: string;
   price: number;
   originalPrice?: number;
-  limits?: number;
+  limits?: number | null;
   pictureUrl: string;
   gallery: string[];
   attributes: SkuAttribute[];
@@ -43,4 +43,12 @@ export interface ProductLabel {
 
 export interface SearchProduct extends Product {
   pictureUrls: string[];
+}
+
+export interface DetailProduct {
+  id: number;
+  name: string;
+  description?: string | null;
+  skus: ProductSku[];
+  staticDetails: string[] | null;
 }

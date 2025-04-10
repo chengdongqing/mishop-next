@@ -1,10 +1,10 @@
 'use client';
 
-import { Product } from '@/app/types/product';
+import { DetailProduct } from '@/app/types/product';
 import { createContext, PropsWithChildren, use } from 'react';
 
 interface ProductContext {
-  product: Product;
+  product: DetailProduct;
 }
 
 const ProductContext = createContext<ProductContext | null>(null);

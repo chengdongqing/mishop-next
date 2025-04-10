@@ -9,8 +9,10 @@ import {
 } from '@/app/lib/schema';
 import { createPaginationMeta } from '@/app/lib/utils';
 import { Page, PageRequest } from '@/app/types/common';
-import { SearchProduct } from '@/app/types/product';
+import { DetailProduct, SearchProduct } from '@/app/types/product';
 import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
+import { pick } from 'next/dist/lib/pick';
+import { cache } from 'react';
 
 interface SearchRequest extends PageRequest {
   keyword: string;
@@ -185,8 +187,35 @@ export async function findRecommendedProducts(limits: number = 10) {
   return res;
 }
 
-export function findDetails(id: number) {
-  return db.query.products.findFirst({
-    where: and(eq(products.id, id), eq(products.enabled, true))
-  });
-}
+export const findProductDetails = cache(
+  async (id: number): Promise<DetailProduct | null> => {
+    const res = await db.query.products.findFirst({
+      where: (products, { eq, and }) =>
+        and(eq(products.id, id), eq(products.enabled, true)),
+      with: {
+        skus: true
+      }
+    });
+
+    if (!res) {
+      return null;
+    }
+
+    const product = pick(res, [
+      'id',
+      'name',
+      'description',
+      'staticDetails',
+      'skus'
+    ]);
+
+    return {
+      ...product,
+      skus: product.skus?.map((sku) => ({
+        ...sku,
+        price: Number(sku.price),
+        originalPrice: Number(sku.originalPrice ?? sku.price)
+      }))
+    };
+  }
+);

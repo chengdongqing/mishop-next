@@ -1,10 +1,10 @@
 'use client';
 
-import { useProduct } from '@/app/(shop)/products/[id]/product-context';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+import { useProduct } from '../product-context';
 
 export default function ProductGallery() {
   const { product } = useProduct();
