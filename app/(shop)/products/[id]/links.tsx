@@ -1,24 +1,25 @@
 'use client';
 
+import { DetailProduct } from '@/app/types/product';
 import Button from '@/components/ui/button';
-import Space from '@/components/ui/space';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
-export default function Links() {
-  const { id } = useParams<{ id: string }>();
+export default function Links({ product }: { product: DetailProduct }) {
+  const { id, slug } = product;
 
   return (
     <div className={'flex items-center'}>
-      <Space
-        className={'pt-1'}
-        split={<span className={'text-xs text-[var(--color-border)]'}>|</span>}
-      >
-        <ProductLink href={`/products/${id}`}>概述页</ProductLink>
-        <ProductLink href={`/products/${id}/specs`}>参数页</ProductLink>
-        <ProductLink href={`/products/${id}/reviews`}>用户评价</ProductLink>
-      </Space>
+      {!!product.slug && (
+        <>
+          <ProductLink href={`/products/${slug}`}>概述页</ProductLink>
+          <Sep />
+          <ProductLink href={`/products/${slug}/specs`}>参数页</ProductLink>
+          <Sep />
+        </>
+      )}
+      <ProductLink href={`/products/${id}/reviews`}>用户评价</ProductLink>
       <BuyNowButton id={id} />
     </div>
   );
@@ -37,7 +38,7 @@ function ProductLink({ children, href }: PropsWithChildren<{ href: string }>) {
   );
 }
 
-function BuyNowButton({ id }: { id: string }) {
+function BuyNowButton({ id }: { id: number }) {
   const pathname = usePathname();
 
   if (pathname.endsWith('/buy')) {
@@ -49,4 +50,8 @@ function BuyNowButton({ id }: { id: string }) {
       <Button size={'small'}>立即购买</Button>
     </Link>
   );
+}
+
+function Sep() {
+  return <span className={'mx-2 text-xs text-[var(--color-border)]'}>|</span>;
 }

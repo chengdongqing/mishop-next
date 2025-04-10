@@ -1,4 +1,4 @@
-import { findProductDetails } from '@/app/services/products';
+import { findAllProducts, findProductDetails } from '@/app/services/products';
 import { notFound } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
@@ -10,7 +10,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = await findProductDetails(Number(id));
+  const product = await findProductDetails(id);
   if (!product) {
     return null;
   }
@@ -21,12 +21,22 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  const products = await findAllProducts();
+
+  return products.map((product) => ({
+    id: product.slug ?? product.id.toString()
+  }));
+}
+
+export const revalidate = 3600; // 秒
+
 export default async function ProductsLayout({
   children,
   params
 }: PropsWithChildren<{ params: Promise<{ id: string }> }>) {
   const { id } = await params;
-  const product = await findProductDetails(Number(id));
+  const product = await findProductDetails(id);
 
   if (!product) {
     notFound();
@@ -41,7 +51,7 @@ export default async function ProductsLayout({
       >
         <div className={'w-primary flex h-[65] items-center justify-between'}>
           <h2 className={'text-lg text-[#424242]'}>{product.name}</h2>
-          <Links />
+          <Links product={product} />
         </div>
       </div>
       <ProductProvider product={product}>{children}</ProductProvider>

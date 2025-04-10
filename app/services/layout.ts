@@ -29,6 +29,7 @@ export async function findHeaderNavs() {
           .select({
             id: products.id,
             name: products.name,
+            slug: products.slug,
             pictureUrl: products.pictureUrl,
             price: products.price,
             hasMultipleSkus: products.hasMultipleSkus
@@ -37,8 +38,8 @@ export async function findHeaderNavs() {
           .leftJoin(products, eq(layoutHeaderNavItems.productId, products.id))
           .where(
             and(
-              eq(products.enabled, true),
-              eq(layoutHeaderNavItems.parentId, nav.id)
+              eq(layoutHeaderNavItems.parentId, nav.id),
+              eq(products.enabled, true)
             )
           )
           .limit(6)

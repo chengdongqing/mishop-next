@@ -1,6 +1,7 @@
 export interface Product {
   id: number;
   name: string;
+  slug?: string | null;
   description?: string | null;
   pictureUrl: string;
   price: number;
@@ -22,7 +23,7 @@ export interface ProductSku {
   attributes: SkuAttribute[];
 }
 
-export interface SkuAttribute {
+export interface SkuAttribute extends Record<string, string> {
   name: string;
   value: string;
 }
@@ -48,6 +49,7 @@ export interface SearchProduct extends Product {
 export interface DetailProduct {
   id: number;
   name: string;
+  slug?: string | null;
   description?: string | null;
   skus: ProductSku[];
   staticDetails: string[] | null;

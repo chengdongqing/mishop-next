@@ -1,10 +1,11 @@
 import { products } from '@/app/lib/schema';
 import { PageRequest } from '@/app/types/common';
+import { Product } from '@/app/types/product';
 
 export const EmptyValue = '--';
 
-export function buildProductUrl(productId: number) {
-  return '/products/' + productId;
+export function buildProductUrl(product: Product) {
+  return '/products/' + (product.slug ?? product.id);
 }
 
 export function formatAmount(value: unknown = 0, hasMultiplePrices = false) {

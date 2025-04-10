@@ -54,6 +54,7 @@ export async function searchProducts(
     .select({
       id: products.id,
       name: products.name,
+      slug: products.slug,
       price: products.price,
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
@@ -79,6 +80,7 @@ export async function searchProducts(
     data: list.map((product) => ({
       id: product.id,
       name: product.name,
+      slug: product.slug,
       pictureUrl: product.pictureUrl,
       price: Number(product.price),
       originalPrice: Number(product.originalPrice ?? product.price),
@@ -188,10 +190,17 @@ export async function findRecommendedProducts(limits: number = 10) {
 }
 
 export const findProductDetails = cache(
-  async (id: number): Promise<DetailProduct | null> => {
+  async (idOrSlug: string): Promise<DetailProduct | null> => {
+    const filters: SQL[] = [];
+    if (isNumericId(idOrSlug)) {
+      filters.push(eq(products.id, Number(idOrSlug)));
+    } else {
+      filters.push(eq(products.slug, idOrSlug));
+    }
+    filters.push(eq(products.enabled, true));
+
     const res = await db.query.products.findFirst({
-      where: (products, { eq, and }) =>
-        and(eq(products.id, id), eq(products.enabled, true)),
+      where: (_, { and }) => and(...filters),
       with: {
         skus: true
       }
@@ -204,6 +213,7 @@ export const findProductDetails = cache(
     const product = pick(res, [
       'id',
       'name',
+      'slug',
       'description',
       'staticDetails',
       'skus'
@@ -219,3 +229,13 @@ export const findProductDetails = cache(
     };
   }
 );
+
+export async function findAllProducts() {
+  return await db.query.products.findMany({
+    columns: { id: true, slug: true }
+  });
+}
+
+function isNumericId(value: string) {
+  return /^\d+$/.test(value);
+}

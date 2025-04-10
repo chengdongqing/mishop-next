@@ -2,7 +2,7 @@ import Loading from '@/components/ui/loading';
 import dynamic, { Loader } from 'next/dynamic';
 import { redirect } from 'next/navigation';
 
-export default async function ProductSpecsPage({
+export default async function ProductDetailsPage({
   params
 }: {
   params: Promise<{ id: string }>;
@@ -13,11 +13,11 @@ export default async function ProductSpecsPage({
     redirect(`/products/${id}/buy`);
   }
 
-  const SpecsPage = dynamic(page, {
+  const DetailsPage = dynamic(page, {
     loading: () => <Loading />
   });
 
-  return <SpecsPage />;
+  return <DetailsPage />;
 }
 
 const slugMap: Record<string, Loader> = {

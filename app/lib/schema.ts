@@ -34,7 +34,8 @@ const customJson = <T>(name: string) =>
 
 export const products = mysqlTable('products', {
   id: serial('id').primaryKey(),
-  name: varchar('name', { length: 32 }).notNull().unique(),
+  name: varchar('name', { length: 100 }).notNull().unique(),
+  slug: varchar('slug', { length: 100 }).unique(),
   pictureUrl: varchar('picture_url', { length: 200 }).notNull(),
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 })

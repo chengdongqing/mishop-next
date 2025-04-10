@@ -13,7 +13,7 @@ import Section8 from './section8';
 import Section9 from './section9';
 import styles from './styles.module.css';
 
-export default function Xiaomi13UltraSketch() {
+export default function Xiaomi13UltraDetails() {
   return (
     <div className={styles.page}>
       <Section1 />

@@ -70,7 +70,7 @@ function ProductCard({ product }: { product: SearchProduct }) {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <Link key={product.id} href={buildProductUrl(product.id)}>
+    <Link key={product.id} href={buildProductUrl(product)}>
       <li
         className={
           'group relative flex h-[300] flex-col items-center overflow-hidden bg-white text-sm'

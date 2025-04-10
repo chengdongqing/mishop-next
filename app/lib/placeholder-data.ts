@@ -453,6 +453,7 @@ export const productsData: Product[] = [
   {
     id: 1,
     name: 'Xiaomi 15 Ultra',
+    slug: 'xiaomi-15-ultra',
     description:
       '徕卡1英寸主摄 | 徕卡2亿超级长焦 | 徕卡超纯光学系统 | 骁龙8至尊版移动平台 | 6000mAh 小米金沙江电池 | 小米澎湃OS 2',
     pictureUrl:

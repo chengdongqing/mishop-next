@@ -57,7 +57,8 @@ const createTableSql = `
         id                int auto_increment
             primary key,
         category_id       int                                      not null comment '类别id',
-        name              varchar(32)                              not null comment '名称',
+        name              varchar(100)                             not null comment '名称',
+        slug              varchar(100) comment '访问标识',
         picture_url       varchar(200)                             not null comment '图片地址',
         description       text comment '描述',
         price             decimal(10, 2) default 0.00              not null comment '最低价格',
@@ -70,8 +71,8 @@ const createTableSql = `
         sort_no           int            default 0                 not null,
         created_at        timestamp      default CURRENT_TIMESTAMP not null,
         updated_at        timestamp      default (now())           null on update CURRENT_TIMESTAMP,
-        constraint products_pk
-            unique (name)
+        constraint products_pk unique (name),
+        constraint products_slug_unique unique (slug)
     ) comment '商品表';
 `;
 

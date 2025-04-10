@@ -167,7 +167,7 @@ function ProductsPanel({
           >
             <Link
               className={'flex cursor-pointer flex-col items-center text-xs'}
-              href={buildProductUrl(product.id)}
+              href={buildProductUrl(product)}
             >
               <Image
                 src={product.pictureUrl}

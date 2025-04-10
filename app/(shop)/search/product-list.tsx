@@ -25,7 +25,7 @@ function ProductItem({ product }: { product: SearchProduct }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   return (
-    <Link href={buildProductUrl(product.id)}>
+    <Link href={buildProductUrl(product)}>
       <li
         className={
           'flex cursor-pointer flex-col items-center bg-white py-[46] duration-300 ease-linear hover:shadow-[0_5px_15px_rgba(0,0,0,0.2)]'
