@@ -15,14 +15,15 @@ import {
 
 interface CartContext {
   products: CartProduct[];
+  selectedProducts: CartProduct[];
   totalCount: number;
   totalAmount: number;
   isEmpty: boolean;
   addToCart: (product: CartProduct) => Promise<void>;
   removeFromCart: (product: CartProduct) => Promise<void>;
-  modifyCount: (product: CartProduct, count: number) => Promise<void>;
-  setChecked: (productId: number, checked: boolean) => Promise<void>;
-  setCheckedBatch: (productIds: number[], checked: boolean) => Promise<void>;
+  modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
+  setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
+  setCheckedBatch: (checked: boolean) => Promise<void>;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -55,23 +56,30 @@ export function CartProvider({ children }: PropsWithChildren) {
   }, [products]);
 
   /**
+   * 已选中的商品列表
+   */
+  const selectedProducts = useMemo(() => {
+    return products.filter((product) => product.checked);
+  }, [products]);
+
+  /**
    * 总数量
    */
   const totalCount = useMemo(() => {
-    return products.reduce((acc, product) => {
+    return selectedProducts.reduce((acc, product) => {
       return acc + product.quantity;
     }, 0);
-  }, [products]);
+  }, [selectedProducts]);
 
   /**
    * 总金额
    */
   const totalAmount = useMemo(() => {
-    return products.reduce((acc, product) => {
+    return selectedProducts.reduce((acc, product) => {
       const decimal = new Decimal(product.price).mul(product.quantity);
       return acc + decimal.toNumber();
     }, 0);
-  }, [products]);
+  }, [selectedProducts]);
 
   async function addToCart(product: CartProduct) {
     if (!hasLogin) {
@@ -111,30 +119,48 @@ export function CartProvider({ children }: PropsWithChildren) {
     return Promise.resolve();
   }
 
-  function modifyCount(product: CartProduct, count: number): Promise<void> {
-    console.log(product, count);
+  function modifyCount(product: CartProduct, quantity: number): Promise<void> {
+    if (!hasLogin) {
+      if (quantity > 0) {
+        if (!product.limits || quantity <= product.limits) {
+          product.quantity = quantity;
+          setProducts((prev) => [...prev]);
+        } else {
+          popup.alert('商品加入购物车数量超过限购数');
+          return Promise.reject();
+        }
+      } else {
+        return removeFromCart(product);
+      }
+    }
     return Promise.resolve();
   }
 
-  function setChecked(productId: number, checked: boolean): Promise<void> {
-    console.log(productId, checked);
+  function setChecked(product: CartProduct, checked: boolean): Promise<void> {
+    if (!hasLogin) {
+      product.checked = checked;
+      setProducts((prev) => [...prev]);
+    }
     return Promise.resolve();
   }
 
-  function setCheckedBatch(
-    productIds: number[],
-    checked: boolean
-  ): Promise<void> {
-    console.log(productIds, checked);
+  function setCheckedBatch(checked: boolean): Promise<void> {
+    if (!hasLogin) {
+      products.forEach((product) => {
+        product.checked = checked;
+      });
+      setProducts((prev) => [...prev]);
+    }
     return Promise.resolve();
   }
 
   const contextValue: CartContext = useMemo(
     () => ({
       products,
+      selectedProducts,
       totalCount,
       totalAmount,
-      isEmpty: !totalCount,
+      isEmpty: !products.length,
       addToCart,
       removeFromCart,
       modifyCount,
@@ -142,7 +168,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       setCheckedBatch
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products, totalCount, totalAmount]
+    [products, selectedProducts, totalCount, totalAmount]
   );
 
   return <CartContext value={contextValue}>{children}</CartContext>;

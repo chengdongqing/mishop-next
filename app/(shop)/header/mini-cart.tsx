@@ -85,11 +85,11 @@ function CartPopover({ open, count }: { open: boolean; count: number }) {
 }
 
 function ProductList() {
-  const { products } = useCartContext();
+  const { selectedProducts } = useCartContext();
 
   return (
     <ul className={'flex-1 overflow-y-auto px-5'}>
-      {products.map((product) => {
+      {selectedProducts.map((product) => {
         const linkUrl = buildProductUrl({
           id: product.productId,
           slug: product.productSlug

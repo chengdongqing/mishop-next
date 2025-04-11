@@ -24,11 +24,16 @@ export default function ProductTable() {
 }
 
 function TableHeader() {
+  const { products, selectedProducts, setCheckedBatch } = useCartContext();
+  const allChecked = selectedProducts.length === products.length;
+
   return (
     <thead>
       <tr className={'h-[70]'}>
         <th className={'w-[110] pl-6 font-normal text-[#424242]'}>
-          <Checkbox>全选</Checkbox>
+          <Checkbox checked={allChecked} onChange={setCheckedBatch}>
+            全选
+          </Checkbox>
         </th>
         <th className={'w-[120]'} />
         <th className={'w-[380] text-left font-normal text-[#424242]'}>
@@ -55,7 +60,10 @@ function ProductRow({ product }: { product: CartProduct }) {
   return (
     <tr className={'border-primary h-[116] border-t-1'}>
       <td className={'w-[110] pl-6'}>
-        <Checkbox checked={product.checked} onChange={(checked) => {}} />
+        <Checkbox
+          checked={product.checked}
+          onChange={(checked) => setChecked(product, checked)}
+        />
       </td>
       <td className={'w-[120]'}>
         <Link href={linkUrl}>
@@ -76,7 +84,12 @@ function ProductRow({ product }: { product: CartProduct }) {
         {formatAmount(product.price)}元
       </td>
       <td className={'w-[150] text-center'}>
-        <NumberInput value={product.quantity} onChange={(value) => {}} />
+        <NumberInput
+          value={product.quantity}
+          onChange={(quantity) => {
+            modifyCount(product, quantity).catch(() => {});
+          }}
+        />
       </td>
       <td className={'text-primary w-[120] text-center text-base'}>
         {formatAmount(subtotal)}元
