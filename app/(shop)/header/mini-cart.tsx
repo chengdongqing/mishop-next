@@ -1,6 +1,7 @@
 'use client';
 
-import { formatAmount } from '@/app/lib/utils';
+import { useCartContext } from '@/app/(shop)/cart-context';
+import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
 import {
@@ -14,10 +15,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const count = 10;
-
 export default function MiniCart() {
   const [open, setOpen] = useState(false);
+  const { totalCount: count } = useCartContext();
 
   return (
     <div
@@ -43,12 +43,12 @@ export default function MiniCart() {
         </div>
       </Link>
 
-      <CartPopover open={open} />
+      <CartPopover open={open} count={count} />
     </div>
   );
 }
 
-function CartPopover({ open }: { open: boolean }) {
+function CartPopover({ open, count }: { open: boolean; count: number }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -85,56 +85,67 @@ function CartPopover({ open }: { open: boolean }) {
 }
 
 function ProductList() {
+  const { products } = useCartContext();
+
   return (
     <ul className={'flex-1 overflow-y-auto px-5'}>
-      {[...Array(count)].map((_, i) => (
-        <li
-          key={i}
-          className={
-            'border-primary group/product flex h-[80] items-center justify-between border-b-1 text-[#424242] last:border-b-0'
-          }
-        >
-          <div className={'flex flex-1 items-center'}>
-            <Link href={'/products/1'}>
-              <Image
-                src={
-                  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/62B54E01060CBF9CC1E7B246A5B0C9B9.png?width=60&height=60'
-                }
-                alt={''}
-                width={60}
-                height={60}
-              />
-            </Link>
-            <Link
-              href={'/products/1'}
-              className={
-                'hover:text-primary mr-5 ml-2.5 max-h-[65] overflow-hidden duration-200'
-              }
-            >
-              米家方框偏光太阳镜 曜石黑
-            </Link>
-          </div>
-          <span>{formatAmount(99)} x 1</span>
-          <button
+      {products.map((product) => {
+        const linkUrl = buildProductUrl({
+          id: product.productId,
+          slug: product.productSlug
+        });
+
+        return (
+          <li
+            key={product.skuId}
             className={
-              'invisible ml-1.5 cursor-pointer text-[#b0b0b0] group-hover/product:visible hover:text-[#424242]'
+              'border-primary group/product flex h-[80] items-center justify-between border-b-1 text-[#424242] last:border-b-0'
             }
           >
-            <XMarkIcon className={'w-4'} />
-          </button>
-        </li>
-      ))}
+            <div className={'flex flex-1 items-center'}>
+              <Link href={linkUrl}>
+                <Image
+                  src={product.pictureUrl}
+                  alt={''}
+                  width={60}
+                  height={60}
+                />
+              </Link>
+              <Link
+                href={linkUrl}
+                className={
+                  'hover:text-primary mr-5 ml-2.5 max-h-[65] overflow-hidden duration-200'
+                }
+              >
+                {product.fullName}
+              </Link>
+            </div>
+            <span>
+              {formatAmount(product.price)}元 x {product.quantity}
+            </span>
+            <button
+              className={
+                'invisible ml-1.5 cursor-pointer text-[#b0b0b0] group-hover/product:visible hover:text-[#424242]'
+              }
+            >
+              <XMarkIcon className={'w-4'} />
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
 function CartTotal() {
+  const { totalCount, totalAmount } = useCartContext();
+
   return (
     <div className={'flex items-center justify-between bg-[#fafafa] p-[15_20]'}>
       <div>
-        <div className={'text-[#757575]'}>共{count}件商品</div>
+        <div className={'text-[#757575]'}>共{totalCount}件商品</div>
         <div className={'text-primary -mt-1'}>
-          <span className={'text-2xl'}>8999</span>元
+          <span className={'text-2xl'}>{formatAmount(totalAmount)}</span>元
         </div>
       </div>
       <Link href={'/cart'}>

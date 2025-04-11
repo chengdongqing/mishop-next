@@ -180,7 +180,7 @@ function ProductsPanel({
                 {product.name}
               </span>
               <span className={'text-primary leading-[20px]'}>
-                {formatAmount(product.price, product.hasMultipleSkus)}
+                {formatAmount(product.price)}元{product.hasMultipleSkus && '起'}
               </span>
             </Link>
           </li>

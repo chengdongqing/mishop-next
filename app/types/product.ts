@@ -60,3 +60,18 @@ export interface DetailProduct {
   skus: ProductSku[];
   staticDetails: ProductDetailItem[] | null;
 }
+
+export interface CartProduct {
+  id?: number;
+  productId: number;
+  productName: string;
+  fullName: string;
+  productSlug?: string | null;
+  skuId: number;
+  skuName: string;
+  pictureUrl: string;
+  price: number;
+  quantity: number;
+  isChecked: boolean;
+  limits?: number | null;
+}

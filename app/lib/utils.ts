@@ -1,18 +1,15 @@
 import { products } from '@/app/lib/schema';
 import { PageRequest } from '@/app/types/common';
-import { Product } from '@/app/types/product';
 
 export const EmptyValue = '--';
 
-export function buildProductUrl(product: Product) {
+export function buildProductUrl(product: { id: number; slug?: string | null }) {
   return '/products/' + (product.slug ?? product.id);
 }
 
-export function formatAmount(value: unknown = 0, hasMultiplePrices = false) {
+export function formatAmount(value: unknown = 0) {
   return typeof value === 'number' || typeof value === 'string'
-    ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-        '元' +
-        (hasMultiplePrices ? '起' : '')
+    ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : EmptyValue;
 }
 

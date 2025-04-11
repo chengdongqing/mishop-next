@@ -154,7 +154,7 @@ function open(
 
 function alert(title: ReactNode, onOk?: () => void) {
   return open({
-    width: '48rem',
+    width: 480,
     content: <div className={styles.message}>{title}</div>,
     maskClosable: false,
     cancelText: null,
@@ -169,7 +169,7 @@ function confirm(
   props: Omit<PopupProps, 'open' | 'children'>
 ) {
   return open({
-    width: '48rem',
+    width: 480,
     content: (
       <div className={clsx(styles.message, styles.confirm)}>{title}</div>
     ),

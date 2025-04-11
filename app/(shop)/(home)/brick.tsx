@@ -152,15 +152,14 @@ function CategoryProducts({
                 </div>
                 <Space>
                   <span className={styles.price}>
-                    {formatAmount(product.price, product.hasMultipleSkus)}
+                    {formatAmount(product.price)}元
+                    {product.hasMultipleSkus && '起'}
                   </span>
                   {!!product.originalPrice &&
                     product.originalPrice > product.price && (
                       <span className={clsx(styles.price, styles.original)}>
-                        {formatAmount(
-                          product.originalPrice,
-                          product.hasMultipleSkus
-                        )}
+                        {formatAmount(product.originalPrice)}元
+                        {product.hasMultipleSkus && '起'}
                       </span>
                     )}
                 </Space>
@@ -190,10 +189,8 @@ function CategoryProducts({
                   {overflowProduct.name}
                 </div>
                 <span className={styles.price}>
-                  {formatAmount(
-                    overflowProduct.price,
-                    overflowProduct.hasMultipleSkus
-                  )}
+                  {formatAmount(overflowProduct.price)}元
+                  {overflowProduct.hasMultipleSkus && '起'}
                 </span>
               </div>
             </Link>

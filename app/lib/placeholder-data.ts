@@ -1321,7 +1321,8 @@ export const productSkusData: ProductSku[] = [
         name: '套装',
         value: '标准版'
       }
-    ]
+    ],
+    limits: 2
   },
   {
     id: 2,
@@ -1350,7 +1351,8 @@ export const productSkusData: ProductSku[] = [
         name: '套装',
         value: '标准版'
       }
-    ]
+    ],
+    limits: 2
   },
   {
     id: 3,
@@ -1379,7 +1381,8 @@ export const productSkusData: ProductSku[] = [
         name: '套装',
         value: '标准版'
       }
-    ]
+    ],
+    limits: 2
   },
   {
     id: 4,
@@ -1408,7 +1411,8 @@ export const productSkusData: ProductSku[] = [
         name: '套装',
         value: '标准版'
       }
-    ]
+    ],
+    limits: 2
   },
   {
     id: 5,
@@ -1437,7 +1441,8 @@ export const productSkusData: ProductSku[] = [
         name: '套装',
         value: '标准版'
       }
-    ]
+    ],
+    limits: 2
   },
   {
     id: 6,

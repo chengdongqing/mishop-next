@@ -86,7 +86,7 @@ function ProductCard({ product }: { product: SearchProduct }) {
         />
         <h4 className={'mb-2.5'}>{product.name}</h4>
         <span className={'text-primary mb-2.5'}>
-          {formatAmount(product.price)}
+          {formatAmount(product.price)}元
         </span>
         <span className={'text-[#757575]'}>20.4万人好评</span>
         <Button

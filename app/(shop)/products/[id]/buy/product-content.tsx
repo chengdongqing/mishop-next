@@ -1,7 +1,8 @@
 'use client';
 
+import { useCartContext } from '@/app/(shop)/cart-context';
 import { formatAmount } from '@/app/lib/utils';
-import { ProductSku } from '@/app/types/product';
+import { DetailProduct, ProductSku } from '@/app/types/product';
 import Button from '@/components/ui/button';
 import useToggle from '@/hooks/useToggle';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
@@ -32,11 +33,11 @@ export default function ProductContent() {
       )}
       <div className={'py-3'}>
         <span className={'text-primary text-lg'}>
-          {formatAmount(sku?.price)}
+          {formatAmount(sku?.price)}元
         </span>
         {!!sku?.originalPrice && sku.originalPrice > sku.price && (
           <span className={'ml-1.5 text-[#b0b0b0] line-through'}>
-            {formatAmount(sku.originalPrice)}
+            {formatAmount(sku.originalPrice)}元
           </span>
         )}
       </div>
@@ -50,7 +51,7 @@ export default function ProductContent() {
       />
       <SelectedInfo name={fullName} amount={sku?.price} />
       <div className={'mt-2.5 mb-5 flex gap-x-2.5'}>
-        <AddToCartButton />
+        <AddToCartButton product={product} name={fullName} sku={sku!} />
         <FavoriteButton />
       </div>
       <ServiceGuarantee />
@@ -103,22 +104,48 @@ function SelectedInfo({ name, amount }: { name?: string; amount?: number }) {
     <div className={'my-[30] bg-[rgb(249,249,249)] p-[30]'}>
       <div className={'flex justify-between text-[rgb(97,97,97)]'}>
         <span>{name}</span>
-        <span>{formatAmount(amount)}</span>
+        <span>{formatAmount(amount)}元</span>
       </div>
       <div className={'text-primary mt-5 text-2xl'}>
-        总计：{formatAmount(amount)}
+        总计：{formatAmount(amount)}元
       </div>
     </div>
   );
 }
 
-function AddToCartButton() {
+function AddToCartButton({
+  product,
+  name,
+  sku
+}: {
+  product: DetailProduct;
+  name: string;
+  sku: ProductSku;
+}) {
   const router = useRouter();
+  const { addToCart } = useCartContext();
 
   return (
     <Button
       className={'!h-[54] !w-[300] !text-base'}
-      onClick={() => router.push('/cart/success')}
+      onClick={async () => {
+        const res = await addToCart({
+          productId: product.id,
+          productSlug: product.slug,
+          productName: product.name,
+          fullName: name,
+          skuId: sku.id,
+          skuName: sku.name,
+          price: sku.price,
+          pictureUrl: sku.pictureUrl,
+          quantity: 1,
+          isChecked: true,
+          limits: sku.limits
+        });
+        if (res) {
+          router.push('/cart/success');
+        }
+      }}
     >
       加入购物车
     </Button>
