@@ -1,8 +1,8 @@
+import ToolBar from '@/components/ui/tool-bar';
 import ProductContent from './product-content';
 import ProductDetails from './product-details';
 import ProductGallery from './product-gallery';
 import SigninTips from './signin-tips';
-import ToolBar from './tool-bar';
 
 export default function BuyProductPage() {
   return (

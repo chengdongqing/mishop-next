@@ -1,6 +1,7 @@
 import { BannerType } from '@/app/enums';
 import { findBannersByType } from '@/app/services/banners';
 import Loading from '@/components/ui/loading';
+import ToolBar from '@/components/ui/tool-bar';
 import { Suspense } from 'react';
 import Banner from './banner';
 import Bricks, { BrickSkeleton } from './bricks';
@@ -27,6 +28,7 @@ export default async function HomePage() {
           <Videos />
         </Suspense>
       </div>
+      <ToolBar />
     </>
   );
 }
