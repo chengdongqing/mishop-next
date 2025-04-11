@@ -1,12 +1,15 @@
+'use client';
+
+import { useCartContext } from '@/app/(shop)/cart-context';
 import RecommendProducts from '@/components/ui/recommend-products';
 import CartBar from './cart-bar';
 import EmptyCart from './empty-cart';
 import Header from './header';
 import ProductTable from './product-table';
 
-const isEmpty = false;
-
 export default function CartPage() {
+  const { isEmpty } = useCartContext();
+
   return (
     <>
       <Header />

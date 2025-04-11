@@ -1,17 +1,22 @@
-import { formatAmount } from '@/app/lib/utils';
+import { useCartContext } from '@/app/(shop)/cart-context';
+import { buildProductUrl, formatAmount } from '@/app/lib/utils';
+import { CartProduct } from '@/app/types/product';
 import Checkbox from '@/components/ui/checkbox';
 import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
+import Decimal from 'decimal.js';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ProductTable() {
+  const { products } = useCartContext();
+
   return (
     <table className={'w-full bg-white'}>
       <TableHeader />
       <tbody>
-        {[...Array(10)].map((_, i) => (
-          <ProductRow key={i} />
+        {products.map((product) => (
+          <ProductRow key={product.skuId} product={product} />
         ))}
       </tbody>
     </table>
@@ -38,18 +43,24 @@ function TableHeader() {
   );
 }
 
-function ProductRow() {
+function ProductRow({ product }: { product: CartProduct }) {
+  const { modifyCount, setChecked, removeFromCart } = useCartContext();
+
+  const linkUrl = buildProductUrl({
+    id: product.productId,
+    slug: product.productSlug
+  });
+  const subtotal = new Decimal(product.price).mul(product.quantity).toNumber();
+
   return (
     <tr className={'border-primary h-[116] border-t-1'}>
       <td className={'w-[110] pl-6'}>
-        <Checkbox />
+        <Checkbox checked={product.checked} onChange={(checked) => {}} />
       </td>
       <td className={'w-[120]'}>
-        <Link href={'/products/1'}>
+        <Link href={linkUrl}>
           <Image
-            src={
-              'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172251_b11e7f4720196cbb9ae4b27707459a21.png?thumb=1&w=80&h=80&f=webp&q=90'
-            }
+            src={product.pictureUrl}
             alt={'Product picture'}
             width={80}
             height={80}
@@ -59,19 +70,24 @@ function ProductRow() {
       <td
         className={'w-[380] max-w-[380] text-lg text-ellipsis text-[#424242]'}
       >
-        <Link href={'/products/1'}>Xiaomi Buds 5 月影黑</Link>
+        <Link href={linkUrl}>{product.fullName}</Link>
       </td>
       <td className={'w-[140] text-center text-base text-[#424242]'}>
-        {formatAmount(679)}
+        {formatAmount(product.price)}元
       </td>
       <td className={'w-[150] text-center'}>
-        <NumberInput />
+        <NumberInput value={product.quantity} onChange={(value) => {}} />
       </td>
       <td className={'text-primary w-[120] text-center text-base'}>
-        {formatAmount(679)}
+        {formatAmount(subtotal)}元
       </td>
       <td className={'w-[80] text-center'}>
-        <CloseIcon size={24} />
+        <CloseIcon
+          size={24}
+          onClick={() => {
+            removeFromCart(product).catch(() => {});
+          }}
+        />
       </td>
     </tr>
   );

@@ -1,6 +1,6 @@
-import { CartProvider } from '@/app/(shop)/cart-context';
 import { findHeaderNavs } from '@/app/services/layout';
 import { PropsWithChildren } from 'react';
+import { CartProvider } from './cart-context';
 import Footer from './footer';
 import Header from './header';
 

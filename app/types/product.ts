@@ -64,14 +64,19 @@ export interface DetailProduct {
 export interface CartProduct {
   id?: number;
   productId: number;
+  productSlug?: string | null;
   productName: string;
   fullName: string;
-  productSlug?: string | null;
   skuId: number;
   skuName: string;
   pictureUrl: string;
   price: number;
   quantity: number;
-  isChecked: boolean;
+  checked: boolean;
   limits?: number | null;
+}
+
+export interface RecommendedProduct
+  extends Omit<CartProduct, 'id' | 'quantity' | 'checked'> {
+  reviews: number;
 }

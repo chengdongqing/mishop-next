@@ -4,12 +4,17 @@ import {
   productCategories,
   productLabelRelations,
   productLabels,
+  productReviews,
   products,
   productSkus
 } from '@/app/lib/schema';
 import { createPaginationMeta } from '@/app/lib/utils';
 import { Page, PageRequest } from '@/app/types/common';
-import { DetailProduct, SearchProduct } from '@/app/types/product';
+import {
+  DetailProduct,
+  RecommendedProduct,
+  SearchProduct
+} from '@/app/types/product';
 import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
 import { pick } from 'next/dist/lib/pick';
 import { cache } from 'react';
@@ -153,40 +158,36 @@ export function findProductLabels(categoryId: number) {
     .where(eq(productLabels.categoryId, categoryId));
 }
 
-export async function findRecommendedProducts(limits: number = 10) {
-  const [res] = await db.execute(sql<
-    {
-      id: number;
-      name: string;
-      pictureUrl: string;
-      skuId: number;
-      skuName: string;
-      price: number;
-      limits: number;
-      reviews: number;
-    }[]
-  >`
-      select any_value(p.id)      as id,
-             any_value(p.name)    as name,
-             ps.picture_url       as pictureUrl,
-             any_value(ps.id)     as skuId,
-             any_value(ps.name)   as skuName,
-             any_value(ps.price)  as price,
-             any_value(ps.limits) as limits,
-             (select count(*)
-              from mishop.product_reviews
-              where product_id = any_value(p.id)
-                and rating >= 3)  as reviews
-      from mishop.products p
-               inner join mishop.product_skus ps on p.id = ps.product_id
-      where p.enabled = true
-        and ps.stocks > 0
-      group by ps.picture_url
-      order by rand()
-      limit ${limits}
-  `);
+export async function findRecommendedProducts(
+  limits: number = 10
+): Promise<RecommendedProduct[]> {
+  const res = await db
+    .select({
+      productId: products.id,
+      productSlug: products.slug,
+      productName: products.name,
+      fullName: sql<string>`concat_ws(' ', ${products.name}, ${productSkus.name})`,
+      skuId: productSkus.id,
+      skuName: productSkus.name,
+      pictureUrl: productSkus.pictureUrl,
+      price: productSkus.price,
+      limits: productSkus.limits,
+      reviews: sql<number>`(select count(*) 
+            from ${productReviews} 
+            where ${productReviews.productId} = ${products.id} 
+              and ${productReviews.rating} >= 3)`
+    })
+    .from(products)
+    .innerJoin(productSkus, eq(products.id, productSkus.productId))
+    .where(and(eq(products.enabled, true), gt(productSkus.stocks, 0)))
+    .groupBy(productSkus.id)
+    .orderBy(sql`rand()`)
+    .limit(limits);
 
-  return res;
+  return res.map((product) => ({
+    ...product,
+    price: Number(product.price)
+  }));
 }
 
 export const findProductDetails = cache(

@@ -129,22 +129,23 @@ function AddToCartButton({
     <Button
       className={'!h-[54] !w-[300] !text-base'}
       onClick={async () => {
-        const res = await addToCart({
-          productId: product.id,
-          productSlug: product.slug,
-          productName: product.name,
-          fullName: name,
-          skuId: sku.id,
-          skuName: sku.name,
-          price: sku.price,
-          pictureUrl: sku.pictureUrl,
-          quantity: 1,
-          isChecked: true,
-          limits: sku.limits
-        });
-        if (res) {
-          router.push('/cart/success');
-        }
+        try {
+          await addToCart({
+            productId: product.id,
+            productSlug: product.slug,
+            productName: product.name,
+            fullName: name,
+            skuId: sku.id,
+            skuName: sku.name,
+            price: sku.price,
+            pictureUrl: sku.pictureUrl,
+            quantity: 1,
+            checked: true,
+            limits: sku.limits
+          });
+          router.push(`/cart/success/${name}`);
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (e) {}
       }}
     >
       加入购物车

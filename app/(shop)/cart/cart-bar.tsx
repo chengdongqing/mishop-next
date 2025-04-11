@@ -1,5 +1,7 @@
 'use client';
 
+import { useCartContext } from '@/app/(shop)/cart-context';
+import { formatAmount } from '@/app/lib/utils';
 import Button from '@/components/ui/button';
 import useElementVisible from '@/hooks/useElementVisible';
 import clsx from 'clsx';
@@ -7,6 +9,8 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 export default function CartBar() {
+  const { totalCount, totalAmount } = useCartContext();
+
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
     footerRef,
@@ -32,12 +36,13 @@ export default function CartBar() {
         </button>
         <Sep />
         <div>
-          已选择<span className={'text-primary mx-1'}>6</span>件
+          已选择<span className={'text-primary mx-1'}>{totalCount}</span>件
         </div>
       </div>
       <div className={'flex items-center'}>
         <div className={'text-primary'}>
-          合计：<span className={'text-[30px]'}>15512</span>元
+          合计：
+          <span className={'text-[30px]'}>{formatAmount(totalAmount)}</span>元
         </div>
         <Button className={'ml-[50] !h-full !w-[202] !text-lg'}>去结算</Button>
       </div>

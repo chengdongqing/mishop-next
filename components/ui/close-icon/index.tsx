@@ -3,13 +3,13 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { HTMLAttributes } from 'react';
 import styles from './styles.module.css';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   size?: 30 | 24;
 }
 
 export default function CloseIcon({ size = 30, ...rest }: Props) {
   return (
-    <div
+    <button
       {...rest}
       className={styles.container}
       style={{ width: size, height: size }}
@@ -19,6 +19,6 @@ export default function CloseIcon({ size = 30, ...rest }: Props) {
       ) : (
         <XMarkIcon1 className={'w-4'} />
       )}
-    </div>
+    </button>
   );
 }

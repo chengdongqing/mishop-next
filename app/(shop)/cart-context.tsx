@@ -8,6 +8,7 @@ import {
   createContext,
   PropsWithChildren,
   use,
+  useEffect,
   useMemo,
   useState
 } from 'react';
@@ -16,26 +17,40 @@ interface CartContext {
   products: CartProduct[];
   totalCount: number;
   totalAmount: number;
-  addToCart: (product: CartProduct) => Promise<boolean>;
-  removeFromCart: (product: CartProduct) => boolean;
-  modifyCount: (product: CartProduct, count: number) => boolean;
-  setChecked: (productId: number, checked: boolean) => void;
-  setCheckedBatch: (productIds: number[], checked: boolean) => void;
+  isEmpty: boolean;
+  addToCart: (product: CartProduct) => Promise<void>;
+  removeFromCart: (product: CartProduct) => Promise<void>;
+  modifyCount: (product: CartProduct, count: number) => Promise<void>;
+  setChecked: (productId: number, checked: boolean) => Promise<void>;
+  setCheckedBatch: (productIds: number[], checked: boolean) => Promise<void>;
 }
 
 const CartContext = createContext<CartContext | null>(null);
 
 const hasLogin = false;
+const cacheKey = 'cart-products';
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<CartProduct[]>([]);
+
+  /**
+   * 初始从缓存恢复数据
+   */
+  useEffect(() => {
+    if (hasLogin) return;
+
+    const data = window.localStorage.getItem(cacheKey);
+    if (data) {
+      setProducts(JSON.parse(data) as CartProduct[]);
+    }
+  }, []);
 
   /**
    * 未登录时同步到local storage
    */
   useUpdateEffect(() => {
     if (!hasLogin) {
-      window.localStorage.setItem('cart-products', JSON.stringify(products));
+      window.localStorage.setItem(cacheKey, JSON.stringify(products));
     }
   }, [products]);
 
@@ -59,41 +74,59 @@ export function CartProvider({ children }: PropsWithChildren) {
   }, [products]);
 
   async function addToCart(product: CartProduct) {
-    const cartProduct = products.find((item) => item.skuId === product.skuId);
-    if (cartProduct) {
-      if (
-        !cartProduct.limits ||
-        cartProduct.quantity + 1 <= cartProduct.limits
-      ) {
-        cartProduct.quantity++;
-        setProducts((prev) => [...prev]);
+    if (!hasLogin) {
+      const cartProduct = products.find((item) => item.skuId === product.skuId);
+      if (cartProduct) {
+        if (
+          !cartProduct.limits ||
+          cartProduct.quantity + 1 <= cartProduct.limits
+        ) {
+          cartProduct.quantity++;
+          setProducts((prev) => [...prev]);
+        } else {
+          popup.alert('商品加入购物车数量超过限购数');
+          return Promise.reject();
+        }
       } else {
-        popup.alert('商品加入购物车数量超过限购数');
-        return false;
+        setProducts((prev) => [...prev, product]);
       }
-    } else {
-      setProducts((prev) => [...prev, product]);
     }
 
-    return true;
+    return Promise.resolve();
   }
 
-  function removeFromCart(product: CartProduct): boolean {
-    console.log(product);
-    return true;
+  async function removeFromCart(product: CartProduct) {
+    await new Promise<void>((resolve, reject) => {
+      popup.confirm('确定删除该商品吗？', {
+        onOk: resolve,
+        onCancel: reject
+      });
+    });
+
+    if (!hasLogin) {
+      products.splice(products.indexOf(product), 1);
+      setProducts((prev) => [...prev]);
+    }
+
+    return Promise.resolve();
   }
 
-  function modifyCount(product: CartProduct, count: number): boolean {
+  function modifyCount(product: CartProduct, count: number): Promise<void> {
     console.log(product, count);
-    return true;
+    return Promise.resolve();
   }
 
-  function setChecked(productId: number, checked: boolean) {
+  function setChecked(productId: number, checked: boolean): Promise<void> {
     console.log(productId, checked);
+    return Promise.resolve();
   }
 
-  function setCheckedBatch(productIds: number[], checked: boolean) {
+  function setCheckedBatch(
+    productIds: number[],
+    checked: boolean
+  ): Promise<void> {
     console.log(productIds, checked);
+    return Promise.resolve();
   }
 
   const contextValue: CartContext = useMemo(
@@ -101,6 +134,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       products,
       totalCount,
       totalAmount,
+      isEmpty: !totalCount,
       addToCart,
       removeFromCart,
       modifyCount,

@@ -3,7 +3,13 @@ import Space from '@/components/ui/space';
 import Image from 'next/image';
 import Actions from './actions';
 
-export default function AddToCartSuccessPage() {
+export default async function AddToCartSuccessPage({
+  params
+}: {
+  params: Promise<{ name: string }>;
+}) {
+  const { name } = await params;
+
   return (
     <div className={'bg-primary'}>
       <div className={'w-primary pb-[38]'}>
@@ -25,7 +31,7 @@ export default function AddToCartSuccessPage() {
                 已成功加入购物车！
               </div>
               <div className={'text-sm text-[rgba(117,117,117)]'}>
-                Xiaomi 15 Ultra
+                {decodeURIComponent(name)}
               </div>
             </div>
           </Space>

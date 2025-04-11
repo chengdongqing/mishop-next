@@ -1,15 +1,76 @@
 'use client';
 
+import { useCartContext } from '@/app/(shop)/cart-context';
 import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { SearchProduct } from '@/app/types/product';
+import { RecommendedProduct } from '@/app/types/product';
 import Button from '@/components/ui/button';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
+import Loading from '@/components/ui/loading';
+import useDebounce from '@/hooks/useDebounce';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
 
-export function ProductCarousel({ products }: { products: SearchProduct[] }) {
+interface Props {
+  title?: string;
+  type?: 'carousel' | 'grid';
+  size?: number;
+}
+
+export default function RecommendProducts({
+  title = '猜你喜欢',
+  type = 'carousel',
+  size = 10
+}: Props) {
+  const [products, setProducts] = useState<RecommendedProduct[]>([]);
+  const [isPending, startTransition] = useTransition();
+
+  const loadProducts = useDebounce(() => {
+    startTransition(async () => {
+      await fetch(`/api/products/recommended?limits=${size}`)
+        .then((res) => res.json())
+        .then((res) => setProducts(res));
+    });
+  });
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts, size]);
+
+  return (
+    <section>
+      <Header title={title} />
+
+      {isPending ? (
+        <Loading className={'h-[300]'} />
+      ) : type === 'carousel' ? (
+        <ProductCarousel products={products} />
+      ) : (
+        <ProductGrid products={products} />
+      )}
+    </section>
+  );
+}
+
+function Header({ title }: { title: string }) {
+  return (
+    <div
+      className={clsx(
+        'relative mb-7.5 text-center text-3xl text-[#757575]',
+        'before:absolute before:top-1/2 before:left-0 before:h-0.25 before:w-3/10 before:bg-[var(--color-border)]',
+        'after:absolute after:top-1/2 after:right-0 after:h-0.25 after:w-3/10 after:bg-[var(--color-border)]'
+      )}
+    >
+      {title}
+    </div>
+  );
+}
+
+export function ProductCarousel({
+  products
+}: {
+  products: RecommendedProduct[];
+}) {
   const carouselRef = useRef<CarouselInstance>(null);
   const [current, setCurrent] = useState(0);
 
@@ -37,7 +98,7 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
         ))}
       </Carousel>
       <ul className={'flex justify-center p-3.5'}>
-        {[...Array(panels.length)].map((_, index) => (
+        {panels.map((_, index) => (
           <li
             key={index}
             className={clsx(
@@ -56,21 +117,27 @@ export function ProductCarousel({ products }: { products: SearchProduct[] }) {
   );
 }
 
-export function ProductGrid({ products }: { products: SearchProduct[] }) {
+export function ProductGrid({ products }: { products: RecommendedProduct[] }) {
   return (
     <ul className={'w-primary grid grid-cols-5 gap-3.5'}>
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.skuId} product={product} />
       ))}
     </ul>
   );
 }
 
-function ProductCard({ product }: { product: SearchProduct }) {
+function ProductCard({ product }: { product: RecommendedProduct }) {
   const [isActive, setIsActive] = useState(false);
+  const { addToCart } = useCartContext();
 
   return (
-    <Link key={product.id} href={buildProductUrl(product)}>
+    <Link
+      href={buildProductUrl({
+        id: product.productId,
+        slug: product.productSlug
+      })}
+    >
       <li
         className={
           'group relative flex h-[300] flex-col items-center overflow-hidden bg-white text-sm'
@@ -84,22 +151,32 @@ function ProductCard({ product }: { product: SearchProduct }) {
           unoptimized
           className={'mt-[40] mb-[20] h-[140] w-[140] object-scale-down'}
         />
-        <h4 className={'mb-2.5'}>{product.name}</h4>
+        <h4 className={'mb-2.5 w-full px-5 text-ellipsis'}>
+          {product.fullName}
+        </h4>
         <span className={'text-primary mb-2.5'}>
           {formatAmount(product.price)}元
         </span>
-        <span className={'text-[#757575]'}>20.4万人好评</span>
+        <span className={'text-[#757575]'}>{product.reviews}人好评</span>
         <Button
           outlined
           size={'small'}
           className={'absolute bottom-[-30] group-hover:bottom-3.5'}
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
 
-            setIsActive(true);
-            setTimeout(() => {
-              setIsActive(false);
-            }, 1000);
+            try {
+              await addToCart({
+                ...product,
+                quantity: 1,
+                checked: true
+              });
+              setIsActive(true);
+              setTimeout(() => {
+                setIsActive(false);
+              }, 1000);
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (e) {}
           }}
         >
           加入购物车
