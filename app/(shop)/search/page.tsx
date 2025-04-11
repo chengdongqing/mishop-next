@@ -1,4 +1,3 @@
-import SearchResult from '@/app/(shop)/search/search-result';
 import { ProductOrderBy } from '@/app/enums';
 import {
   findProductCategories,
@@ -8,8 +7,16 @@ import {
 import Breadcrumb from '@/components/ui/breadcrumb';
 import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import FilterGroup from './filter-group';
+import SearchResult from './search-result';
+
+export const metadata: Metadata = {
+  title: '所有产品-小米商城',
+  description: '所有产品-小米商城',
+  keywords: ['所有产品-小米商城']
+};
 
 const pageSize = 20;
 

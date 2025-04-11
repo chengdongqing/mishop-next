@@ -1,28 +1,31 @@
 import { findProductDetails } from '@/app/services/products';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
 import { ProductProvider } from './product-context';
 
+/**
+ * 动态生成SEO信息
+ */
 export async function generateMetadata({
   params
 }: {
   params: Promise<{ id: string }>;
-}) {
+}): Promise<Metadata> {
   const { id } = await params;
   const product = await findProductDetails(id);
-  if (!product) {
-    return null;
-  }
 
   return {
-    title: product.name,
-    description: product.description
+    title: product?.name,
+    description: product?.description
   };
 }
 
-// 将在首次访问时生成静态页面；导出`generateStaticParams`并返回空数组也可以
-// `generateStaticParams`导出参数列表，将在构建时直接生成对应的静态页面
+/**
+ * 将在首次访问时生成静态页面；导出`generateStaticParams`并返回空数组也可以
+ * `generateStaticParams`导出参数列表，将在构建时直接生成对应的静态页面
+ */
 export const dynamic = 'force-static';
 
 export default async function ProductsLayout({
