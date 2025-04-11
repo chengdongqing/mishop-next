@@ -9,6 +9,12 @@ export interface Product {
   hasMultipleSkus?: boolean;
   categoryId?: number;
   tags?: string[];
+  staticDetails?: ProductDetailItem[];
+}
+
+export interface ProductDetailItem {
+  name: string;
+  children: string[];
 }
 
 export interface ProductSku {
@@ -52,5 +58,5 @@ export interface DetailProduct {
   slug?: string | null;
   description?: string | null;
   skus: ProductSku[];
-  staticDetails: string[] | null;
+  staticDetails: ProductDetailItem[] | null;
 }

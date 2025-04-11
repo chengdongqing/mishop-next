@@ -1,6 +1,5 @@
 'use client';
 
-import { productSkusData } from '@/app/lib/placeholder-data';
 import { formatAmount } from '@/app/lib/utils';
 import { ProductSku } from '@/app/types/product';
 import Button from '@/components/ui/button';
@@ -9,27 +8,47 @@ import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useProductContext } from '../product-context';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
 
 export default function ProductContent() {
+  const { product, setPictures } = useProductContext();
+  const [sku, setSku] = useState<ProductSku>();
+  const router = useRouter();
+
+  const fullName = [product.name, sku?.name].join(' ');
+
+  if (!product.skus.length) {
+    router.replace('/404');
+  }
+
   return (
     <div className={'flex-1'}>
-      <h2 className={'text-2xl text-[#212121]'}>Xiaomi 15 Ultra</h2>
-      <p className={'mt-2 text-[#b0b0b0]'}>
-        徕卡1英寸主摄 | 徕卡2亿超级长焦 | 徕卡超纯光学系统 | 骁龙8至尊版移动平台
-        | 6000mAh 小米金沙江电池 | 小米澎湃OS 2
-      </p>
+      <h2 className={'text-2xl text-[#212121]'}>{product.name}</h2>
+      {!!product.description && (
+        <p className={'mt-2 text-[#b0b0b0]'}>{product.description}</p>
+      )}
       <div className={'py-3'}>
-        <span className={'text-primary text-lg'}>{formatAmount(6799)}</span>
-        <span className={'ml-1.5 text-[#b0b0b0] line-through'}>
-          {formatAmount(6999)}
+        <span className={'text-primary text-lg'}>
+          {formatAmount(sku?.price)}
         </span>
+        {!!sku?.originalPrice && sku.originalPrice > sku.price && (
+          <span className={'ml-1.5 text-[#b0b0b0] line-through'}>
+            {formatAmount(sku.originalPrice)}
+          </span>
+        )}
       </div>
       <div className={'border-primary mt-3 border-t-1'} />
-      <ProductSkus items={productSkusData} onChange={() => {}} />
-      <SelectedInfo />
+      <ProductSkus
+        skus={product.skus}
+        onChange={(sku) => {
+          setSku(sku);
+          setPictures(sku?.gallery || []);
+        }}
+      />
+      <SelectedInfo name={fullName} amount={sku?.price} />
       <div className={'mt-2.5 mb-5 flex gap-x-2.5'}>
         <AddToCartButton />
         <FavoriteButton />
@@ -40,13 +59,13 @@ export default function ProductContent() {
 }
 
 function ProductSkus({
-  items,
+  skus,
   onChange
 }: {
-  items: ProductSku[];
+  skus: ProductSku[];
   onChange: (value?: ProductSku) => void;
 }) {
-  const { categories, activeSkus, activeSku, switchSku } = useSkus(items);
+  const { categories, activeSkus, activeSku, switchSku } = useSkus(skus);
   useEffect(() => {
     onChange(activeSku);
   }, [activeSku, onChange]);
@@ -79,15 +98,15 @@ function ProductSkus({
   );
 }
 
-function SelectedInfo() {
+function SelectedInfo({ name, amount }: { name?: string; amount?: number }) {
   return (
     <div className={'my-[30] bg-[rgb(249,249,249)] p-[30]'}>
       <div className={'flex justify-between text-[rgb(97,97,97)]'}>
-        <span>Xiaomi 15 Ultra 16GB+1TB 黑色</span>
-        <span>{formatAmount(6799)}</span>
+        <span>{name}</span>
+        <span>{formatAmount(amount)}</span>
       </div>
       <div className={'text-primary mt-5 text-2xl'}>
-        总计：{formatAmount(6799)}
+        总计：{formatAmount(amount)}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { useCallback, useMemo } from 'react';
 
 export default function useSkus(skus: ProductSku[]) {
   const [activeSkus, setActiveSkus] = useSetState(() => {
-    return arrayToObject(skus[0].attributes);
+    return arrayToObject(skus[0]?.attributes || []);
   });
 
   const findSku = useCallback(

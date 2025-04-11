@@ -3,7 +3,7 @@ import {
   LayoutHeroCategoryItemType,
   TargetType
 } from '@/app/enums';
-import { SkuAttribute } from '@/app/types/product';
+import { ProductDetailItem, SkuAttribute } from '@/app/types/product';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
@@ -46,7 +46,7 @@ export const products = mysqlTable('products', {
   sales: int('sales').default(0).notNull(),
   rating: int('rating').default(5).notNull(),
   categoryId: int('category_id').notNull(),
-  staticDetails: customJson<string[]>('static_details'),
+  staticDetails: customJson<ProductDetailItem[]>('static_details'),
   enabled: boolean('enabled').default(true).notNull(),
   sortNo: int('sort_no').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),

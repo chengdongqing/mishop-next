@@ -5,6 +5,8 @@ import Header from './header';
 import ReviewList from './review-list';
 import SatisfactionLevel from './satisfaction-level';
 
+export const revalidate = 3600;
+
 export default async function ProductReviewsPage({
   params
 }: {

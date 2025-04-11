@@ -964,7 +964,36 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/80416c1c7040aabbafa527a6ea652948.png?thumb=1&f=webp&q=90',
     price: 2199,
     originalPrice: 2499,
-    categoryId: 302
+    categoryId: 302,
+    staticDetails: [
+      {
+        name: '商品详情',
+        children: [
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0373ce9d0127e10eb5ac85f70ea4900a.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5e8730a77757587de978dc2f3d98337f.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/34d5581e0a391451efd2216d5ba8cd71.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/32ec51e881dfbc8fbc09bf8e7845f4e6.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/de2a8f0ea285543a26856e6ee35af56e.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/be3214943a1aff4f88a36a674cda8b3e.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/de0c8f14bfb67471df37fe3af419ca7d.jpg'
+        ]
+      },
+      {
+        name: '规格参数',
+        children: [
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0e86fcb9349fbb8193165a639389abf3.jpg'
+        ]
+      },
+      {
+        name: '安装费用',
+        children: [
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/99802b8af1a3b579a1a223e15dc6b92b.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4b36f536c7caf0139268dda88e912649.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/13482c7e0c1adce8ed36aa1253fb8e37.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fca03a33de7c1491a4d6de517c599d26.jpg'
+        ]
+      }
+    ]
   },
   {
     id: 59,
@@ -1056,6 +1085,75 @@ export const productsData: Product[] = [
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1612c93ad4756215774a0dbec7a81bb2.jpg?thumb=1&f=webp&q=90',
     price: 299,
     categoryId: 306
+  },
+  {
+    id: 69,
+    name: '小米巨能写多彩中性笔',
+    pictureUrl: '',
+    price: 9.9,
+    categoryId: 1401,
+    staticDetails: [
+      {
+        name: '商品详情',
+        children: [
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f8c52491d44828c6ca83e3e8c37c8d59.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/57e0550a8205c17168e6104219009c4c.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/86b50e929295b618ad1ac58efcaa779e.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1edd4c4b32294d5e7366f68029c06bab.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/eee83fdf72afbe7da224adf79576db9c.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d7c80e54150d2d845ffbd9ea48b55e2e.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/569212044bf5605ea7903ee79ad7742d.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/21da2ae212359fbeaa78a2430f4eeb36.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bc06e8aa3ee53e2d6552a1d696168583.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0666a69012dca4093e8694602fec97ca.jpg'
+        ]
+      }
+    ]
+  },
+  {
+    id: 70,
+    name: '日常元素软乎毛巾/浴巾',
+    pictureUrl: '',
+    price: 19.9,
+    categoryId: 506,
+    staticDetails: [
+      {
+        name: '商品详情',
+        children: [
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6ce131fccb84770a8579a6c89ea25788.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c1903924f863f1220f855ddcc9193db7.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7a35e4433ddc364f81ec1dece13dc827.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9ce6105532e618533962280770701627.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b839b9da7ad29c102a05e00795c54681.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ad2a5df8731ac0c38c995b0c72ba8340.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6fc99184341e85e9e4192a24158c8e38.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9fd27122b9f5a97a39ce8c63f85d730e.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f856b987b4b233e3f262400383eb6614.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/8b5be4d3bd31a5ce8a15ede5b7ee7421.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7f91ca182f7441ad064ec3fd1640a5e3.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e4f7f26c9f5efa71f45064881803d861.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7d6855bff09ae72756b5e9ed98da1d31.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/743d81839bc298ddbe559e02bde66536.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f8290a02f8b04a6dab4cda10ea15cf89.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/84eec791ad90767ad47c179e7a683d9a.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b4cbc69eb4696af76a008d2a0ea3d012.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/950cd9080c86b48443b525fb442ebe32.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/662500052d7a860a9d654fd3df3691ac.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/918d9769f987ec11666374ef69bc0626.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2f02c53a3f57fd854028b5ece586eb2b.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0b34b5580a31adaaefe8c9f6e5efb5d6.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e1dbe2038b97a23147e4634c637b5f81.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/04b5678d9c0cd7c591594cd9281e051c.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/06ad3dfc09d617738d4b62bd94a9ea81.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2d17c4fe520885f82f3eef80c3cacb50.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ec30de92630d0f49ee708ebc62e481ac.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c9252c7e936a41dae2a9bea330821397.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/431525f97a5fba0924e4f49c271aa4d0.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c6a69b0df1a53131269ce7f5db45b95c.jpg',
+          'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a64fbee38bd51ef82f25e492961c2ecd.jpg'
+        ]
+      }
+    ]
   }
 ];
 
@@ -1203,7 +1301,13 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
-    gallery: [],
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
+    ],
     attributes: [
       {
         name: '版本',
@@ -1226,7 +1330,13 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
-    gallery: [],
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
+    ],
     attributes: [
       {
         name: '版本',
@@ -1249,7 +1359,13 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png',
-    gallery: [],
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
+    ],
     attributes: [
       {
         name: '版本',
@@ -1272,7 +1388,13 @@ export const productSkusData: ProductSku[] = [
     price: 6999,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
-    gallery: [],
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
+    ],
     attributes: [
       {
         name: '版本',
@@ -1285,6 +1407,165 @@ export const productSkusData: ProductSku[] = [
       {
         name: '套装',
         value: '标准版'
+      }
+    ]
+  },
+  {
+    id: 5,
+    productId: 1,
+    name: '16GB+256GB 黑色 标准版',
+    price: 6499,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578491.37431726.png',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
+    ],
+    attributes: [
+      {
+        name: '版本',
+        value: '16GB+256GB'
+      },
+      {
+        name: '颜色',
+        value: '黑色'
+      },
+      {
+        name: '套装',
+        value: '标准版'
+      }
+    ]
+  },
+  {
+    id: 6,
+    productId: 58,
+    name: '白色',
+    price: 2199,
+    originalPrice: 2499,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/75430C54AC5944E773D050D1B69DBAB3.jpg',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/75430C54AC5944E773D050D1B69DBAB3.jpg',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1605518539.08077505.jpg'
+    ],
+    attributes: [
+      {
+        name: '颜色',
+        value: '白色'
+      }
+    ]
+  },
+  {
+    id: 7,
+    productId: 69,
+    name: '彩色',
+    price: 9.9,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.46323457.jpg',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.46323457.jpg',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.55187387.jpg',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063599.88418231.jpg',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.5769329.jpg',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.51577978.jpg'
+    ],
+    attributes: [
+      {
+        name: '颜色',
+        value: '彩色'
+      }
+    ]
+  },
+  {
+    id: 8,
+    productId: 70,
+    name: '轻柔毛巾34cmx76cm 肤粉',
+    price: 19.9,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/6D258A18DED97412FEA7C5815CA37CE1.png'
+    ],
+    attributes: [
+      {
+        name: '规格',
+        value: '轻柔毛巾34cmx76cm'
+      },
+      {
+        name: '颜色',
+        value: '肤粉'
+      }
+    ]
+  },
+  {
+    id: 9,
+    productId: 70,
+    name: '轻柔毛巾34cmx76cm 灰绿',
+    price: 19.9,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/6D258A18DED97412FEA7C5815CA37CE1.png'
+    ],
+    attributes: [
+      {
+        name: '规格',
+        value: '轻柔毛巾34cmx76cm'
+      },
+      {
+        name: '颜色',
+        value: '灰绿'
+      }
+    ]
+  },
+  {
+    id: 10,
+    productId: 70,
+    name: '浴巾70cmx140cm 肤粉',
+    price: 69,
+    originalPrice: 99,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/0EB370B22670394DAD68160227D96ECC.png',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/0EB370B22670394DAD68160227D96ECC.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/7A5DEED07B18751D7FAAA391F109A494.png'
+    ],
+    attributes: [
+      {
+        name: '规格',
+        value: '浴巾70cmx140cm'
+      },
+      {
+        name: '颜色',
+        value: '肤粉'
+      }
+    ]
+  },
+  {
+    id: 11,
+    productId: 70,
+    name: '浴巾70cmx140cm 灰绿',
+    price: 69,
+    originalPrice: 99,
+    pictureUrl:
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/7A5DEED07B18751D7FAAA391F109A494.png',
+    gallery: [
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/0EB370B22670394DAD68160227D96ECC.png',
+      'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/7A5DEED07B18751D7FAAA391F109A494.png'
+    ],
+    attributes: [
+      {
+        name: '规格',
+        value: '浴巾70cmx140cm'
+      },
+      {
+        name: '颜色',
+        value: '灰绿'
       }
     ]
   }

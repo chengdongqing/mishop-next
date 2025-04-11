@@ -4,19 +4,17 @@ import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { useProduct } from '../product-context';
+import { useProductContext } from '../product-context';
 
 export default function ProductGallery() {
-  const { product } = useProduct();
-  console.log({ product });
-
   const carouselRef = useRef<CarouselInstance>(null);
   const [current, setCurrent] = useState(0);
+  const { pictures } = useProductContext();
 
   return (
     <div className={'relative h-[560] flex-1'}>
       <Carousel ref={carouselRef} afterChange={setCurrent}>
-        {urls.map((url) => (
+        {pictures.map((url) => (
           <Image
             key={url}
             src={url}
@@ -30,7 +28,7 @@ export default function ProductGallery() {
       </Carousel>
 
       <Pagination
-        urls={urls}
+        pictures={pictures}
         current={current}
         onChange={(index) => carouselRef.current?.to(index)}
       />
@@ -73,17 +71,17 @@ function SwitchButton({
 }
 
 function Pagination({
-  urls,
+  pictures,
   current,
   onChange
 }: {
-  urls: string[];
+  pictures: string[];
   current: number;
   onChange: (index: number) => void;
 }) {
   return (
     <ul className={'absolute bottom-5 z-1 flex w-full justify-center gap-x-1'}>
-      {urls.map((url, index) => (
+      {pictures.map((url, index) => (
         <li
           key={url}
           tabIndex={0}
@@ -99,11 +97,3 @@ function Pagination({
     </ul>
   );
 }
-
-const urls = [
-  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62083295.png',
-  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
-  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
-  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
-  'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png'
-];
