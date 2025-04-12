@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckIcon } from '@heroicons/react/16/solid';
+import { CheckIcon, MinusIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { Key, PropsWithChildren } from 'react';
 
@@ -17,6 +17,7 @@ interface Props {
 export default function Checkbox({
   children,
   checked,
+  indeterminate,
   onChange
 }: PropsWithChildren<Props>) {
   return (
@@ -27,13 +28,17 @@ export default function Checkbox({
       <span
         className={clsx(
           'flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
-          checked
+          checked || indeterminate
             ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
             : 'border-primary bg-white',
           'group-hover:border-[var(--color-primary)]'
         )}
       >
-        <CheckIcon className={'w-4'} />
+        {checked ? (
+          <CheckIcon className={'w-4'} />
+        ) : indeterminate ? (
+          <MinusIcon className={'w-4'} />
+        ) : null}
       </span>
       <span
         className={
