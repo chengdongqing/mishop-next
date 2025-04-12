@@ -3,9 +3,15 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
-export default function Search() {
+export default function Search({
+  hotNamesPromise
+}: {
+  hotNamesPromise: Promise<string[]>;
+}) {
+  const keywords = use(hotNamesPromise);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const placeholder = usePlaceholderInterval(keywords);
@@ -55,23 +61,12 @@ export default function Search() {
         <MagnifyingGlassIcon className={'h-5 w-5'} />
       </button>
 
-      {focused && <RecommendedList />}
+      {focused && <RecommendedList keywords={keywords} />}
     </form>
   );
 }
 
-const keywords = [
-  '手机换新',
-  '小米手环9',
-  '笔记本',
-  'Redmi K70至尊版',
-  '门锁',
-  '热水器',
-  '晾衣架',
-  '充电宝'
-];
-
-function RecommendedList() {
+function RecommendedList({ keywords }: { keywords: string[] }) {
   const router = useRouter();
 
   function searchAction(keyword: string) {
@@ -89,7 +84,7 @@ function RecommendedList() {
         <li
           key={keyword}
           className={
-            'cursor-pointer p-[6px_15px] text-xs text-[#424242] hover:bg-[#fafafa]'
+            'cursor-pointer p-[6px_15px] text-xs text-ellipsis text-[#424242] hover:bg-[#fafafa]'
           }
           onClick={() => searchAction(keyword)}
         >

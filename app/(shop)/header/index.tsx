@@ -6,9 +6,11 @@ import NavBar from './nav-bar';
 import TopBar from './top-bar';
 
 export default function Header({
-  navsPromise
+  navsPromise,
+  hotNamesPromise
 }: {
   navsPromise: Promise<LayoutHeaderNav[]>;
+  hotNamesPromise: Promise<string[]>;
 }) {
   const pathname = usePathname();
 
@@ -19,7 +21,7 @@ export default function Header({
   return (
     <header>
       <TopBar />
-      <NavBar navsPromise={navsPromise} />
+      <NavBar navsPromise={navsPromise} hotNamesPromise={hotNamesPromise} />
     </header>
   );
 }

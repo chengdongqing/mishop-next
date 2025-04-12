@@ -158,6 +158,17 @@ export function findProductLabels(categoryId: number) {
     .where(eq(productLabels.categoryId, categoryId));
 }
 
+export async function findHotProductNames(limits = 10) {
+  const res = await db
+    .select({ name: products.name })
+    .from(products)
+    .where(eq(products.enabled, true))
+    .orderBy(desc(products.sales), sql`rand()`)
+    .limit(limits);
+
+  return res.map((product) => product.name);
+}
+
 export async function findRecommendedProducts(
   limits: number = 10
 ): Promise<RecommendedProduct[]> {

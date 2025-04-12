@@ -12,9 +12,11 @@ import { Suspense, use, useEffect, useRef, useState } from 'react';
 import Search from './search';
 
 export default function NavBar({
-  navsPromise
+  navsPromise,
+  hotNamesPromise
 }: {
   navsPromise: Promise<LayoutHeaderNav[]>;
+  hotNamesPromise: Promise<string[]>;
 }) {
   const [products, setProducts] = useState<Product[]>([]);
   const isMouseEnter = useRef(false);
@@ -52,7 +54,7 @@ export default function NavBar({
             />
           </Suspense>
           <Suspense>
-            <Search />
+            <Search hotNamesPromise={hotNamesPromise} />
           </Suspense>
         </div>
       </div>
