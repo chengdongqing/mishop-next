@@ -109,12 +109,13 @@ function ProductList() {
                   alt={''}
                   width={60}
                   height={60}
+                  className={'h-[60] w-[60] object-scale-down'}
                 />
               </Link>
               <Link
                 href={linkUrl}
                 className={
-                  'hover:text-primary mr-5 ml-2.5 max-h-[65] overflow-hidden duration-200'
+                  'hover:text-primary mr-5 ml-2.5 max-h-[65] flex-1 overflow-hidden duration-200'
                 }
               >
                 {product.fullName}
