@@ -9,7 +9,7 @@ export default function Logo({
   height?: number;
 }) {
   return (
-    <Link href={'/'}>
+    <Link href={'/'} className={'cursor-pointer'}>
       <Image
         src={'/logo.png'}
         title={'小米官网'}

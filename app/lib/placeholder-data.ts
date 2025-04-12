@@ -1090,7 +1090,7 @@ export const productsData: Product[] = [
     id: 69,
     name: '小米巨能写多彩中性笔',
     pictureUrl: '',
-    price: 9.9,
+    price: 9.99,
     categoryId: 1401,
     staticDetails: [
       {
@@ -1467,7 +1467,7 @@ export const productSkusData: ProductSku[] = [
     id: 7,
     productId: 69,
     name: '彩色',
-    price: 9.9,
+    price: 9.99,
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.46323457.jpg',
     gallery: [

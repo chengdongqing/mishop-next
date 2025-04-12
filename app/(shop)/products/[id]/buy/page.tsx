@@ -31,7 +31,7 @@ export default function BuyProductPage() {
         <ProductContent />
       </section>
       <ProductDetails />
-      <ToolBar />
+      <ToolBar onlyToTop />
     </>
   );
 }

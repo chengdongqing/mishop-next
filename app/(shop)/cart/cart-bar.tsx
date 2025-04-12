@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 export default function CartBar() {
-  const { totalCount, totalAmount, clearCart } = useCartContext();
+  const { selectedCount, selectedAmount, clearCart } = useCartContext();
 
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
@@ -39,17 +39,55 @@ export default function CartBar() {
         </button>
         <Sep />
         <div>
-          已选择<span className={'text-primary mx-1'}>{totalCount}</span>件
+          已选择<span className={'text-primary mx-1'}>{selectedCount}</span>件
         </div>
       </div>
-      <div className={'flex items-center'}>
+      <div className={'relative flex items-center'}>
         <div className={'text-primary'}>
           合计：
-          <span className={'text-[30px]'}>{formatAmount(totalAmount)}</span>元
+          <span className={'text-[30px]'}>{formatAmount(selectedAmount)}</span>
+          元
         </div>
-        <Button className={'ml-[50] !h-full !w-[202] !text-lg'}>去结算</Button>
+        <CheckoutButton />
       </div>
     </div>
+  );
+}
+
+function CheckoutButton() {
+  const { selectedCount } = useCartContext();
+  const noChecked = !selectedCount;
+
+  return (
+    <>
+      <Button
+        className={clsx('ml-[50] !h-full !w-[202] !text-lg', {
+          '!cursor-default !bg-[var(--color-border)] !text-[#b0b0b0]': noChecked
+        })}
+      >
+        去结算
+      </Button>
+
+      {noChecked && (
+        <div
+          className={
+            'text-primary absolute top-[-58] right-0 z-1 h-[50] w-[202] border-1 border-[var(--color-primary)] bg-white text-center text-sm leading-[48px]'
+          }
+        >
+          请勾选需要结算的商品
+          <i
+            className={
+              'absolute bottom-[-8] left-1/2 -translate-x-1/2 border-x-10 border-t-8 border-[var(--color-primary)] border-x-transparent'
+            }
+          />
+          <i
+            className={
+              'absolute bottom-[-7] left-1/2 -translate-x-1/2 border-x-8 border-t-7 border-white border-x-transparent'
+            }
+          />
+        </div>
+      )}
+    </>
   );
 }
 

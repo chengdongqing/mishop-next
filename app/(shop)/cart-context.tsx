@@ -18,6 +18,8 @@ interface CartContext {
   selectedProducts: CartProduct[];
   totalCount: number;
   totalAmount: number;
+  selectedCount: number;
+  selectedAmount: number;
   addToCart: (product: CartProduct) => Promise<void>;
   removeFromCart: (product: CartProduct) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
@@ -62,24 +64,47 @@ export function CartProvider({ children }: PropsWithChildren) {
     return products.filter((product) => product.checked);
   }, [products]);
 
-  /**
-   * 总数量
-   */
-  const totalCount = useMemo(() => {
-    return selectedProducts.reduce((acc, product) => {
-      return acc + product.quantity;
-    }, 0);
-  }, [selectedProducts]);
+  function calculateCount(onlySelected: boolean = false) {
+    return (onlySelected ? selectedProducts : products).reduce(
+      (acc, product) => {
+        return acc + product.quantity;
+      },
+      0
+    );
+  }
 
-  /**
-   * 总金额
-   */
-  const totalAmount = useMemo(() => {
-    return selectedProducts.reduce((acc, product) => {
-      const decimal = new Decimal(product.price).mul(product.quantity);
-      return acc + decimal.toNumber();
-    }, 0);
-  }, [selectedProducts]);
+  function calculateAmount(onlySelected: boolean = false) {
+    return (onlySelected ? selectedProducts : products).reduce(
+      (acc, product) => {
+        return new Decimal(product.price)
+          .mul(product.quantity)
+          .plus(acc)
+          .toNumber();
+      },
+      0
+    );
+  }
+
+  const totalCount = useMemo(
+    () => calculateCount(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [products]
+  );
+  const totalAmount = useMemo(
+    () => calculateAmount(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [products]
+  );
+  const selectedAmount = useMemo(
+    () => calculateAmount(true),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedProducts]
+  );
+  const selectedCount = useMemo(
+    () => calculateCount(true),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedProducts]
+  );
 
   async function addToCart(product: CartProduct) {
     if (!hasLogin) {
@@ -175,6 +200,8 @@ export function CartProvider({ children }: PropsWithChildren) {
       selectedProducts,
       totalCount,
       totalAmount,
+      selectedCount,
+      selectedAmount,
       addToCart,
       removeFromCart,
       modifyCount,
