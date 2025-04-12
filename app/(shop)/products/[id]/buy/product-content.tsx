@@ -143,7 +143,7 @@ function AddToCartButton({
             checked: true,
             limits: sku.limits
           });
-          router.push(`/cart/success/${name}`);
+          router.push(`/cart/success/${encodeURIComponent(name)}`);
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {}
       }}
