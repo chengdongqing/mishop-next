@@ -85,7 +85,7 @@ function CartPopover({ open, count }: { open: boolean; count: number }) {
 }
 
 function ProductList() {
-  const { products } = useCartContext();
+  const { products, removeFromCart } = useCartContext();
 
   return (
     <ul className={'flex-1 overflow-y-auto px-5'}>
@@ -127,6 +127,7 @@ function ProductList() {
               className={
                 'invisible ml-1.5 cursor-pointer text-[#b0b0b0] group-hover/product:visible hover:text-[#424242]'
               }
+              onClick={() => removeFromCart(product, false)}
             >
               <XMarkIcon className={'w-4'} />
             </button>

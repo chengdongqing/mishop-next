@@ -21,7 +21,10 @@ interface CartContext {
   selectedCount: number;
   selectedAmount: number;
   addToCart: (product: CartProduct) => Promise<void>;
-  removeFromCart: (product: CartProduct) => Promise<void>;
+  removeFromCart: (
+    product: CartProduct,
+    shouldConfirm?: boolean
+  ) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
   setCheckedBatch: (checked: boolean) => Promise<void>;
@@ -128,13 +131,15 @@ export function CartProvider({ children }: PropsWithChildren) {
     return Promise.resolve();
   }
 
-  async function removeFromCart(product: CartProduct) {
-    await new Promise<void>((resolve, reject) => {
-      popup.confirm('确定删除该商品吗？', {
-        onOk: resolve,
-        onCancel: reject
+  async function removeFromCart(product: CartProduct, shouldConfirm = true) {
+    if (shouldConfirm) {
+      await new Promise<void>((resolve, reject) => {
+        popup.confirm('确定删除该商品吗？', {
+          onOk: resolve,
+          onCancel: reject
+        });
       });
-    });
+    }
 
     if (!hasLogin) {
       products.splice(products.indexOf(product), 1);
