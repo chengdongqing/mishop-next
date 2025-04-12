@@ -18,12 +18,12 @@ interface CartContext {
   selectedProducts: CartProduct[];
   totalCount: number;
   totalAmount: number;
-  isEmpty: boolean;
   addToCart: (product: CartProduct) => Promise<void>;
   removeFromCart: (product: CartProduct) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
   setCheckedBatch: (checked: boolean) => Promise<void>;
+  clearCart: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -154,18 +154,33 @@ export function CartProvider({ children }: PropsWithChildren) {
     return Promise.resolve();
   }
 
+  async function clearCart(): Promise<void> {
+    await new Promise<void>((resolve, reject) => {
+      popup.confirm('确定清空购物车吗？', {
+        onOk: resolve,
+        onCancel: reject
+      });
+    });
+
+    if (!hasLogin) {
+      setProducts([]);
+    }
+
+    return Promise.resolve();
+  }
+
   const contextValue: CartContext = useMemo(
     () => ({
       products,
       selectedProducts,
       totalCount,
       totalAmount,
-      isEmpty: !products.length,
       addToCart,
       removeFromCart,
       modifyCount,
       setChecked,
-      setCheckedBatch
+      setCheckedBatch,
+      clearCart
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [products, selectedProducts, totalCount, totalAmount]

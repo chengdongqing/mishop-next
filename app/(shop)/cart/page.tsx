@@ -8,7 +8,8 @@ import Header from './header';
 import ProductTable from './product-table';
 
 export default function CartPage() {
-  const { isEmpty } = useCartContext();
+  const { products } = useCartContext();
+  const isEmpty = !products.length;
 
   return (
     <>

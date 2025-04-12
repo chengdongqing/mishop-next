@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 export default function CartBar() {
-  const { totalCount, totalAmount } = useCartContext();
+  const { totalCount, totalAmount, clearCart } = useCartContext();
 
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
@@ -31,7 +31,10 @@ export default function CartBar() {
           继续购物
         </Link>
         <Sep />
-        <button className={'cursor-pointer hover:text-[var(--color-error)]'}>
+        <button
+          className={'cursor-pointer hover:text-[var(--color-error)]'}
+          onClick={() => clearCart().catch(() => {})}
+        >
           清空购物车
         </button>
         <Sep />

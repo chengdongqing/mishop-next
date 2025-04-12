@@ -85,6 +85,7 @@ function ProductRow({ product }: { product: CartProduct }) {
       </td>
       <td className={'w-[150] text-center'}>
         <NumberInput
+          max={100}
           value={product.quantity}
           onChange={(quantity) => {
             modifyCount(product, quantity).catch(() => {});
