@@ -1,11 +1,6 @@
-import {
-  AlipayIcon,
-  QQIcon,
-  WeChatIcon,
-  WeiboIcon
-} from '@/app/auth/(auth)/signin/(password)/icons';
 import Space from '@/components/ui/space';
 import { PropsWithChildren } from 'react';
+import { AlipayIcon, QQIcon, WeChatIcon, WeiboIcon } from './icons';
 
 export default function SignInLayout({ children }: PropsWithChildren) {
   return (
@@ -33,34 +28,5 @@ function OtherWays() {
         </Space>
       </div>
     </div>
-  );
-}
-
-export function Agreement() {
-  return (
-    <span className={'text-[rgba(0,0,0,.6)]'}>
-      已阅读并同意小米账号
-      <a
-        href={
-          'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
-        }
-        target={'_blank'}
-        rel={'noopener noreferrer'}
-        className={'text-[rgba(0,0,0,.8)]'}
-      >
-        用户协议
-      </a>
-      和
-      <a
-        href={
-          'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
-        }
-        target={'_blank'}
-        rel={'noopener noreferrer'}
-        className={'text-[rgba(0,0,0,.8)]'}
-      >
-        隐私政策
-      </a>
-    </span>
   );
 }

@@ -3,7 +3,7 @@ import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Agreement } from '../layout';
+import Agreement from '../../agreement';
 
 export const metadata: Metadata = {
   title: '小米账号 - 登录'
