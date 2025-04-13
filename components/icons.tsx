@@ -38,3 +38,14 @@ export function RotateRightIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function CaretDownIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg {...props} width="14" height="14" fill="currentColor">
+      <path
+        d="M10.732 5H3.268c-.224 0-.349.245-.21.413l3.732 4.49a.277.277 0 00.42 0l3.732-4.49c.139-.168.014-.413-.21-.413z"
+        fill-rule="nonzero"
+      />
+    </svg>
+  );
+}

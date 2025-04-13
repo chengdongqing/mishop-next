@@ -1,6 +1,7 @@
 import Space from '@/components/ui/space';
 import Image from 'next/image';
 import { HTMLProps, PropsWithChildren } from 'react';
+import LanguagePicker from './language-picker';
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
@@ -40,26 +41,29 @@ function Header() {
         <h2 className={'text-[26px] text-[rgba(0,0,0,.8)]'}>小米账号</h2>
       </Space>
 
-      <Space size={10}>
-        <LinkItem
-          href={
-            'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
-          }
-        >
-          用户协议
-        </LinkItem>
-        <LinkItem
-          href={
-            'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
-          }
-        >
-          隐私政策
-        </LinkItem>
-        <LinkItem
-          href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
-        >
-          帮助中心
-        </LinkItem>
+      <Space split={<span className={'mx-[10] text-[#ddd]'}>|</span>}>
+        <Space size={10}>
+          <LinkItem
+            href={
+              'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
+            }
+          >
+            用户协议
+          </LinkItem>
+          <LinkItem
+            href={
+              'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
+            }
+          >
+            隐私政策
+          </LinkItem>
+          <LinkItem
+            href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
+          >
+            帮助中心
+          </LinkItem>
+        </Space>
+        <LanguagePicker />
       </Space>
     </header>
   );
