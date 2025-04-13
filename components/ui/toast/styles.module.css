@@ -1,0 +1,29 @@
+@keyframes open {
+    from {
+        opacity: 0;
+        top: 45%;
+    }
+
+    to {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+.container {
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 20px rgba(162, 162, 162, 0.2);
+    background-color: #fff;
+    color: rgb(52, 52, 52);
+    padding: 14px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    animation: open 0.3s forwards;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}

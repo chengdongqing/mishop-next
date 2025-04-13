@@ -26,6 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body>
         {children}
         <div id="popup" />
+        <div id="toast" />
       </body>
     </html>
   );

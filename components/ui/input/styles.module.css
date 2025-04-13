@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 60px;
+    background-color: #f9f9f9;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    &.active {
+        background-color: #fff;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(255, 92, 0, 0.2);
+    }
+
+    &.error {
+        background-color: #fcf2f3;
+
+        .label {
+            color: var(--color-error);
+        }
+    }
+
+    .input {
+        flex: 1;
+        height: 100%;
+        border: none;
+        padding: 20px;
+        color: #333;
+        font-size: 17px;
+        background-color: transparent;
+        outline: none;
+
+        &[type='password'] {
+            letter-spacing: 10px;
+        }
+
+        &.with_label {
+            padding: 30px 20px 10px;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+    }
+
+    .label {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        color: rgba(0, 0, 0, 0.4);
+        font-size: 17px;
+        font-weight: 200;
+        transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: text;
+
+        &.active {
+            top: 6px;
+            font-size: 12px;
+            transform: none;
+        }
+    }
+
+    .icon_eye {
+        width: 60px;
+        height: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.25);
+        transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+        &:hover {
+            color: rgba(0, 0, 0, 0.45);
+        }
+    }
+}

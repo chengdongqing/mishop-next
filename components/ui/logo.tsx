@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Logo({
-  width = 56,
-  height = 56
-}: {
-  width?: number;
-  height?: number;
-}) {
+export default function Logo({ size = 56 }: { size?: number }) {
   return (
     <Link href={'/'} className={'cursor-pointer'}>
       <Image
@@ -15,13 +9,13 @@ export default function Logo({
         title={'小米官网'}
         alt={'logo'}
         unoptimized
-        width={width}
-        height={height}
+        width={size}
+        height={size}
         draggable={false}
         className={'duration-200 active:scale-85'}
         style={{
-          width,
-          height
+          width: size,
+          height: size
         }}
       />
     </Link>

@@ -1,3 +1,6 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import MiniCart from './mini-cart';
 
 export default function TopBar() {
@@ -76,11 +79,15 @@ function Left() {
 }
 
 function Right() {
+  const pathname = usePathname();
+  const queryString =
+    pathname !== '/' ? `?callback=${encodeURIComponent(pathname)}` : '';
+
   return (
     <ul className={'flex items-center'}>
-      <NavItem title={'登录'} />
+      <NavItem title={'登录'} href={`/auth/signin${queryString}`} />
       <Sep />
-      <NavItem title={'注册'} />
+      <NavItem title={'注册'} href={`/auth/signup${queryString}`} />
       <Sep />
       <NavItem
         title={'消息通知'}

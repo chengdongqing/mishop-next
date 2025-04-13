@@ -113,7 +113,7 @@ export default function Dropdown({
         )}
       </div>
 
-      <div
+      <ul
         hidden={!willOpen}
         style={overlayStyle}
         className={clsx(
@@ -123,7 +123,7 @@ export default function Dropdown({
         )}
       >
         {menus.map((item) => (
-          <div
+          <li
             key={item.key}
             className={clsx(
               styles.item,
@@ -139,9 +139,9 @@ export default function Dropdown({
             }}
           >
             {item.label}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

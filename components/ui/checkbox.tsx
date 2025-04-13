@@ -2,29 +2,51 @@
 
 import { CheckIcon, MinusIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
-import { Key, PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 
 interface Props {
-  value?: Key;
+  name?: string;
+  value?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
   indeterminate?: boolean;
+  required?: boolean;
 
   onChange?(checked: boolean): void;
 }
 
 export default function Checkbox({
   children,
-  checked,
+  name,
+  value,
+  checked: propChecked,
   indeterminate,
+  required,
   onChange
 }: PropsWithChildren<Props>) {
+  const [innerChecked, setInnerChecked] = useState(propChecked || false);
+  const checked = propChecked ?? innerChecked;
+
   return (
     <label
       className={'group flex cursor-pointer items-center gap-x-1.5 select-none'}
-      onClick={() => onChange?.(!checked)}
+      onClick={() => {
+        const value = !checked;
+        setInnerChecked(value);
+        onChange?.(value);
+      }}
     >
+      {!!name && (
+        <input
+          name={name}
+          value={value}
+          type="checkbox"
+          required={required}
+          className={'absolute opacity-0'}
+          onClick={(e) => e.stopPropagation()}
+        />
+      )}
       <span
         className={clsx(
           'flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',

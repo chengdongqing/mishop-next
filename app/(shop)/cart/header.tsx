@@ -1,13 +1,15 @@
 import Logo from '@/components/ui/logo';
 import Link from 'next/link';
 
+const queryString = `?callback=${encodeURIComponent('/cart')}`;
+
 export default function Header() {
   return (
     <div className={'border-b-2 border-[var(--color-primary)]'}>
       <div className={'w-primary flex h-[100] items-center justify-between'}>
         <div className={'flex items-center'}>
           <div className={'w-[93]'}>
-            <Logo width={48} height={48} />
+            <Logo size={48} />
           </div>
           <h2 className={'text-[28px] text-[#424242]'}>我的购物车</h2>
           <p className={'mt-3 ml-4 text-xs text-[#757575]'}>
@@ -18,14 +20,14 @@ export default function Header() {
         <div className={'text-xs'}>
           <Link
             className={'hover:text-primary text-[#757575]'}
-            href={'/auth/signin'}
+            href={`/auth/signin${queryString}`}
           >
             登录
           </Link>
           <span className={'mx-1.5 text-[#b0b0b0]'}>|</span>
           <Link
             className={'hover:text-primary text-[#757575]'}
-            href={'/auth/signup'}
+            href={`/auth/signup${queryString}`}
           >
             注册
           </Link>
