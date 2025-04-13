@@ -9,7 +9,7 @@ import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useProductContext } from '../product-context';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
@@ -124,28 +124,32 @@ function AddToCartButton({
 }) {
   const router = useRouter();
   const { addToCart } = useCartContext();
+  const [isPending, startTransition] = useTransition();
 
   return (
     <Button
+      loading={isPending}
       className={'!h-[54] !w-[300] !text-base'}
-      onClick={async () => {
-        try {
-          await addToCart({
-            productId: product.id,
-            productSlug: product.slug,
-            productName: product.name,
-            fullName: name,
-            skuId: sku.id,
-            skuName: sku.name,
-            price: sku.price,
-            pictureUrl: sku.pictureUrl,
-            quantity: 1,
-            checked: true,
-            limits: sku.limits
-          });
-          router.push(`/cart/success/${encodeURIComponent(name)}`);
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {}
+      onClick={() => {
+        startTransition(async () => {
+          try {
+            await addToCart({
+              productId: product.id,
+              productSlug: product.slug,
+              productName: product.name,
+              fullName: name,
+              skuId: sku.id,
+              skuName: sku.name,
+              price: sku.price,
+              pictureUrl: sku.pictureUrl,
+              quantity: 1,
+              checked: true,
+              limits: sku.limits
+            });
+            router.push(`/cart/success/${encodeURIComponent(name)}`);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          } catch (e) {}
+        });
       }}
     >
       加入购物车
