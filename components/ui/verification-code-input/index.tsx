@@ -54,6 +54,7 @@ export default function VerificationCodeInput({
       suffix={
         <div
           className={clsx(
+            'dark:!text-[#666]',
             styles.btn_send,
             waiting && !!seconds && styles.disabled
           )}

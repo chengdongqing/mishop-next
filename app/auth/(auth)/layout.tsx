@@ -1,6 +1,7 @@
 import Logo from '@/components/ui/logo';
 import Space from '@/components/ui/space';
 import { Metadata, type Viewport } from 'next';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { HTMLProps, PropsWithChildren } from 'react';
 import LanguagePicker from './language-picker';
@@ -17,9 +18,12 @@ export const viewport: Viewport = {
   width: 'device-width'
 };
 
-export default function AuthLayout({ children }: PropsWithChildren) {
+export default async function AuthLayout({ children }: PropsWithChildren) {
+  const t = await getTranslations('AuthLayout');
+  console.log('AuthLayout', t('title'));
+
   return (
-    <div className={'flex'}>
+    <div className={'flex dark:bg-black'} id={'auth-layout'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
         <Header />
@@ -53,7 +57,13 @@ function Header() {
     <header className={'flex items-center justify-between p-5'}>
       <Space size={10}>
         <Logo size={40} />
-        <h2 className={'text-[26px] text-[rgba(0,0,0,.8)]'}>小米账号</h2>
+        <h2
+          className={
+            'text-[26px] text-[rgba(0,0,0,.8)] dark:text-[hsla(0,0%,100%,.8)]'
+          }
+        >
+          小米账号
+        </h2>
       </Space>
 
       <Space

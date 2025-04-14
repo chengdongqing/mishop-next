@@ -1,23 +1,40 @@
 'use client';
 
 import Dropdown from '@/components/ui/dropdown';
+import { usePathname, useRouter } from 'next/navigation';
 import { Key, useState } from 'react';
 
 const languages = [
   { key: 'zh_CN', label: '中文(简体)' },
   { key: 'zh_TW', label: '中文(繁體)' },
-  { key: 'en', label: 'English' }
+  { key: 'en', label: 'English' },
+  { key: 'ug', label: 'ئۇيغۇرچە' }
 ];
 
 export default function LanguagePicker() {
   const [current, setCurrent] = useState<Key>(() => languages[0].key);
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className={'group mx-2.5 text-[#838383]'}>
       <Dropdown
         menus={languages.filter((item) => item.key !== current)}
         overlayStyle={{ minWidth: 65 }}
-        onChange={setCurrent}
+        onChange={(key) => {
+          setCurrent(key);
+
+          const authLayout = document.getElementById('auth-layout')!;
+          if (key === 'ug') {
+            authLayout.dir = 'rtl';
+          } else {
+            if (authLayout.dir === 'rtl') {
+              authLayout.removeAttribute('dir');
+            }
+          }
+
+          router.replace(`${pathname}?lang=${key}`);
+        }}
       >
         <a className={'group-hover:text-[var(--color-primary)]'}>
           {languages.find((item) => item.key === current)?.label}

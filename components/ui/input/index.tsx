@@ -50,6 +50,7 @@ export default function Input({
     <div
       style={style}
       className={clsx(
+        'dark:!bg-[#333]',
         className,
         styles.container,
         focused && styles.active,
@@ -66,7 +67,11 @@ export default function Input({
         disabled={disabled}
         autoComplete={'off'}
         type={isPwdType && showPwd ? undefined : type}
-        className={clsx(styles.input, !!placeholder && styles.with_label)}
+        className={clsx(
+          'dark:!text-white',
+          styles.input,
+          !!placeholder && styles.with_label
+        )}
         onChange={(e) => {
           const { value } = e.target;
           setInnerValue(value);
@@ -85,6 +90,7 @@ export default function Input({
       {!!placeholder && (
         <span
           className={clsx(
+            'rtl:right-5 dark:!text-[#aaa]',
             styles.label,
             (value || (focused && !disabled && !readonly)) && styles.active
           )}
@@ -98,7 +104,7 @@ export default function Input({
       {suffix}
       {isPwdType && (
         <div
-          className={styles.icon_eye}
+          className={clsx('dark:!text-[#aaa]', styles.icon_eye)}
           onClick={() => {
             toggleShowPwd();
           }}

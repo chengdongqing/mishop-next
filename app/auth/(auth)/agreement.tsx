@@ -2,7 +2,7 @@
 
 export default function Agreement() {
   return (
-    <span className={'text-[rgba(0,0,0,.6)]'}>
+    <span className={'text-[rgba(0,0,0,.6)] dark:text-[hsla(0,0%,100%,.5)]'}>
       已阅读并同意小米账号
       <a
         href={
@@ -10,7 +10,9 @@ export default function Agreement() {
         }
         target={'_blank'}
         rel={'noopener noreferrer'}
-        className={'hover:text-primary text-[rgba(0,0,0,.8)] duration-200'}
+        className={
+          'hover:text-primary text-[rgba(0,0,0,.8)] duration-200 dark:text-[hsla(0,0%,100%,.8)]'
+        }
         onClick={(e) => e.stopPropagation()}
       >
         用户协议
@@ -22,7 +24,9 @@ export default function Agreement() {
         }
         target={'_blank'}
         rel={'noopener noreferrer'}
-        className={'hover:text-primary text-[rgba(0,0,0,.8)] duration-200'}
+        className={
+          'hover:text-primary text-[rgba(0,0,0,.8)] duration-200 dark:text-[hsla(0,0%,100%,.8)]'
+        }
         onClick={(e) => e.stopPropagation()}
       >
         隐私政策

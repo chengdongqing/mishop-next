@@ -9,7 +9,7 @@ export default function MainCard({ children }: PropsWithChildren) {
   return (
     <main
       className={
-        'mx-auto mt-[100] mb-[80] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] md:w-[450]'
+        'mx-auto mt-[100] mb-[80] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] md:w-[450] dark:bg-[#242424]'
       }
     >
       <PanelTab />
@@ -34,7 +34,7 @@ function PanelTab() {
       <span
         className={clsx(
           'absolute bottom-0 h-1 w-[44] rounded-xs bg-[var(--color-primary)] duration-200',
-          isFirst ? 'left-0' : 'left-[64]'
+          isFirst ? 'left-0 rtl:right-0' : 'left-[64] rtl:right-[64]'
         )}
       />
     </div>
@@ -52,7 +52,7 @@ function TabItem({
       href={href}
       className={clsx(
         'pb-1 text-[22px] duration-200',
-        active ? '' : 'text-[#bbb]'
+        active ? 'dark:text-[#ddd]' : 'text-[#bbb]'
       )}
       style={{ textShadow: active ? '0 0 .25px #333' : undefined }}
     >
