@@ -1,6 +1,6 @@
 import Logo from '@/components/ui/logo';
 import Space from '@/components/ui/space';
-import { Metadata } from 'next';
+import { Metadata, type Viewport } from 'next';
 import Image from 'next/image';
 import { HTMLProps, PropsWithChildren } from 'react';
 import LanguagePicker from './language-picker';
@@ -11,6 +11,10 @@ export const metadata: Metadata = {
     '小米账号能使用小米手机，小米云，多看阅读，米聊，小米社区等小米服务。',
   keywords:
     '小米帐号，小米账号，小米注册，注册，Mi Account，Xiaomi Account，Sign in，小米，帐号，账号，小米账户，小米帐户，登录，登陆，安全令牌，动态口令，小米注册，找回密码'
+};
+
+export const viewport: Viewport = {
+  width: 'device-width'
 };
 
 export default function AuthLayout({ children }: PropsWithChildren) {
@@ -28,7 +32,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
 
 function SideBar() {
   return (
-    <aside>
+    <aside className={''}>
       <Image
         src={
           'https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.92c693b4..jpg'
@@ -38,7 +42,7 @@ function SideBar() {
         height={1800}
         unoptimized
         priority
-        className={'h-screen w-[375] object-cover'}
+        className={'h-screen w-[375] object-cover max-lg:w-[200] max-md:hidden'}
       />
     </aside>
   );
@@ -52,7 +56,10 @@ function Header() {
         <h2 className={'text-[26px] text-[rgba(0,0,0,.8)]'}>小米账号</h2>
       </Space>
 
-      <Space split={<span className={'mx-[10] text-[#ddd]'}>|</span>}>
+      <Space
+        className={'max-sm:!hidden'}
+        split={<span className={'mx-[10] text-[#ddd]'}>|</span>}
+      >
         <Space size={10}>
           <LinkItem
             href={

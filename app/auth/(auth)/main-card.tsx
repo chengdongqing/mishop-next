@@ -7,16 +7,14 @@ import { PropsWithChildren } from 'react';
 
 export default function MainCard({ children }: PropsWithChildren) {
   return (
-    <div className={'flex flex-1 items-center justify-center'}>
-      <main
-        className={
-          'mx-auto my-[80] w-[450] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)]'
-        }
-      >
-        <PanelTab />
-        {children}
-      </main>
-    </div>
+    <main
+      className={
+        'mx-auto mt-[100] mb-[80] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] md:w-[450]'
+      }
+    >
+      <PanelTab />
+      <div className={'px-0.5 pt-5'}>{children}</div>
+    </main>
   );
 }
 

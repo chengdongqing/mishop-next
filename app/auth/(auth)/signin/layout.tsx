@@ -4,10 +4,10 @@ import { AlipayIcon, QQIcon, WeChatIcon, WeiboIcon } from './icons';
 
 export default function SignInLayout({ children }: PropsWithChildren) {
   return (
-    <div className={'px-0.5 pt-5'}>
+    <>
       {children}
       <OtherWays />
-    </div>
+    </>
   );
 }
 
