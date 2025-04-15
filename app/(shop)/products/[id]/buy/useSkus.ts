@@ -1,6 +1,6 @@
-import { arrayToObject } from '@/app/lib/utils';
-import { ProductSku } from '@/app/types/product';
 import useSetState from '@/hooks/useSetState';
+import { arrayToObject } from '@/lib/utils';
+import { ProductSku } from '@/types/product';
 import { useCallback, useMemo } from 'react';
 
 export default function useSkus(skus: ProductSku[]) {

@@ -1,7 +1,7 @@
-import { BannerType } from '@/app/enums';
-import { findBannersByType } from '@/app/services/banners';
+import { findBannersByType } from '@/services/banners';
 import Image from 'next/image';
 import { Suspense } from 'react';
+import { BannerType } from '../../../enums';
 import styles from './styles.module.css';
 
 export default function HeroSub() {

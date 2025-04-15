@@ -20,14 +20,17 @@ export const viewport: Viewport = {
 
 export default async function AuthLayout({ children }: PropsWithChildren) {
   const t = await getTranslations('AuthLayout');
-  console.log('AuthLayout', t('title'));
 
   return (
     <div className={'flex dark:bg-black'} id={'auth-layout'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
-        <Header />
-        <MainCard>{children}</MainCard>
+        <Header t={t} />
+        <div className={'flex flex-1 items-center justify-center'}>
+          <div className={'my-[80] h-[570]'}>
+            <MainCard>{children}</MainCard>
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
@@ -36,7 +39,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
 
 function SideBar() {
   return (
-    <aside className={''}>
+    <aside>
       <Image
         src={
           'https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.92c693b4..jpg'
@@ -46,13 +49,15 @@ function SideBar() {
         height={1800}
         unoptimized
         priority
-        className={'h-screen w-[375] object-cover max-lg:w-[200] max-md:hidden'}
+        className={
+          'min-h-screen w-[375] object-cover max-lg:w-[200] max-md:hidden'
+        }
       />
     </aside>
   );
 }
 
-function Header() {
+function Header({ t }: { t: (key: string) => string }) {
   return (
     <header className={'flex items-center justify-between p-5'}>
       <Space size={10}>
@@ -62,7 +67,7 @@ function Header() {
             'text-[26px] text-[rgba(0,0,0,.8)] dark:text-[hsla(0,0%,100%,.8)]'
           }
         >
-          小米账号
+          {t('title')}
         </h2>
       </Space>
 
@@ -76,19 +81,19 @@ function Header() {
               'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
             }
           >
-            用户协议
+            {t('userAgreement')}
           </LinkItem>
           <LinkItem
             href={
               'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
             }
           >
-            隐私政策
+            {t('privacyPolicy')}
           </LinkItem>
           <LinkItem
             href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
           >
-            帮助中心
+            {t('helpCenter')}
           </LinkItem>
         </Space>
         <LanguagePicker />

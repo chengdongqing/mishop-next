@@ -1,5 +1,5 @@
-import { products } from '@/app/lib/schema';
-import { PageRequest } from '@/app/types/common';
+import { products } from '@/lib/schema';
+import { PageRequest } from '@/types/common';
 
 export const EmptyValue = '--';
 

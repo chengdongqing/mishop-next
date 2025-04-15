@@ -1,7 +1,7 @@
 'use client';
 
-import { DetailProduct } from '@/app/types/product';
 import Button from '@/components/ui/button';
+import { DetailProduct } from '@/types/product';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';

@@ -1,4 +1,4 @@
-import { SchemaType } from '@/app/lib/db';
+import { SchemaType } from '@/lib/db';
 import {
   productCategoriesData,
   productLabelRelationsData,
@@ -6,7 +6,7 @@ import {
   productReviewsData,
   productsData,
   productSkusData
-} from '@/app/lib/placeholder-data';
+} from '@/lib/placeholder-data';
 import {
   productCategories,
   productLabelRelations,
@@ -14,7 +14,7 @@ import {
   productReviews,
   products,
   productSkus
-} from '@/app/lib/schema';
+} from '@/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {

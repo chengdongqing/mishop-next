@@ -1,9 +1,9 @@
 import { useCartContext } from '@/app/(shop)/cart-context';
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { CartProduct } from '@/app/types/product';
 import Checkbox from '@/components/ui/checkbox';
 import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import Image from 'next/image';
 import Link from 'next/link';

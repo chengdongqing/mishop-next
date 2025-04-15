@@ -1,9 +1,9 @@
-import { db, SchemaType } from '@/app/lib/db';
 import {
   seedLayoutBricks,
   seedLayoutHeader,
   seedLayoutHeroCategories
 } from '@/app/seed/layouts';
+import { db, SchemaType } from '@/lib/db';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {

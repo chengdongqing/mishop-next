@@ -1,10 +1,8 @@
 {
   "AuthLayout": {
     "title": "小米账号",
-    "links": [
-      "用户协议",
-      "隐私政策",
-      "帮助中心"
-    ]
+    "userAgreement": "用户协议",
+    "privacyPolicy": "隐私政策",
+    "helpCenter": "帮助中心"
   }
 }

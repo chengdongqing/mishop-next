@@ -1,5 +1,7 @@
-import { ProductOrderBy } from '@/app/enums';
-import { db } from '@/app/lib/db';
+'use server';
+
+import { ProductOrderBy } from '@/enums';
+import { db } from '@/lib/db';
 import {
   productCategories,
   productLabelRelations,
@@ -7,14 +9,14 @@ import {
   productReviews,
   products,
   productSkus
-} from '@/app/lib/schema';
-import { createPaginationMeta } from '@/app/lib/utils';
-import { Page, PageRequest } from '@/app/types/common';
+} from '@/lib/schema';
+import { createPaginationMeta } from '@/lib/utils';
+import { Page, PageRequest } from '@/types/common';
 import {
   DetailProduct,
   RecommendedProduct,
   SearchProduct
-} from '@/app/types/product';
+} from '@/types/product';
 import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
 import { pick } from 'next/dist/lib/pick';
 import { cache } from 'react';
@@ -138,7 +140,7 @@ function getOrderBy(orderBy?: ProductOrderBy) {
   }
 }
 
-export function findProductCategories(parentId: number = 0) {
+export async function findProductCategories(parentId: number = 0) {
   return db
     .select({
       id: productCategories.id,
@@ -148,7 +150,7 @@ export function findProductCategories(parentId: number = 0) {
     .where(eq(productCategories.parentId, parentId));
 }
 
-export function findProductLabels(categoryId: number) {
+export async function findProductLabels(categoryId: number) {
   return db
     .select({
       id: productLabels.id,

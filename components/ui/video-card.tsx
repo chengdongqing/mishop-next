@@ -1,7 +1,7 @@
 'use client';
 
-import { Video } from '@/app/types/video';
 import Popup from '@/components/ui/popup';
+import { Video } from '@/types/video';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Image from 'next/image';

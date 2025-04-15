@@ -1,5 +1,5 @@
-import { BannerType, LayoutHeroCategoryItemType } from '@/app/enums';
-import { db } from '@/app/lib/db';
+import { BannerType, LayoutHeroCategoryItemType } from '@/enums';
+import { db } from '@/lib/db';
 import {
   banners,
   layoutBricks,
@@ -10,14 +10,14 @@ import {
   productCategories,
   productLabels,
   products
-} from '@/app/lib/schema';
-import { mapProduct } from '@/app/lib/utils';
+} from '@/lib/schema';
+import { mapProduct } from '@/lib/utils';
 import {
   LayoutBrick,
   LayoutBrickTab,
   LayoutHeaderNav,
   LayoutHeroCategory
-} from '@/app/types/layout';
+} from '@/types/layout';
 import { and, eq } from 'drizzle-orm';
 
 export async function findHeaderNavs() {

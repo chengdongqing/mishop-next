@@ -1,6 +1,6 @@
-import { findVideos } from '@/app/services/videos';
 import Breadcrumb from '@/components/ui/breadcrumb';
 import VideoCard from '@/components/ui/video-card';
+import { findVideos } from '@/services/videos';
 
 export default async function VideosPage() {
   const videos = await findVideos();

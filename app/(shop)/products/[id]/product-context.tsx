@@ -1,6 +1,6 @@
 'use client';
 
-import { DetailProduct } from '@/app/types/product';
+import { DetailProduct } from '@/types/product';
 import { createContext, PropsWithChildren, use, useState } from 'react';
 
 interface ProductContext {

@@ -1,18 +1,18 @@
-import { BannerType } from '@/app/enums';
-import { SchemaType } from '@/app/lib/db';
+import { SchemaType } from '@/lib/db';
 import {
   bannersData,
   brickPromotionsData,
   carouselsData,
   promotionsData
-} from '@/app/lib/placeholder-data';
-import { banners } from '@/app/lib/schema';
+} from '@/lib/placeholder-data';
+import { banners } from '@/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
   MySql2PreparedQueryHKT,
   MySql2QueryResultHKT
 } from 'drizzle-orm/mysql2';
+import { BannerType } from '../../enums';
 
 export async function seedBanners(
   tx: MySqlTransaction<

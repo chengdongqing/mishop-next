@@ -1,8 +1,8 @@
 'use client';
 
-import { CartProduct } from '@/app/types/product';
 import popup from '@/components/ui/popup';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
+import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import {
   createContext,

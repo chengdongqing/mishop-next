@@ -1,9 +1,9 @@
 'use client';
 
 import { useCartContext } from '@/app/(shop)/cart-context';
-import { formatAmount } from '@/app/lib/utils';
 import Button from '@/components/ui/button';
 import useElementVisible from '@/hooks/useElementVisible';
+import { formatAmount } from '@/lib/utils';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRef } from 'react';

@@ -1,9 +1,5 @@
-import {
-  BannerType,
-  LayoutHeroCategoryItemType,
-  TargetType
-} from '@/app/enums';
-import { ProductDetailItem, SkuAttribute } from '@/app/types/product';
+import { BannerType, LayoutHeroCategoryItemType, TargetType } from '@/enums';
+import { ProductDetailItem, SkuAttribute } from '@/types/product';
 import { relations } from 'drizzle-orm';
 import {
   boolean,

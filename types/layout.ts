@@ -1,6 +1,6 @@
-import { LayoutHeroCategoryItemType } from '@/app/enums';
-import { Banner } from '@/app/types/banner';
-import { Product } from '@/app/types/product';
+import { LayoutHeroCategoryItemType } from '@/enums';
+import { Banner } from '@/types/banner';
+import { Product } from '@/types/product';
 
 export interface LayoutHeaderNav {
   id: number;

@@ -1,8 +1,8 @@
-import { BannerType } from '@/app/enums';
-import { findBannersByType } from '@/app/services/banners';
 import Loading from '@/components/ui/loading';
 import ToolBar from '@/components/ui/tool-bar';
+import { findBannersByType } from '@/services/banners';
 import { Suspense } from 'react';
+import { BannerType } from '../../../enums';
 import Banner from './banner';
 import Bricks, { BrickSkeleton } from './bricks';
 import Hero, { HeroSkeleton } from './hero';

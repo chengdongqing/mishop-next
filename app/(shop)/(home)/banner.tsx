@@ -1,4 +1,4 @@
-import { type Banner } from '@/app/types/banner';
+import { type Banner } from '@/types/banner';
 import Image from 'next/image';
 import Link from 'next/link';
 

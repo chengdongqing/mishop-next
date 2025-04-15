@@ -1,12 +1,13 @@
 'use client';
 
 import { useCartContext } from '@/app/(shop)/cart-context';
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { RecommendedProduct } from '@/app/types/product';
 import Button from '@/components/ui/button';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import Loading from '@/components/ui/loading';
 import useDebounce from '@/hooks/useDebounce';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { findRecommendedProducts } from '@/services/products';
+import { RecommendedProduct } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -28,9 +29,7 @@ export default function RecommendProducts({
 
   const loadProducts = useDebounce(() => {
     startTransition(async () => {
-      await fetch(`/api/products/recommended?limits=${size}`)
-        .then((res) => res.json())
-        .then((res) => setProducts(res));
+      await findRecommendedProducts(size).then(setProducts);
     });
   });
   useEffect(() => {

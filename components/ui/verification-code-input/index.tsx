@@ -1,9 +1,9 @@
 'use client';
 
-import { sleep } from '@/app/lib/utils';
 import Input, { InputProps } from '@/components/ui/input';
 import toast from '@/components/ui/toast';
 import useCountdown from '@/hooks/useCountdown';
+import { sleep } from '@/lib/utils';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import styles from './styles.module.css';

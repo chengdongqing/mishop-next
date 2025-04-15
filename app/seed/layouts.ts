@@ -1,4 +1,4 @@
-import { SchemaType } from '@/app/lib/db';
+import { SchemaType } from '@/lib/db';
 import {
   layoutBricksData,
   layoutBrickTabItemsData,
@@ -7,7 +7,7 @@ import {
   layoutHeaderNavsData,
   layoutHeroCategoriesData,
   layoutHeroCategoryItemsData
-} from '@/app/lib/placeholder-data';
+} from '@/lib/placeholder-data';
 import {
   layoutBricks,
   layoutBrickTabItems,
@@ -16,7 +16,7 @@ import {
   layoutHeaderNavs,
   layoutHeroCategories,
   layoutHeroCategoryItems
-} from '@/app/lib/schema';
+} from '@/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {

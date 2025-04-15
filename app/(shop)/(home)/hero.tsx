@@ -1,6 +1,6 @@
-import { BannerType } from '@/app/enums';
-import { findBannersByType } from '@/app/services/banners';
-import { findHeroCategories } from '@/app/services/layout';
+import { findBannersByType } from '@/services/banners';
+import { findHeroCategories } from '@/services/layout';
+import { BannerType } from '../../../enums';
 import HeroCarousel from './hero-carousel';
 import CategoryBar from './hero-category-bar';
 

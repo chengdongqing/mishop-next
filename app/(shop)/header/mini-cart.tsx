@@ -1,9 +1,9 @@
 'use client';
 
 import { useCartContext } from '@/app/(shop)/cart-context';
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
 import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
 import {
   ShoppingCartIcon as ShoppingCartIcon1,
   XMarkIcon

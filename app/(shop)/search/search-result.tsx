@@ -1,8 +1,8 @@
 'use client';
 
-import { Page } from '@/app/types/common';
-import { SearchProduct } from '@/app/types/product';
 import Pagination from '@/components/ui/pagination';
+import { Page } from '@/types/common';
+import { SearchProduct } from '@/types/product';
 import { DocumentMagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { use } from 'react';

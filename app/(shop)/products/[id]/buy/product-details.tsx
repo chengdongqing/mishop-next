@@ -1,6 +1,6 @@
 'use client';
 
-import { ProductDetailItem } from '@/app/types/product';
+import { ProductDetailItem } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState } from 'react';

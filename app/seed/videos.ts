@@ -1,6 +1,6 @@
-import { SchemaType } from '@/app/lib/db';
-import { videosData } from '@/app/lib/placeholder-data';
-import { videos } from '@/app/lib/schema';
+import { SchemaType } from '@/lib/db';
+import { videosData } from '@/lib/placeholder-data';
+import { videos } from '@/lib/schema';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {

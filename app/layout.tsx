@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { getLocale } from 'next-intl/server';
 import { PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export const viewport: Viewport = {
   width: 1226
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
+  const locale = await getLocale();
+
   return (
-    <html lang="zh-CN">
+    <html lang={locale}>
       <body>
         {children}
         <div id="popup" />

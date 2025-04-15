@@ -1,8 +1,10 @@
-import { db } from '@/app/lib/db';
-import { productReviews } from '@/app/lib/schema';
-import { createPaginationMeta } from '@/app/lib/utils';
-import { Page, PageRequest } from '@/app/types/common';
-import { ProductReview } from '@/app/types/product-review';
+'use server';
+
+import { db } from '@/lib/db';
+import { productReviews } from '@/lib/schema';
+import { createPaginationMeta } from '@/lib/utils';
+import { Page, PageRequest } from '@/types/common';
+import { ProductReview } from '@/types/product-review';
 import { and, eq, gte, isNotNull, SQL, sql } from 'drizzle-orm';
 
 export async function countReviews(productId: number) {

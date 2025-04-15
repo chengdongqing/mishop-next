@@ -1,5 +1,5 @@
-import { countReviews } from '@/app/services/product-reviews';
-import { findProductDetails } from '@/app/services/products';
+import { countReviews } from '@/services/product-reviews';
+import { findProductDetails } from '@/services/products';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import GoTopButton from './go-top-button';

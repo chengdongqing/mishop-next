@@ -1,4 +1,3 @@
-import { downloadFileCrossOrigin } from '@/app/lib/utils';
 import {
   ReloadIcon,
   RotateLeftIcon,
@@ -7,6 +6,7 @@ import {
 import Space from '@/components/ui/space';
 import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
 import useSetState, { SetStateAction } from '@/hooks/useSetState';
+import { downloadFileCrossOrigin } from '@/lib/utils';
 import {
   ArrowDownTrayIcon,
   ChevronLeftIcon,

@@ -1,7 +1,7 @@
 'use client';
 
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { SearchProduct } from '@/app/types/product';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { SearchProduct } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';

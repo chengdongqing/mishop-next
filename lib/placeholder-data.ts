@@ -1,12 +1,12 @@
-import { LayoutHeroCategoryItemType } from '@/app/enums';
-import { Banner } from '@/app/types/banner';
+import { LayoutHeroCategoryItemType } from '@/enums';
+import { Banner } from '@/types/banner';
 import {
   Product,
   ProductCategory,
   ProductLabel,
   ProductSku
-} from '@/app/types/product';
-import { Video } from '@/app/types/video';
+} from '@/types/product';
+import { Video } from '@/types/video';
 
 export const productCategoriesData: ProductCategory[] = [
   {

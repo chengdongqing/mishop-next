@@ -1,10 +1,10 @@
 'use client';
 
-import { ProductOrderBy } from '@/app/enums';
-import { ProductCategory, ProductLabel } from '@/app/types/product';
 import Checkbox from '@/components/ui/checkbox';
+import { ProductCategory, ProductLabel } from '@/types/product';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Key, use } from 'react';
+import { ProductOrderBy } from '../../../enums';
 import FilterBar from './filter-bar';
 import Sorter from './sorter';
 

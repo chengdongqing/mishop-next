@@ -1,10 +1,10 @@
 'use client';
 
 import { useCartContext } from '@/app/(shop)/cart-context';
-import { formatAmount } from '@/app/lib/utils';
-import { DetailProduct, ProductSku } from '@/app/types/product';
 import Button from '@/components/ui/button';
 import useToggle from '@/hooks/useToggle';
+import { formatAmount } from '@/lib/utils';
+import { DetailProduct, ProductSku } from '@/types/product';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';

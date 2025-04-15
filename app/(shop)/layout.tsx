@@ -1,5 +1,5 @@
-import { findHeaderNavs } from '@/app/services/layout';
-import { findHotProductNames } from '@/app/services/products';
+import { findHeaderNavs } from '@/services/layout';
+import { findHotProductNames } from '@/services/products';
 import { PropsWithChildren } from 'react';
 import { CartProvider } from './cart-context';
 import Footer from './footer';

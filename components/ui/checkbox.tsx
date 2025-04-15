@@ -49,7 +49,7 @@ export default function Checkbox({
       )}
       <span
         className={clsx(
-          'flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
+          'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
           checked || indeterminate
             ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
             : 'border-primary bg-white dark:!border-[#333] dark:bg-[#333]',

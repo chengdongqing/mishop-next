@@ -9,7 +9,7 @@ export default function MainCard({ children }: PropsWithChildren) {
   return (
     <main
       className={
-        'mx-auto mt-[100] mb-[80] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] md:w-[450] dark:bg-[#242424]'
+        'w-[450] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] dark:bg-[#242424]'
       }
     >
       <PanelTab />

@@ -1,6 +1,6 @@
 'use client';
 
-import { LayoutHeaderNav } from '@/app/types/layout';
+import { LayoutHeaderNav } from '@/types/layout';
 import { usePathname } from 'next/navigation';
 import NavBar from './nav-bar';
 import TopBar from './top-bar';

@@ -1,4 +1,4 @@
-import { TargetType } from '@/app/enums';
+import { TargetType } from '@/enums';
 
 export interface Banner {
   src: string;

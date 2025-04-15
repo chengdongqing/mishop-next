@@ -1,10 +1,8 @@
 {
   "AuthLayout": {
     "title": "Xiaomi Account",
-    "links": [
-      "User Agreement",
-      "Privacy Policy",
-      "Need help?"
-    ]
+    "userAgreement": "User Agreement",
+    "privacyPolicy": "Privacy Policy",
+    "helpCenter": "Need help?"
   }
 }

@@ -1,4 +1,4 @@
-import { findBricks } from '@/app/services/layout';
+import { findBricks } from '@/services/layout';
 import Brick from './brick';
 
 export default async function Bricks() {

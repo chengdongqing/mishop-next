@@ -1,9 +1,9 @@
 'use client';
 
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { Banner } from '@/app/types/banner';
-import { LayoutBrickTab } from '@/app/types/layout';
 import Space from '@/components/ui/space';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { Banner } from '@/types/banner';
+import { LayoutBrickTab } from '@/types/layout';
 import {
   ArrowRightCircleIcon,
   ChevronRightIcon

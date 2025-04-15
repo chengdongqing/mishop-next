@@ -1,10 +1,10 @@
 'use client';
 
-import { buildProductUrl, formatAmount } from '@/app/lib/utils';
-import { LayoutHeaderNav } from '@/app/types/layout';
-import { Product } from '@/app/types/product';
 import Loading from '@/components/ui/loading';
 import Logo from '@/components/ui/logo';
+import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { LayoutHeaderNav } from '@/types/layout';
+import { Product } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';

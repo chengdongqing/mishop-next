@@ -1,11 +1,11 @@
 'use client';
 
-import { sleep } from '@/app/lib/utils';
-import { Page } from '@/app/types/common';
-import { ProductReview } from '@/app/types/product-review';
 import previewImages from '@/components/ui/image-preview';
 import Loading from '@/components/ui/loading';
 import Rate from '@/components/ui/rate';
+import { sleep } from '@/lib/utils';
+import { findReviews } from '@/services/product-reviews';
+import { ProductReview } from '@/types/product-review';
 import { FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -31,9 +31,16 @@ export default function ReviewList() {
 
       startTransition(async () => {
         const start = new Date().getTime();
-        const res: Page<ProductReview> = await fetch(
-          `/api/products/${id}/reviews?${params.toString()}`
-        ).then((res) => res.json());
+        const res = await findReviews({
+          productId: Number(id),
+          rating: searchParams.get('rating')
+            ? Number(searchParams.get('rating'))
+            : undefined,
+          onlyWithPhotos: searchParams.get('onlyWithPhotos')
+            ? Boolean(Number(searchParams.get('onlyWithPhotos')))
+            : undefined,
+          page: page ? Number(page) : undefined
+        });
         const end = new Date().getTime();
         const duration = end - start;
         // 避免页面闪烁

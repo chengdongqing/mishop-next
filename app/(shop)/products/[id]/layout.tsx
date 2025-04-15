@@ -1,4 +1,4 @@
-import { findProductDetails } from '@/app/services/products';
+import { findProductDetails } from '@/services/products';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';

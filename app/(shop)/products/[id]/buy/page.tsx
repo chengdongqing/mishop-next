@@ -1,5 +1,5 @@
-import { findProductDetails } from '@/app/services/products';
 import ToolBar from '@/components/ui/tool-bar';
+import { findProductDetails } from '@/services/products';
 import { Metadata } from 'next';
 import ProductContent from './product-content';
 import ProductDetails from './product-details';
