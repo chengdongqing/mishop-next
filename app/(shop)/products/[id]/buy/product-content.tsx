@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import useToggle from '@/hooks/useToggle';
 import { formatAmount } from '@/lib/utils';
@@ -10,12 +10,12 @@ import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
-import { useProductContext } from '../product-context';
+import { useProduct } from '../product-context';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
 
 export default function ProductContent() {
-  const { product, setPictures } = useProductContext();
+  const { product, setPictures } = useProduct();
   const [sku, setSku] = useState<ProductSku>();
   const router = useRouter();
 
@@ -123,7 +123,7 @@ function AddToCartButton({
   sku: ProductSku;
 }) {
   const router = useRouter();
-  const { addToCart } = useCartContext();
+  const { addToCart } = useCart();
   const [isPending, startTransition] = useTransition();
 
   return (

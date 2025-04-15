@@ -4,9 +4,10 @@ import {
   RotateRightIcon
 } from '@/components/icons';
 import Space from '@/components/ui/space';
+import toast from '@/components/ui/toast';
 import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
 import useSetState, { SetStateAction } from '@/hooks/useSetState';
-import { downloadFileCrossOrigin } from '@/lib/utils';
+import { downloadFileAsync } from '@/lib/utils';
 import {
   ArrowDownTrayIcon,
   ChevronLeftIcon,
@@ -16,7 +17,7 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { useEffect, useMemo, useState } from 'react';
+import { startTransition, useEffect, useMemo, useState } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import styles from './styles.module.css';
 
@@ -147,7 +148,14 @@ function ActionBar({
           <button
             title={'下载'}
             onClick={() => {
-              downloadFileCrossOrigin('', src);
+              startTransition(async () => {
+                try {
+                  await downloadFileAsync(src);
+                } catch (e) {
+                  const message = e instanceof Error ? e.message : String(e);
+                  toast.error(`下载失败（${message}）`);
+                }
+              });
             }}
           >
             <ArrowDownTrayIcon className={styles.icon} />

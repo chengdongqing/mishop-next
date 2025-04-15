@@ -24,10 +24,10 @@ export function ProductProvider({
   );
 }
 
-export function useProductContext() {
+export function useProduct() {
   const ctx = use(ProductContext);
   if (!ctx) {
-    throw new Error('useProductContext must be used within ProductProvider');
+    throw new Error('useProduct must be used within ProductProvider');
   }
   return ctx;
 }

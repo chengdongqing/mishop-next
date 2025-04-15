@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import { PropsWithChildren } from 'react';
 
@@ -21,13 +22,16 @@ export const viewport: Viewport = {
   width: 1226
 };
 
+const rtlLanguages = ['ug'];
+
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
+  const dir = rtlLanguages.includes(locale) ? 'rtl' : undefined;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={dir}>
       <body>
-        {children}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <div id="popup" />
         <div id="toast" />
       </body>

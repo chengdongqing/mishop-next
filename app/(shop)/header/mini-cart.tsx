@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 
 export default function MiniCart() {
   const [open, setOpen] = useState(false);
-  const { totalCount: count } = useCartContext();
+  const { totalCount: count } = useCart();
 
   return (
     <div
@@ -85,7 +85,7 @@ function CartPopover({ open, count }: { open: boolean; count: number }) {
 }
 
 function ProductList() {
-  const { products, removeFromCart } = useCartContext();
+  const { products, removeFromCart } = useCart();
 
   return (
     <ul className={'flex-1 overflow-y-auto px-5'}>
@@ -140,7 +140,7 @@ function ProductList() {
 }
 
 function CartTotal() {
-  const { totalCount, totalAmount } = useCartContext();
+  const { totalCount, totalAmount } = useCart();
 
   return (
     <div className={'flex items-center justify-between bg-[#fafafa] p-[15_20]'}>

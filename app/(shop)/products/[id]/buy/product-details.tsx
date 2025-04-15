@@ -4,10 +4,10 @@ import { ProductDetailItem } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useProductContext } from '../product-context';
+import { useProduct } from '../product-context';
 
 export default function ProductDetails() {
-  const { product } = useProductContext();
+  const { product } = useProduct();
 
   return product.staticDetails ? (
     <DetailsTab tabs={product.staticDetails} />

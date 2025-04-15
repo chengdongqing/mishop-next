@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import useElementVisible from '@/hooks/useElementVisible';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export default function ToolBar({ onlyToTop }: { onlyToTop?: boolean }) {
 }
 
 function ToCartButton() {
-  const { totalCount } = useCartContext();
+  const { totalCount } = useCart();
 
   return (
     <Link href={'/cart'}>

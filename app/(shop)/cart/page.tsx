@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import RecommendProducts from '@/components/ui/recommend-products';
 import CartBar from './cart-bar';
 import EmptyCart from './empty-cart';
@@ -8,7 +8,7 @@ import Header from './header';
 import ProductTable from './product-table';
 
 export default function CartPage() {
-  const { products } = useCartContext();
+  const { products } = useCart();
   const isEmpty = !products.length;
 
   return (

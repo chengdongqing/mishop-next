@@ -4,12 +4,12 @@ import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { useProductContext } from '../product-context';
+import { useProduct } from '../product-context';
 
 export default function ProductGallery() {
   const carouselRef = useRef<CarouselInstance>(null);
   const [current, setCurrent] = useState(0);
-  const { pictures } = useProductContext();
+  const { pictures } = useProduct();
 
   return (
     <div className={'relative h-[560] flex-1'}>

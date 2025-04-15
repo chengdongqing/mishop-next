@@ -221,10 +221,10 @@ export function CartProvider({ children }: PropsWithChildren) {
   return <CartContext value={contextValue}>{children}</CartContext>;
 }
 
-export function useCartContext() {
+export function useCart() {
   const ctx = use(CartContext);
   if (!ctx) {
-    throw new Error('useCartContext must be used within CartProvider');
+    throw new Error('useCart must be used within CartProvider');
   }
   return ctx;
 }

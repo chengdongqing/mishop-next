@@ -1,4 +1,5 @@
 import { products } from '@/lib/schema';
+import { getRemoteFile } from '@/services/file';
 import { PageRequest } from '@/types/common';
 
 export const EmptyValue = '--';
@@ -21,28 +22,18 @@ export function mapProduct(product: typeof products.$inferSelect) {
   };
 }
 
-export function downloadFile(filename: string, src: string) {
+export function downloadFile(src: string, filename?: string) {
   const a = document.createElement('a');
-  a.download = filename;
+  a.download = filename || '';
   a.href = src;
   a.click();
 }
 
-export function downloadFileCrossOrigin(filename: string, src: string) {
-  const params = new URLSearchParams({ filename, remoteUrl: src });
-  fetch(`/api/download?${params.toString()}`)
-    .then((response) => {
-      if (response.ok) {
-        return response.blob();
-      }
-      alert('下载失败：' + response.statusText);
-      throw response;
-    })
-    .then((blob) => {
-      const url = URL.createObjectURL(blob);
-      downloadFile(filename, url);
-      URL.revokeObjectURL(url);
-    });
+export async function downloadFileAsync(src: string, filename?: string) {
+  const blob = await getRemoteFile(src);
+  const url = URL.createObjectURL(blob);
+  downloadFile(url, filename);
+  URL.revokeObjectURL(url);
 }
 
 export function arrayToObject(

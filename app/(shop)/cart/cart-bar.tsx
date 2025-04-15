@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import useElementVisible from '@/hooks/useElementVisible';
 import { formatAmount } from '@/lib/utils';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 export default function CartBar() {
-  const { selectedCount, selectedAmount, clearCart } = useCartContext();
+  const { selectedCount, selectedAmount, clearCart } = useCart();
 
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
@@ -55,7 +55,7 @@ export default function CartBar() {
 }
 
 function CheckoutButton() {
-  const { selectedCount } = useCartContext();
+  const { selectedCount } = useCart();
   const noChecked = !selectedCount;
 
   return (

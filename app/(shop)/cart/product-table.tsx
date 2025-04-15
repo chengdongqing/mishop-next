@@ -1,4 +1,4 @@
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import Checkbox from '@/components/ui/checkbox';
 import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ProductTable() {
-  const { products } = useCartContext();
+  const { products } = useCart();
 
   return (
     <table className={'w-full bg-white'}>
@@ -24,7 +24,7 @@ export default function ProductTable() {
 }
 
 function TableHeader() {
-  const { products, selectedProducts, setCheckedBatch } = useCartContext();
+  const { products, selectedProducts, setCheckedBatch } = useCart();
   const allChecked = selectedProducts.length === products.length;
 
   return (
@@ -53,7 +53,7 @@ function TableHeader() {
 }
 
 function ProductRow({ product }: { product: CartProduct }) {
-  const { modifyCount, setChecked, removeFromCart } = useCartContext();
+  const { modifyCount, setChecked, removeFromCart } = useCart();
 
   const linkUrl = buildProductUrl({
     id: product.productId,

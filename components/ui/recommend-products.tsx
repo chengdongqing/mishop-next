@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartContext } from '@/app/(shop)/cart-context';
+import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import Loading from '@/components/ui/loading';
@@ -128,7 +128,7 @@ export function ProductGrid({ products }: { products: RecommendedProduct[] }) {
 
 function ProductCard({ product }: { product: RecommendedProduct }) {
   const [isActive, setIsActive] = useState(false);
-  const { addToCart } = useCartContext();
+  const { addToCart } = useCart();
 
   return (
     <Link

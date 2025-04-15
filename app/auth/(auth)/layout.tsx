@@ -1,9 +1,10 @@
 import Logo from '@/components/ui/logo';
 import Space from '@/components/ui/space';
+import { getUserLocale } from '@/services/locale';
 import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import { HTMLProps, PropsWithChildren } from 'react';
+import { HTMLProps, PropsWithChildren, Suspense } from 'react';
 import LanguagePicker from './language-picker';
 import MainCard from './main-card';
 
@@ -22,7 +23,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
   const t = await getTranslations('AuthLayout');
 
   return (
-    <div className={'flex dark:bg-black'} id={'auth-layout'}>
+    <div className={'flex dark:bg-black'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
         <Header t={t} />
@@ -57,7 +58,9 @@ function SideBar() {
   );
 }
 
-function Header({ t }: { t: (key: string) => string }) {
+async function Header({ t }: { t: (key: string) => string }) {
+  const getLocalePromise = getUserLocale();
+
   return (
     <header className={'flex items-center justify-between p-5'}>
       <Space size={10}>
@@ -96,7 +99,9 @@ function Header({ t }: { t: (key: string) => string }) {
             {t('helpCenter')}
           </LinkItem>
         </Space>
-        <LanguagePicker />
+        <Suspense>
+          <LanguagePicker getLocalePromise={getLocalePromise} />
+        </Suspense>
       </Space>
     </header>
   );
