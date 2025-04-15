@@ -1,4 +1,9 @@
-import { BannerType, LayoutHeroCategoryItemType, TargetType } from '@/enums';
+import {
+  BannerType,
+  GenderType,
+  LayoutHeroCategoryItemType,
+  TargetType
+} from '@/enums';
 import { ProductDetailItem, SkuAttribute } from '@/types/product';
 import { relations } from 'drizzle-orm';
 import {
@@ -150,6 +155,19 @@ export const videos = mysqlTable('videos', {
   description: text('description'),
   sortNo: int('sort_no').default(0).notNull(),
   enabled: boolean('enabled').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const users = mysqlTable('users', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  avatarUrl: varchar('avatar_url', { length: 255 }).notNull(),
+  gender: mysqlEnum('gender', [GenderType.MALE, GenderType.FEMALE]),
+  phone: int('phone').notNull().unique(),
+  email: varchar('email', { length: 50 }).notNull().unique(),
+  password: varchar('password', { length: 255 }).notNull(),
+  salt: varchar('salt', { length: 50 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });

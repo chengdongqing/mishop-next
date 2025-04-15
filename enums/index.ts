@@ -23,3 +23,8 @@ export enum LayoutHeroCategoryItemType {
   CATEGORY = 'category',
   LABEL = 'label'
 }
+
+export enum GenderType {
+  MALE = 'male',
+  FEMALE = 'female'
+}
