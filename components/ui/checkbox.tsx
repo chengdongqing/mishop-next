@@ -12,6 +12,7 @@ interface Props {
   disabled?: boolean;
   indeterminate?: boolean;
   required?: boolean;
+  autoTheme?: boolean;
 
   onChange?(checked: boolean): void;
 }
@@ -23,6 +24,7 @@ export default function Checkbox({
   checked: propChecked,
   indeterminate,
   required,
+  autoTheme,
   onChange
 }: PropsWithChildren<Props>) {
   const [innerChecked, setInnerChecked] = useState(propChecked || false);
@@ -52,7 +54,7 @@ export default function Checkbox({
           'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
           checked || indeterminate
             ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
-            : 'border-primary bg-white dark:!border-[#333] dark:bg-[#333]',
+            : `border-primary bg-white ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
           'group-hover:border-[var(--color-primary)]'
         )}
       >

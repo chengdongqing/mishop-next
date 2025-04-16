@@ -19,7 +19,7 @@ export default function SignInByPhonePage() {
         <span className={'text-xs text-[#999]'}>
           未注册的手机号验证后将自动创建小米账号
         </span>
-        <Checkbox name={'agreed'} value={'1'} required>
+        <Checkbox name={'agreed'} value={'1'} required autoTheme>
           <Agreement />
         </Checkbox>
         <Button

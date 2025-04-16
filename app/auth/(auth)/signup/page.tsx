@@ -26,7 +26,7 @@ export default function SignupPage() {
         type={'password'}
         required
       />
-      <Checkbox name={'agreed'} value={'1'} required>
+      <Checkbox name={'agreed'} value={'1'} required autoTheme>
         <Agreement />
       </Checkbox>
       <Button type={'submit'} className={'!h-[60] !w-full rounded-sm !text-lg'}>
