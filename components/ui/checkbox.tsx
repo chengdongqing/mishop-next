@@ -27,27 +27,29 @@ export default function Checkbox({
   autoTheme,
   onChange
 }: PropsWithChildren<Props>) {
-  const [innerChecked, setInnerChecked] = useState(propChecked || false);
+  const [innerChecked, setInnerChecked] = useState(propChecked ?? false);
   const checked = propChecked ?? innerChecked;
 
   return (
     <label
-      className={'group flex cursor-pointer items-center gap-x-1.5 select-none'}
-      onClick={() => {
-        const value = !checked;
-        setInnerChecked(value);
-        onChange?.(value);
-      }}
+      className={
+        'group relative flex cursor-pointer items-center gap-x-1.5 select-none'
+      }
     >
       {!!name && (
         <input
-          key={name}
+          key={Date.now()}
           name={name}
           value={value}
           type="checkbox"
+          checked={checked}
           required={required}
-          className={'absolute opacity-0'}
-          onClick={(e) => e.stopPropagation()}
+          className={'absolute top-0 left-0 h-4.5 w-4.5 opacity-0'}
+          onChange={(e) => {
+            const { checked } = e.target;
+            setInnerChecked(checked);
+            onChange?.(checked);
+          }}
         />
       )}
       <span

@@ -120,15 +120,12 @@ export function CartProvider({ children }: PropsWithChildren) {
           cartProduct.quantity++;
           setProducts((prev) => [...prev]);
         } else {
-          popup.alert('商品加入购物车数量超过限购数');
-          return Promise.reject();
+          throw new Error('商品加入购物车数量超过限购数');
         }
       } else {
         setProducts((prev) => [...prev, product]);
       }
     }
-
-    return Promise.resolve();
   }
 
   async function removeFromCart(product: CartProduct, shouldConfirm = true) {
@@ -145,46 +142,40 @@ export function CartProvider({ children }: PropsWithChildren) {
       products.splice(products.indexOf(product), 1);
       setProducts((prev) => [...prev]);
     }
-
-    return Promise.resolve();
   }
 
-  function modifyCount(product: CartProduct, quantity: number): Promise<void> {
+  async function modifyCount(product: CartProduct, quantity: number) {
     if (!hasLogin) {
       if (quantity > 0) {
         if (!product.limits || quantity <= product.limits) {
           product.quantity = quantity;
           setProducts((prev) => [...prev]);
         } else {
-          popup.alert('商品加入购物车数量超过限购数');
-          return Promise.reject();
+          throw new Error('商品加入购物车数量超过限购数');
         }
       } else {
-        return removeFromCart(product);
+        await removeFromCart(product);
       }
     }
-    return Promise.resolve();
   }
 
-  function setChecked(product: CartProduct, checked: boolean): Promise<void> {
+  async function setChecked(product: CartProduct, checked: boolean) {
     if (!hasLogin) {
       product.checked = checked;
       setProducts((prev) => [...prev]);
     }
-    return Promise.resolve();
   }
 
-  function setCheckedBatch(checked: boolean): Promise<void> {
+  async function setCheckedBatch(checked: boolean) {
     if (!hasLogin) {
       products.forEach((product) => {
         product.checked = checked;
       });
       setProducts((prev) => [...prev]);
     }
-    return Promise.resolve();
   }
 
-  async function clearCart(): Promise<void> {
+  async function clearCart() {
     await new Promise<void>((resolve, reject) => {
       popup.confirm('确定清空购物车吗？', {
         onOk: resolve,
@@ -195,8 +186,6 @@ export function CartProvider({ children }: PropsWithChildren) {
     if (!hasLogin) {
       setProducts([]);
     }
-
-    return Promise.resolve();
   }
 
   const contextValue: CartContext = useMemo(

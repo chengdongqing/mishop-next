@@ -23,7 +23,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
   const t = await getTranslations('AuthLayout');
 
   return (
-    <div className={'flex dark:bg-black'}>
+    <div className={'flex min-h-screen dark:bg-black'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
         <Header t={t} />

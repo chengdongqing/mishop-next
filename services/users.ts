@@ -2,6 +2,7 @@
 
 import { db } from '@/lib/db';
 import { users } from '@/lib/schema';
+import { verifySmsVerificationCode } from '@/services/verification-code';
 import { ActionState } from '@/types/common';
 import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
@@ -48,7 +49,17 @@ export async function createUser(
     };
   }
 
-  const { phone, password } = validatedFields.data;
+  const { phone, password, verificationCode } = validatedFields.data;
+
+  // 校验验证码是否正确
+  const verified = await verifySmsVerificationCode(phone, verificationCode);
+  if (!verified) {
+    return {
+      errors: {
+        verificationCode: ['验证码错误']
+      }
+    };
+  }
 
   // 是否存在账号
   const existing = await isAccountExists(phone);

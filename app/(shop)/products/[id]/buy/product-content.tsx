@@ -2,6 +2,7 @@
 
 import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
+import popup from '@/components/ui/popup';
 import useToggle from '@/hooks/useToggle';
 import { formatAmount } from '@/lib/utils';
 import { DetailProduct, ProductSku } from '@/types/product';
@@ -147,8 +148,11 @@ function AddToCartButton({
               limits: sku.limits
             });
             router.push(`/cart/success/${encodeURIComponent(name)}`);
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          } catch (e) {}
+          } catch (e) {
+            if (e instanceof Error) {
+              popup.alert(e.message);
+            }
+          }
         });
       }}
     >

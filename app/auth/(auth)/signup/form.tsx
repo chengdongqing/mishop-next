@@ -1,22 +1,23 @@
 'use client';
 
-import Agreement from '@/app/auth/(auth)/agreement';
 import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
-import toast from '@/components/ui/toast';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
 import { createUser } from '@/services/users';
 import { sendSmsVerificationCode } from '@/services/verification-code';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
+import Agreement from '../agreement';
+import ErrorTips from '../error-tips';
 
 export default function SignupForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
     createUser,
     {}
   );
+  const phoneNumber = useRef('');
   const router = useRouter();
 
   useEffect(() => {
@@ -28,8 +29,6 @@ export default function SignupForm() {
       popup.alert(message);
     }
   }, [message, router, success]);
-
-  const phoneNumber = useRef('');
 
   return (
     <form action={formAction} className={'flex flex-col gap-y-5'}>
@@ -53,9 +52,12 @@ export default function SignupForm() {
         aria-describedby="verification-code-error"
         onSend={async () => {
           if (phoneNumber.current.trim()) {
-            await sendSmsVerificationCode(phoneNumber.current);
+            const res = await sendSmsVerificationCode(phoneNumber.current);
+            if (!res.success) {
+              throw new Error(res.message);
+            }
           } else {
-            toast.warning('请输入手机号');
+            throw new Error('请输入手机号');
           }
         }}
       />
@@ -95,21 +97,5 @@ export default function SignupForm() {
         注册
       </Button>
     </form>
-  );
-}
-
-function ErrorTips({ id, errors }: { id: string; errors?: string[] }) {
-  if (!errors?.length) {
-    return null;
-  }
-
-  return (
-    <div id={id} aria-live="polite" aria-atomic="true">
-      {errors?.map((error) => (
-        <p className="-mt-2 text-sm text-red-500" key={error}>
-          {error}
-        </p>
-      ))}
-    </div>
   );
 }

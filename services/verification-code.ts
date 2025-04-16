@@ -1,10 +1,16 @@
 'use server';
 
 import redis from '@/lib/redis';
+import { ActionState } from '@/types/common';
 
-export async function sendSmsVerificationCode(phoneNumber: string) {
+export async function sendSmsVerificationCode(
+  phoneNumber: string
+): Promise<ActionState> {
   if (!/^1[3-9]\d{9}$/.test(phoneNumber)) {
-    throw new Error('手机号格式错误');
+    return {
+      success: false,
+      message: '手机号格式错误'
+    };
   }
 
   const code = generateCode();
@@ -12,7 +18,20 @@ export async function sendSmsVerificationCode(phoneNumber: string) {
   // 发送短信验证码
   console.log('code:', code);
 
-  await redis.set(`verify:phoneNumber:${phoneNumber}`, code, 'EX', 300); // 5分钟过期（300秒）
+  try {
+    await redis.set(`verify:phoneNumber:${phoneNumber}`, code, 'EX', 300); // 5分钟过期（300秒）
+  } catch (e) {
+    if (e instanceof Error) {
+      return {
+        success: false,
+        message: e.message
+      };
+    }
+  }
+
+  return {
+    success: true
+  };
 }
 
 export async function verifySmsVerificationCode(

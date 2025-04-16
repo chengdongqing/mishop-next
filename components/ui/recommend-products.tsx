@@ -4,6 +4,7 @@ import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import Loading from '@/components/ui/loading';
+import popup from '@/components/ui/popup';
 import useDebounce from '@/hooks/useDebounce';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { findRecommendedProducts } from '@/services/products';
@@ -174,8 +175,11 @@ function ProductCard({ product }: { product: RecommendedProduct }) {
               setTimeout(() => {
                 setIsActive(false);
               }, 1000);
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (e) {}
+            } catch (e) {
+              if (e instanceof Error) {
+                popup.alert(e.message);
+              }
+            }
           }}
         >
           加入购物车

@@ -11,7 +11,9 @@ export interface PageRequest {
   size?: number;
 }
 
-export interface ActionState<T extends Record<string, string[]>> {
+export interface ActionState<
+  T extends Record<string, string[]> | undefined = undefined
+> {
   errors?: T;
   success?: boolean;
   message?: string;

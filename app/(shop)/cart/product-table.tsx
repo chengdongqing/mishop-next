@@ -2,6 +2,7 @@ import { useCart } from '@/app/(shop)/cart-context';
 import Checkbox from '@/components/ui/checkbox';
 import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
+import popup from '@/components/ui/popup';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
@@ -91,8 +92,14 @@ function ProductRow({ product }: { product: CartProduct }) {
         <NumberInput
           max={100}
           value={product.quantity}
-          onChange={(quantity) => {
-            modifyCount(product, quantity).catch(() => {});
+          onChange={async (quantity) => {
+            try {
+              await modifyCount(product, quantity);
+            } catch (e) {
+              if (e instanceof Error) {
+                popup.alert(e.message);
+              }
+            }
           }}
         />
       </td>
