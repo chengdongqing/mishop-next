@@ -1,16 +1,16 @@
-'use client';
-
+import { findHotProductNames } from '@/services/products';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
-export default function Search({
-  hotNamesPromise
-}: {
-  hotNamesPromise: Promise<string[]>;
-}) {
-  const keywords = use(hotNamesPromise);
+export default function Search() {
+  const [keywords, setKeywords] = useState<string[]>([]);
+  useEffect(() => {
+    startTransition(async () => {
+      await findHotProductNames().then(setKeywords);
+    });
+  }, []);
 
   const router = useRouter();
   const searchParams = useSearchParams();

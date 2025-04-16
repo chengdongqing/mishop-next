@@ -1,3 +1,5 @@
+'use server';
+
 import { BannerType, LayoutHeroCategoryItemType } from '@/enums';
 import { db } from '@/lib/db';
 import {
