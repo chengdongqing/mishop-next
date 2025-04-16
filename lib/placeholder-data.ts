@@ -1,4 +1,4 @@
-import { LayoutHeroCategoryItemType } from '@/enums';
+import { GenderType, LayoutHeroCategoryItemType } from '@/enums';
 import { Banner } from '@/types/banner';
 import {
   Product,
@@ -6,6 +6,7 @@ import {
   ProductLabel,
   ProductSku
 } from '@/types/product';
+import { User } from '@/types/user';
 import { Video } from '@/types/video';
 
 export const productCategoriesData: ProductCategory[] = [
@@ -1855,6 +1856,18 @@ export const videosData: Omit<Video, 'id'>[] = [
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/9e42f2cd623b52b89f182b3b9d4db955.jpg',
     videoUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9fccf360955848ba970e309cd7e3736e.mp4'
+  }
+];
+
+export const usersData: User[] = [
+  {
+    id: 1,
+    name: '海盐芝士不加糖',
+    avatarUrl:
+      'https://img1.baidu.com/it/u=3598104138,3632108415&fm=253&fmt=auto&app=120&f=JPEG',
+    gender: GenderType.MALE,
+    phone: '19999999999',
+    password: '12345678'
   }
 ];
 

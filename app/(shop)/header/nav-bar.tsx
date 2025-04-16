@@ -7,7 +7,7 @@ import { Product } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense, useEffect, useRef, useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import Search from './search';
 
 export default function NavBar() {
@@ -37,9 +37,7 @@ export default function NavBar() {
               }, 300);
             }}
           />
-          <Suspense>
-            <Search />
-          </Suspense>
+          <Search />
         </div>
       </div>
 

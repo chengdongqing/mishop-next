@@ -19,6 +19,7 @@ function createDatabaseConnection() {
     client: poolConnection,
     schema,
     mode: 'default'
+    // logger: process.env.NODE_ENV === 'development'
   });
 }
 

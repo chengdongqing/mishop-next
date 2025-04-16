@@ -41,6 +41,7 @@ export default function Checkbox({
     >
       {!!name && (
         <input
+          key={name}
           name={name}
           value={value}
           type="checkbox"

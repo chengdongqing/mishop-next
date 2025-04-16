@@ -5,9 +5,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        email: {},
-        password: {},
-        phone: {}
+        identifier: {},
+        password: {}
       },
       async authorize(credentials) {
         let user = null;
@@ -28,5 +27,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return user;
       }
     })
-  ]
+  ],
+  session: {
+    strategy: 'jwt'
+  },
+  pages: {
+    signIn: '/auth/signin'
+  }
 });

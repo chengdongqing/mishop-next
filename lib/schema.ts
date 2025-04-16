@@ -161,13 +161,12 @@ export const videos = mysqlTable('videos', {
 
 export const users = mysqlTable('users', {
   id: serial('id').primaryKey(),
-  name: varchar('name', { length: 255 }).notNull(),
-  avatarUrl: varchar('avatar_url', { length: 255 }).notNull(),
+  name: varchar('name', { length: 255 }),
+  avatarUrl: varchar('avatar_url', { length: 255 }),
   gender: mysqlEnum('gender', [GenderType.MALE, GenderType.FEMALE]),
-  phone: int('phone').notNull().unique(),
-  email: varchar('email', { length: 50 }).notNull().unique(),
+  phone: varchar('phone', { length: 11 }).notNull().unique(),
+  email: varchar('email', { length: 50 }).unique(),
   password: varchar('password', { length: 255 }).notNull(),
-  salt: varchar('salt', { length: 50 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });

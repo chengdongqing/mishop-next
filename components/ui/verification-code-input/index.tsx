@@ -3,17 +3,19 @@
 import Input, { InputProps } from '@/components/ui/input';
 import toast from '@/components/ui/toast';
 import useCountdown from '@/hooks/useCountdown';
-import { sleep } from '@/lib/utils';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 interface VerificationCodeInputProps extends InputProps {
   interval?: number;
+
+  onSend(): Promise<void>;
 }
 
 export default function VerificationCodeInput({
   interval = 120,
+  onSend,
   placeholder = '验证码',
   ...rest
 }: VerificationCodeInputProps) {
@@ -24,15 +26,11 @@ export default function VerificationCodeInput({
     setWaiting(false);
   });
 
-  function sendCode() {
-    return sleep(1000);
-  }
-
   function send() {
     if (!waiting && !sending.current) {
       sending.current = true;
       const closeLoading = toast.loading('发送中...');
-      sendCode()
+      onSend()
         .finally(() => {
           closeLoading();
           sending.current = false;
@@ -43,7 +41,11 @@ export default function VerificationCodeInput({
           hasSent.current = true;
           toast.success('发送成功，请注意查收');
         })
-        .catch(toast.warning);
+        .catch((e) => {
+          if (e instanceof Error) {
+            toast.warning(e.message);
+          }
+        });
     }
   }
 

@@ -28,7 +28,7 @@ export default async function AuthLayout({ children }: PropsWithChildren) {
       <div className={'relative flex flex-1 flex-col'}>
         <Header t={t} />
         <div className={'flex flex-1 items-center justify-center'}>
-          <div className={'my-[80] h-[570]'}>
+          <div className={'my-[80] min-h-[570]'}>
             <MainCard>{children}</MainCard>
           </div>
         </div>

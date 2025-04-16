@@ -3,6 +3,7 @@ import {
   seedLayoutHeader,
   seedLayoutHeroCategories
 } from '@/app/seed/layouts';
+import { seedUsers } from '@/app/seed/users';
 import { db, SchemaType } from '@/lib/db';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
@@ -48,6 +49,7 @@ function getSeeds(
     seedProductReviews(tx),
     seedBanners(tx),
     seedVideos(tx),
+    seedUsers(tx),
     seedLayoutHeader(tx),
     seedLayoutHeroCategories(tx),
     seedLayoutBricks(tx)

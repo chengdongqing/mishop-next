@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "bcryptjs": "^3.0.2",
     "dayjs": "^1.11.13",
     "decimal.js": "^10.5.0",
     "drizzle-orm": "^0.40.0",
     "drizzle-zod": "^0.7.0",
+    "ioredis": "^5.6.1",
     "lodash": "^4.17.21",
     "motion": "^12.6.2",
     "mysql2": "^3.13.0",
@@ -21,7 +23,8 @@
     "next-auth": "^5.0.0-beta.25",
     "next-intl": "^4.0.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
