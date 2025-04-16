@@ -51,7 +51,7 @@ export function CartProvider({ children }: PropsWithChildren) {
     if (data) {
       setProducts(JSON.parse(data) as CartProduct[]);
     }
-  }, []);
+  }, [hasLogin]);
 
   /**
    * 未登录时同步到local storage

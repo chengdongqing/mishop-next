@@ -1,16 +1,14 @@
-import { findHotProductNames } from '@/services/products';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { startTransition, useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
-export default function Search() {
-  const [keywords, setKeywords] = useState<string[]>([]);
-  useEffect(() => {
-    startTransition(async () => {
-      await findHotProductNames().then(setKeywords);
-    });
-  }, []);
+export default function Search({
+  hotNamesPromise
+}: {
+  hotNamesPromise: Promise<string[]>;
+}) {
+  const keywords = use(hotNamesPromise);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,7 +37,7 @@ export default function Search() {
         placeholder={placeholder}
         defaultValue={searchParams.get('q')?.toString()}
         className={clsx(
-          'border-primary h-full flex-1 border-1 px-[10px] text-sm',
+          'border-primary h-full flex-1 border-1 px-[10px] text-sm text-ellipsis',
           'duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]',
           {
             '!border-[var(--color-primary)]': focused

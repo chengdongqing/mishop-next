@@ -1,16 +1,21 @@
 import Loading from '@/components/ui/loading';
 import Logo from '@/components/ui/logo';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
-import { findHeaderNavs } from '@/services/layout';
 import { LayoutHeaderNav } from '@/types/layout';
 import { Product } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { Suspense, use, useEffect, useRef, useState } from 'react';
 import Search from './search';
 
-export default function NavBar() {
+export default function NavBar({
+  navsPromise,
+  hotNamesPromise
+}: {
+  navsPromise: Promise<LayoutHeaderNav[]>;
+  hotNamesPromise: Promise<string[]>;
+}) {
   const [products, setProducts] = useState<Product[]>([]);
   const isMouseEnter = useRef(false);
   const timer = useRef<NodeJS.Timeout>(null);
@@ -22,22 +27,33 @@ export default function NavBar() {
           <div className={'w-[234px]'}>
             <Logo />
           </div>
-          <Navs
-            onProductsChange={(products) => {
-              if (timer.current) {
-                clearTimeout(timer.current);
-              }
-              setProducts(products);
-            }}
-            onMouseLeave={() => {
-              timer.current = setTimeout(() => {
-                if (!isMouseEnter.current) {
-                  setProducts([]);
+          <Suspense
+            fallback={
+              <div className={'flex-1 text-center'}>
+                <Loading />
+              </div>
+            }
+          >
+            <Navs
+              navsPromise={navsPromise}
+              onProductsChange={(products) => {
+                if (timer.current) {
+                  clearTimeout(timer.current);
                 }
-              }, 300);
-            }}
-          />
-          <Search />
+                setProducts(products);
+              }}
+              onMouseLeave={() => {
+                timer.current = setTimeout(() => {
+                  if (!isMouseEnter.current) {
+                    setProducts([]);
+                  }
+                }, 300);
+              }}
+            />
+          </Suspense>
+          <Suspense>
+            <Search hotNamesPromise={hotNamesPromise} />
+          </Suspense>
         </div>
       </div>
 
@@ -51,28 +67,15 @@ export default function NavBar() {
 }
 
 function Navs({
+  navsPromise,
   onProductsChange,
   onMouseLeave
 }: {
+  navsPromise: Promise<LayoutHeaderNav[]>;
   onProductsChange: (products: Product[]) => void;
   onMouseLeave: () => void;
 }) {
-  const [navs, setNavs] = useState<LayoutHeaderNav[]>([]);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    startTransition(async () => {
-      await findHeaderNavs().then(setNavs);
-    });
-  }, []);
-
-  if (isPending) {
-    return (
-      <div className={'flex-1 text-center'}>
-        <Loading />
-      </div>
-    );
-  }
+  const navs = use(navsPromise);
 
   return (
     <ul className={'flex h-full'} onMouseLeave={onMouseLeave}>
