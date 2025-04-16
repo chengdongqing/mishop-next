@@ -1,3 +1,8 @@
+import { users } from '@/lib/schema';
+import {
+  findUserByIdentifierAndPassword,
+  findUserByPhoneNumberAndVerificationCode
+} from '@/services/users';
 import Credentials from '@auth/core/providers/credentials';
 import NextAuth from 'next-auth';
 
@@ -6,24 +11,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: {
         identifier: {},
-        password: {}
+        password: {},
+        phone: {},
+        code: {}
       },
       async authorize(credentials) {
-        let user = null;
+        const { identifier, password, phone, code } = credentials;
+        let user: typeof users.$inferSelect;
 
-        // logic to salt and hash password
-        const pwHash = saltAndHashPassword(credentials.password);
-
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash);
-
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // Optionally, this is also the place you could do a user registration
-          throw new Error('Invalid credentials.');
+        if (identifier && password) {
+          user = await findUserByIdentifierAndPassword(
+            identifier as string,
+            password as string
+          );
+        } else if (phone && code) {
+          user = await findUserByPhoneNumberAndVerificationCode(
+            phone as string,
+            code as string
+          );
         }
 
-        // return user object with their profile data
         return user;
       }
     })

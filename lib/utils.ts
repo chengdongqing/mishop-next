@@ -66,3 +66,7 @@ export function createPaginationMeta(request: PageRequest, total: number) {
 export function sleep(ms: number = 2000) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function generateRandomCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}

@@ -17,7 +17,7 @@ export default function SignupForm() {
     createUser,
     {}
   );
-  const phoneNumber = useRef('');
+  const phone = useRef('');
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function SignupForm() {
         error={!!errors?.phone?.length}
         aria-describedby="phone-error"
         onChange={(value) => {
-          phoneNumber.current = value;
+          phone.current = value;
         }}
       />
       <ErrorTips id={'phone-error'} errors={errors?.phone} />
@@ -51,8 +51,8 @@ export default function SignupForm() {
         error={!!errors?.verificationCode?.length}
         aria-describedby="verification-code-error"
         onSend={async () => {
-          if (phoneNumber.current.trim()) {
-            const res = await sendSmsVerificationCode(phoneNumber.current);
+          if (phone.current.trim()) {
+            const res = await sendSmsVerificationCode(phone.current);
             if (!res.success) {
               throw new Error(res.message);
             }

@@ -1,25 +1,27 @@
 'use server';
 
 import redis from '@/lib/redis';
+import { EMAIL_REGEX, PHONE_REGEX } from '@/lib/regex';
+import { generateRandomCode } from '@/lib/utils';
 import { ActionState } from '@/types/common';
 
 export async function sendSmsVerificationCode(
-  phoneNumber: string
+  phone: string
 ): Promise<ActionState> {
-  if (!/^1[3-9]\d{9}$/.test(phoneNumber)) {
+  if (!PHONE_REGEX.test(phone)) {
     return {
       success: false,
       message: '手机号格式错误'
     };
   }
 
-  const code = generateCode();
+  const code = generateRandomCode();
 
   // 发送短信验证码
   console.log('code:', code);
 
   try {
-    await redis.set(`verify:phoneNumber:${phoneNumber}`, code, 'EX', 300); // 5分钟过期（300秒）
+    await redis.set(`verify:phone:${phone}`, code, 'EX', 300); // 5分钟过期（300秒）
   } catch (e) {
     if (e instanceof Error) {
       return {
@@ -34,12 +36,9 @@ export async function sendSmsVerificationCode(
   };
 }
 
-export async function verifySmsVerificationCode(
-  phoneNumber: string,
-  code: string
-) {
+export async function verifySmsVerificationCode(phone: string, code: string) {
   // 获取验证码
-  const realCode = await redis.get(`verify:phoneNumber:${phoneNumber}`);
+  const realCode = await redis.get(`verify:phone:${phone}`);
 
   // 比对验证码
   if (!realCode || code !== realCode) {
@@ -47,17 +46,17 @@ export async function verifySmsVerificationCode(
   }
 
   // 校验成功则删除验证码
-  redis.del(`verify:phoneNumber:${phoneNumber}`);
+  redis.del(`verify:phone:${phone}`);
 
   return true;
 }
 
 export async function sendEmailVerificationCode(email: string) {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!EMAIL_REGEX.test(email)) {
     throw new Error('邮箱格式错误');
   }
 
-  const code = generateCode();
+  const code = generateRandomCode();
 
   // 发送邮件验证码
   console.log('code:', code);
@@ -78,11 +77,4 @@ export async function verifyEmailVerificationCode(email: string, code: string) {
   redis.del(`verify:email:${email}`);
 
   return true;
-}
-
-/**
- * 生成验证码
- */
-function generateCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
 }

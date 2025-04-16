@@ -2,13 +2,8 @@ import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import Agreement from '../../agreement';
-
-export const metadata: Metadata = {
-  title: '小米账号 - 登录'
-};
 
 export default function SignInByPhonePage() {
   return (
