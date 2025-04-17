@@ -31,12 +31,12 @@ export default function Checkbox({
   const checked = propChecked ?? innerChecked;
 
   return (
-    <label
-      className={
-        'group relative flex cursor-pointer items-center gap-x-1.5 select-none'
-      }
-    >
-      {!!name && (
+    <span className={'flex'}>
+      <label
+        className={
+          'group relative flex cursor-pointer items-center gap-x-1.5 select-none'
+        }
+      >
         <input
           key={Date.now()}
           name={name}
@@ -51,29 +51,31 @@ export default function Checkbox({
             onChange?.(checked);
           }}
         />
-      )}
-      <span
-        className={clsx(
-          'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
-          checked || indeterminate
-            ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
-            : `border-primary bg-white ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
-          'group-hover:border-[var(--color-primary)]'
+        <span
+          className={clsx(
+            'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
+            checked || indeterminate
+              ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
+              : `border-primary bg-white ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
+            'group-hover:border-[var(--color-primary)]'
+          )}
+        >
+          {checked ? (
+            <CheckIcon className={'w-4'} />
+          ) : indeterminate ? (
+            <MinusIcon className={'w-4'} />
+          ) : null}
+        </span>
+        {!!children && (
+          <span
+            className={
+              'text-sm text-[#424242] group-hover:text-[var(--color-primary)]'
+            }
+          >
+            {children}
+          </span>
         )}
-      >
-        {checked ? (
-          <CheckIcon className={'w-4'} />
-        ) : indeterminate ? (
-          <MinusIcon className={'w-4'} />
-        ) : null}
-      </span>
-      <span
-        className={
-          'text-sm text-[#424242] group-hover:text-[var(--color-primary)]'
-        }
-      >
-        {children}
-      </span>
-    </label>
+      </label>
+    </span>
   );
 }
