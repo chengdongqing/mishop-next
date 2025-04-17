@@ -1,7 +1,7 @@
 import { BannerType } from '@/enums';
 import { db } from '@/lib/db';
+import { banners } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
-import { banners } from '../lib/schema';
 
 export function findBannersByType(type: BannerType, limit: number = -1) {
   return db

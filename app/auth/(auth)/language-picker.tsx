@@ -1,8 +1,8 @@
 'use client';
 
 import Dropdown from '@/components/ui/dropdown';
-import { Locale } from '@/i18n/config';
 import { setUserLocale } from '@/services/locale';
+import { Locale } from '@/types/common';
 import { Key, startTransition, use, useState } from 'react';
 
 export default function LanguagePicker({
@@ -40,7 +40,6 @@ export default function LanguagePicker({
 interface Lang {
   key: Locale;
   label: string;
-  dir?: 'ltr' | 'rtl';
 }
 
 const languages: Lang[] = [

@@ -18,3 +18,6 @@ export interface ActionState<
   success?: boolean;
   message?: string;
 }
+
+export type Theme = 'dark' | 'light' | 'system';
+export type Locale = 'en' | 'zh-CN' | 'zh-TW' | 'ug';

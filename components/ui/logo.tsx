@@ -1,23 +1,27 @@
 'use client';
 
+import { useTheme } from '@/app/theme-context';
 import { setUserLocale } from '@/services/locale';
+import { setUserTheme } from '@/services/theme';
 import Image from 'next/image';
 import Link from 'next/link';
-import { startTransition } from 'react';
 import { useLocale } from 'use-intl';
 
 export default function Logo({ size = 56 }: { size?: number }) {
   const locale = useLocale();
+  const theme = useTheme();
 
   return (
     <Link
       href={'/'}
       className={'cursor-pointer'}
       onClick={() => {
+        // 重置语言和主题
         if (locale !== 'zh-CN') {
-          startTransition(async () => {
-            await setUserLocale('zh-CN');
-          });
+          setUserLocale('zh-CN').then(() => {});
+        }
+        if (theme !== 'system') {
+          setUserTheme('system').then(() => {});
         }
       }}
     >

@@ -1,7 +1,10 @@
+import { ThemeProvider } from '@/app/theme-context';
+import { getUserLocale } from '@/services/locale';
+import { getUserTheme } from '@/services/theme';
+import { Locale } from '@/types/common';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale } from 'next-intl/server';
 import { PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
@@ -22,16 +25,19 @@ export const viewport: Viewport = {
   width: 1226
 };
 
-const rtlLanguages = ['ug'];
+const rtlLanguages: Locale[] = ['ug'];
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const locale = await getLocale();
+  const locale = await getUserLocale();
+  const theme = await getUserTheme();
   const dir = rtlLanguages.includes(locale) ? 'rtl' : undefined;
 
   return (
-    <html lang={locale} dir={dir}>
+    <html lang={locale} dir={dir} data-theme={theme}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </NextIntlClientProvider>
         <div id="popup" />
         <div id="toast" />
       </body>
