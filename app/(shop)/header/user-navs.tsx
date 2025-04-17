@@ -1,6 +1,7 @@
 import { useUserInfo } from '@/app/(shop)/user-info-context';
+import popup from '@/components/ui/popup';
 import { logout } from '@/services/auth';
-import { ArrowDownIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -22,84 +23,113 @@ const menus = [
   }
 ];
 
-export default function UserNavs() {
+export default function UserNavs({ isCartHeader }: { isCartHeader?: boolean }) {
   const userInfo = useUserInfo();
 
-  return userInfo ? <NavsWithSignIn /> : <NavsWithoutSignIn />;
+  return userInfo ? (
+    <NavsWithSignIn isCartHeader={isCartHeader} />
+  ) : (
+    <NavsWithoutSignIn isCartHeader={isCartHeader} />
+  );
 }
 
-function NavsWithSignIn() {
+function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
   const [open, setOpen] = useState(false);
   const userInfo = useUserInfo();
 
   return (
     <>
       <div
-        className={'z-1'}
-        onMouseEnter={() => {
-          setOpen(true);
-        }}
-        onMouseLeave={() => {
-          setOpen(false);
-        }}
+        className={'group relative'}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
       >
         <NavItem
+          className={
+            'relative z-11 group-hover:bg-white group-hover:text-[#424242]'
+          }
           title={
-            <>
-              {userInfo?.name}
-              <ArrowDownIcon className={'w-4'} />
-            </>
+            <span
+              className={
+                'hover:text-primary flex w-[110] items-center justify-center'
+              }
+            >
+              <span className={'max-w-[100] text-ellipsis'}>
+                {userInfo?.name}
+              </span>
+              <ChevronDownIcon className={'ml-1 w-4'} />
+            </span>
           }
           href={`/user`}
+          isCartHeader={isCartHeader}
         />
 
         <div
-          className={''}
-          style={
-            {
-              // height: open ? 136 : 0
-            }
+          className={
+            'absolute top-full right-0 left-0 z-10 overflow-hidden bg-white text-center shadow-[0_2px_10px_rgba(0,0,0,0.15)] duration-200'
           }
+          style={{ height: open ? 136 : 0 }}
         >
-          <ul className={''}>
+          <ul className={'py-2'}>
             {menus.map((item) => (
               <li key={item.label}>
-                <Link href={item.href} target={item.target} className={''}>
+                <Link
+                  href={item.href}
+                  target={item.target}
+                  className={
+                    'hover:text-primary inline-block w-full cursor-pointer text-xs leading-[30px] text-[#424242] duration-200 hover:bg-[#f5f5f5]'
+                  }
+                >
                   {item.label}
                 </Link>
               </li>
             ))}
-            <li
-              className={'cursor-pointer'}
-              onClick={async () => {
-                await logout();
-              }}
-            >
-              退出登录
+            <li>
+              <button
+                className={
+                  'w-full cursor-pointer text-xs leading-[30px] text-[#424242] duration-200 hover:bg-[#f5f5f5] hover:text-[var(--color-error)]'
+                }
+                onClick={() => {
+                  popup.confirm('确定退出登录吗？', {
+                    onOk() {
+                      logout().then(() => {});
+                    }
+                  });
+                }}
+              >
+                退出登录
+              </button>
             </li>
           </ul>
         </div>
       </div>
       <Sep />
-      <NavItem title={'我的订单'} href={'/order'} />
+      <NavItem
+        title={'我的订单'}
+        href={'/orders'}
+        isCartHeader={isCartHeader}
+      />
     </>
   );
 }
 
-function NavsWithoutSignIn() {
+function NavsWithoutSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
   const pathname = usePathname();
   const queryString =
     pathname !== '/' ? `?callback=${encodeURIComponent(pathname)}` : '';
 
   return (
     <>
-      <NavItem title={'登录'} href={`/auth/signin${queryString}`} />
-      <Sep />
-      <NavItem title={'注册'} href={`/auth/signup${queryString}`} />
-      <Sep />
       <NavItem
-        title={'消息通知'}
-        href={'https://www.mi.com/shop/user/message'}
+        title={'登录'}
+        href={`/auth/signin${queryString}`}
+        isCartHeader={isCartHeader}
+      />
+      <Sep isCartHeader={isCartHeader} />
+      <NavItem
+        title={'注册'}
+        href={`/auth/signup${queryString}`}
+        isCartHeader={isCartHeader}
       />
     </>
   );

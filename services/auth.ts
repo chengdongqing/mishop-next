@@ -170,7 +170,7 @@ export async function authenticate(
     if (!passwordMatch) {
       return {
         errors: {
-          identifier: ['密码错误']
+          password: ['密码错误']
         }
       };
     }

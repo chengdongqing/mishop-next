@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ReactNode } from 'react';
 import MiniCart from './mini-cart';
 import UserNavs from './user-navs';
@@ -89,19 +90,28 @@ function Right() {
 export function NavItem({
   title,
   href,
-  target
+  target,
+  className,
+  isCartHeader
 }: {
   title: ReactNode;
   href?: string;
   target?: string;
+  className?: string;
+  isCartHeader?: boolean;
 }) {
   return (
-    <li>
+    <li className={className}>
       <a
         href={href}
         target={target}
         rel={'nofollow'}
-        className={'cursor-pointer leading-[40px] hover:text-white'}
+        className={clsx(
+          'cursor-pointer leading-[40px]',
+          isCartHeader
+            ? 'hover:text-primary text-[#757575]'
+            : 'hover:text-white'
+        )}
       >
         {title}
       </a>
@@ -109,6 +119,15 @@ export function NavItem({
   );
 }
 
-export function Sep() {
-  return <span className={'mx-1.5 text-[#424242]'}>|</span>;
+export function Sep({ isCartHeader }: { isCartHeader?: boolean }) {
+  return (
+    <span
+      className={clsx(
+        'mx-1.5',
+        isCartHeader ? 'text-[#b0b0b0]' : 'text-[#424242]'
+      )}
+    >
+      |
+    </span>
+  );
 }
