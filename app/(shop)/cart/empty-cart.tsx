@@ -20,7 +20,7 @@ export default function EmptyCart() {
         <h2 className={'text-[36px] font-bold'}>您的购物车还是空的！</h2>
         <p className={'text-xl'}>登录后将显示您之前加入的商品</p>
         <div className={'mt-5 flex gap-x-2.5'}>
-          <Link href={'/auth/signin'}>
+          <Link href={`/auth/signin?callback=${encodeURIComponent('/cart')}`}>
             <Button className={'!h-[50] !w-[172]'}>立即登录</Button>
           </Link>
           <Link href={'/search'}>

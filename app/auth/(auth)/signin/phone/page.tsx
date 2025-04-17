@@ -1,30 +1,10 @@
-import Button from '@/components/ui/button';
-import Checkbox from '@/components/ui/checkbox';
-import Input from '@/components/ui/input';
-import VerificationCodeInput from '@/components/ui/verification-code-input';
 import Link from 'next/link';
-import Agreement from '../../agreement';
+import SignInForm from './form';
 
 export default function SignInByPhonePage() {
   return (
     <>
-      <form className={'flex flex-col gap-y-5'}>
-        <Input name={'phone'} placeholder={'手机号'} type={'number'} required />
-        <VerificationCodeInput name={'code'} type={'number'} required />
-        <span className={'text-xs text-[#999]'}>
-          未注册的手机号验证后将自动创建小米账号
-        </span>
-        <Checkbox name={'agreed'} value={'1'} required autoTheme>
-          <Agreement />
-        </Checkbox>
-        <Button
-          type={'submit'}
-          className={'!h-[60] !w-full rounded-sm !text-lg'}
-        >
-          登录
-        </Button>
-      </form>
-
+      <SignInForm />
       <Links />
     </>
   );

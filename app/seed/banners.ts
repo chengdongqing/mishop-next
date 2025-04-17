@@ -1,3 +1,4 @@
+import { BannerType } from '@/enums';
 import { SchemaType } from '@/lib/db';
 import {
   bannersData,
@@ -12,7 +13,6 @@ import {
   MySql2PreparedQueryHKT,
   MySql2QueryResultHKT
 } from 'drizzle-orm/mysql2';
-import { BannerType } from '../../enums';
 
 export async function seedBanners(
   tx: MySqlTransaction<

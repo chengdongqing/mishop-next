@@ -4,31 +4,34 @@ import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
+import toast from '@/components/ui/toast';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
-import { signup } from '@/services/auth';
+import { authenticateByCode } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
-import Agreement from '../agreement';
-import ErrorTips from '../error-tips';
+import Agreement from '../../agreement';
+import ErrorTips from '../../error-tips';
 
-export default function SignupForm() {
+export default function SignInForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
-    signup,
+    authenticateByCode,
     {}
   );
   const phone = useRef('');
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (success) {
-      popup.alert('恭喜您，注册成功！', () => {
-        router.replace('/auth/signin');
-      });
+      toast.success('登录成功！');
+
+      const callback = searchParams.get('callback');
+      router.replace(callback ? decodeURIComponent(callback) : '/');
     } else if (message) {
       popup.alert(message);
     }
-  }, [message, router, success]);
+  }, [searchParams, message, router, success]);
 
   return (
     <form action={formAction} className={'flex flex-col gap-y-5'}>
@@ -65,27 +68,9 @@ export default function SignupForm() {
         id={'verification-code-error'}
         errors={errors?.verificationCode}
       />
-      <Input
-        name={'password'}
-        placeholder={'密码'}
-        type={'password'}
-        required
-        error={!!errors?.password?.length}
-        aria-describedby="password-error"
-      />
-      <ErrorTips id={'password-error'} errors={errors?.password} />
-      <Input
-        name={'confirmPassword'}
-        placeholder={'确认密码'}
-        type={'password'}
-        required
-        error={!!errors?.confirmPassword?.length}
-        aria-describedby="confirm-password-error"
-      />
-      <ErrorTips
-        id={'confirm-password-error'}
-        errors={errors?.confirmPassword}
-      />
+      <span className={'text-xs text-[#999]'}>
+        未注册的手机号验证后将自动创建小米账号
+      </span>
       <Checkbox name={'agreed'} value={'1'} required autoTheme>
         <Agreement />
       </Checkbox>
@@ -94,7 +79,7 @@ export default function SignupForm() {
         loading={isPending}
         className={'!h-[60] !w-full rounded-sm !text-lg'}
       >
-        注册
+        登录
       </Button>
     </form>
   );

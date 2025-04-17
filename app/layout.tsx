@@ -4,6 +4,7 @@ import { getUserTheme } from '@/services/theme';
 import { Locale } from '@/types/common';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { PropsWithChildren } from 'react';
 
@@ -36,7 +37,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     <html lang={locale} dir={dir} data-theme={theme}>
       <body>
         <NextIntlClientProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <SessionProvider>{children}</SessionProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
         <div id="popup" />
         <div id="toast" />

@@ -1,46 +1,54 @@
 'use client';
 
-import { signIn } from '@/auth';
 import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
-import { useActionState } from 'react';
+import popup from '@/components/ui/popup';
+import toast from '@/components/ui/toast';
+import { authenticate } from '@/services/auth';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useActionState, useEffect } from 'react';
 import Agreement from '../../agreement';
-
-type State = { error?: string };
-
-async function loginAction(_: State, formData: FormData): Promise<State> {
-  const res = await signIn('credentials', {
-    redirect: false,
-    identifier: formData.get('identifier'),
-    password: formData.get('password')
-  });
-
-  if (res?.error) {
-    return { error: '用户名或密码错误' };
-  }
-
-  if (res?.ok) {
-    return { res };
-  }
-
-  return {};
-}
+import ErrorTips from '../../error-tips';
 
 export default function SignInForm() {
-  const [state, formAction, isPending] = useActionState(loginAction, {});
+  const [{ errors, success, message }, formAction, isPending] = useActionState(
+    authenticate,
+    {}
+  );
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  console.log('state', state);
+  useEffect(() => {
+    if (success) {
+      toast.success('登录成功！');
+
+      const callback = searchParams.get('callback');
+      router.replace(callback ? decodeURIComponent(callback) : '/');
+    } else if (message) {
+      popup.alert(message);
+    }
+  }, [searchParams, message, router, success]);
 
   return (
     <form action={formAction} className={'flex flex-col gap-y-5'}>
-      <Input name={'identifier'} placeholder={'手机号/邮箱'} required />
+      <Input
+        name={'identifier'}
+        placeholder={'手机号/邮箱'}
+        required
+        error={!!errors?.identifier?.length}
+        aria-describedby="identifier-error"
+      />
+      <ErrorTips id={'identifier-error'} errors={errors?.identifier} />
       <Input
         name={'password'}
         placeholder={'密码'}
         type={'password'}
         required
+        error={!!errors?.password?.length}
+        aria-describedby="password-error"
       />
+      <ErrorTips id={'password-error'} errors={errors?.password} />
       <Checkbox name={'agreed'} value={'1'} required autoTheme>
         <Agreement />
       </Checkbox>

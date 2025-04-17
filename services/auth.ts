@@ -1,0 +1,275 @@
+'use server';
+
+import { signIn } from '@/auth';
+import { db } from '@/lib/db';
+import {
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  PHONE_REGEX,
+  VERIFICATION_CODE_REGEX
+} from '@/lib/regex';
+import { users } from '@/lib/schema';
+import { generateRandomCode } from '@/lib/utils';
+import { verifySmsVerificationCode } from '@/services/verification-code';
+import { ActionState } from '@/types/common';
+import bcrypt from 'bcryptjs';
+import { eq, or } from 'drizzle-orm';
+import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
+
+const userInsertSchema = createInsertSchema(users, {
+  phone: z.string().regex(PHONE_REGEX, '请输入正确的手机号'),
+  password: z.string().regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合')
+})
+  .pick({ phone: true, password: true })
+  .extend({
+    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误'),
+    confirmPassword: z.string()
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: '两次输入的密码不一致',
+    path: ['confirmPassword']
+  });
+
+type SignupState = ActionState<{
+  phone?: string[];
+  verificationCode?: string[];
+  password?: string[];
+  confirmPassword?: string[];
+}>;
+
+/**
+ * 用户注册
+ */
+export async function signup(
+  _: SignupState,
+  formData: FormData
+): Promise<SignupState> {
+  // 校验数据格式
+  const validatedFields = userInsertSchema.safeParse({
+    phone: formData.get('phone'),
+    verificationCode: formData.get('verificationCode'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword')
+  });
+  if (validatedFields.error) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors
+    };
+  }
+
+  const { phone, password, verificationCode } = validatedFields.data;
+
+  // 校验验证码是否正确
+  const verified = await verifySmsVerificationCode(phone, verificationCode);
+  if (!verified) {
+    return {
+      errors: {
+        verificationCode: ['验证码错误']
+      }
+    };
+  }
+
+  // 是否存在账号
+  const existing = await isAccountExists(phone);
+  if (existing) {
+    return {
+      errors: {
+        phone: ['该手机号已被注册']
+      }
+    };
+  }
+
+  // 计算密码哈希
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  try {
+    // 保存用户信息
+    await db.insert(users).values({
+      phone,
+      password: hashedPassword
+    });
+  } catch (e) {
+    console.error(e);
+    return {
+      success: false,
+      message: '系统错误: 注册失败'
+    };
+  }
+
+  return {
+    success: true
+  };
+}
+
+/**
+ * 是否存在账号
+ */
+async function isAccountExists(account: string) {
+  const existing = await db.query.users.findFirst({
+    columns: { id: true },
+    where: or(eq(users.phone, account), eq(users.email, account))
+  });
+
+  return !!existing;
+}
+
+const authenticateSchema = z.object({
+  identifier: z.string().refine(
+    (val) => {
+      return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
+    },
+    {
+      message: '请输入正确的手机号或邮箱'
+    }
+  ),
+  password: z.string().regex(PASSWORD_REGEX, '密码格式错误')
+});
+
+type AuthenticateState = ActionState<{
+  identifier?: string[];
+  password?: string[];
+}>;
+
+/**
+ * 根据手机号/邮箱+密码认证
+ */
+export async function authenticate(
+  _: AuthenticateState,
+  formData: FormData
+): Promise<AuthenticateState> {
+  // 校验数据格式
+  const validatedFields = authenticateSchema.safeParse({
+    identifier: formData.get('identifier'),
+    password: formData.get('password')
+  });
+  if (validatedFields.error) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors
+    };
+  }
+
+  const { identifier, password } = validatedFields.data;
+
+  const isEmail = identifier.includes('@');
+  try {
+    const user = await db.query.users.findFirst({
+      where: isEmail ? eq(users.email, identifier) : eq(users.phone, identifier)
+    });
+
+    if (!user) {
+      return {
+        errors: {
+          identifier: ['账号不存在']
+        }
+      };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return {
+        errors: {
+          identifier: ['密码错误']
+        }
+      };
+    }
+
+    await signIn('credentials', {
+      ...user,
+      redirect: false
+    });
+  } catch (e) {
+    console.error(e);
+    return {
+      success: false,
+      message: '系统错误: 登录失败'
+    };
+  }
+
+  return {
+    success: true
+  };
+}
+
+const authenticateByCodeSchema = z.object({
+  phone: z.string().refine(
+    (val) => {
+      return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
+    },
+    {
+      message: '请输入正确的手机号或邮箱'
+    }
+  ),
+  verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误')
+});
+
+type AuthenticateByCodeState = ActionState<{
+  phone?: string[];
+  verificationCode?: string[];
+}>;
+
+/**
+ * 根据手机号+验证码认证
+ */
+export async function authenticateByCode(
+  _: AuthenticateByCodeState,
+  formData: FormData
+): Promise<AuthenticateByCodeState> {
+  // 校验数据格式
+  const validatedFields = authenticateByCodeSchema.safeParse({
+    phone: formData.get('phone'),
+    verificationCode: formData.get('verificationCode')
+  });
+  if (validatedFields.error) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors
+    };
+  }
+
+  const { phone, verificationCode } = validatedFields.data;
+
+  // 校验验证码是否正确
+  const verified = await verifySmsVerificationCode(phone, verificationCode);
+  if (!verified) {
+    return {
+      errors: {
+        verificationCode: ['验证码错误']
+      }
+    };
+  }
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.phone, phone)
+  });
+  if (user) {
+    await signIn('credentials', {
+      ...user,
+      redirect: false
+    });
+  } else {
+    // 不存在则自动注册
+    try {
+      // 保存用户信息
+      const [res] = await db.insert(users).values({
+        phone,
+        // 密码使用随机数，下次登录仅能继续通过验证码登录或重置密码
+        password: bcrypt.hashSync(generateRandomCode(), 10)
+      });
+
+      await signIn('credentials', {
+        id: res.insertId,
+        redirect: false
+      });
+    } catch (e) {
+      console.error(e);
+      return {
+        success: false,
+        message: '系统错误: 自动注册失败'
+      };
+    }
+  }
+
+  return {
+    success: true
+  };
+}

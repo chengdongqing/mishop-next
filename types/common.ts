@@ -12,9 +12,11 @@ export interface PageRequest {
 }
 
 export interface ActionState<
-  T extends Record<string, string[]> | undefined = undefined
+  E extends Record<string, string[]> = Record<string, string[]>,
+  T = unknown
 > {
-  errors?: T;
+  data?: T;
+  errors?: E;
   success?: boolean;
   message?: string;
 }
