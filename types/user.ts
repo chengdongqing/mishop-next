@@ -4,8 +4,8 @@ export interface User {
   id: number;
   name: string;
   avatarUrl: string;
-  gender?: GenderType;
+  gender?: GenderType | null;
   phone: string;
-  email?: string;
-  password?: string;
+  email?: string | null;
+  password?: string | null;
 }

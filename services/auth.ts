@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { db } from '@/lib/db';
 import {
   EMAIL_REGEX,
@@ -15,6 +15,7 @@ import { ActionState } from '@/types/common';
 import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const userInsertSchema = createInsertSchema(users, {
@@ -272,4 +273,9 @@ export async function authenticateByCode(
   return {
     success: true
   };
+}
+
+export async function logout() {
+  await signOut();
+  redirect('/');
 }

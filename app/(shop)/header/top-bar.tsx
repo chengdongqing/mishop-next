@@ -1,5 +1,6 @@
-import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 import MiniCart from './mini-cart';
+import UserNavs from './user-navs';
 
 export default function TopBar() {
   return (
@@ -77,31 +78,20 @@ function Left() {
 }
 
 function Right() {
-  const pathname = usePathname();
-  const queryString =
-    pathname !== '/' ? `?callback=${encodeURIComponent(pathname)}` : '';
-
   return (
     <ul className={'flex items-center'}>
-      <NavItem title={'登录'} href={`/auth/signin${queryString}`} />
-      <Sep />
-      <NavItem title={'注册'} href={`/auth/signup${queryString}`} />
-      <Sep />
-      <NavItem
-        title={'消息通知'}
-        href={'https://www.mi.com/shop/user/message'}
-      />
+      <UserNavs />
       <MiniCart />
     </ul>
   );
 }
 
-function NavItem({
+export function NavItem({
   title,
   href,
   target
 }: {
-  title: string;
+  title: ReactNode;
   href?: string;
   target?: string;
 }) {
@@ -119,6 +109,6 @@ function NavItem({
   );
 }
 
-function Sep() {
+export function Sep() {
   return <span className={'mx-1.5 text-[#424242]'}>|</span>;
 }

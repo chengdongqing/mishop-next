@@ -70,3 +70,15 @@ export function sleep(ms: number = 2000) {
 export function generateRandomCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
+
+export function maskPhone(phone: string) {
+  return `${phone.slice(0, 3)}****${phone.slice(-4)}`;
+}
+
+export function maskEmail(email: string) {
+  const [local, domain] = email.split('@');
+  if (local.length <= 2) return `*@$${domain}`;
+  const prefix = local.slice(0, 2);
+  const suffix = local.slice(-2);
+  return `${prefix}****${suffix}@${domain}`;
+}

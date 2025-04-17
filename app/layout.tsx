@@ -1,12 +1,11 @@
-import { ThemeProvider } from '@/app/theme-context';
 import { getUserLocale } from '@/services/locale';
 import { getUserTheme } from '@/services/theme';
 import { Locale } from '@/types/common';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { PropsWithChildren } from 'react';
+import { ThemeProvider } from './theme-context';
 
 export const metadata: Metadata = {
   title: '小米商城 - Xiaomi 15、REDMI K80、MIX Fold 4，小米电视官方网站',
@@ -29,17 +28,14 @@ export const viewport: Viewport = {
 const rtlLanguages: Locale[] = ['ug'];
 
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const locale = await getUserLocale();
-  const theme = await getUserTheme();
+  const [locale, theme] = await Promise.all([getUserLocale(), getUserTheme()]);
   const dir = rtlLanguages.includes(locale) ? 'rtl' : undefined;
 
   return (
     <html lang={locale} dir={dir} data-theme={theme}>
       <body>
         <NextIntlClientProvider>
-          <ThemeProvider theme={theme}>
-            <SessionProvider>{children}</SessionProvider>
-          </ThemeProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </NextIntlClientProvider>
         <div id="popup" />
         <div id="toast" />
