@@ -1867,7 +1867,7 @@ export const usersData: User[] = [
       'https://img1.baidu.com/it/u=3598104138,3632108415&fm=253&fmt=auto&app=120&f=JPEG',
     gender: GenderType.MALE,
     phone: '19999999999',
-    password: '12345678'
+    password: '12345678abc'
   }
 ];
 

@@ -35,9 +35,6 @@ export async function seedVideos(
       ) comment '视频表';
   `);
 
-  // 清空表
-  await tx.delete(videos);
-
   // 插入数据
   await tx.insert(videos).values(
     videosData.map((video, index) => ({

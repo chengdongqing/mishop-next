@@ -1,6 +1,8 @@
+import { auth } from '@/auth';
 import { products } from '@/lib/schema';
 import { getRemoteFile } from '@/services/file';
 import { PageRequest } from '@/types/common';
+import { AuthError } from 'next-auth';
 
 export const EmptyValue = '--';
 
@@ -81,4 +83,13 @@ export function maskEmail(email: string) {
   const prefix = local.slice(0, 2);
   const suffix = local.slice(-2);
   return `${prefix}****${suffix}@${domain}`;
+}
+
+export async function getUserId() {
+  const session = await auth();
+  if (!session) {
+    throw new AuthError();
+  }
+
+  return Number(session.user?.id);
 }

@@ -1,5 +1,7 @@
 import { SchemaType } from '@/lib/db';
+import { usersData } from '@/lib/placeholder-data';
 import { users } from '@/lib/schema';
+import bcrypt from 'bcryptjs';
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import {
@@ -20,28 +22,25 @@ export async function seedUsers(
 
   // 创建表
   await tx.execute(`
-      CREATE TABLE mishop.users
+      create table mishop.users
       (
-          id         INT AUTO_INCREMENT PRIMARY KEY,
-          name       VARCHAR(255),
-          avatar_url VARCHAR(255),
-          gender     ENUM ('MALE', 'FEMALE'),
-          phone      VARCHAR(11)  NOT NULL UNIQUE,
-          email      VARCHAR(50) UNIQUE,
-          password   VARCHAR(255) NOT NULL,
-          created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+          id         int auto_increment primary key,
+          name       varchar(255) comment '昵称',
+          avatar_url varchar(255) comment '头像',
+          gender     enum ('male', 'female') comment '性别',
+          phone      varchar(11)  not null unique comment '手机号',
+          email      varchar(50) unique comment '邮箱',
+          password   varchar(255) not null comment '密码',
+          created_at timestamp    not null default current_timestamp,
+          updated_at timestamp             default current_timestamp on update current_timestamp
       ) comment '用户表';
   `);
 
-  // 清空表
-  await tx.delete(users);
-
   // 插入数据
-  // await tx.insert(users).values(
-  //   usersData.map((user) => ({
-  //     ...user,
-  //     password: bcrypt.hashSync(user.password!, 10)
-  //   }))
-  // );
+  await tx.insert(users).values(
+    usersData.map((user) => ({
+      ...user,
+      password: bcrypt.hashSync(user.password!, 10)
+    }))
+  );
 }

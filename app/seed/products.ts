@@ -36,9 +36,6 @@ export async function seedProducts(
   // 创建表
   await tx.execute(createTableSql);
 
-  // 清空表
-  await tx.delete(products);
-
   // 插入数据
   await tx.insert(products).values(
     productsData.map((product, index) => ({
@@ -90,9 +87,6 @@ export async function seedProductSkus(
   // 创建表
   await tx.execute(createProductSkuTableSql);
 
-  // 清空表
-  await tx.delete(productSkus);
-
   // 插入数据
   await tx.insert(productSkus).values(
     productSkusData.map((sku) => ({
@@ -136,9 +130,6 @@ export async function seedProductCategories(
 
   // 创建表
   await tx.execute(createCategoryTableSql);
-
-  // 清空表
-  await tx.delete(productCategories);
 
   // 插入数据
   const values = productCategoriesData.reduce(
@@ -205,9 +196,6 @@ export async function seedProductLabels(
   // 创建表
   await tx.execute(createLabelTableSql);
 
-  // 清空表
-  await tx.delete(productLabels);
-
   // 插入数据
   await tx.insert(productLabels).values(productLabelsData);
 }
@@ -218,7 +206,7 @@ const createLabelTableSql = `
         id          int auto_increment
             primary key,
         category_id int                                 not null comment '类别id',
-        name varchar(100) not null comment '名称',
+        name        varchar(100)                        not null comment '名称',
         picture_url varchar(255) comment '图片地址',
         created_at  timestamp default CURRENT_TIMESTAMP not null,
         updated_at  timestamp default (now())           null on update CURRENT_TIMESTAMP,
@@ -241,9 +229,6 @@ export async function seedProductLabelRelations(
 
   // 创建表
   await tx.execute(createProductLabelRelationTableSql);
-
-  // 清空表
-  await tx.delete(productLabelRelations);
 
   // 插入数据
   await tx.insert(productLabelRelations).values(productLabelRelationsData);
@@ -277,9 +262,6 @@ export async function seedProductReviews(
 
   // 创建表
   await tx.execute(createReviewTableSql);
-
-  // 清空表
-  await tx.delete(productReviews);
 
   // 插入数据
   await tx.insert(productReviews).values(productReviewsData);

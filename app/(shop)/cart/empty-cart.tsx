@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function EmptyCart() {
-  const userInfo = useUserInfo();
+  const hasLogin = !!useUserInfo();
 
   return (
     <div className={'m-[65_0_130] flex items-center'}>
@@ -22,9 +22,9 @@ export default function EmptyCart() {
       </div>
       <div className={'text-[#b0b0b0]'}>
         <h2 className={'text-[36px] font-bold'}>您的购物车还是空的！</h2>
-        {!userInfo && <p className={'text-xl'}>登录后将显示您之前加入的商品</p>}
+        {!hasLogin && <p className={'text-xl'}>登录后将显示您之前加入的商品</p>}
         <div className={'mt-5 flex gap-x-2.5'}>
-          {!userInfo && (
+          {!hasLogin && (
             <Link href={`/auth/signin?callback=${encodeURIComponent('/cart')}`}>
               <Button className={'!h-[50] !w-[172]'}>立即登录</Button>
             </Link>
@@ -33,10 +33,10 @@ export default function EmptyCart() {
             <Button
               className={clsx(
                 '!h-[50] !w-[172]',
-                !userInfo &&
+                !hasLogin &&
                   '!bg-transparent hover:!text-[var(--color-primary)]'
               )}
-              outlined={!userInfo}
+              outlined={!hasLogin}
             >
               马上去购物
             </Button>

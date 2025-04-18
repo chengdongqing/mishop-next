@@ -42,9 +42,6 @@ export async function seedBanners(
       ) comment '广告图表';
   `);
 
-  // 清空表
-  await tx.delete(banners);
-
   // 插入数据
   const values: (typeof banners.$inferInsert)[] = [];
   carouselsData.forEach((banner, index) => {

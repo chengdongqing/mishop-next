@@ -55,7 +55,8 @@ export const products = mysqlTable('products', {
 });
 
 export const productsRelations = relations(products, ({ many }) => ({
-  skus: many(productSkus)
+  skus: many(productSkus),
+  cartItems: many(cartItems)
 }));
 
 export const productSkus = mysqlTable('product_skus', {
@@ -74,11 +75,12 @@ export const productSkus = mysqlTable('product_skus', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
-export const productSkusRelations = relations(productSkus, ({ one }) => ({
+export const productSkusRelations = relations(productSkus, ({ one, many }) => ({
   product: one(products, {
     fields: [productSkus.productId],
     references: [products.id]
-  })
+  }),
+  cartItems: many(cartItems)
 }));
 
 export const productCategories = mysqlTable('product_categories', {
@@ -124,6 +126,28 @@ export const productReviews = mysqlTable('product_reviews', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
+
+export const cartItems = mysqlTable('cart_items', {
+  id: serial('id').primaryKey(),
+  userId: int('user_id').notNull(),
+  productId: int('product_id').notNull(),
+  skuId: int('sku_id').notNull(),
+  quantity: int('quantity').default(1).notNull(),
+  checked: boolean('checked').default(true).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const cartItemsRelations = relations(cartItems, ({ one }) => ({
+  product: one(products, {
+    fields: [cartItems.productId],
+    references: [products.id]
+  }),
+  sku: one(productSkus, {
+    fields: [cartItems.skuId],
+    references: [productSkus.id]
+  })
+}));
 
 export const banners = mysqlTable('banners', {
   id: serial('id').primaryKey(),

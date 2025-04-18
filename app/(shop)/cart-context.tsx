@@ -1,7 +1,9 @@
 'use client';
 
+import { useUserInfo } from '@/app/(shop)/user-info-context';
 import popup from '@/components/ui/popup';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
+import * as cartService from '@/services/cart';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import {
@@ -33,11 +35,11 @@ interface CartContext {
 
 const CartContext = createContext<CartContext | null>(null);
 
-const hasLogin = false;
 const cacheKey = 'cart-products';
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<CartProduct[]>([]);
+  const hasLogin = !!useUserInfo();
 
   /**
    * 初始从缓存恢复数据
@@ -110,21 +112,27 @@ export function CartProvider({ children }: PropsWithChildren) {
   );
 
   async function addToCart(product: CartProduct) {
-    if (!hasLogin) {
-      const cartProduct = products.find((item) => item.skuId === product.skuId);
-      if (cartProduct) {
-        if (
-          !cartProduct.limits ||
-          cartProduct.quantity + 1 <= cartProduct.limits
-        ) {
-          cartProduct.quantity++;
-          setProducts((prev) => [...prev]);
-        } else {
-          throw new Error('商品加入购物车数量超过限购数');
-        }
+    if (hasLogin) {
+      await cartService.addToCart({
+        skuId: product.skuId,
+        productId: product.productId,
+        quantity: 1
+      });
+    }
+
+    const cartProduct = products.find((item) => item.skuId === product.skuId);
+    if (cartProduct) {
+      if (
+        !cartProduct.limits ||
+        cartProduct.quantity + 1 <= cartProduct.limits
+      ) {
+        cartProduct.quantity++;
+        setProducts((prev) => [...prev]);
       } else {
-        setProducts((prev) => [...prev, product]);
+        throw new Error('商品加入购物车数量超过限购数');
       }
+    } else {
+      setProducts((prev) => [...prev, product]);
     }
   }
 
@@ -204,7 +212,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       clearCart
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products, selectedProducts, totalCount, totalAmount]
+    [products, selectedProducts, totalCount, totalAmount, hasLogin]
   );
 
   return <CartContext value={contextValue}>{children}</CartContext>;

@@ -130,6 +130,7 @@ export function ProductGrid({ products }: { products: RecommendedProduct[] }) {
 function ProductCard({ product }: { product: RecommendedProduct }) {
   const [isActive, setIsActive] = useState(false);
   const { addToCart } = useCart();
+  const [isPending, startTransition] = useTransition();
 
   return (
     <Link
@@ -161,25 +162,28 @@ function ProductCard({ product }: { product: RecommendedProduct }) {
         <Button
           outlined
           size={'small'}
+          loading={isPending}
           className={'absolute bottom-[-30] group-hover:bottom-3.5'}
-          onClick={async (e) => {
+          onClick={(e) => {
             e.preventDefault();
 
-            try {
-              await addToCart({
-                ...product,
-                quantity: 1,
-                checked: true
-              });
-              setIsActive(true);
-              setTimeout(() => {
-                setIsActive(false);
-              }, 1000);
-            } catch (e) {
-              if (e instanceof Error) {
-                popup.alert(e.message);
+            startTransition(async () => {
+              try {
+                await addToCart({
+                  ...product,
+                  quantity: 1,
+                  checked: true
+                });
+                setIsActive(true);
+                setTimeout(() => {
+                  setIsActive(false);
+                }, 1000);
+              } catch (e) {
+                if (e instanceof Error) {
+                  popup.alert(e.message);
+                }
               }
-            }
+            });
           }}
         >
           加入购物车

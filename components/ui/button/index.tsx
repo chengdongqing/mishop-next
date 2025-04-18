@@ -36,7 +36,11 @@ export default function Button({
         (disabled || loading) && styles.disabled
       )}
     >
-      {!!loading && <LoadingIcon className={'mr-2 w-6 text-white'} />}
+      {!!loading && (
+        <LoadingIcon
+          className={clsx('mr-2 text-white', size === 'small' ? 'w-4' : 'w-6')}
+        />
+      )}
       {children}
     </button>
   );

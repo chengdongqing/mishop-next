@@ -40,10 +40,6 @@ export async function seedLayoutHeader(
   await tx.execute(createHeaderNavsTableSql);
   await tx.execute(createHeaderNavItemsTableSql);
 
-  // 清空表
-  await tx.delete(layoutHeaderNavs);
-  await tx.delete(layoutHeaderNavItems);
-
   // 插入数据
   await tx.insert(layoutHeaderNavs).values(layoutHeaderNavsData);
   await tx.insert(layoutHeaderNavItems).values(layoutHeaderNavItemsData);
@@ -91,10 +87,6 @@ export async function seedLayoutHeroCategories(
   // 创建表
   await tx.execute(createHeroCategoriesTableSql);
   await tx.execute(createHeroCategoryItemsTableSql);
-
-  // 清空表
-  await tx.delete(layoutHeroCategories);
-  await tx.delete(layoutHeroCategoryItems);
 
   // 插入数据
   await tx.insert(layoutHeroCategories).values(layoutHeroCategoriesData);
@@ -145,11 +137,6 @@ export async function seedLayoutBricks(
   await tx.execute(createBricksTableSql);
   await tx.execute(createBrickTabsTableSql);
   await tx.execute(createBrickTabItemsTableSql);
-
-  // 清空表
-  await tx.delete(layoutBricks);
-  await tx.delete(layoutBrickTabs);
-  await tx.delete(layoutBrickTabItems);
 
   // 插入数据
   await tx.insert(layoutBricks).values(layoutBricksData);

@@ -1,3 +1,4 @@
+import { seedCartItems } from '@/app/seed/cart';
 import {
   seedLayoutBricks,
   seedLayoutHeader,
@@ -47,6 +48,7 @@ function getSeeds(
     seedProductCategories(tx),
     seedProductLabelRelations(tx),
     seedProductReviews(tx),
+    seedCartItems(tx),
     seedBanners(tx),
     seedVideos(tx),
     seedUsers(tx),
