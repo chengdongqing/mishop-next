@@ -51,9 +51,14 @@ export async function verifySmsVerificationCode(phone: string, code: string) {
   return true;
 }
 
-export async function sendEmailVerificationCode(email: string) {
+export async function sendEmailVerificationCode(
+  email: string
+): Promise<ActionState> {
   if (!EMAIL_REGEX.test(email)) {
-    throw new Error('邮箱格式错误');
+    return {
+      success: false,
+      message: '邮箱格式错误'
+    };
   }
 
   const code = generateRandomCode();
@@ -61,7 +66,20 @@ export async function sendEmailVerificationCode(email: string) {
   // 发送邮件验证码
   console.log('code:', code);
 
-  await redis.set(`verify:email:${email}`, code, 'EX', 300); // 5分钟过期（300秒）
+  try {
+    await redis.set(`verify:email:${email}`, code, 'EX', 300); // 5分钟过期（300秒）
+  } catch (e) {
+    if (e instanceof Error) {
+      return {
+        success: false,
+        message: e.message
+      };
+    }
+  }
+
+  return {
+    success: true
+  };
 }
 
 export async function verifyEmailVerificationCode(email: string, code: string) {

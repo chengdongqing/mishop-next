@@ -5,7 +5,7 @@ import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { HTMLProps, PropsWithChildren, Suspense } from 'react';
-import LanguagePicker from './language-picker';
+import LanguagePicker from '../language-picker';
 import MainCard from './main-card';
 
 export const metadata: Metadata = {
