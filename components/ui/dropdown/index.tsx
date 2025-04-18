@@ -117,6 +117,7 @@ export default function Dropdown({
         hidden={!willOpen}
         style={overlayStyle}
         className={clsx(
+          'dark:!bg-[#2c2c2e]',
           styles.overlay,
           isSelect && styles.select,
           open && styles.open
@@ -126,6 +127,7 @@ export default function Dropdown({
           <li
             key={item.key}
             className={clsx(
+              'dark:!text-[hsla(0,0%,100%,.8)] hover:dark:!bg-[hsla(0,0%,100%,.15)]',
               styles.item,
               item.disabled && styles.disabled,
               item.key === active && [styles.active, 'active']

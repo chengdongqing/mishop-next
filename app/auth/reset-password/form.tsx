@@ -1,14 +1,18 @@
 'use client';
 
+import ErrorTips from '@/app/auth/(auth)/error-tips';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
+import popup from '@/components/ui/popup';
 import Select from '@/components/ui/select';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
+import { resetPassword, ResetPasswordState } from '@/services/auth';
 import {
   sendEmailVerificationCode,
   sendSmsVerificationCode
 } from '@/services/verification-code';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useActionState, useEffect, useRef, useState } from 'react';
 
 const types = [
   {
@@ -24,26 +28,70 @@ const types = [
 type ResetTypes = 'phone' | 'email';
 
 export default function ResetForm() {
+  const [{ errors, success, message }, formAction, isPending] = useActionState(
+    resetPassword,
+    {}
+  );
   const [type, setType] = useState<ResetTypes>('phone');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (success) {
+      popup.alert('密码重置成功！', () => {
+        router.replace('/auth/signin');
+      });
+    } else if (message) {
+      popup.alert(message);
+    }
+  }, [message, router, success]);
 
   return (
-    <form className={'flex flex-col gap-y-5'}>
+    <form action={formAction} className={'flex flex-col gap-y-5'}>
       <Select
+        name={'type'}
+        value={type}
         options={types}
-        activeKey={type}
+        required
         onChange={(value) => setType(value as ResetTypes)}
       />
-      {type === 'phone' ? <PhoneGroup /> : <EmailGroup />}
-      <Input name={'password'} placeholder={'新密码'} required />
-      <Input name={'confirmPassword'} placeholder={'确认新密码'} required />
-      <Button type={'submit'} className={'!h-[60] !w-full rounded-sm !text-lg'}>
+      {type === 'phone' ? (
+        <PhoneGroup errors={errors} />
+      ) : (
+        <EmailGroup errors={errors} />
+      )}
+      <Input
+        name={'password'}
+        placeholder={'新密码'}
+        type={'password'}
+        required
+        error={!!errors?.password?.length}
+        aria-describedby="password-error"
+      />
+      <ErrorTips id={'password-error'} errors={errors?.password} />
+      <Input
+        name={'confirmPassword'}
+        placeholder={'确认新密码'}
+        type={'password'}
+        required
+        error={!!errors?.confirmPassword?.length}
+        aria-describedby="confirmPassword-error"
+      />
+      <ErrorTips
+        id={'confirmPassword-error'}
+        errors={errors?.confirmPassword}
+      />
+      <Button
+        type={'submit'}
+        loading={isPending}
+        className={'!h-[60] !w-full rounded-sm !text-lg'}
+      >
         重置密码
       </Button>
     </form>
   );
 }
 
-function PhoneGroup() {
+function PhoneGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
   const phone = useRef('');
 
   return (
@@ -52,13 +100,18 @@ function PhoneGroup() {
         name={'identifier'}
         placeholder={'手机号'}
         required
+        error={!!errors?.identifier?.length}
+        aria-describedby="phone-error"
         onChange={(value) => {
           phone.current = value;
         }}
       />
+      <ErrorTips id={'phone-error'} errors={errors?.identifier} />
       <VerificationCodeInput
         name={'verificationCode'}
         required
+        error={!!errors?.verificationCode?.length}
+        aria-describedby="verification-code-error"
         onSend={async () => {
           if (!phone.current.trim()) {
             throw new Error('请输入手机号');
@@ -70,11 +123,15 @@ function PhoneGroup() {
           }
         }}
       />
+      <ErrorTips
+        id={'verification-code-error'}
+        errors={errors?.verificationCode}
+      />
     </>
   );
 }
 
-function EmailGroup() {
+function EmailGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
   const email = useRef('');
 
   return (
@@ -82,14 +139,20 @@ function EmailGroup() {
       <Input
         name={'identifier'}
         placeholder={'邮箱'}
+        type={'email'}
         required
+        error={!!errors?.identifier?.length}
+        aria-describedby="email-error"
         onChange={(value) => {
           email.current = value;
         }}
       />
+      <ErrorTips id={'email-error'} errors={errors?.identifier} />
       <VerificationCodeInput
         name={'verificationCode'}
         required
+        error={!!errors?.verificationCode?.length}
+        aria-describedby="verification-code-error"
         onSend={async () => {
           if (!email.current.trim()) {
             throw new Error('请输入邮箱');
@@ -100,6 +163,10 @@ function EmailGroup() {
             }
           }
         }}
+      />
+      <ErrorTips
+        id={'verification-code-error'}
+        errors={errors?.verificationCode}
       />
     </>
   );

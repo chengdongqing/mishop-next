@@ -3,14 +3,21 @@
 import { EyeIcon, EyeOffIcon } from '@/components/icons';
 import useToggle from '@/hooks/useToggle';
 import clsx from 'clsx';
-import { CSSProperties, ReactNode, useMemo, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  HTMLInputTypeAttribute,
+  ReactNode,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import styles from './styles.module.css';
 
 export interface InputProps {
   name?: string;
   value?: string | number;
   placeholder?: string;
-  type?: 'text' | 'number' | 'password';
+  type?: HTMLInputTypeAttribute;
   error?: boolean;
   disabled?: boolean;
   readonly?: boolean;

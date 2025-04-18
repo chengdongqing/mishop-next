@@ -10,7 +10,10 @@ import {
 } from '@/lib/regex';
 import { users } from '@/lib/schema';
 import { generateRandomCode } from '@/lib/utils';
-import { verifySmsVerificationCode } from '@/services/verification-code';
+import {
+  verifyEmailVerificationCode,
+  verifySmsVerificationCode
+} from '@/services/verification-code';
 import { ActionState } from '@/types/common';
 import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
@@ -106,10 +109,10 @@ export async function signup(
 /**
  * 是否存在账号
  */
-async function isAccountExists(account: string) {
+async function isAccountExists(identifier: string) {
   const existing = await db.query.users.findFirst({
     columns: { id: true },
-    where: or(eq(users.phone, account), eq(users.email, account))
+    where: or(eq(users.phone, identifier), eq(users.email, identifier))
   });
 
   return !!existing;
@@ -275,7 +278,113 @@ export async function authenticateByCode(
   };
 }
 
+/**
+ * 退出登录
+ */
 export async function logout() {
   await signOut();
   redirect('/');
+}
+
+const resetPasswordSchema = z
+  .object({
+    type: z.enum(['phone', 'email'], {
+      required_error: '请选择类型'
+    }),
+    identifier: z.string(),
+    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误'),
+    password: z
+      .string()
+      .regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合'),
+    confirmPassword: z.string()
+  })
+  .refine(
+    (data) => {
+      return data.type === 'phone' ? PHONE_REGEX.test(data.identifier) : true;
+    },
+    {
+      path: ['identifier'],
+      message: '手机号格式错误'
+    }
+  )
+  .refine(
+    (data) => {
+      return data.type === 'email' ? EMAIL_REGEX.test(data.identifier) : true;
+    },
+    {
+      path: ['identifier'],
+      message: '邮箱格式错误'
+    }
+  )
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: '两次输入的密码不一致'
+  });
+
+export type ResetPasswordState = ActionState<{
+  identifier?: string[];
+  verificationCode?: string[];
+  password?: string[];
+  confirmPassword?: string[];
+}>;
+
+/**
+ * 重置密码
+ */
+export async function resetPassword(
+  _: ResetPasswordState,
+  formData: FormData
+): Promise<ResetPasswordState> {
+  const validatedFields = resetPasswordSchema.safeParse({
+    type: formData.get('type'),
+    identifier: formData.get('identifier'),
+    verificationCode: formData.get('verificationCode'),
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword')
+  });
+  if (validatedFields.error) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors
+    };
+  }
+
+  const { identifier, verificationCode, password } = validatedFields.data;
+
+  // 验证码是否正确
+  const res = await (identifier.includes('@')
+    ? verifyEmailVerificationCode(identifier, verificationCode)
+    : verifySmsVerificationCode(identifier, verificationCode));
+  if (!res) {
+    return {
+      errors: {
+        verificationCode: ['验证码错误']
+      }
+    };
+  }
+
+  // 账号是否存在
+  const exists = await isAccountExists(identifier);
+  if (!exists) {
+    return {
+      errors: {
+        identifier: ['该账号不存在']
+      }
+    };
+  }
+
+  // 重置密码
+  try {
+    await db
+      .update(users)
+      .set({ password: bcrypt.hashSync(password, 10) })
+      .where(or(eq(users.phone, identifier), eq(users.email, identifier)));
+  } catch (e) {
+    console.error(e);
+    return {
+      success: false,
+      message: '系统错误: 重置密码失败'
+    };
+  }
+
+  return { success: true };
 }

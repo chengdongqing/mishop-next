@@ -1,7 +1,7 @@
 import Credentials from '@auth/core/providers/credentials';
 import NextAuth from 'next-auth';
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       authorize: (user) => user

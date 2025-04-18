@@ -8,12 +8,16 @@ export default function TopBar() {
   return (
     <div className={'flex items-center justify-between py-4'}>
       <LanguagePicker getLocalePromise={getLocalPromise} />
-      <div className={'flex items-center gap-x-3 text-[rgba(0,0,0,.5)]'}>
+      <div
+        className={
+          'flex items-center gap-x-3 text-[rgba(0,0,0,.5)] dark:text-[var(--color-primary)]'
+        }
+      >
         <a
           href={'https://account.xiaomi.com/about/protocol/privacy'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'hover:text-[rgba(0,0,0,.6)]'}
+          className={'hover:not-dark:text-[rgba(0,0,0,.6)]'}
         >
           <PrivacyIcon className={'w-4.5'} />
         </a>
@@ -21,7 +25,7 @@ export default function TopBar() {
           href={'https://account.xiaomi.com/helpcenter'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'underline hover:text-[rgba(0,0,0,.6)]'}
+          className={'underline hover:not-dark:text-[rgba(0,0,0,.6)]'}
         >
           帮助
         </a>
