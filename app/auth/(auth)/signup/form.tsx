@@ -7,10 +7,10 @@ import popup from '@/components/ui/popup';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
 import { signup } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
+import ErrorTips from '../../error-tips';
 import Agreement from '../agreement';
-import ErrorTips from '../error-tips';
 
 export default function SignupForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
@@ -19,16 +19,17 @@ export default function SignupForm() {
   );
   const phone = useRef('');
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (success) {
       popup.alert('恭喜您，注册成功！', () => {
-        router.replace('/auth/signin');
+        router.replace(`/auth/signin?${searchParams.toString()}`);
       });
     } else if (message) {
       popup.alert(message);
     }
-  }, [message, router, success]);
+  }, [message, router, searchParams, success]);
 
   return (
     <form action={formAction} className={'flex flex-col gap-y-5'}>

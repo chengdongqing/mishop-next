@@ -3,31 +3,15 @@
 import { EyeIcon, EyeOffIcon } from '@/components/icons';
 import useToggle from '@/hooks/useToggle';
 import clsx from 'clsx';
-import {
-  CSSProperties,
-  HTMLInputTypeAttribute,
-  ReactNode,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import { InputHTMLAttributes, ReactNode, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
-export interface InputProps {
-  name?: string;
-  value?: string | number;
-  placeholder?: string;
-  type?: HTMLInputTypeAttribute;
+export interface InputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix'> {
   error?: boolean;
-  disabled?: boolean;
-  readonly?: boolean;
   prefix?: ReactNode;
   suffix?: ReactNode;
-  style?: CSSProperties;
-  className?: string;
-  required?: boolean;
-
-  onChange?(value: string): void;
+  onChange?: (value: string) => void;
 }
 
 export default function Input({
@@ -37,21 +21,22 @@ export default function Input({
   type,
   error,
   disabled,
-  readonly,
+  readOnly,
   prefix,
   suffix,
   style,
   className,
   required,
-  onChange
+  onChange,
+  ...rest
 }: InputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
   const [showPwd, toggleShowPwd] = useToggle();
-  const isPwdType = useMemo(() => type === 'password', [type]);
   const [innerValue, setInnerValue] = useState(propValue ?? '');
 
   const value = propValue ?? innerValue;
+  const isPwdType = type === 'password';
 
   return (
     <div
@@ -66,11 +51,12 @@ export default function Input({
     >
       {prefix}
       <input
+        {...rest}
         name={name}
         ref={inputRef}
         value={value}
         required={required}
-        readOnly={readonly}
+        readOnly={readOnly}
         disabled={disabled}
         autoComplete={'off'}
         type={isPwdType && showPwd ? undefined : type}
@@ -84,22 +70,15 @@ export default function Input({
           setInnerValue(value);
           onChange?.(value);
         }}
-        onFocus={() => {
-          setFocused(true);
-        }}
-        onBlur={() => {
-          setFocused(false);
-          if (!disabled && !readonly) {
-            // ctx.checkValue?.(e.target.value);
-          }
-        }}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
       />
       {!!placeholder && (
         <span
           className={clsx(
             'rtl:right-5 dark:!text-[#aaa]',
             styles.label,
-            (value || (focused && !disabled && !readonly)) && styles.active
+            (value || (focused && !disabled && !readOnly)) && styles.active
           )}
           onClick={() => {
             inputRef.current?.focus();

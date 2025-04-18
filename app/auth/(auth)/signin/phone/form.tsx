@@ -10,8 +10,8 @@ import { authenticateByCode } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
+import ErrorTips from '../../../error-tips';
 import Agreement from '../../agreement';
-import ErrorTips from '../../error-tips';
 
 export default function SignInForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(

@@ -8,8 +8,8 @@ import toast from '@/components/ui/toast';
 import { authenticate } from '@/services/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
+import ErrorTips from '../../../error-tips';
 import Agreement from '../../agreement';
-import ErrorTips from '../../error-tips';
 
 export default function SignInForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(

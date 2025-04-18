@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 export default function MainCard({ children }: PropsWithChildren) {
@@ -21,13 +21,20 @@ export default function MainCard({ children }: PropsWithChildren) {
 function PanelTab() {
   const pathname = usePathname();
   const isFirst = pathname.includes('signin');
+  const searchParams = useSearchParams();
 
   return (
     <div className={'relative mb-3.5 flex gap-x-5'}>
-      <TabItem active={isFirst} href={'/auth/signin'}>
+      <TabItem
+        active={isFirst}
+        href={`/auth/signin?${searchParams.toString()}`}
+      >
         登录
       </TabItem>
-      <TabItem active={!isFirst} href={'/auth/signup'}>
+      <TabItem
+        active={!isFirst}
+        href={`/auth/signup?${searchParams.toString()}`}
+      >
         注册
       </TabItem>
 

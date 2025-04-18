@@ -14,7 +14,7 @@ interface VerificationCodeInputProps extends InputProps {
 }
 
 export default function VerificationCodeInput({
-  interval = 120,
+  interval = 60,
   onSend,
   placeholder = '验证码',
   ...rest

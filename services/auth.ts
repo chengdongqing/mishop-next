@@ -124,10 +124,10 @@ const authenticateSchema = z.object({
       return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
     },
     {
-      message: '请输入正确的手机号或邮箱'
+      message: '账号不存在'
     }
   ),
-  password: z.string().regex(PASSWORD_REGEX, '密码格式错误')
+  password: z.string().regex(PASSWORD_REGEX, '密码错误')
 });
 
 type AuthenticateState = ActionState<{

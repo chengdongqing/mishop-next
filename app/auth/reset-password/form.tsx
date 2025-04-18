@@ -1,6 +1,5 @@
 'use client';
 
-import ErrorTips from '@/app/auth/(auth)/error-tips';
 import Button from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
@@ -13,6 +12,7 @@ import {
 } from '@/services/verification-code';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useRef, useState } from 'react';
+import ErrorTips from '../error-tips';
 
 const types = [
   {

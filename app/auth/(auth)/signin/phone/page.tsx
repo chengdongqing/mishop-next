@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import SignInForm from './form';
 
 export default function SignInByPhonePage() {
@@ -11,6 +14,8 @@ export default function SignInByPhonePage() {
 }
 
 function Links() {
+  const searchParams = useSearchParams();
+
   return (
     <div className={'mt-2.5 flex justify-between'}>
       <a
@@ -24,7 +29,7 @@ function Links() {
         忘记账号？
       </a>
       <Link
-        href={'/auth/signin'}
+        href={`/auth/signin?${searchParams.toString()}`}
         className={'text-primary text-base hover:text-[#ff7e29]'}
         replace
       >
