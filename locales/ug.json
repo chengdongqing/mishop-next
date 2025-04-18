@@ -4,5 +4,8 @@
     "userAgreement": "ئىشلىتىش كېلىشىمى",
     "privacyPolicy": "شەخسىي مەخپىيەتلىك سىياسىتى",
     "helpCenter": "ياردەم مەركىزى"
+  },
+  "ResetPassword": {
+    "title": "پارولنى قايتا تەڭشەش"
   }
 }

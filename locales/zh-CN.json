@@ -4,5 +4,8 @@
     "userAgreement": "用户协议",
     "privacyPolicy": "隐私政策",
     "helpCenter": "帮助中心"
+  },
+  "ResetPassword": {
+    "title": "重置密码"
   }
 }

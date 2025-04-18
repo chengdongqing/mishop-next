@@ -4,5 +4,8 @@
     "userAgreement": "User Agreement",
     "privacyPolicy": "Privacy Policy",
     "helpCenter": "Need help?"
+  },
+  "ResetPassword": {
+    "title": "Reset password"
   }
 }
