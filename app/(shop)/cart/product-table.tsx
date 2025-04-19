@@ -8,7 +8,7 @@ import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import Image from 'next/image';
 import Link from 'next/link';
-import { startTransition, useOptimistic } from 'react';
+import { startTransition, useOptimistic, useTransition } from 'react';
 
 export default function ProductTable() {
   const { products } = useCart();
@@ -26,8 +26,9 @@ export default function ProductTable() {
 }
 
 function TableHeader() {
-  const { products, selectedProducts, setCheckedBatch } = useCart();
+  const { products, selectedProducts, setAllChecked } = useCart();
   const allChecked = selectedProducts.length === products.length;
+  const [isPending, startTransition] = useTransition();
 
   return (
     <thead>
@@ -35,8 +36,19 @@ function TableHeader() {
         <th className={'w-[110] pl-6 font-normal text-[#424242]'}>
           <Checkbox
             checked={allChecked}
+            loading={isPending}
             indeterminate={selectedProducts.length > 0}
-            onChange={setCheckedBatch}
+            onChange={(checked) => {
+              startTransition(async () => {
+                try {
+                  await setAllChecked(checked);
+                } catch (e) {
+                  if (e instanceof Error) {
+                    popup.alert(e.message);
+                  }
+                }
+              });
+            }}
           >
             全选
           </Checkbox>

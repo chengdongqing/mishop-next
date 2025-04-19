@@ -8,8 +8,8 @@ interface Props {
   name?: string;
   value?: string;
   checked?: boolean;
-  defaultChecked?: boolean;
   disabled?: boolean;
+  loading?: boolean;
   indeterminate?: boolean;
   required?: boolean;
   autoTheme?: boolean;
@@ -22,6 +22,8 @@ export default function Checkbox({
   name,
   value,
   checked: propChecked,
+  disabled,
+  loading,
   indeterminate,
   required,
   autoTheme,
@@ -33,9 +35,14 @@ export default function Checkbox({
   return (
     <span className={'flex'}>
       <label
-        className={
-          'group relative flex cursor-pointer items-center gap-x-1.5 select-none'
-        }
+        className={clsx(
+          'group relative flex items-center gap-x-1.5 select-none',
+          disabled
+            ? 'cursor-not-allowed'
+            : loading
+              ? 'cursor-progress'
+              : 'cursor-pointer'
+        )}
       >
         <input
           key={Date.now()}
@@ -44,6 +51,7 @@ export default function Checkbox({
           type="checkbox"
           checked={checked}
           required={required}
+          disabled={disabled || loading}
           className={'absolute top-0 left-0 h-4.5 w-4.5 opacity-0'}
           onChange={(e) => {
             const { checked } = e.target;
@@ -57,6 +65,9 @@ export default function Checkbox({
             checked || indeterminate
               ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
               : `border-primary bg-white ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
+            {
+              'opacity-80': disabled || loading
+            },
             'group-hover:border-[var(--color-primary)]'
           )}
         >

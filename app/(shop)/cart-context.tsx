@@ -27,7 +27,7 @@ interface CartContext {
   removeFromCart: (product: CartProduct) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
-  setCheckedBatch: (checked: boolean) => Promise<void>;
+  setAllChecked: (checked: boolean) => Promise<void>;
   clearCart: () => Promise<void>;
 }
 
@@ -161,12 +161,10 @@ export function CartProvider({ children }: PropsWithChildren) {
           throw new Error('商品加入购物车数量超过限购数');
         }
       } else if (product.id) {
-        await cartService.modifyCartItem([
-          {
-            id: product.id,
-            quantity
-          }
-        ]);
+        await cartService.modifyCartItem({
+          id: product.id,
+          quantity
+        });
       }
 
       product.quantity = quantity;
@@ -176,32 +174,23 @@ export function CartProvider({ children }: PropsWithChildren) {
 
   async function setChecked(product: CartProduct, checked: boolean) {
     if (hasLogin && product.id) {
-      await cartService.modifyCartItem([
-        {
-          id: product.id,
-          checked
-        }
-      ]);
+      await cartService.modifyCartItem({
+        id: product.id,
+        checked
+      });
     }
 
     product.checked = checked;
     setProducts((prev) => [...prev]);
   }
 
-  async function setCheckedBatch(checked: boolean) {
+  async function setAllChecked(checked: boolean) {
     products.forEach((product) => {
       product.checked = checked;
     });
 
     if (hasLogin) {
-      await cartService.modifyCartItem(
-        products
-          .filter((p) => p.id)
-          .map((p) => ({
-            id: p.id!,
-            checked
-          }))
-      );
+      await cartService.modifyAllChecked(checked);
     }
 
     setProducts((prev) => [...prev]);
@@ -227,7 +216,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       removeFromCart,
       modifyCount,
       setChecked,
-      setCheckedBatch,
+      setAllChecked,
       clearCart
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps

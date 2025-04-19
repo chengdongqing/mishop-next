@@ -15,7 +15,7 @@ const createCartSchema = createInsertSchema(cartItems)
   });
 
 /**
- * 加入购物车
+ * 加入商品到购物车
  */
 export async function addToCart(
   product: Omit<typeof cartItems.$inferInsert, 'userId'>
@@ -72,38 +72,55 @@ export async function addToCart(
 /**
  * 修改购物车商品
  */
-export async function modifyCartItem(
-  products: {
-    id: number;
-    quantity?: number;
-    checked?: boolean;
-  }[]
-) {
+export async function modifyCartItem(product: {
+  id: number;
+  quantity?: number;
+  checked?: boolean;
+}) {
   const userId = await getUserId();
 
-  const updatePromises = products.map(async (item) => {
-    const cartItem = await db.query.cartItems.findFirst({
-      where: and(eq(cartItems.id, item.id), eq(cartItems.userId, userId))
-    });
-    if (cartItem) {
-      if (item.quantity) {
-        cartItem.quantity = item.quantity;
-      }
-      if (item.checked !== undefined) {
-        cartItem.checked = item.checked;
-      }
-
-      await db
-        .update(cartItems)
-        .set({
-          quantity: item.quantity ?? cartItem.quantity,
-          checked: item.checked ?? cartItem.checked
-        })
-        .where(eq(cartItems.id, cartItem.id));
-    }
+  const cartItem = await db.query.cartItems.findFirst({
+    with: {
+      sku: true
+    },
+    where: and(eq(cartItems.id, product.id), eq(cartItems.userId, userId))
   });
+  if (!cartItem) {
+    throw new Error('该购物车商品不存在');
+  }
 
-  await Promise.all(updatePromises);
+  if (product.quantity) {
+    cartItem.quantity = product.quantity;
+    const { sku } = cartItem;
+    if (sku.limits && cartItem.quantity > sku.limits) {
+      throw new Error('商品加入购物车数量超过限购数');
+    }
+    if (cartItem.quantity > sku.stocks) {
+      throw new Error('商品库存不足');
+    }
+  }
+  if (product.checked !== undefined) {
+    cartItem.checked = product.checked;
+  }
+
+  await db
+    .update(cartItems)
+    .set({
+      quantity: cartItem.quantity,
+      checked: cartItem.checked
+    })
+    .where(eq(cartItems.id, cartItem.id));
+}
+
+export async function modifyAllChecked(checked: boolean) {
+  const userId = await getUserId();
+
+  await db
+    .update(cartItems)
+    .set({
+      checked
+    })
+    .where(eq(cartItems.userId, userId));
 }
 
 /**
