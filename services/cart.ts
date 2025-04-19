@@ -127,7 +127,7 @@ export async function modifyAllChecked(checked: boolean) {
 /**
  * 获取购物车商品
  */
-export async function getCartItems(): Promise<CartProduct[]> {
+export async function findCartItems(): Promise<CartProduct[]> {
   const userId = await getUserId();
 
   const items = await db.query.cartItems.findMany({

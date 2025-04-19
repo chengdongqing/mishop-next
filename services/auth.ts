@@ -18,7 +18,6 @@ import { ActionState } from '@/types/common';
 import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const userInsertSchema = createInsertSchema(users, {
@@ -278,14 +277,6 @@ export async function authenticateByCode(
   };
 }
 
-/**
- * 退出登录
- */
-export async function logout() {
-  await signOut();
-  redirect('/');
-}
-
 const resetPasswordSchema = z
   .object({
     type: z.enum(['phone', 'email'], {
@@ -387,4 +378,13 @@ export async function resetPassword(
   }
 
   return { success: true };
+}
+
+/**
+ * 退出登录
+ */
+export async function logout() {
+  await signOut({
+    redirectTo: '/'
+  });
 }

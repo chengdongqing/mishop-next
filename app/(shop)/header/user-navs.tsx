@@ -54,7 +54,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
                 'hover:text-primary flex w-[110] items-center justify-center'
               }
             >
-              <span className={'max-w-[100] text-ellipsis'}>
+              <span className={'max-w-[80] text-ellipsis'}>
                 {userInfo?.name}
               </span>
               <ChevronDownIcon className={'ml-1 w-4'} />
@@ -91,9 +91,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
                 }
                 onClick={() => {
                   popup.confirm('确定退出登录吗？', {
-                    onOk() {
-                      logout().then(() => {});
-                    }
+                    onOk: logout
                   });
                 }}
               >

@@ -53,10 +53,11 @@ export function CartProvider({ children }: PropsWithChildren) {
       }
 
       if (hasLogin) {
-        // 同步到数据库
         if (products.length) {
           try {
+            // 同步到数据库
             await cartService.syncCart(products);
+            // 清除本地缓存
             window.localStorage.removeItem(cacheKey);
           } catch (e) {
             console.error('同步购物车失败', e);
@@ -64,7 +65,7 @@ export function CartProvider({ children }: PropsWithChildren) {
         }
 
         // 查询数据库
-        products = await cartService.getCartItems();
+        products = await cartService.findCartItems();
       }
 
       setProducts(products);
@@ -137,7 +138,7 @@ export function CartProvider({ children }: PropsWithChildren) {
         quantity: 1
       });
 
-      const items = await cartService.getCartItems();
+      const items = await cartService.findCartItems();
       setProducts(items);
       return;
     }

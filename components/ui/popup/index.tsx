@@ -2,7 +2,7 @@ import Button from '@/components/ui/button';
 import CloseIcon from '@/components/ui/close-icon';
 import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
 import clsx from 'clsx';
-import { PropsWithChildren, ReactNode, useState } from 'react';
+import { PropsWithChildren, ReactNode, useState, useTransition } from 'react';
 import { createPortal } from 'react-dom';
 import { createRoot, Root } from 'react-dom/client';
 import styles from './styles.module.css';
@@ -51,17 +51,29 @@ function Popup({
   onCancel
 }: PopupProps) {
   const [closing, setClosing] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, startTransition] = useTransition();
   const finalLoading = loading || confirmLoading;
 
-  useKeyboardEscape(close);
+  useKeyboardEscape(handleClose);
 
-  function close() {
+  function handleClose() {
     setClosing(true);
     setTimeout(() => {
       onCancel?.();
       setClosing(false);
     }, 500);
+  }
+
+  function handleOk() {
+    const ok = onOk?.();
+    if (ok instanceof Promise) {
+      startTransition(async () => {
+        await ok;
+        handleClose();
+      });
+    } else if (closeOnOk) {
+      handleClose();
+    }
   }
 
   if (!open) {
@@ -73,7 +85,7 @@ function Popup({
       <div style={{ width }} className={styles.container}>
         <div className={clsx(styles.header, !title && styles.headless)}>
           {!!title && <div className={styles.title}>{title}</div>}
-          {closable && <CloseIcon onClick={close} />}
+          {closable && <CloseIcon onClick={handleClose} />}
         </div>
         <div className={styles.body}>{children}</div>
         {footer !== undefined ? (
@@ -82,30 +94,12 @@ function Popup({
           <div className={styles.footer}>
             <div className={'inline-flex gap-x-3.5'}>
               {!!okText && (
-                <Button
-                  loading={finalLoading}
-                  onClick={() => {
-                    const res = onOk?.();
-                    if (res instanceof Promise) {
-                      setLoading(true);
-                      res.then(close).finally(() => {
-                        setLoading(false);
-                      });
-                    } else if (closeOnOk) {
-                      close();
-                    }
-                  }}
-                >
+                <Button loading={finalLoading} onClick={handleOk}>
                   {okText}
                 </Button>
               )}
               {!!cancelText && (
-                <Button
-                  gray
-                  onClick={() => {
-                    close();
-                  }}
-                >
+                <Button gray onClick={handleClose}>
                   {cancelText}
                 </Button>
               )}
@@ -118,7 +112,7 @@ function Popup({
         className={styles.mask}
         onClick={() => {
           if (maskClosable) {
-            close();
+            handleClose();
           }
         }}
       />

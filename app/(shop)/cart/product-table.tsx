@@ -36,7 +36,7 @@ function TableHeader() {
         <th className={'w-[110] pl-6 font-normal text-[#424242]'}>
           <Checkbox
             checked={allChecked}
-            loading={isPending}
+            disabled={isPending}
             indeterminate={selectedProducts.length > 0}
             onChange={(checked) => {
               startTransition(async () => {
