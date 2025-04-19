@@ -45,15 +45,29 @@ export function CartProvider({ children }: PropsWithChildren) {
    */
   useEffect(() => {
     startTransition(async () => {
-      if (hasLogin) {
-        const items = await cartService.getCartItems();
-        setProducts(items);
-      } else {
-        const data = window.localStorage.getItem(cacheKey);
-        if (data) {
-          setProducts(JSON.parse(data) as CartProduct[]);
-        }
+      let products: CartProduct[] = [];
+      // 获取本地缓存的数据
+      const data = window.localStorage.getItem(cacheKey);
+      if (data) {
+        products = JSON.parse(data) as CartProduct[];
       }
+
+      if (hasLogin) {
+        // 同步到数据库
+        if (products.length) {
+          try {
+            await cartService.syncCart(products);
+            window.localStorage.removeItem(cacheKey);
+          } catch (e) {
+            console.error('同步购物车失败', e);
+          }
+        }
+
+        // 查询数据库
+        products = await cartService.getCartItems();
+      }
+
+      setProducts(products);
     });
   }, [hasLogin]);
 

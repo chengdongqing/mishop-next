@@ -1,4 +1,4 @@
-import { SchemaType } from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   layoutBricksData,
   layoutBrickTabItemsData,
@@ -17,32 +17,19 @@ import {
   layoutHeroCategories,
   layoutHeroCategoryItems
 } from '@/lib/schema';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 
-export async function seedLayoutHeader(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedLayoutHeader() {
   // 删除表
-  await tx.execute('drop table if exists mishop.layout_header_navs;');
-  await tx.execute('drop table if exists mishop.layout_header_nav_items;');
+  await db.execute('drop table if exists mishop.layout_header_navs;');
+  await db.execute('drop table if exists mishop.layout_header_nav_items;');
 
   // 创建表
-  await tx.execute(createHeaderNavsTableSql);
-  await tx.execute(createHeaderNavItemsTableSql);
+  await db.execute(createHeaderNavsTableSql);
+  await db.execute(createHeaderNavItemsTableSql);
 
   // 插入数据
-  await tx.insert(layoutHeaderNavs).values(layoutHeaderNavsData);
-  await tx.insert(layoutHeaderNavItems).values(layoutHeaderNavItemsData);
+  await db.insert(layoutHeaderNavs).values(layoutHeaderNavsData);
+  await db.insert(layoutHeaderNavItems).values(layoutHeaderNavItemsData);
 }
 
 const createHeaderNavsTableSql = `
@@ -72,25 +59,18 @@ const createHeaderNavItemsTableSql = `
     );
 `;
 
-export async function seedLayoutHeroCategories(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedLayoutHeroCategories() {
   // 删除表
-  await tx.execute('drop table if exists mishop.layout_hero_categories;');
-  await tx.execute('drop table if exists mishop.layout_hero_category_items;');
+  await db.execute('drop table if exists mishop.layout_hero_categories;');
+  await db.execute('drop table if exists mishop.layout_hero_category_items;');
 
   // 创建表
-  await tx.execute(createHeroCategoriesTableSql);
-  await tx.execute(createHeroCategoryItemsTableSql);
+  await db.execute(createHeroCategoriesTableSql);
+  await db.execute(createHeroCategoryItemsTableSql);
 
   // 插入数据
-  await tx.insert(layoutHeroCategories).values(layoutHeroCategoriesData);
-  await tx.insert(layoutHeroCategoryItems).values(layoutHeroCategoryItemsData);
+  await db.insert(layoutHeroCategories).values(layoutHeroCategoriesData);
+  await db.insert(layoutHeroCategoryItems).values(layoutHeroCategoryItemsData);
 }
 
 const createHeroCategoriesTableSql = `
@@ -120,28 +100,21 @@ const createHeroCategoryItemsTableSql = `
     );
 `;
 
-export async function seedLayoutBricks(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedLayoutBricks() {
   // 删除表
-  await tx.execute('drop table if exists mishop.layout_bricks;');
-  await tx.execute('drop table if exists mishop.layout_brick_tabs;');
-  await tx.execute('drop table if exists mishop.layout_brick_tab_items;');
+  await db.execute('drop table if exists mishop.layout_bricks;');
+  await db.execute('drop table if exists mishop.layout_brick_tabs;');
+  await db.execute('drop table if exists mishop.layout_brick_tab_items;');
 
   // 创建表
-  await tx.execute(createBricksTableSql);
-  await tx.execute(createBrickTabsTableSql);
-  await tx.execute(createBrickTabItemsTableSql);
+  await db.execute(createBricksTableSql);
+  await db.execute(createBrickTabsTableSql);
+  await db.execute(createBrickTabItemsTableSql);
 
   // 插入数据
-  await tx.insert(layoutBricks).values(layoutBricksData);
-  await tx.insert(layoutBrickTabs).values(layoutBrickTabsData);
-  await tx.insert(layoutBrickTabItems).values(layoutBrickTabItemsData);
+  await db.insert(layoutBricks).values(layoutBricksData);
+  await db.insert(layoutBrickTabs).values(layoutBrickTabsData);
+  await db.insert(layoutBrickTabItems).values(layoutBrickTabItemsData);
 }
 
 const createBricksTableSql = `

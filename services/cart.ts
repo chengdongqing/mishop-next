@@ -6,6 +6,7 @@ import { getUserId } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import { and, eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
+import { pick } from 'lodash';
 import { z } from 'zod';
 
 const createCartSchema = createInsertSchema(cartItems)
@@ -177,4 +178,48 @@ export async function clearCart() {
   const userId = await getUserId();
 
   await db.delete(cartItems).where(eq(cartItems.userId, userId));
+}
+
+/**
+ * 将购物车从本地缓存同步到数据库
+ */
+export async function syncCart(products: CartProduct[]) {
+  const userId = await getUserId();
+
+  // 查询所有的购物车商品
+  const items = await db
+    .select()
+    .from(cartItems)
+    .where(eq(cartItems.userId, userId));
+
+  // 新添加的商品
+  const newProducts = products
+    .filter((product) => !items.some((p1) => p1.skuId === product.skuId))
+    .map((product) => ({
+      userId,
+      ...pick(product, ['productId', 'skuId', 'quantity', 'checked'])
+    }));
+
+  await db.transaction(async (tx) => {
+    // 如果已存在则更新
+    await Promise.all(
+      items.map(async (item) => {
+        const product = products.find((p) => p.skuId === item.skuId);
+        if (product) {
+          await tx
+            .update(cartItems)
+            .set({
+              quantity: product.quantity ?? item.quantity,
+              checked: product.checked ?? item.checked
+            })
+            .where(eq(cartItems.id, item.id));
+        }
+      })
+    );
+
+    // 不存在则添加
+    if (newProducts.length) {
+      await tx.insert(cartItems).values(newProducts);
+    }
+  });
 }

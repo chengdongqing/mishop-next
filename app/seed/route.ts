@@ -5,13 +5,6 @@ import {
   seedLayoutHeroCategories
 } from '@/app/seed/layouts';
 import { seedUsers } from '@/app/seed/users';
-import { db, SchemaType } from '@/lib/db';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 import { seedBanners } from './banners';
 import {
   seedProductCategories,
@@ -25,7 +18,7 @@ import { seedVideos } from './videos';
 
 export async function GET() {
   try {
-    await db.transaction((tx) => getSeeds(tx));
+    await seedDatabase();
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
     console.error(error);
@@ -33,27 +26,20 @@ export async function GET() {
   }
 }
 
-function getSeeds(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+function seedDatabase() {
   return Promise.all([
-    seedProducts(tx),
-    seedProductSkus(tx),
-    seedProductLabels(tx),
-    seedProductCategories(tx),
-    seedProductLabelRelations(tx),
-    seedProductReviews(tx),
-    seedCartItems(tx),
-    seedBanners(tx),
-    seedVideos(tx),
-    seedUsers(tx),
-    seedLayoutHeader(tx),
-    seedLayoutHeroCategories(tx),
-    seedLayoutBricks(tx)
+    seedProducts(),
+    seedProductSkus(),
+    seedProductLabels(),
+    seedProductCategories(),
+    seedProductLabelRelations(),
+    seedProductReviews(),
+    seedCartItems(),
+    seedBanners(),
+    seedVideos(),
+    seedUsers(),
+    seedLayoutHeader(),
+    seedLayoutHeroCategories(),
+    seedLayoutBricks()
   ]);
 }

@@ -1,5 +1,5 @@
 import { BannerType } from '@/enums';
-import { SchemaType } from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   bannersData,
   brickPromotionsData,
@@ -7,26 +7,13 @@ import {
   promotionsData
 } from '@/lib/placeholder-data';
 import { banners } from '@/lib/schema';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 
-export async function seedBanners(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedBanners() {
   // 删除表
-  await tx.execute('drop table if exists mishop.banners;');
+  await db.execute('drop table if exists mishop.banners;');
 
   // 创建表
-  await tx.execute(`
+  await db.execute(`
       create table mishop.banners
       (
           id            int auto_increment primary key,
@@ -73,5 +60,5 @@ export async function seedBanners(
       sortNo: index + 1
     });
   });
-  await tx.insert(banners).values(values);
+  await db.insert(banners).values(values);
 }

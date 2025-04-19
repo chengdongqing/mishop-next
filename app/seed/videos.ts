@@ -1,26 +1,13 @@
-import { SchemaType } from '@/lib/db';
+import { db } from '@/lib/db';
 import { videosData } from '@/lib/placeholder-data';
 import { videos } from '@/lib/schema';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 
-export async function seedVideos(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedVideos() {
   // 删除表
-  await tx.execute('drop table if exists mishop.videos;');
+  await db.execute('drop table if exists mishop.videos;');
 
   // 创建表
-  await tx.execute(`
+  await db.execute(`
       create table mishop.videos
       (
           id          int auto_increment primary key,
@@ -36,7 +23,7 @@ export async function seedVideos(
   `);
 
   // 插入数据
-  await tx.insert(videos).values(
+  await db.insert(videos).values(
     videosData.map((video, index) => ({
       ...video,
       sortNo: index + 1

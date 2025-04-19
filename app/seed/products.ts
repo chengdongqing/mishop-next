@@ -1,4 +1,4 @@
-import { SchemaType } from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   productCategoriesData,
   productLabelRelationsData,
@@ -15,29 +15,16 @@ import {
   products,
   productSkus
 } from '@/lib/schema';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 
-export async function seedProducts(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProducts() {
   // 删除表
-  await tx.execute('drop table if exists mishop.products;');
+  await db.execute('drop table if exists mishop.products;');
 
   // 创建表
-  await tx.execute(createTableSql);
+  await db.execute(createTableSql);
 
   // 插入数据
-  await tx.insert(products).values(
+  await db.insert(products).values(
     productsData.map((product, index) => ({
       ...product,
       categoryId: product.categoryId!,
@@ -73,22 +60,15 @@ const createTableSql = `
     ) comment '商品表';
 `;
 
-export async function seedProductSkus(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProductSkus() {
   // 删除表
-  await tx.execute('drop table if exists mishop.product_skus;');
+  await db.execute('drop table if exists mishop.product_skus;');
 
   // 创建表
-  await tx.execute(createProductSkuTableSql);
+  await db.execute(createProductSkuTableSql);
 
   // 插入数据
-  await tx.insert(productSkus).values(
+  await db.insert(productSkus).values(
     productSkusData.map((sku) => ({
       ...sku,
       price: sku.price.toString(),
@@ -117,19 +97,12 @@ const createProductSkuTableSql = `
     )
 `;
 
-export async function seedProductCategories(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProductCategories() {
   // 删除表
-  await tx.execute('drop table if exists mishop.product_categories;');
+  await db.execute('drop table if exists mishop.product_categories;');
 
   // 创建表
-  await tx.execute(createCategoryTableSql);
+  await db.execute(createCategoryTableSql);
 
   // 插入数据
   const values = productCategoriesData.reduce(
@@ -163,7 +136,7 @@ export async function seedProductCategories(
     },
     []
   );
-  await tx.insert(productCategories).values(values);
+  await db.insert(productCategories).values(values);
 }
 
 const createCategoryTableSql = `
@@ -182,22 +155,15 @@ const createCategoryTableSql = `
     ) comment '商品类别表';
 `;
 
-export async function seedProductLabels(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProductLabels() {
   // 删除表
-  await tx.execute('drop table if exists mishop.product_labels;');
+  await db.execute('drop table if exists mishop.product_labels;');
 
   // 创建表
-  await tx.execute(createLabelTableSql);
+  await db.execute(createLabelTableSql);
 
   // 插入数据
-  await tx.insert(productLabels).values(productLabelsData);
+  await db.insert(productLabels).values(productLabelsData);
 }
 
 const createLabelTableSql = `
@@ -216,22 +182,15 @@ const createLabelTableSql = `
         comment '商品标签表';
 `;
 
-export async function seedProductLabelRelations(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProductLabelRelations() {
   // 删除表
-  await tx.execute('drop table if exists mishop.product_label_relations;');
+  await db.execute('drop table if exists mishop.product_label_relations;');
 
   // 创建表
-  await tx.execute(createProductLabelRelationTableSql);
+  await db.execute(createProductLabelRelationTableSql);
 
   // 插入数据
-  await tx.insert(productLabelRelations).values(productLabelRelationsData);
+  await db.insert(productLabelRelations).values(productLabelRelationsData);
 }
 
 const createProductLabelRelationTableSql = `
@@ -249,22 +208,15 @@ const createProductLabelRelationTableSql = `
         comment '商品和标签关联表';
 `;
 
-export async function seedProductReviews(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedProductReviews() {
   // 删除表
-  await tx.execute('drop table if exists mishop.product_reviews;');
+  await db.execute('drop table if exists mishop.product_reviews;');
 
   // 创建表
-  await tx.execute(createReviewTableSql);
+  await db.execute(createReviewTableSql);
 
   // 插入数据
-  await tx.insert(productReviews).values(productReviewsData);
+  await db.insert(productReviews).values(productReviewsData);
 }
 
 const createReviewTableSql = `

@@ -1,27 +1,14 @@
-import { SchemaType } from '@/lib/db';
+import { db } from '@/lib/db';
 import { usersData } from '@/lib/placeholder-data';
 import { users } from '@/lib/schema';
 import bcrypt from 'bcryptjs';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
 
-export async function seedUsers(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedUsers() {
   // 删除表
-  await tx.execute('drop table if exists mishop.users;');
+  await db.execute('drop table if exists mishop.users;');
 
   // 创建表
-  await tx.execute(`
+  await db.execute(`
       create table mishop.users
       (
           id         int auto_increment primary key,
@@ -37,7 +24,7 @@ export async function seedUsers(
   `);
 
   // 插入数据
-  await tx.insert(users).values(
+  await db.insert(users).values(
     usersData.map((user) => ({
       ...user,
       password: bcrypt.hashSync(user.password!, 10)

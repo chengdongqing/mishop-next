@@ -1,24 +1,11 @@
-import { SchemaType } from '@/lib/db';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
-import { MySqlTransaction } from 'drizzle-orm/mysql-core';
-import {
-  MySql2PreparedQueryHKT,
-  MySql2QueryResultHKT
-} from 'drizzle-orm/mysql2';
+import { db } from '@/lib/db';
 
-export async function seedCartItems(
-  tx: MySqlTransaction<
-    MySql2QueryResultHKT,
-    MySql2PreparedQueryHKT,
-    SchemaType,
-    ExtractTablesWithRelations<SchemaType>
-  >
-) {
+export async function seedCartItems() {
   // 删除表
-  await tx.execute('drop table if exists mishop.cart_items;');
+  await db.execute('drop table if exists mishop.cart_items;');
 
   // 创建表
-  await tx.execute(`
+  await db.execute(`
       create table mishop.cart_items
       (
           id         int        not null auto_increment,
