@@ -109,8 +109,14 @@ function ProductRow({ product }: { product: CartProduct }) {
       <td className={'w-[80] text-center'}>
         <CloseIcon
           size={24}
-          onClick={() => {
-            removeFromCart(product).catch(() => {});
+          onClick={async () => {
+            try {
+              await removeFromCart(product);
+            } catch (e) {
+              if (e instanceof Error) {
+                popup.alert(e.message);
+              }
+            }
           }}
         />
       </td>

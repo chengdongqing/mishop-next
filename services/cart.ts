@@ -3,6 +3,7 @@
 import { db } from '@/lib/db';
 import { cartItems, productSkus } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
+import { CartProduct } from '@/types/product';
 import { and, eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
@@ -68,6 +69,9 @@ export async function addToCart(
   }
 }
 
+/**
+ * 修改购物车商品
+ */
 export async function modifyCartItem(
   products: {
     id: number;
@@ -102,10 +106,60 @@ export async function modifyCartItem(
   await Promise.all(updatePromises);
 }
 
-export async function getCartItems() {
+/**
+ * 获取购物车商品
+ */
+export async function getCartItems(): Promise<CartProduct[]> {
   const userId = await getUserId();
 
-  return await db.query.cartItems.findMany({
+  const items = await db.query.cartItems.findMany({
+    with: {
+      sku: true,
+      product: {
+        columns: {
+          id: true,
+          name: true,
+          slug: true
+        }
+      }
+    },
     where: eq(cartItems.userId, userId)
   });
+
+  return items.map(({ product, sku, ...item }) => ({
+    id: item.id,
+    productId: item.productId,
+    productSlug: product.slug,
+    productName: product.name,
+    fullName: [product.name, sku.name].join(' '),
+    skuId: item.skuId,
+    skuName: sku.name,
+    pictureUrl: sku.pictureUrl,
+    price: Number(sku.price),
+    quantity: item.quantity,
+    checked: item.checked,
+    limits: sku.limits
+  }));
+}
+
+/**
+ * 从购物车移除商品
+ */
+export async function removeFromCart(id: number) {
+  const userId = await getUserId();
+
+  throw new Error('失败');
+
+  await db
+    .delete(cartItems)
+    .where(and(eq(cartItems.id, id), eq(cartItems.userId, userId)));
+}
+
+/**
+ * 清空购物车
+ */
+export async function clearCart() {
+  const userId = await getUserId();
+
+  await db.delete(cartItems).where(eq(cartItems.userId, userId));
 }

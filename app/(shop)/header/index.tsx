@@ -2,6 +2,7 @@
 
 import { LayoutHeaderNav } from '@/types/layout';
 import { usePathname } from 'next/navigation';
+import CartHeader from '../cart/header';
 import NavBar from './nav-bar';
 import TopBar from './top-bar';
 
@@ -15,7 +16,7 @@ export default function Header({
   const pathname = usePathname();
 
   if (pathname === '/cart') {
-    return null;
+    return <CartHeader />;
   }
 
   return (

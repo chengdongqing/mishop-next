@@ -1,6 +1,5 @@
 'use client';
 
-import { useUserInfo } from '@/app/(shop)/user-info-context';
 import popup from '@/components/ui/popup';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
 import * as cartService from '@/services/cart';
@@ -12,10 +11,13 @@ import {
   use,
   useEffect,
   useMemo,
-  useState
+  useState,
+  useTransition
 } from 'react';
+import { useUserInfo } from './user-info-context';
 
 interface CartContext {
+  isLoading: boolean;
   products: CartProduct[];
   selectedProducts: CartProduct[];
   totalCount: number;
@@ -39,28 +41,34 @@ const cacheKey = 'cart-products';
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<CartProduct[]>([]);
+  const [isLoading, startTransition] = useTransition();
   const hasLogin = !!useUserInfo();
 
   /**
-   * 初始从缓存恢复数据
+   * 获取初始数据
    */
   useEffect(() => {
-    if (hasLogin) return;
-
-    const data = window.localStorage.getItem(cacheKey);
-    if (data) {
-      setProducts(JSON.parse(data) as CartProduct[]);
-    }
+    startTransition(async () => {
+      if (hasLogin) {
+        const items = await cartService.getCartItems();
+        setProducts(items);
+      } else {
+        const data = window.localStorage.getItem(cacheKey);
+        if (data) {
+          setProducts(JSON.parse(data) as CartProduct[]);
+        }
+      }
+    });
   }, [hasLogin]);
 
   /**
-   * 未登录时同步到local storage
+   * 未登录时实时同步到本地缓存
    */
   useUpdateEffect(() => {
     if (!hasLogin) {
       window.localStorage.setItem(cacheKey, JSON.stringify(products));
     }
-  }, [products]);
+  }, [products, hasLogin]);
 
   /**
    * 已选中的商品列表
@@ -118,6 +126,10 @@ export function CartProvider({ children }: PropsWithChildren) {
         productId: product.productId,
         quantity: 1
       });
+
+      const items = await cartService.getCartItems();
+      setProducts(items);
+      return;
     }
 
     const cartProduct = products.find((item) => item.skuId === product.skuId);
@@ -137,67 +149,105 @@ export function CartProvider({ children }: PropsWithChildren) {
   }
 
   async function removeFromCart(product: CartProduct, shouldConfirm = true) {
+    async function remove() {
+      if (hasLogin && product.id) {
+        await cartService.removeFromCart(product.id);
+      }
+
+      setProducts((prev) =>
+        prev.filter((item) => item.skuId !== product.skuId)
+      );
+    }
+
     if (shouldConfirm) {
       await new Promise<void>((resolve, reject) => {
         popup.confirm('确定删除该商品吗？', {
-          onOk: resolve,
+          async onOk() {
+            await remove();
+            resolve();
+          },
           onCancel: reject
         });
       });
-    }
-
-    if (!hasLogin) {
-      products.splice(products.indexOf(product), 1);
-      setProducts((prev) => [...prev]);
+    } else {
+      await remove();
     }
   }
 
   async function modifyCount(product: CartProduct, quantity: number) {
-    if (!hasLogin) {
-      if (quantity > 0) {
-        if (!product.limits || quantity <= product.limits) {
-          product.quantity = quantity;
-          setProducts((prev) => [...prev]);
-        } else {
+    if (quantity > 0) {
+      if (!hasLogin) {
+        if (product.limits && quantity > product.limits) {
           throw new Error('商品加入购物车数量超过限购数');
         }
-      } else {
-        await removeFromCart(product);
+      } else if (product.id) {
+        await cartService.modifyCartItem([
+          {
+            id: product.id,
+            quantity
+          }
+        ]);
       }
+
+      product.quantity = quantity;
+      setProducts((prev) => [...prev]);
+    } else {
+      await removeFromCart(product);
     }
   }
 
   async function setChecked(product: CartProduct, checked: boolean) {
-    if (!hasLogin) {
-      product.checked = checked;
-      setProducts((prev) => [...prev]);
+    if (hasLogin && product.id) {
+      await cartService.modifyCartItem([
+        {
+          id: product.id,
+          checked
+        }
+      ]);
     }
+
+    product.checked = checked;
+    setProducts((prev) => [...prev]);
   }
 
   async function setCheckedBatch(checked: boolean) {
-    if (!hasLogin) {
-      products.forEach((product) => {
-        product.checked = checked;
-      });
-      setProducts((prev) => [...prev]);
+    products.forEach((product) => {
+      product.checked = checked;
+    });
+
+    if (hasLogin) {
+      await cartService.modifyCartItem(
+        products
+          .filter((p) => p.id)
+          .map((p) => ({
+            id: p.id!,
+            checked
+          }))
+      );
     }
+
+    setProducts((prev) => [...prev]);
   }
 
   async function clearCart() {
     await new Promise<void>((resolve, reject) => {
       popup.confirm('确定清空购物车吗？', {
-        onOk: resolve,
+        async onOk() {
+          if (hasLogin) {
+            await cartService.clearCart();
+          }
+          resolve();
+        },
         onCancel: reject
       });
     });
 
-    if (!hasLogin) {
-      setProducts([]);
-    }
+    setProducts([]);
   }
 
   const contextValue: CartContext = useMemo(
     () => ({
+      isLoading,
       products,
       selectedProducts,
       totalCount,
@@ -212,7 +262,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       clearCart
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products, selectedProducts, totalCount, totalAmount, hasLogin]
+    [products, selectedProducts, totalCount, totalAmount, hasLogin, isLoading]
   );
 
   return <CartContext value={contextValue}>{children}</CartContext>;

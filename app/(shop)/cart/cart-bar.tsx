@@ -14,7 +14,7 @@ export default function CartBar() {
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
     footerRef,
-    (rect) => rect!.bottom >= window.innerHeight,
+    (rect) => (rect ? rect.bottom >= window.innerHeight : false),
     []
   );
 

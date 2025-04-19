@@ -8,7 +8,7 @@ export default function Header() {
   const { totalCount } = useCart();
 
   return (
-    <div className={'border-b-2 border-[var(--color-primary)]'}>
+    <header className={'border-b-2 border-[var(--color-primary)]'}>
       <div className={'w-primary flex h-[100] items-center justify-between'}>
         <div className={'flex items-center'}>
           <div className={'w-[93]'}>
@@ -26,6 +26,6 @@ export default function Header() {
           <UserNavs isCartHeader />
         </ul>
       </div>
-    </div>
+    </header>
   );
 }

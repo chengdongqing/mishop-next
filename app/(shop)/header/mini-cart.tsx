@@ -3,7 +3,9 @@
 import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
+import popup from '@/components/ui/popup';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { CartProduct } from '@/types/product';
 import {
   ShoppingCartIcon as ShoppingCartIcon1,
   XMarkIcon
@@ -13,7 +15,7 @@ import clsx from 'clsx';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useOptimistic, useState, useTransition } from 'react';
 
 export default function MiniCart() {
   const [open, setOpen] = useState(false);
@@ -85,57 +87,84 @@ function CartPopover({ open, count }: { open: boolean; count: number }) {
 }
 
 function ProductList() {
-  const { products, removeFromCart } = useCart();
+  const { products } = useCart();
 
   return (
     <ul className={'flex-1 overflow-y-auto px-5'}>
-      {products.map((product) => {
-        const linkUrl = buildProductUrl({
-          id: product.productId,
-          slug: product.productSlug
-        });
-
-        return (
-          <li
-            key={product.skuId}
-            className={
-              'border-primary group/product flex h-[80] items-center justify-between border-b-1 text-[#424242] last:border-b-0'
-            }
-          >
-            <div className={'flex flex-1 items-center'}>
-              <Link href={linkUrl}>
-                <Image
-                  src={product.pictureUrl}
-                  alt={''}
-                  width={60}
-                  height={60}
-                  className={'h-[60] w-[60] object-scale-down'}
-                />
-              </Link>
-              <Link
-                href={linkUrl}
-                className={
-                  'hover:text-primary mr-5 ml-2.5 max-h-[65] flex-1 overflow-hidden duration-200'
-                }
-              >
-                {product.fullName}
-              </Link>
-            </div>
-            <span>
-              {formatAmount(product.price)}元 x {product.quantity}
-            </span>
-            <button
-              className={
-                'invisible ml-1.5 cursor-pointer text-[#b0b0b0] group-hover/product:visible hover:text-[#424242]'
-              }
-              onClick={() => removeFromCart(product, false)}
-            >
-              <XMarkIcon className={'w-4'} />
-            </button>
-          </li>
-        );
-      })}
+      {products.map((product) => (
+        <ProductItem key={product.skuId} product={product} />
+      ))}
     </ul>
+  );
+}
+
+function ProductItem({ product }: { product: CartProduct }) {
+  const { removeFromCart } = useCart();
+  const [isPending, startTransition] = useTransition();
+
+  const linkUrl = buildProductUrl({
+    id: product.productId,
+    slug: product.productSlug
+  });
+
+  // 乐观删除，减少等待
+  const [removed, setRemoved] = useOptimistic(false);
+
+  if (removed) {
+    return null;
+  }
+
+  return (
+    <li
+      className={
+        'border-primary group/product flex h-[80] items-center justify-between border-b-1 text-[#424242] last:border-b-0'
+      }
+    >
+      <div className={'flex flex-1 items-center'}>
+        <Link href={linkUrl}>
+          <Image
+            src={product.pictureUrl}
+            alt={''}
+            width={60}
+            height={60}
+            className={'h-[60] w-[60] object-scale-down'}
+          />
+        </Link>
+        <Link
+          href={linkUrl}
+          className={
+            'hover:text-primary mr-5 ml-2.5 max-h-[65] flex-1 overflow-hidden duration-200'
+          }
+        >
+          {product.fullName}
+        </Link>
+      </div>
+      <span>
+        {formatAmount(product.price)}元 x {product.quantity}
+      </span>
+      <button
+        disabled={isPending}
+        className={clsx(
+          'invisible ml-1.5 text-[#b0b0b0] group-hover/product:visible hover:text-[#424242]',
+          isPending ? 'cursor-progress' : 'cursor-pointer'
+        )}
+        onClick={() => {
+          startTransition(async () => {
+            setRemoved(true);
+            try {
+              await removeFromCart(product, false);
+            } catch (e) {
+              if (e instanceof Error) {
+                popup.alert(e.message);
+                setRemoved(false);
+              }
+            }
+          });
+        }}
+      >
+        <XMarkIcon className={'w-4'} />
+      </button>
+    </li>
   );
 }
 
