@@ -148,8 +148,6 @@ export async function getCartItems(): Promise<CartProduct[]> {
 export async function removeFromCart(id: number) {
   const userId = await getUserId();
 
-  throw new Error('失败');
-
   await db
     .delete(cartItems)
     .where(and(eq(cartItems.id, id), eq(cartItems.userId, userId)));

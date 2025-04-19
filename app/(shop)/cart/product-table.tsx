@@ -8,6 +8,7 @@ import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import Image from 'next/image';
 import Link from 'next/link';
+import { startTransition, useOptimistic } from 'react';
 
 export default function ProductTable() {
   const { products } = useCart();
@@ -54,7 +55,7 @@ function TableHeader() {
 }
 
 function ProductRow({ product }: { product: CartProduct }) {
-  const { modifyCount, setChecked, removeFromCart } = useCart();
+  const { removeFromCart } = useCart();
 
   const linkUrl = buildProductUrl({
     id: product.productId,
@@ -65,10 +66,7 @@ function ProductRow({ product }: { product: CartProduct }) {
   return (
     <tr className={'border-primary h-[116] border-t-1'}>
       <td className={'w-[110] pl-6'}>
-        <Checkbox
-          checked={product.checked}
-          onChange={(checked) => setChecked(product, checked)}
-        />
+        <ProductCheckbox product={product} />
       </td>
       <td className={'w-[120]'}>
         <Link href={linkUrl}>
@@ -89,10 +87,57 @@ function ProductRow({ product }: { product: CartProduct }) {
         {formatAmount(product.price)}元
       </td>
       <td className={'w-[150] text-center'}>
-        <NumberInput
-          max={100}
-          value={product.quantity}
-          onChange={async (quantity) => {
+        <ProductQuantity product={product} />
+      </td>
+      <td className={'text-primary w-[120] text-center text-base'}>
+        {formatAmount(subtotal)}元
+      </td>
+      <td className={'w-[80] text-center'}>
+        <CloseIcon size={24} onClick={() => remove(removeFromCart, product)} />
+      </td>
+    </tr>
+  );
+}
+
+function ProductCheckbox({ product }: { product: CartProduct }) {
+  const { setChecked } = useCart();
+  const [optimisticChecked, setOptimisticChecked] = useOptimistic(
+    product.checked
+  );
+
+  return (
+    <Checkbox
+      checked={optimisticChecked}
+      onChange={(checked) => {
+        startTransition(async () => {
+          setOptimisticChecked(checked);
+          try {
+            await setChecked(product, checked);
+          } catch (e) {
+            if (e instanceof Error) {
+              popup.alert(e.message);
+            }
+          }
+        });
+      }}
+    />
+  );
+}
+
+function ProductQuantity({ product }: { product: CartProduct }) {
+  const { modifyCount, removeFromCart } = useCart();
+  const [optimisticQuantity, setOptimisticQuantity] = useOptimistic(
+    product.quantity
+  );
+
+  return (
+    <NumberInput
+      max={100}
+      value={optimisticQuantity}
+      onChange={(quantity) => {
+        startTransition(async () => {
+          if (quantity) {
+            setOptimisticQuantity(quantity);
             try {
               await modifyCount(product, quantity);
             } catch (e) {
@@ -100,26 +145,30 @@ function ProductRow({ product }: { product: CartProduct }) {
                 popup.alert(e.message);
               }
             }
-          }}
-        />
-      </td>
-      <td className={'text-primary w-[120] text-center text-base'}>
-        {formatAmount(subtotal)}元
-      </td>
-      <td className={'w-[80] text-center'}>
-        <CloseIcon
-          size={24}
-          onClick={async () => {
-            try {
-              await removeFromCart(product);
-            } catch (e) {
-              if (e instanceof Error) {
-                popup.alert(e.message);
-              }
-            }
-          }}
-        />
-      </td>
-    </tr>
+          } else {
+            remove(removeFromCart, product);
+          }
+        });
+      }}
+    />
   );
+}
+
+function remove(
+  removeFromCart: (product: CartProduct) => Promise<void>,
+  product: CartProduct
+) {
+  popup.confirm('确定删除该商品吗？', {
+    async onOk() {
+      try {
+        await removeFromCart(product);
+      } catch (e) {
+        if (e instanceof Error) {
+          setTimeout(() => {
+            popup.alert(e.message);
+          }, 600);
+        }
+      }
+    }
+  });
 }

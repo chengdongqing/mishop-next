@@ -1,8 +1,6 @@
-'use client';
-
-import { useCart } from '@/app/(shop)/cart-context';
-import UserNavs from '@/app/(shop)/header/user-navs';
 import Logo from '@/components/ui/logo';
+import { useCart } from '../cart-context';
+import UserNavs from '../header/user-navs';
 
 export default function Header() {
   const { totalCount } = useCart();

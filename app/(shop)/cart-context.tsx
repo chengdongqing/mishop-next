@@ -1,6 +1,5 @@
 'use client';
 
-import popup from '@/components/ui/popup';
 import useUpdateEffect from '@/hooks/useUpdateEffect';
 import * as cartService from '@/services/cart';
 import { CartProduct } from '@/types/product';
@@ -25,10 +24,7 @@ interface CartContext {
   selectedCount: number;
   selectedAmount: number;
   addToCart: (product: CartProduct) => Promise<void>;
-  removeFromCart: (
-    product: CartProduct,
-    shouldConfirm?: boolean
-  ) => Promise<void>;
+  removeFromCart: (product: CartProduct) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
   setCheckedBatch: (checked: boolean) => Promise<void>;
@@ -148,30 +144,14 @@ export function CartProvider({ children }: PropsWithChildren) {
     }
   }
 
-  async function removeFromCart(product: CartProduct, shouldConfirm = true) {
-    async function remove() {
-      if (hasLogin && product.id) {
-        await cartService.removeFromCart(product.id);
-      }
-
-      setProducts((prev) =>
-        prev.filter((item) => item.skuId !== product.skuId)
-      );
+  async function removeFromCart(product: CartProduct) {
+    if (hasLogin && product.id) {
+      await cartService.removeFromCart(product.id);
     }
 
-    if (shouldConfirm) {
-      await new Promise<void>((resolve, reject) => {
-        popup.confirm('确定删除该商品吗？', {
-          async onOk() {
-            await remove();
-            resolve();
-          },
-          onCancel: reject
-        });
-      });
-    } else {
-      await remove();
-    }
+    setProducts((prev) => {
+      return prev.filter((item) => item.skuId !== product.skuId);
+    });
   }
 
   async function modifyCount(product: CartProduct, quantity: number) {
@@ -191,8 +171,6 @@ export function CartProvider({ children }: PropsWithChildren) {
 
       product.quantity = quantity;
       setProducts((prev) => [...prev]);
-    } else {
-      await removeFromCart(product);
     }
   }
 
@@ -230,18 +208,9 @@ export function CartProvider({ children }: PropsWithChildren) {
   }
 
   async function clearCart() {
-    await new Promise<void>((resolve, reject) => {
-      popup.confirm('确定清空购物车吗？', {
-        async onOk() {
-          if (hasLogin) {
-            await cartService.clearCart();
-          }
-          resolve();
-        },
-        onCancel: reject
-      });
-    });
-
+    if (hasLogin) {
+      await cartService.clearCart();
+    }
     setProducts([]);
   }
 

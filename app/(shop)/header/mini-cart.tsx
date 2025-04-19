@@ -108,9 +108,9 @@ function ProductItem({ product }: { product: CartProduct }) {
   });
 
   // 乐观删除，减少等待
-  const [removed, setRemoved] = useOptimistic(false);
+  const [optimisticRemoved, setOptimisticRemoved] = useOptimistic(false);
 
-  if (removed) {
+  if (optimisticRemoved) {
     return null;
   }
 
@@ -150,13 +150,12 @@ function ProductItem({ product }: { product: CartProduct }) {
         )}
         onClick={() => {
           startTransition(async () => {
-            setRemoved(true);
+            setOptimisticRemoved(true);
             try {
-              await removeFromCart(product, false);
+              await removeFromCart(product);
             } catch (e) {
               if (e instanceof Error) {
                 popup.alert(e.message);
-                setRemoved(false);
               }
             }
           });

@@ -17,18 +17,17 @@ export async function sendSmsVerificationCode(
 
   const code = generateRandomCode();
 
-  // 发送短信验证码
-  console.log('code:', code);
-
   try {
+    // 发送短信验证码
+    console.log('code:', code);
+
     await redis.set(`verify:phone:${phone}`, code, 'EX', 300); // 5分钟过期（300秒）
   } catch (e) {
-    if (e instanceof Error) {
-      return {
-        success: false,
-        message: e.message
-      };
-    }
+    console.error(e);
+    return {
+      success: false,
+      message: '发送失败'
+    };
   }
 
   return {
@@ -37,16 +36,21 @@ export async function sendSmsVerificationCode(
 }
 
 export async function verifySmsVerificationCode(phone: string, code: string) {
-  // 获取验证码
-  const realCode = await redis.get(`verify:phone:${phone}`);
+  try {
+    // 获取验证码
+    const realCode = await redis.get(`verify:phone:${phone}`);
 
-  // 比对验证码
-  if (!realCode || code !== realCode) {
+    // 比对验证码
+    if (!realCode || code !== realCode) {
+      return false;
+    }
+
+    // 校验成功则删除验证码
+    redis.del(`verify:phone:${phone}`);
+  } catch (e) {
+    console.error(e);
     return false;
   }
-
-  // 校验成功则删除验证码
-  redis.del(`verify:phone:${phone}`);
 
   return true;
 }
@@ -63,18 +67,16 @@ export async function sendEmailVerificationCode(
 
   const code = generateRandomCode();
 
-  // 发送邮件验证码
-  console.log('code:', code);
-
   try {
+    // 发送邮件验证码
+    console.log('code:', code);
     await redis.set(`verify:email:${email}`, code, 'EX', 300); // 5分钟过期（300秒）
   } catch (e) {
-    if (e instanceof Error) {
-      return {
-        success: false,
-        message: e.message
-      };
-    }
+    console.error(e);
+    return {
+      success: false,
+      message: '发送失败'
+    };
   }
 
   return {
@@ -83,16 +85,21 @@ export async function sendEmailVerificationCode(
 }
 
 export async function verifyEmailVerificationCode(email: string, code: string) {
-  // 获取验证码
-  const realCode = await redis.get(`verify:email:${email}`);
+  try {
+    // 获取验证码
+    const realCode = await redis.get(`verify:email:${email}`);
 
-  // 比对验证码
-  if (!realCode || code !== realCode) {
+    // 比对验证码
+    if (!realCode || code !== realCode) {
+      return false;
+    }
+
+    // 校验成功则删除验证码
+    redis.del(`verify:email:${email}`);
+  } catch (e) {
+    console.error(e);
     return false;
   }
-
-  // 校验成功则删除验证码
-  redis.del(`verify:email:${email}`);
 
   return true;
 }

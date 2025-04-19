@@ -1,7 +1,6 @@
-'use client';
-
 import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
+import popup from '@/components/ui/popup';
 import useElementVisible from '@/hooks/useElementVisible';
 import { formatAmount } from '@/lib/utils';
 import clsx from 'clsx';
@@ -33,7 +32,11 @@ export default function CartBar() {
         <Sep />
         <button
           className={'cursor-pointer hover:text-[var(--color-error)]'}
-          onClick={() => clearCart().catch(() => {})}
+          onClick={() => {
+            popup.confirm('确定清空购物车吗？', {
+              onOk: clearCart
+            });
+          }}
         >
           清空购物车
         </button>
