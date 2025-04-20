@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 
-const protectedRoutes: string[] = [];
+const protectedRoutes: string[] = ['/cart/checkout'];
 
 export const middleware = auth((req) => {
   const pathname = req.nextUrl.pathname;

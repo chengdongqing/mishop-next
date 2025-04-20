@@ -2,9 +2,10 @@
 
 import { LayoutHeaderNav } from '@/types/layout';
 import { usePathname } from 'next/navigation';
-import CartHeader from '../cart/header';
 import NavBar from './nav-bar';
 import TopBar from './top-bar';
+
+const excludedPaths = ['/cart', '/cart/checkout', '/orders/pay'];
 
 export default function Header({
   navsPromise,
@@ -15,8 +16,8 @@ export default function Header({
 }) {
   const pathname = usePathname();
 
-  if (pathname === '/cart') {
-    return <CartHeader />;
+  if (excludedPaths.includes(pathname)) {
+    return null;
   }
 
   return (

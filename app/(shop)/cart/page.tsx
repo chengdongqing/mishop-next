@@ -1,6 +1,7 @@
 'use client';
 
 import Loading from '@/components/ui/loading';
+import MiniHeader from '@/components/ui/mini-header';
 import RecommendProducts from '@/components/ui/recommend-products';
 import { useCart } from '@/contexts/cart-context';
 import CartBar from './cart-bar';
@@ -12,15 +13,23 @@ export default function CartPage() {
   const isEmpty = !products.length;
 
   return (
-    <div className={'bg-primary py-[38]'}>
-      <div className={'w-primary'}>
-        {isLoading ? (
-          <Loading className={'h-[50vh]'} />
-        ) : (
-          <CartContent isEmpty={isEmpty} />
-        )}
+    <>
+      <MiniHeader
+        title={'我的购物车'}
+        extra={
+          !isEmpty && '温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算'
+        }
+      />
+      <div className={'bg-primary py-[38]'}>
+        <div className={'w-primary'}>
+          {isLoading ? (
+            <Loading className={'h-[50vh]'} />
+          ) : (
+            <CartContent isEmpty={isEmpty} />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

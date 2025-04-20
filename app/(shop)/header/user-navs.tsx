@@ -1,7 +1,7 @@
 import popup from '@/components/ui/popup';
 import { useUserInfo } from '@/contexts/user-info-context';
 import { logout } from '@/services/auth';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
