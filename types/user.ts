@@ -9,3 +9,13 @@ export interface User {
   email?: string | null;
   password?: string | null;
 }
+
+export interface ShippingAddress {
+  id: number;
+  userId: number;
+  recipientName: string;
+  phoneNumber: string;
+  city: string;
+  address: string;
+  label?: string | null;
+}

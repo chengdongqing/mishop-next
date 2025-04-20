@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
-import { usersData } from '@/lib/placeholder-data';
-import { users } from '@/lib/schema';
+import { shippingAddressesData, usersData } from '@/lib/placeholder-data';
+import { shippingAddresses, users } from '@/lib/schema';
 import bcrypt from 'bcryptjs';
 
 export async function seedUsers() {
@@ -30,4 +30,28 @@ export async function seedUsers() {
       password: bcrypt.hashSync(user.password!, 10)
     }))
   );
+}
+
+export async function seedShippingAddresses() {
+  // 删除表
+  await db.execute('drop table if exists mishop.shipping_addresses;');
+
+  // 创建表
+  await db.execute(`
+      create table mishop.shipping_addresses
+      (
+          id             int          not null auto_increment primary key,
+          user_id        int          not null,
+          recipient_name varchar(50)  not null,
+          phone_number   varchar(11)  not null,
+          city           varchar(100) not null,
+          address        varchar(50)  not null,
+          label          varchar(10),
+          created_at     timestamp    not null default current_timestamp,
+          updated_at     timestamp             default current_timestamp on update current_timestamp
+      );
+  `);
+
+  // 插入数据
+  await db.insert(shippingAddresses).values(shippingAddressesData);
 }

@@ -195,6 +195,18 @@ export const users = mysqlTable('users', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const shippingAddresses = mysqlTable('shipping_addresses', {
+  id: serial('id').primaryKey(),
+  userId: int('user_id').notNull(),
+  recipientName: varchar('recipient_name', { length: 50 }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 11 }).notNull(),
+  city: varchar('city', { length: 100 }).notNull(),
+  address: varchar('address', { length: 50 }).notNull(),
+  label: varchar('label', { length: 10 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const layoutHeaderNavs = mysqlTable('layout_header_navs', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 100 }).notNull().unique(),

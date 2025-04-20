@@ -73,6 +73,7 @@ export interface CartProduct {
   price: number;
   quantity: number;
   checked: boolean;
+  subtotal?: number;
   limits?: number | null;
 }
 

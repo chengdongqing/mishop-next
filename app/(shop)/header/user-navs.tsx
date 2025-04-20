@@ -1,3 +1,5 @@
+'use client';
+
 import popup from '@/components/ui/popup';
 import { useUserInfo } from '@/contexts/user-info-context';
 import { logout } from '@/services/auth';

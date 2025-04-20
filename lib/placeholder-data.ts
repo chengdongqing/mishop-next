@@ -6,7 +6,7 @@ import {
   ProductLabel,
   ProductSku
 } from '@/types/product';
-import { User } from '@/types/user';
+import { ShippingAddress, User } from '@/types/user';
 import { Video } from '@/types/video';
 
 export const productCategoriesData: ProductCategory[] = [
@@ -1868,6 +1868,27 @@ export const usersData: User[] = [
     gender: GenderType.MALE,
     phone: '19999999999',
     password: '12345678abc'
+  }
+];
+
+export const shippingAddressesData: ShippingAddress[] = [
+  {
+    id: 1,
+    userId: 1,
+    recipientName: '海盐芝士不加糖',
+    phoneNumber: '189****2398',
+    city: '重庆市 江北区 马栏星镇',
+    address: '一心村',
+    label: '家'
+  },
+  {
+    id: 2,
+    userId: 1,
+    recipientName: '海盐芝士不加糖1',
+    phoneNumber: '189****2398',
+    city: '重庆市 江北区 马栏星镇',
+    address: '一心村',
+    label: '公司'
   }
 ];
 

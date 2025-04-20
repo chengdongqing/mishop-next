@@ -1,11 +1,10 @@
-import { seedCartItems } from '@/app/seed/cart';
+import { seedBanners } from './banners';
+import { seedCartItems } from './cart';
 import {
   seedLayoutBricks,
   seedLayoutHeader,
   seedLayoutHeroCategories
-} from '@/app/seed/layouts';
-import { seedUsers } from '@/app/seed/users';
-import { seedBanners } from './banners';
+} from './layouts';
 import {
   seedProductCategories,
   seedProductLabelRelations,
@@ -14,6 +13,7 @@ import {
   seedProducts,
   seedProductSkus
 } from './products';
+import { seedShippingAddresses, seedUsers } from './users';
 import { seedVideos } from './videos';
 
 export async function GET() {
@@ -38,6 +38,7 @@ function seedDatabase() {
     seedBanners(),
     seedVideos(),
     seedUsers(),
+    seedShippingAddresses(),
     seedLayoutHeader(),
     seedLayoutHeroCategories(),
     seedLayoutBricks()

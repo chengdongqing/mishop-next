@@ -1,5 +1,3 @@
-'use client';
-
 import UserNavs from '@/app/(shop)/header/user-navs';
 import Logo from '@/components/ui/logo';
 import { ReactNode } from 'react';
