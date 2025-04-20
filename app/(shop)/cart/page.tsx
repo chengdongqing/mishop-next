@@ -4,7 +4,7 @@ import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
 import { useCart } from '@/contexts/cart-context';
 import CartBar from './cart-bar';
-import EmptyCart from './empty-cart';
+import EmptyCart from './empty';
 import ProductTable from './product-table';
 
 export default function CartPage() {

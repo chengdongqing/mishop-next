@@ -28,7 +28,7 @@ interface CartContext {
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
   setAllChecked: (checked: boolean) => Promise<void>;
-  clearCart: () => Promise<void>;
+  removeSelected: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -211,11 +211,12 @@ export function CartProvider({ children }: PropsWithChildren) {
     setProducts((prev) => [...prev]);
   }
 
-  async function clearCart() {
+  async function removeSelected() {
     if (hasLogin) {
-      await cartService.clearCart();
+      await cartService.removeSelected();
     }
-    setProducts([]);
+
+    setProducts(products.filter((item) => !item.checked));
   }
 
   const contextValue: CartContext = useMemo(
@@ -232,7 +233,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       modifyCount,
       setChecked,
       setAllChecked,
-      clearCart
+      removeSelected
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [products, selectedProducts, totalCount, totalAmount, hasLogin, isLoading]

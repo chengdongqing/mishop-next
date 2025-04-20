@@ -172,12 +172,14 @@ export async function removeFromCart(id: number) {
 }
 
 /**
- * 清空购物车
+ * 删除已选商品
  */
-export async function clearCart() {
+export async function removeSelected() {
   const userId = await getUserId();
 
-  await db.delete(cartItems).where(eq(cartItems.userId, userId));
+  await db
+    .delete(cartItems)
+    .where(and(eq(cartItems.userId, userId), eq(cartItems.checked, true)));
 }
 
 /**

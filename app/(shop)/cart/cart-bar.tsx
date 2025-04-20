@@ -10,7 +10,8 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 
 export default function CartBar() {
-  const { selectedCount, selectedAmount, clearCart } = useCart();
+  const { selectedCount, selectedProducts, selectedAmount, removeSelected } =
+    useCart();
 
   const footerRef = useRef<HTMLDivElement>(null);
   const fixed = useElementVisible(
@@ -31,17 +32,24 @@ export default function CartBar() {
         <Link href={'/'} className={'hover:text-primary'}>
           继续购物
         </Link>
-        <Sep />
-        <button
-          className={'cursor-pointer hover:text-[var(--color-error)]'}
-          onClick={() => {
-            popup.confirm('确定清空购物车吗？', {
-              onOk: clearCart
-            });
-          }}
-        >
-          清空购物车
-        </button>
+        {!!selectedCount && (
+          <>
+            <Sep />
+            <button
+              className={'cursor-pointer hover:text-[var(--color-error)]'}
+              onClick={() => {
+                popup.confirm(
+                  `确定删除已选的${selectedProducts.length}种商品吗？`,
+                  {
+                    onOk: removeSelected
+                  }
+                );
+              }}
+            >
+              删除已选
+            </button>
+          </>
+        )}
         <Sep />
         <div>
           已选择<span className={'text-primary mx-1'}>{selectedCount}</span>件
