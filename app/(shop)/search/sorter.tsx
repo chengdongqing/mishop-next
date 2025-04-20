@@ -1,9 +1,9 @@
 'use client';
 
 import Space from '@/components/ui/space';
+import { ProductOrderBy } from '@/enums';
 import { ArrowLongDownIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
-import { ProductOrderBy } from '../../../enums';
 
 interface Props {
   value: ProductOrderBy | undefined;

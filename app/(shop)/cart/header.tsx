@@ -1,5 +1,5 @@
 import Logo from '@/components/ui/logo';
-import { useCart } from '../cart-context';
+import { useCart } from '@/contexts/cart-context';
 import UserNavs from '../header/user-navs';
 
 export default function Header() {

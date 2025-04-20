@@ -2,6 +2,7 @@
 
 import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
+import FormErrorTips from '@/components/ui/form-error-tips';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
@@ -9,7 +10,6 @@ import { signup } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
-import ErrorTips from '../../error-tips';
 import Agreement from '../agreement';
 
 export default function SignupForm() {
@@ -44,7 +44,7 @@ export default function SignupForm() {
           phone.current = value;
         }}
       />
-      <ErrorTips id={'phone-error'} errors={errors?.phone} />
+      <FormErrorTips id={'phone-error'} errors={errors?.phone} />
       <VerificationCodeInput
         name={'verificationCode'}
         type={'number'}
@@ -62,7 +62,7 @@ export default function SignupForm() {
           }
         }}
       />
-      <ErrorTips
+      <FormErrorTips
         id={'verification-code-error'}
         errors={errors?.verificationCode}
       />
@@ -74,7 +74,7 @@ export default function SignupForm() {
         error={!!errors?.password?.length}
         aria-describedby="password-error"
       />
-      <ErrorTips id={'password-error'} errors={errors?.password} />
+      <FormErrorTips id={'password-error'} errors={errors?.password} />
       <Input
         name={'confirmPassword'}
         placeholder={'确认密码'}
@@ -83,7 +83,7 @@ export default function SignupForm() {
         error={!!errors?.confirmPassword?.length}
         aria-describedby="confirm-password-error"
       />
-      <ErrorTips
+      <FormErrorTips
         id={'confirm-password-error'}
         errors={errors?.confirmPassword}
       />

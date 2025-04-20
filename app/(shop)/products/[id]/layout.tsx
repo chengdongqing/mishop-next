@@ -1,9 +1,9 @@
+import { ProductProvider } from '@/contexts/product-context';
 import { findProductDetails } from '@/services/products';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 import Links from './links';
-import { ProductProvider } from './product-context';
 
 /**
  * 动态生成SEO信息

@@ -1,5 +1,5 @@
-import { useUserInfo } from '@/app/(shop)/user-info-context';
 import Button from '@/components/ui/button';
+import { useUserInfo } from '@/contexts/user-info-context';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';

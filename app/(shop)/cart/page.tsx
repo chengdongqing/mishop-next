@@ -1,8 +1,8 @@
 'use client';
 
-import { useCart } from '@/app/(shop)/cart-context';
 import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
+import { useCart } from '@/contexts/cart-context';
 import CartBar from './cart-bar';
 import EmptyCart from './empty-cart';
 import ProductTable from './product-table';

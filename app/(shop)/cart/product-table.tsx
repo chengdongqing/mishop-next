@@ -1,8 +1,8 @@
-import { useCart } from '@/app/(shop)/cart-context';
 import Checkbox from '@/components/ui/checkbox';
 import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
 import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';

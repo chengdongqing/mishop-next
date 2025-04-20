@@ -1,9 +1,9 @@
 'use client';
 
-import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
 import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import {

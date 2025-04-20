@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/components/ui/button';
+import FormErrorTips from '@/components/ui/form-error-tips';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import Select from '@/components/ui/select';
@@ -12,7 +13,6 @@ import {
 } from '@/services/verification-code';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useRef, useState } from 'react';
-import ErrorTips from '../error-tips';
 
 const types = [
   {
@@ -67,7 +67,7 @@ export default function ResetForm() {
         error={!!errors?.password?.length}
         aria-describedby="password-error"
       />
-      <ErrorTips id={'password-error'} errors={errors?.password} />
+      <FormErrorTips id={'password-error'} errors={errors?.password} />
       <Input
         name={'confirmPassword'}
         placeholder={'确认新密码'}
@@ -76,7 +76,7 @@ export default function ResetForm() {
         error={!!errors?.confirmPassword?.length}
         aria-describedby="confirmPassword-error"
       />
-      <ErrorTips
+      <FormErrorTips
         id={'confirmPassword-error'}
         errors={errors?.confirmPassword}
       />
@@ -106,7 +106,7 @@ function PhoneGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
           phone.current = value;
         }}
       />
-      <ErrorTips id={'phone-error'} errors={errors?.identifier} />
+      <FormErrorTips id={'phone-error'} errors={errors?.identifier} />
       <VerificationCodeInput
         name={'verificationCode'}
         required
@@ -123,7 +123,7 @@ function PhoneGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
           }
         }}
       />
-      <ErrorTips
+      <FormErrorTips
         id={'verification-code-error'}
         errors={errors?.verificationCode}
       />
@@ -147,7 +147,7 @@ function EmailGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
           email.current = value;
         }}
       />
-      <ErrorTips id={'email-error'} errors={errors?.identifier} />
+      <FormErrorTips id={'email-error'} errors={errors?.identifier} />
       <VerificationCodeInput
         name={'verificationCode'}
         required
@@ -164,7 +164,7 @@ function EmailGroup({ errors }: { errors?: ResetPasswordState['errors'] }) {
           }
         }}
       />
-      <ErrorTips
+      <FormErrorTips
         id={'verification-code-error'}
         errors={errors?.verificationCode}
       />

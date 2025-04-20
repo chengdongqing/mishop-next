@@ -1,5 +1,5 @@
-import { useUserInfo } from '@/app/(shop)/user-info-context';
 import popup from '@/components/ui/popup';
+import { useUserInfo } from '@/contexts/user-info-context';
 import { logout } from '@/services/auth';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';

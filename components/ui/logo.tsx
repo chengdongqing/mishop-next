@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from '@/app/theme-context';
+import { useTheme } from '@/contexts/theme-context';
 import { setUserLocale } from '@/services/locale';
 import { setUserTheme } from '@/services/theme';
 import Image from 'next/image';

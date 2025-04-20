@@ -1,10 +1,10 @@
 'use client';
 
-import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import Carousel, { CarouselInstance } from '@/components/ui/carousel';
 import Loading from '@/components/ui/loading';
 import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
 import useDebounce from '@/hooks/useDebounce';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { findRecommendedProducts } from '@/services/products';

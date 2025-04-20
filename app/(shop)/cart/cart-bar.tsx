@@ -1,10 +1,12 @@
-import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
+import { useUserInfo } from '@/contexts/user-info-context';
 import useElementVisible from '@/hooks/useElementVisible';
 import { formatAmount } from '@/lib/utils';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 
 export default function CartBar() {
@@ -60,13 +62,24 @@ export default function CartBar() {
 function CheckoutButton() {
   const { selectedCount } = useCart();
   const noChecked = !selectedCount;
+  const hasLogin = !!useUserInfo();
+  const router = useRouter();
 
   return (
     <>
       <Button
+        disabled={noChecked}
         className={clsx('ml-[50] !h-full !w-[202] !text-lg', {
-          '!cursor-default !bg-[var(--color-border)] !text-[#b0b0b0]': noChecked
+          '!cursor-default !bg-[var(--color-border)] !text-[#b0b0b0] !opacity-100':
+            noChecked
         })}
+        onClick={() => {
+          if (hasLogin) {
+            router.push('/cart/checkout');
+          } else {
+            router.push(`/auth/signin?callback=${encodeURIComponent('/cart')}`);
+          }
+        }}
       >
         去结算
       </Button>

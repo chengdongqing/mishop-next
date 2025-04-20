@@ -1,5 +1,5 @@
-import LanguagePicker from '@/app/auth/language-picker';
 import { PrivacyIcon } from '@/components/icons';
+import LanguagePicker from '@/components/ui/language-picker';
 import { getUserLocale } from '@/services/locale';
 
 export default function TopBar() {

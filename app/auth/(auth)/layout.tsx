@@ -1,3 +1,4 @@
+import LanguagePicker from '@/components/ui/language-picker';
 import Logo from '@/components/ui/logo';
 import Space from '@/components/ui/space';
 import { getUserLocale } from '@/services/locale';
@@ -5,7 +6,6 @@ import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { HTMLProps, PropsWithChildren, Suspense } from 'react';
-import LanguagePicker from '../language-picker';
 import MainCard from './main-card';
 
 export const metadata: Metadata = {

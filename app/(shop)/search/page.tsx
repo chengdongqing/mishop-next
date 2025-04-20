@@ -1,6 +1,7 @@
 import Breadcrumb from '@/components/ui/breadcrumb';
 import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
+import { ProductOrderBy } from '@/enums';
 import {
   findProductCategories,
   findProductLabels,
@@ -8,7 +9,6 @@ import {
 } from '@/services/products';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { ProductOrderBy } from '../../../enums';
 import FilterGroup from './filter-group';
 import SearchResult from './search-result';
 

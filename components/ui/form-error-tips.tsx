@@ -1,4 +1,4 @@
-export default function ErrorTips({
+export default function FormErrorTips({
   id,
   errors
 }: {

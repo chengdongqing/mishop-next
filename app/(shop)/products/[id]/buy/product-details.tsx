@@ -1,10 +1,10 @@
 'use client';
 
+import { useProduct } from '@/contexts/product-context';
 import { ProductDetailItem } from '@/types/product';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useProduct } from '../product-context';
 
 export default function ProductDetails() {
   const { product } = useProduct();

@@ -5,7 +5,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { PropsWithChildren } from 'react';
-import { ThemeProvider } from './theme-context';
+import { ThemeProvider } from '../contexts/theme-context';
 
 export const metadata: Metadata = {
   title: '小米商城 - Xiaomi 15、REDMI K80、MIX Fold 4，小米电视官方网站',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCart } from '@/app/(shop)/cart-context';
+import { useCart } from '@/contexts/cart-context';
 import useElementVisible from '@/hooks/useElementVisible';
 import clsx from 'clsx';
 import Image from 'next/image';

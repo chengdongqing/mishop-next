@@ -1,8 +1,9 @@
 'use client';
 
-import { useCart } from '@/app/(shop)/cart-context';
 import Button from '@/components/ui/button';
 import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
+import { useProduct } from '@/contexts/product-context';
 import useToggle from '@/hooks/useToggle';
 import { formatAmount } from '@/lib/utils';
 import { DetailProduct, ProductSku } from '@/types/product';
@@ -11,7 +12,6 @@ import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
-import { useProduct } from '../product-context';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
 

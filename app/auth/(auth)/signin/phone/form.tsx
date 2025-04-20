@@ -2,6 +2,7 @@
 
 import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
+import FormErrorTips from '@/components/ui/form-error-tips';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import toast from '@/components/ui/toast';
@@ -10,7 +11,6 @@ import { authenticateByCode } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
-import ErrorTips from '../../../error-tips';
 import Agreement from '../../agreement';
 
 export default function SignInForm() {
@@ -46,7 +46,7 @@ export default function SignInForm() {
           phone.current = value;
         }}
       />
-      <ErrorTips id={'phone-error'} errors={errors?.phone} />
+      <FormErrorTips id={'phone-error'} errors={errors?.phone} />
       <VerificationCodeInput
         name={'verificationCode'}
         type={'number'}
@@ -64,7 +64,7 @@ export default function SignInForm() {
           }
         }}
       />
-      <ErrorTips
+      <FormErrorTips
         id={'verification-code-error'}
         errors={errors?.verificationCode}
       />

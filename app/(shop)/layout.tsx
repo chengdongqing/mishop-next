@@ -1,11 +1,11 @@
+import { CartProvider } from '@/contexts/cart-context';
+import { UserInfoProvider } from '@/contexts/user-info-context';
 import { findHeaderNavs } from '@/services/layout';
 import { findHotProductNames } from '@/services/products';
 import { getUserInfo } from '@/services/users';
 import { PropsWithChildren } from 'react';
-import { CartProvider } from './cart-context';
 import Footer from './footer';
 import Header from './header';
-import { UserInfoProvider } from './user-info-context';
 
 export default async function ShopLayout({ children }: PropsWithChildren) {
   const userInfo = await getUserInfo();

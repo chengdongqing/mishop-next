@@ -2,13 +2,13 @@
 
 import Button from '@/components/ui/button';
 import Checkbox from '@/components/ui/checkbox';
+import FormErrorTips from '@/components/ui/form-error-tips';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import toast from '@/components/ui/toast';
 import { authenticate } from '@/services/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
-import ErrorTips from '../../../error-tips';
 import Agreement from '../../agreement';
 
 export default function SignInForm() {
@@ -40,7 +40,7 @@ export default function SignInForm() {
         aria-describedby="identifier-error"
         value={'19999999999'}
       />
-      <ErrorTips id={'identifier-error'} errors={errors?.identifier} />
+      <FormErrorTips id={'identifier-error'} errors={errors?.identifier} />
       <Input
         name={'password'}
         placeholder={'密码'}
@@ -50,7 +50,7 @@ export default function SignInForm() {
         aria-describedby="password-error"
         value={'12345678abc'}
       />
-      <ErrorTips id={'password-error'} errors={errors?.password} />
+      <FormErrorTips id={'password-error'} errors={errors?.password} />
       <Checkbox name={'agreed'} value={'1'} required autoTheme>
         <Agreement />
       </Checkbox>

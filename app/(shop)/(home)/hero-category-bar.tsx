@@ -1,10 +1,10 @@
 'use client';
 
+import { LayoutHeroCategoryItemType } from '@/enums';
 import { LayoutHeroCategory, LayoutHeroCategoryItem } from '@/types/layout';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useState } from 'react';
-import { LayoutHeroCategoryItemType } from '../../../enums';
 
 export default function CategoryBar({
   categories
