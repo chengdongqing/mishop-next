@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/contexts/theme-context';
 import { getUserLocale } from '@/services/locale';
 import { getUserTheme } from '@/services/theme';
 import { Locale } from '@/types/common';
@@ -5,7 +6,6 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { PropsWithChildren } from 'react';
-import { ThemeProvider } from '../contexts/theme-context';
 
 export const metadata: Metadata = {
   title: '小米商城 - Xiaomi 15、REDMI K80、MIX Fold 4，小米电视官方网站',
