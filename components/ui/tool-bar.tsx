@@ -35,11 +35,11 @@ function ToCartButton() {
 }
 
 function ToTopButton() {
-  const btnVisible = useElementVisible(null, () => {
+  const visible = useElementVisible(null, () => {
     return window.scrollY > 500;
   });
 
-  if (!btnVisible) {
+  if (!visible) {
     return null;
   }
 

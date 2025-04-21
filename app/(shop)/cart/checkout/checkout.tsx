@@ -14,10 +14,7 @@ interface CheckoutProps {
   checkoutData: CheckoutData;
 }
 
-export default function CheckoutPanel({
-  addresses,
-  checkoutData
-}: CheckoutProps) {
+export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
   const [address, setAddress] = useState<ShippingAddress | null>(null);
 
   return (

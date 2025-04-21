@@ -1,8 +1,11 @@
+import Button from '@/components/ui/button';
+import useElementVisible from '@/hooks/useElementVisible';
 import useToggle from '@/hooks/useToggle';
 import { ShippingAddress } from '@/types/user';
 import { ChevronDownIcon, PlusCircleIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
+import { useRef } from 'react';
 import Title from './title';
 
 interface Props {
@@ -17,29 +20,45 @@ export default function CheckoutAddresses({
   onChange
 }: Props) {
   const [expanded, onToggle] = useToggle();
+  const containerRef = useRef<HTMLElement | null>(null);
 
   return (
-    <section className={'mb-[30]'}>
-      <Title>收货地址</Title>
-      <motion.ul
-        className={'grid grid-cols-4 gap-4 overflow-hidden'}
-        initial={{ height: 178 }}
-        animate={{ height: expanded ? 'auto' : 178 }}
-      >
-        {addresses.map((address) => (
-          <AddressItem
-            key={address.id}
-            address={address}
-            active={address.id === value?.id}
-            onClick={() => onChange(address)}
-          />
-        ))}
-        <AddItem />
-      </motion.ul>
-      {addresses.length > 4 && (
-        <ExpandButton expanded={expanded} onToggle={onToggle} />
+    <>
+      <section className={'mb-[30]'} ref={containerRef}>
+        <Title>收货地址</Title>
+        <motion.ul
+          className={'grid grid-cols-4 gap-4 overflow-hidden'}
+          initial={{ height: 178 }}
+          animate={{ height: expanded ? 'auto' : 178 }}
+        >
+          {addresses.map((address) => (
+            <AddressItem
+              key={address.id}
+              address={address}
+              active={address.id === value?.id}
+              onClick={() => onChange(address)}
+            />
+          ))}
+          <AddItem />
+        </motion.ul>
+        {addresses.length > 4 && (
+          <ExpandButton expanded={expanded} onToggle={onToggle} />
+        )}
+      </section>
+
+      {!value && addresses.length > 0 && (
+        <AddressTopBar
+          address={addresses[0]}
+          onSelect={() => {
+            onChange(addresses[0]);
+
+            containerRef.current?.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }}
+        />
       )}
-    </section>
+    </>
   );
 }
 
@@ -119,5 +138,40 @@ function ExpandButton({
         })}
       />
     </button>
+  );
+}
+
+function AddressTopBar({
+  address,
+  onSelect
+}: {
+  address: ShippingAddress;
+  onSelect: () => void;
+}) {
+  const visible = useElementVisible(null, () => {
+    return window.scrollY > 300;
+  });
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div
+      className={
+        'fixed top-0 right-0 left-0 z-20 bg-white shadow-[0_3px_6px_#0000001a]'
+      }
+    >
+      <div className={'w-primary flex h-[70] items-center justify-between'}>
+        <div>
+          <span>{address.recipientName}</span>
+          <span>{address.phoneNumber}</span>
+          <span>
+            {address.city} {address.address}
+          </span>
+        </div>
+        <Button onClick={onSelect}>选择该收货地址</Button>
+      </div>
+    </div>
   );
 }

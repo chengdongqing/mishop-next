@@ -4,11 +4,11 @@ import useElementVisible from '@/hooks/useElementVisible';
 import clsx from 'clsx';
 
 export default function GoTopButton() {
-  const btnVisible = useElementVisible(null, () => {
+  const visible = useElementVisible(null, () => {
     return window.scrollY > 200;
   });
 
-  if (!btnVisible) {
+  if (!visible) {
     return null;
   }
 

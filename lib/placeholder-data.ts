@@ -1889,6 +1889,33 @@ export const shippingAddressesData: ShippingAddress[] = [
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '公司'
+  },
+  {
+    id: 3,
+    userId: 1,
+    recipientName: '海盐芝士不加糖2',
+    phoneNumber: '189****2398',
+    city: '重庆市 江北区 马栏星镇',
+    address: '一心村',
+    label: '公司'
+  },
+  {
+    id: 4,
+    userId: 1,
+    recipientName: '海盐芝士不加糖3',
+    phoneNumber: '189****2398',
+    city: '重庆市 江北区 马栏星镇',
+    address: '一心村',
+    label: '公司'
+  },
+  {
+    id: 5,
+    userId: 1,
+    recipientName: '海盐芝士不加糖4',
+    phoneNumber: '189****2398',
+    city: '重庆市 江北区 马栏星镇',
+    address: '一心村',
+    label: '公司'
   }
 ];
 
