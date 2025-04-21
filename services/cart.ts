@@ -8,6 +8,7 @@ import Decimal from 'decimal.js';
 import { and, eq } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { pick } from 'lodash';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const createCartSchema = createInsertSchema(cartItems)
@@ -276,6 +277,10 @@ export async function getCheckoutData(): Promise<CheckoutData> {
       price: Number(sku.price),
       subtotal: new Decimal(sku.price).mul(item.quantity).toNumber()
     }));
+
+  if (!products.length) {
+    redirect('/');
+  }
 
   // 总件数
   const itemCount = products.reduce((acc, product) => {
