@@ -1,7 +1,6 @@
 import Space from '@/components/ui/space';
 import clsx from 'clsx';
 import { ReactNode, useMemo } from 'react';
-import styles from './styles.module.css';
 
 type Item = { label: string; href?: string };
 
@@ -24,14 +23,16 @@ export default function Breadcrumb({ value, split = '/' }: Props) {
   }, [value]);
 
   return (
-    <div style={{ backgroundColor: 'var(--color-bg)' }}>
-      <div className={styles.container}>
-        <Space split={<span className={styles.sep}>{split}</span>}>
+    <div className={'bg-primary'}>
+      <div className={'w-primary h-[40] text-xs leading-[40px]'}>
+        <Space split={<span className={'text-[#b0b0b0]'}>{split}</span>}>
           {items.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className={clsx(styles.item, !!item.href && styles.active)}
+              className={clsx('text-[#616161]', {
+                'hover:text-primary text-[#757575]': !!item.href
+              })}
             >
               {item.label}
             </a>
