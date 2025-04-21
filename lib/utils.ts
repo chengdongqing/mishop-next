@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { products } from '@/lib/schema';
 import { getRemoteFile } from '@/services/file';
 import { PageRequest } from '@/types/common';
+import crypto from 'crypto';
 import { AuthError } from 'next-auth';
 
 export const EmptyValue = '--';
@@ -70,7 +71,8 @@ export function sleep(ms: number = 2000) {
 }
 
 export function generateRandomCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+  const code = crypto.randomInt(0, 1000000);
+  return code.toString().padStart(6, '0');
 }
 
 export function maskPhone(phone: string) {
