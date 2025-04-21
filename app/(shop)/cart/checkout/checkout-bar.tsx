@@ -3,9 +3,11 @@ import { ShippingAddress } from '@/types/user';
 import { useRouter } from 'next/navigation';
 
 export default function CheckoutBar({
-  address
+  address,
+  onOrder
 }: {
   address: ShippingAddress | null;
+  onOrder: () => void;
 }) {
   const router = useRouter();
 
@@ -37,7 +39,7 @@ export default function CheckoutBar({
         >
           返回购物车
         </Button>
-        <Button>立即下单</Button>
+        <Button onClick={onOrder}>立即下单</Button>
       </div>
     </section>
   );

@@ -70,7 +70,7 @@ export function sleep(ms: number = 2000) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export function generateRandomCode() {
+export function createRandomCode() {
   const code = crypto.randomInt(0, 1000000);
   return code.toString().padStart(6, '0');
 }

@@ -1,7 +1,9 @@
 'use client';
 
+import popup from '@/components/ui/popup';
 import { CheckoutData } from '@/services/cart';
 import { ShippingAddress } from '@/types/user';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import CheckoutAddresses from './addresses';
 import CheckoutBar from './checkout-bar';
@@ -16,13 +18,14 @@ interface CheckoutProps {
 
 export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
   const [address, setAddress] = useState<ShippingAddress | null>(null);
+  const router = useRouter();
 
   return (
     <>
       <CheckoutAddresses
-        addresses={addresses}
         value={address}
         onChange={setAddress}
+        addresses={addresses}
       />
       <CheckoutProducts products={checkoutData.products} />
       <Divider />
@@ -32,7 +35,16 @@ export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
       </section>
       <Divider />
       <CheckoutSummary summary={checkoutData.summary} />
-      <CheckoutBar address={address} />
+      <CheckoutBar
+        address={address}
+        onOrder={() => {
+          if (!address) {
+            popup.alert('请选择地址');
+          } else {
+            router.push('/orders/pay?id=123');
+          }
+        }}
+      />
     </>
   );
 }

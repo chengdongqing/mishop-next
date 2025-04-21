@@ -95,6 +95,9 @@ function AddressItem({
         className={
           'text-primary invisible absolute right-6 bottom-2.5 cursor-pointer group-hover:visible'
         }
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         修改
       </button>
