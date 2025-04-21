@@ -3,7 +3,7 @@
 import popup from '@/components/ui/popup';
 import useCountdown from '@/hooks/useCountdown';
 import useToggle from '@/hooks/useToggle';
-import { EmptyValue } from '@/lib/utils';
+import { EmptyValue, formatAmount } from '@/lib/utils';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -67,7 +67,7 @@ function PaymentInfo({
         <div>
           应付金额：
           <span className={'text-primary'}>
-            <span className={'text-2xl'}>188.9</span>元
+            <span className={'text-2xl'}>{formatAmount(188.9)}</span>元
           </span>
         </div>
         <button

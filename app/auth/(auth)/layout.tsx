@@ -74,35 +74,35 @@ async function Header({ t }: { t: (key: string) => string }) {
         </h2>
       </Space>
 
-      <Space
-        className={'max-sm:!hidden'}
-        split={<span className={'mx-[10] text-[#ddd]'}>|</span>}
-      >
-        <Space size={10}>
-          <LinkItem
-            href={
-              'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
-            }
-          >
-            {t('userAgreement')}
-          </LinkItem>
-          <LinkItem
-            href={
-              'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
-            }
-          >
-            {t('privacyPolicy')}
-          </LinkItem>
-          <LinkItem
-            href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
-          >
-            {t('helpCenter')}
-          </LinkItem>
-        </Space>
+      <div className={'flex items-center'}>
+        <div className={'max-sm:hidden'}>
+          <Space size={10}>
+            <LinkItem
+              href={
+                'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
+              }
+            >
+              {t('userAgreement')}
+            </LinkItem>
+            <LinkItem
+              href={
+                'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
+              }
+            >
+              {t('privacyPolicy')}
+            </LinkItem>
+            <LinkItem
+              href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
+            >
+              {t('helpCenter')}
+            </LinkItem>
+          </Space>
+          <span className={'ml-[10] text-[#ddd]'}>|</span>
+        </div>
         <Suspense>
           <LanguagePicker getLocalePromise={getLocalePromise} />
         </Suspense>
-      </Space>
+      </div>
     </header>
   );
 }

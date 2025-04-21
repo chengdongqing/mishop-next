@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import ResetForm from './form';
 import TopBar from './top-bar';
@@ -7,12 +7,16 @@ export const metadata: Metadata = {
   title: '小米账号 - 重置密码'
 };
 
+export const viewport: Viewport = {
+  width: 'device-width'
+};
+
 export default async function ResetPasswordPage() {
   const t = await getTranslations('ResetPassword');
 
   return (
     <div className={'min-h-screen min-w-screen dark:bg-black'}>
-      <div className={'mx-auto flex min-h-screen w-[956] flex-col'}>
+      <div className={'mx-auto flex min-h-screen flex-col md:w-[956]'}>
         <TopBar />
         <h4
           className={
@@ -24,7 +28,7 @@ export default async function ResetPasswordPage() {
         <div className={'flex flex-1 items-center justify-center'}>
           <div
             className={
-              'w-[450] rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] dark:bg-[#242424]'
+              'rounded-sm p-[40_45] shadow-[0_0_50px_0_hsla(0,0%,64%,.1)] md:w-[450] dark:bg-[#242424]'
             }
           >
             <ResetForm />

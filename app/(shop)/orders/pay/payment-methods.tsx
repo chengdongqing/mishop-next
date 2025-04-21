@@ -43,7 +43,12 @@ function PaymentItem({ label, imageUrl }: { label: string; imageUrl: string }) {
           'border-primary cursor-pointer border-1 duration-200 hover:border-[var(--color-primary)]'
         }
         onClick={() => {
-          popup.open({
+          const timeoutId = setTimeout(() => {
+            close();
+            router.replace('/orders/pay/success/321');
+          }, 3000);
+
+          const close = popup.open({
             title: `${label}支付`,
             width: 370,
             footer: null,
@@ -65,12 +70,11 @@ function PaymentItem({ label, imageUrl }: { label: string; imageUrl: string }) {
                   二维码完成支付
                 </div>
               </div>
-            )
+            ),
+            onCancel() {
+              clearTimeout(timeoutId);
+            }
           });
-
-          setTimeout(() => {
-            router.replace('/orders/pay/success');
-          }, 3000);
         }}
       >
         <Image src={imageUrl} alt={label} width={180} height={60} unoptimized />

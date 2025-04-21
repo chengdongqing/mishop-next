@@ -41,7 +41,7 @@ export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
           if (!address) {
             popup.alert('请选择地址');
           } else {
-            router.push('/orders/pay?id=123');
+            router.replace('/orders/pay?id=123');
           }
         }}
       />

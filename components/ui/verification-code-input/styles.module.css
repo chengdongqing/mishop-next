@@ -1,4 +1,5 @@
 .btn_send {
+    flex-shrink: 0;
     color: var(--color-primary);
     font-size: 14px;
     padding: 4px 15px;

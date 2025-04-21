@@ -10,7 +10,7 @@ export default function TopBar() {
       <LanguagePicker getLocalePromise={getLocalPromise} />
       <div
         className={
-          'flex items-center gap-x-3 text-[rgba(0,0,0,.5)] dark:text-[var(--color-primary)]'
+          'flex items-center gap-x-3 pr-2 text-[rgba(0,0,0,.5)] dark:text-[var(--color-primary)]'
         }
       >
         <a
