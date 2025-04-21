@@ -30,7 +30,7 @@ function ProductLink({ children, href }: PropsWithChildren<{ href: string }>) {
     <Link
       href={href}
       className={
-        'hover:text-primary cursor-pointer text-sm leading-[10px] text-[#616161]'
+        'hover:text-primary cursor-pointer leading-[10px] text-[#616161]'
       }
     >
       {children}

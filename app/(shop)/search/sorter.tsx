@@ -22,7 +22,7 @@ export default function Sorter({
       {options.map((option) => (
         <span
           key={option.label}
-          className={clsx('cursor-pointer text-sm text-[#424242] select-none', {
+          className={clsx('cursor-pointer text-[#424242] select-none', {
             'text-primary': option.type === value
           })}
           onClick={() => onChange?.(option.type)}
@@ -31,15 +31,12 @@ export default function Sorter({
         </span>
       ))}
       <span
-        className={clsx(
-          'flex cursor-pointer text-sm text-[#424242] select-none',
-          {
-            'text-primary': [
-              ProductOrderBy.PRICE_ASC,
-              ProductOrderBy.PRICE_DESC
-            ].includes(value)
-          }
-        )}
+        className={clsx('flex cursor-pointer text-[#424242] select-none', {
+          'text-primary': [
+            ProductOrderBy.PRICE_ASC,
+            ProductOrderBy.PRICE_DESC
+          ].includes(value)
+        })}
         onClick={() => {
           const newValue =
             value === ProductOrderBy.PRICE_DESC

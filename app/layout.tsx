@@ -1,3 +1,4 @@
+import { MiSans } from '@/components/fonts';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { getUserLocale } from '@/services/locale';
 import { getUserTheme } from '@/services/theme';
@@ -32,7 +33,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const dir = rtlLanguages.includes(locale) ? 'rtl' : undefined;
 
   return (
-    <html lang={locale} dir={dir} data-theme={theme}>
+    <html
+      dir={dir}
+      lang={locale}
+      data-theme={theme}
+      className={MiSans.className}
+    >
       <body>
         <NextIntlClientProvider>
           <ThemeProvider theme={theme}>{children}</ThemeProvider>

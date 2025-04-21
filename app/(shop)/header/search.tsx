@@ -37,7 +37,7 @@ export default function Search({
         placeholder={placeholder}
         defaultValue={searchParams.get('q')?.toString()}
         className={clsx(
-          'border-primary h-full flex-1 border-1 px-[10px] text-sm text-ellipsis',
+          'border-primary h-full flex-1 border-1 px-[10px] text-ellipsis',
           'duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]',
           {
             '!border-[var(--color-primary)]': focused

@@ -20,7 +20,7 @@ export default function FilterBar({ label, options, value, onChange }: Props) {
 
   return (
     <div className={'align-center flex select-none'}>
-      <div className={'h-[48] w-[124] text-sm leading-[48px] text-[#b0b0b0]'}>
+      <div className={'h-[48] w-[124] leading-[48px] text-[#b0b0b0]'}>
         {label}:
       </div>
       <motion.ul

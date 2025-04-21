@@ -93,7 +93,7 @@ export default function ReviewList() {
       ) : hasMore ? (
         <button
           className={
-            'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white text-sm'
+            'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white'
           }
           onClick={() => loadReviews(page + 1)}
         >
@@ -127,7 +127,7 @@ function ReviewHeader({ review }: { review: ProductReview }) {
       <div className={'flex flex-1 justify-between'}>
         <div>
           <div className={'text-base text-[#8d665a]'}>{review.user.name}</div>
-          <div className={'mt-1 text-sm text-[#b0b0b0]'}>
+          <div className={'mt-1 text-[#b0b0b0]'}>
             {dayjs(review.createdAt).format('YYYY-MM-DD')}
           </div>
         </div>

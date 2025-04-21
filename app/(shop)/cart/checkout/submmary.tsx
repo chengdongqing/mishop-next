@@ -7,7 +7,7 @@ export default function CheckoutSummary({
   summary: CheckoutData['summary'];
 }) {
   return (
-    <section className={'flex justify-end py-5 text-sm'}>
+    <section className={'flex justify-end py-5'}>
       <div className={'grid grid-cols-2 items-end gap-2 text-right'}>
         <SummaryItem label={'商品件数'}>{summary.itemCount}件</SummaryItem>
         <SummaryItem label={'商品总价'}>

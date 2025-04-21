@@ -1,5 +1,5 @@
 import LanguagePicker from '@/components/ui/language-picker';
-import Logo from '@/components/ui/logo';
+import MiLogo from '@/components/ui/mi-logo';
 import Space from '@/components/ui/space';
 import { getUserLocale } from '@/services/locale';
 import { Metadata, type Viewport } from 'next';
@@ -64,7 +64,7 @@ async function Header({ t }: { t: (key: string) => string }) {
   return (
     <header className={'flex items-center justify-between p-5'}>
       <Space size={10}>
-        <Logo size={40} />
+        <MiLogo size={40} />
         <h2
           className={
             'text-[26px] text-[rgba(0,0,0,.8)] dark:text-[hsla(0,0%,100%,.8)]'

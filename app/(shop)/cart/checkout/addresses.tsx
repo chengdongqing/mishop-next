@@ -55,7 +55,7 @@ function AddressItem({
   return (
     <li
       className={clsx(
-        'group relative h-[178] cursor-pointer border-1 p-[16_24] text-sm leading-[22px] text-[#757575] duration-200',
+        'group relative h-[178] cursor-pointer border-1 p-[16_24] leading-[22px] text-[#757575] duration-200',
         active
           ? 'border-[var(--color-primary)]'
           : 'border-primary hover:border-[#b0b0b0]'
@@ -108,7 +108,7 @@ function ExpandButton({
   return (
     <button
       className={
-        'mt-5 flex h-[50] w-full cursor-pointer items-center justify-center bg-[#eee] text-sm text-[#424242]'
+        'mt-5 flex h-[50] w-full cursor-pointer items-center justify-center bg-[#eee] text-[#424242]'
       }
       onClick={onToggle}
     >

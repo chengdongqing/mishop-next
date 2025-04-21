@@ -16,7 +16,7 @@ function Left() {
     <nav className={'flex flex-1 justify-center'}>
       {links.map((link) => (
         <dl key={link.title} className={'w-[160px]'}>
-          <dt className={'mb-[26px] text-sm text-[#424242]'}>{link.title}</dt>
+          <dt className={'mb-[26px] text-[#424242]'}>{link.title}</dt>
           {link.children.map((child) => (
             <dd key={child.title} className={'mt-[10px]'}>
               <a

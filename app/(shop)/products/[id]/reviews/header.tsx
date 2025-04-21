@@ -71,7 +71,7 @@ function CategoryItem({
   return (
     <li
       className={clsx(
-        'h-[44] w-[170] cursor-pointer border-1 text-center text-sm leading-[44px] duration-200',
+        'h-[44] w-[170] cursor-pointer border-1 text-center leading-[44px] duration-200',
         isActive
           ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-white'
           : 'bg-primary border-primary text-[#b0b0b0]',

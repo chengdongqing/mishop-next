@@ -1,5 +1,5 @@
 import Loading from '@/components/ui/loading';
-import Logo from '@/components/ui/logo';
+import MiLogo from '@/components/ui/mi-logo';
 import { buildProductUrl, formatAmount } from '@/lib/utils';
 import { LayoutHeaderNav } from '@/types/layout';
 import { Product } from '@/types/product';
@@ -25,7 +25,7 @@ export default function NavBar({
       <div className={'h-[100px]'}>
         <div className={'w-primary flex h-full items-center'}>
           <div className={'w-[234px]'}>
-            <Logo />
+            <MiLogo />
           </div>
           <Suspense
             fallback={

@@ -62,7 +62,7 @@ export default function VideoCard({
           large ? 'h-[130] pt-[30]' : 'h-[85] pt-[28]'
         )}
       >
-        <div className={clsx(large ? 'mb-[10] text-2xl' : 'mb-1.5 text-sm')}>
+        <div className={clsx(large ? 'mb-[10] text-2xl' : 'mb-1.5')}>
           {video.title}
         </div>
         <div

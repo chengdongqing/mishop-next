@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from 'use-intl';
 
-export default function Logo({ size = 56 }: { size?: number }) {
+export default function MiLogo({ size = 56 }: { size?: number }) {
   const locale = useLocale();
   const theme = useTheme();
 

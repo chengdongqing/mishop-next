@@ -23,7 +23,7 @@ export default function CheckoutProducts({
 
 function ProductItem({ product }: { product: CartProduct }) {
   return (
-    <li className={'flex py-4 text-sm text-[#424242]'}>
+    <li className={'flex py-4 text-[#424242]'}>
       <div className={'flex flex-1 items-center gap-x-2.5'}>
         <Image
           src={product.pictureUrl}

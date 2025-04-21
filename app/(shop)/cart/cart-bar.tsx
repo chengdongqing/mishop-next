@@ -95,7 +95,7 @@ function CheckoutButton() {
       {noChecked && (
         <div
           className={
-            'text-primary absolute top-[-58] right-0 z-1 h-[50] w-[202] border-1 border-[var(--color-primary)] bg-white text-center text-sm leading-[48px]'
+            'text-primary absolute top-[-58] right-0 z-1 h-[50] w-[202] border-1 border-[var(--color-primary)] bg-white text-center leading-[48px]'
           }
         >
           请勾选需要结算的商品

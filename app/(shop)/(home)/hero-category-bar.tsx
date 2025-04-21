@@ -24,7 +24,7 @@ export default function CategoryBar({
           <li
             key={category.name}
             className={
-              'flex h-[42] cursor-pointer items-center justify-between pr-[18] pl-[30] text-sm text-white hover:bg-[var(--color-primary)]'
+              'flex h-[42] cursor-pointer items-center justify-between pr-[18] pl-[30] text-white hover:bg-[var(--color-primary)]'
             }
             onMouseEnter={() => setItems(category.children)}
           >

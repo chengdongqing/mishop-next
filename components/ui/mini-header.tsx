@@ -1,5 +1,5 @@
 import UserNavs from '@/app/(shop)/header/user-navs';
-import Logo from '@/components/ui/logo';
+import MiLogo from '@/components/ui/mi-logo';
 import { ReactNode } from 'react';
 
 export default function MiniHeader({
@@ -14,7 +14,7 @@ export default function MiniHeader({
       <div className={'w-primary flex h-[100] items-center justify-between'}>
         <div className={'flex items-center'}>
           <div className={'w-[93]'}>
-            <Logo size={48} />
+            <MiLogo size={48} />
           </div>
           <h2 className={'text-[28px] text-[#424242]'}>{title}</h2>
           {!!extra && (
