@@ -13,7 +13,6 @@ import {
   productLabels,
   products
 } from '@/lib/schema';
-import { mapProduct } from '@/lib/utils';
 import {
   LayoutBrick,
   LayoutBrickTab,
@@ -183,7 +182,11 @@ export async function findBricks() {
         name: tab.name,
         keyword: tab.keyword,
         children: tab.items
-          .map((item) => mapProduct(item.product))
+          .map(({ product }) => ({
+            ...product,
+            price: Number(product.price),
+            originalPrice: Number(product.originalPrice ?? product.price)
+          }))
           .filter((item) => item.enabled)
       } as LayoutBrickTab;
     });

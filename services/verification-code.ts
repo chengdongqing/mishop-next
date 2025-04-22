@@ -2,7 +2,7 @@
 
 import redis from '@/lib/redis';
 import { EMAIL_REGEX, PHONE_REGEX } from '@/lib/regex';
-import { createRandomCode } from '@/lib/utils';
+import { generateRandomCode } from '@/lib/utils';
 import { ActionState } from '@/types/common';
 
 export async function sendSmsVerificationCode(
@@ -15,7 +15,7 @@ export async function sendSmsVerificationCode(
     };
   }
 
-  const code = createRandomCode();
+  const code = generateRandomCode();
 
   try {
     // 发送短信验证码
@@ -65,7 +65,7 @@ export async function sendEmailVerificationCode(
     };
   }
 
-  const code = createRandomCode();
+  const code = generateRandomCode();
 
   try {
     // 发送邮件验证码

@@ -1,6 +1,6 @@
 import Loading from '@/components/ui/loading';
 import MiLogo from '@/components/ui/mi-logo';
-import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { createProductUrl, formatAmount } from '@/lib/utils';
 import { LayoutHeaderNav } from '@/types/layout';
 import { Product } from '@/types/product';
 import clsx from 'clsx';
@@ -167,7 +167,7 @@ function ProductsPanel({
           >
             <Link
               className={'flex cursor-pointer flex-col items-center text-xs'}
-              href={buildProductUrl(product)}
+              href={createProductUrl(product)}
             >
               <Image
                 src={product.pictureUrl}

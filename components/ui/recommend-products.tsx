@@ -6,7 +6,7 @@ import Loading from '@/components/ui/loading';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
 import useDebounce from '@/hooks/useDebounce';
-import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { createProductUrl, formatAmount } from '@/lib/utils';
 import { findRecommendedProducts } from '@/services/products';
 import { RecommendedProduct } from '@/types/product';
 import clsx from 'clsx';
@@ -134,7 +134,7 @@ function ProductCard({ product }: { product: RecommendedProduct }) {
 
   return (
     <Link
-      href={buildProductUrl({
+      href={createProductUrl({
         id: product.productId,
         slug: product.productSlug
       })}

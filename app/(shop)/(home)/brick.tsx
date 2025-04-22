@@ -1,7 +1,7 @@
 'use client';
 
 import Space from '@/components/ui/space';
-import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { createProductUrl, formatAmount } from '@/lib/utils';
 import { Banner } from '@/types/banner';
 import { LayoutBrickTab } from '@/types/layout';
 import {
@@ -133,7 +133,7 @@ function CategoryProducts({
           <li key={product.name} className={styles.product_item}>
             <Link
               target={'_blank'}
-              href={buildProductUrl(product)}
+              href={createProductUrl(product)}
               className={'block h-full w-full'}
             >
               <Image
@@ -174,7 +174,7 @@ function CategoryProducts({
             <Link
               style={{ marginBottom: 14 }}
               className={clsx(styles.product_item, styles.small)}
-              href={buildProductUrl(overflowProduct)}
+              href={createProductUrl(overflowProduct)}
               target={'_blank'}
             >
               <Image

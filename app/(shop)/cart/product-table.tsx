@@ -3,7 +3,7 @@ import CloseIcon from '@/components/ui/close-icon';
 import NumberInput from '@/components/ui/number-input';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
-import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { createProductUrl, formatAmount } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import Image from 'next/image';
@@ -69,7 +69,7 @@ function TableHeader() {
 function ProductRow({ product }: { product: CartProduct }) {
   const { removeFromCart } = useCart();
 
-  const linkUrl = buildProductUrl({
+  const linkUrl = createProductUrl({
     id: product.productId,
     slug: product.productSlug
   });

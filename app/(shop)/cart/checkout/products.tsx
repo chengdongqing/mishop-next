@@ -1,4 +1,4 @@
-import { buildProductUrl } from '@/lib/utils';
+import { createProductUrl } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,7 +33,7 @@ function ProductItem({ product }: { product: CartProduct }) {
           className={'h-[30] w-[30] object-scale-down'}
         />
         <Link
-          href={buildProductUrl({
+          href={createProductUrl({
             id: product.productId,
             slug: product.productSlug
           })}

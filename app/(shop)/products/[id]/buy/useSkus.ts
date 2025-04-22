@@ -1,5 +1,4 @@
 import useSetState from '@/hooks/useSetState';
-import { arrayToObject } from '@/lib/utils';
 import { ProductSku } from '@/types/product';
 import { useCallback, useMemo } from 'react';
 
@@ -78,4 +77,13 @@ export default function useSkus(skus: ProductSku[]) {
   }
 
   return { categories, activeSkus, activeSku, switchSku };
+}
+
+function arrayToObject(source: { name: string; value: string }[]) {
+  return source.reduce((acc: Record<string, string>, item) => {
+    return {
+      ...acc,
+      [item.name]: item.value
+    };
+  }, {});
 }

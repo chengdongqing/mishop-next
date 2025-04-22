@@ -29,7 +29,7 @@ export interface ProductSku {
   attributes: SkuAttribute[];
 }
 
-export interface SkuAttribute extends Record<string, string> {
+export interface SkuAttribute {
   name: string;
   value: string;
 }

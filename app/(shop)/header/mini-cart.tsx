@@ -4,7 +4,7 @@ import Button from '@/components/ui/button';
 import Loading from '@/components/ui/loading';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
-import { buildProductUrl, formatAmount } from '@/lib/utils';
+import { createProductUrl, formatAmount } from '@/lib/utils';
 import { CartProduct } from '@/types/product';
 import {
   ShoppingCartIcon as ShoppingCartIcon1,
@@ -102,7 +102,7 @@ function ProductItem({ product }: { product: CartProduct }) {
   const { removeFromCart } = useCart();
   const [isPending, startTransition] = useTransition();
 
-  const linkUrl = buildProductUrl({
+  const linkUrl = createProductUrl({
     id: product.productId,
     slug: product.productSlug
   });

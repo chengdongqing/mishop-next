@@ -9,7 +9,7 @@ import {
   VERIFICATION_CODE_REGEX
 } from '@/lib/regex';
 import { users } from '@/lib/schema';
-import { createRandomCode } from '@/lib/utils';
+import { generateRandomCode } from '@/lib/utils';
 import {
   verifyEmailVerificationCode,
   verifySmsVerificationCode
@@ -256,7 +256,7 @@ export async function authenticateByCode(
       const [res] = await db.insert(users).values({
         phone,
         // 密码使用随机数，下次登录仅能继续通过验证码登录或重置密码
-        password: bcrypt.hashSync(createRandomCode(), 10)
+        password: bcrypt.hashSync(generateRandomCode(), 10)
       });
 
       await signIn('credentials', {
