@@ -1,3 +1,4 @@
+import { seedOrderItems, seedOrders } from '@/app/seed/orders';
 import { seedBanners } from './banners';
 import { seedCartItems } from './cart';
 import {
@@ -35,6 +36,8 @@ function seedDatabase() {
     seedProductLabelRelations(),
     seedProductReviews(),
     seedCartItems(),
+    seedOrders(),
+    seedOrderItems(),
     seedBanners(),
     seedVideos(),
     seedUsers(),

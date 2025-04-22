@@ -149,6 +149,54 @@ export const cartItemsRelations = relations(cartItems, ({ one }) => ({
   })
 }));
 
+export const orders = mysqlTable('orders', {
+  id: serial('id').primaryKey(),
+  orderNumber: varchar('order_number', { length: 100 }).notNull(),
+  userId: int('user_id').notNull(),
+  productsAmount: decimal('products_amount', {
+    precision: 19,
+    scale: 2
+  }).notNull(),
+  shippingFee: decimal('shipping_fee', { precision: 19, scale: 2 }).notNull(),
+  discountAmount: decimal('discount_amount', {
+    precision: 19,
+    scale: 2
+  }).notNull(),
+  payableAmount: decimal('payable_amount', {
+    precision: 19,
+    scale: 2
+  }).notNull(),
+  recipientName: varchar('recipient_name', { length: 255 }).notNull(),
+  recipientPhone: varchar('recipient_phone', { length: 50 }).notNull(),
+  recipientAddress: varchar('recipient_address', { length: 500 }).notNull(),
+  paymentMethod: varchar('payment_method', { length: 50 }),
+  paymentTime: timestamp('payment_time'),
+  paymentOrderNumber: varchar('payment_order_number', { length: 255 }),
+  expressCompany: varchar('express_company', { length: 255 }),
+  expressNumber: varchar('express_number', { length: 255 }),
+  isReviewed: boolean('is_reviewed').default(false).notNull(),
+  status: varchar('status', { length: 30 })
+    .default('pending_payment')
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const orderItems = mysqlTable('order_items', {
+  id: serial('id').primaryKey(),
+  orderId: int('order_id').notNull(),
+  productId: int('product_id').notNull(),
+  productName: varchar('product_name', { length: 255 }).notNull(),
+  skuId: int('sku_id').notNull(),
+  skuName: varchar('sku_name', { length: 255 }).notNull(),
+  pictureUrl: varchar('picture_url', { length: 500 }),
+  unitPrice: decimal('unit_price', { precision: 19, scale: 2 }).notNull(),
+  quantity: int('quantity').notNull(),
+  subtotal: decimal('subtotal', { precision: 19, scale: 2 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const banners = mysqlTable('banners', {
   id: serial('id').primaryKey(),
   type: mysqlEnum('type', [
