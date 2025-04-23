@@ -20,9 +20,9 @@ interface CartContext {
   products: CartProduct[];
   selectedProducts: CartProduct[];
   totalCount: number;
-  totalAmount: number;
+  totalAmount: string;
   selectedCount: number;
-  selectedAmount: number;
+  selectedAmount: string;
   addToCart: (product: CartProduct) => Promise<void>;
   removeFromCart: (product: CartProduct) => Promise<void>;
   modifyCount: (product: CartProduct, quantity: number) => Promise<void>;
@@ -106,9 +106,9 @@ export function CartProvider({ children }: PropsWithChildren) {
         return new Decimal(product.price)
           .mul(product.quantity)
           .plus(acc)
-          .toNumber();
+          .toString();
       },
-      0
+      '0'
     );
   }
 

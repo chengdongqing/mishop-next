@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { cartItems, productSkus } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
 import { calcOrderSummary } from '@/services/orders';
+import { CartCheckout } from '@/types/cart';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import { and, eq } from 'drizzle-orm';
@@ -156,7 +157,7 @@ export async function findCartItems(): Promise<CartProduct[]> {
     skuId: item.skuId,
     skuName: sku.name,
     pictureUrl: sku.pictureUrl,
-    price: Number(sku.price),
+    price: sku.price,
     quantity: item.quantity,
     checked: item.checked,
     limits: sku.limits
@@ -229,21 +230,10 @@ export async function syncCart(products: CartProduct[]) {
   });
 }
 
-export interface CheckoutData {
-  products: CartProduct[];
-  summary: {
-    productsCount: number; // 商品总件数
-    productsAmount: number; // 商品总价
-    discountAmount: number; // 优惠金额
-    shippingFee: number; // 运费
-    payableAmount: number; // 应付金额
-  };
-}
-
 /**
  * 购物车结算
  */
-export async function getCheckoutData(): Promise<CheckoutData> {
+export async function getCheckoutData(): Promise<CartCheckout> {
   const userId = await getUserId();
 
   // 待结算商品
@@ -275,8 +265,8 @@ export async function getCheckoutData(): Promise<CheckoutData> {
       skuName: sku.name,
       fullName: [product.name, sku.name].join(' '),
       pictureUrl: sku.pictureUrl,
-      price: Number(sku.price),
-      subtotal: new Decimal(sku.price).mul(item.quantity).toNumber()
+      price: sku.price,
+      subtotal: new Decimal(sku.price).mul(item.quantity).toString()
     }));
 
   if (!products.length) {

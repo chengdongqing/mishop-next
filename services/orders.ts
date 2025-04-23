@@ -4,9 +4,12 @@ import { db } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { cartItems, orderEvents, orderItems, orders, products, productSkus, shippingAddresses } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
+import { CartCheckout } from '@/types/cart';
+import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
 import Decimal from 'decimal.js';
 import { and, eq, gte, sql } from 'drizzle-orm';
+import { notFound } from 'next/navigation';
 import { v4 as uuidV4 } from 'uuid';
 
 /**
@@ -31,7 +34,8 @@ export async function createOrder(addressId: number) {
     with: {
       product: {
         columns: {
-          name: true
+          name: true,
+          slug: true
         }
       },
       sku: true
@@ -62,7 +66,7 @@ export async function createOrder(addressId: number) {
       payableAmount
     } = await calcOrderSummary(
       items.map((item) => ({
-        price: Number(item.sku.price),
+        price: item.sku.price,
         quantity: item.quantity
       }))
     );
@@ -89,6 +93,7 @@ export async function createOrder(addressId: number) {
           orderId: insertId,
           productId: item.productId,
           productName: item.product.name,
+          productSlug: item.product.slug,
           skuId: item.skuId,
           skuName: item.sku.name,
           pictureUrl: item.sku.pictureUrl,
@@ -180,8 +185,8 @@ function checkStockAndLimits(
  * 计算订单汇总信息
  */
 export async function calcOrderSummary(
-  products: { price: number; quantity: number }[]
-) {
+  products: { price: string; quantity: number }[]
+): Promise<CartCheckout['summary']> {
   // 总件数
   const productsCount = products.reduce((acc, product) => {
     return acc + product.quantity;
@@ -191,8 +196,8 @@ export async function calcOrderSummary(
     return new Decimal(product.price)
       .mul(product.quantity)
       .plus(acc)
-      .toNumber();
-  }, 0);
+      .toString();
+  }, '0');
   // 优惠金额
   const discountAmount = 0;
   // 运费
@@ -201,13 +206,13 @@ export async function calcOrderSummary(
   const payableAmount = new Decimal(productsAmount)
     .minus(discountAmount)
     .plus(shippingFee)
-    .toNumber();
+    .toString();
 
   return {
     productsCount,
     productsAmount,
-    discountAmount,
-    shippingFee,
+    discountAmount: discountAmount.toString(),
+    shippingFee: shippingFee.toString(),
     payableAmount
   };
 }
@@ -219,4 +224,24 @@ function generateOrderNo() {
   const timestamp = Date.now().toString(); // 13位时间戳
   const random = randomInt(10000, 100000).toString(); // 5位随机数
   return timestamp + random; // 拼接为18位纯数字
+}
+
+/**
+ * 查询订单详情
+ */
+export async function findOrder(id: number): Promise<Order> {
+  const userId = await getUserId();
+
+  const order = await db.query.orders.findFirst({
+    with: {
+      items: true
+    },
+    where: and(eq(orders.id, id), eq(orders.userId, userId))
+  });
+
+  if (!order) {
+    notFound();
+  }
+
+  return order;
 }

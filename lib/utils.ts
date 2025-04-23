@@ -23,7 +23,9 @@ export function createProductUrl(product: {
  */
 export function formatAmount(value: unknown = 0) {
   return typeof value === 'number' || typeof value === 'string'
-    ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    ? Number(value)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     : EmptyValue;
 }
 

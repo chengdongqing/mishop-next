@@ -186,6 +186,7 @@ function ProductsPanel({
           </li>
         ))}
 
+        {/* 不足6个时空元素占位 */}
         {[...Array(6 - cachedProducts.length)].map((_, index) => (
           <li key={index} className={'flex-1 px-[12]'} />
         ))}

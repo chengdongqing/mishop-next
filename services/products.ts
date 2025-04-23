@@ -85,12 +85,14 @@ export async function searchProducts(
     size,
     pages,
     data: list.map((product) => ({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      pictureUrl: product.pictureUrl,
-      price: Number(product.price),
-      originalPrice: Number(product.originalPrice ?? product.price),
+      ...pick(product, [
+        'id',
+        'name',
+        'slug',
+        'pictureUrl',
+        'price',
+        'originalPrice'
+      ]),
       pictureUrls: product.pictureUrls
         ? product.pictureUrls.split(',')
         : [product.pictureUrl]
@@ -174,7 +176,7 @@ export async function findHotProductNames(limits = 10) {
 export async function findRecommendedProducts(
   limits: number = 10
 ): Promise<RecommendedProduct[]> {
-  const res = await db
+  return db
     .select({
       productId: products.id,
       productSlug: products.slug,
@@ -196,11 +198,6 @@ export async function findRecommendedProducts(
     .groupBy(productSkus.id)
     .orderBy(sql`rand()`)
     .limit(limits);
-
-  return res.map((product) => ({
-    ...product,
-    price: Number(product.price)
-  }));
 }
 
 export const findProductDetails = cache(
@@ -224,7 +221,7 @@ export const findProductDetails = cache(
       return null;
     }
 
-    const product = pick(res, [
+    return pick(res, [
       'id',
       'name',
       'slug',
@@ -232,15 +229,6 @@ export const findProductDetails = cache(
       'staticDetails',
       'skus'
     ]);
-
-    return {
-      ...product,
-      skus: product.skus?.map((sku) => ({
-        ...sku,
-        price: Number(sku.price),
-        originalPrice: Number(sku.originalPrice ?? sku.price)
-      }))
-    };
   }
 );
 

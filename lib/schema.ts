@@ -195,16 +195,21 @@ export const orders = mysqlTable('orders', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const ordersRelations = relations(orders, ({ many }) => ({
+  items: many(orderItems)
+}));
+
 export const orderItems = mysqlTable(
   'order_items',
   {
     id: serial('id').primaryKey(),
     orderId: int('order_id').notNull(),
     productId: int('product_id').notNull(),
-    productName: varchar('product_name', { length: 255 }).notNull(),
+    productName: varchar('product_name', { length: 100 }).notNull(),
+    productSlug: varchar('product_slug', { length: 100 }),
     skuId: int('sku_id').notNull(),
     skuName: varchar('sku_name', { length: 255 }).notNull(),
-    pictureUrl: varchar('picture_url', { length: 500 }),
+    pictureUrl: varchar('picture_url', { length: 500 }).notNull(),
     price: decimal('price', { precision: 19, scale: 2 }).notNull(),
     quantity: int('quantity').notNull(),
     subtotal: decimal('subtotal', { precision: 19, scale: 2 }).notNull(),

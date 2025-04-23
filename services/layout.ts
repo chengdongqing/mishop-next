@@ -49,10 +49,7 @@ export async function findHeaderNavs() {
 
     return {
       ...nav,
-      children: items.map((item) => ({
-        ...item,
-        price: Number(item.price)
-      }))
+      children: items
     } as LayoutHeaderNav;
   });
 
@@ -183,11 +180,7 @@ export async function findBricks() {
         name: tab.name,
         keyword: tab.keyword,
         children: tab.items
-          .map(({ product }) => ({
-            ...product,
-            price: Number(product.price),
-            originalPrice: Number(product.originalPrice ?? product.price)
-          }))
+          .map((item) => item.product)
           .filter((item) => item.enabled)
       } as LayoutBrickTab;
     });

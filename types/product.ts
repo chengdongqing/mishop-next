@@ -4,8 +4,8 @@ export interface Product {
   slug?: string | null;
   description?: string | null;
   pictureUrl: string;
-  price: number;
-  originalPrice?: number;
+  price: string;
+  originalPrice?: string | null;
   hasMultipleSkus?: boolean;
   categoryId?: number;
   tags?: string[];
@@ -21,8 +21,8 @@ export interface ProductSku {
   id: number;
   productId: number;
   name: string;
-  price: number;
-  originalPrice?: number;
+  price: string;
+  originalPrice?: string | null;
   limits?: number | null;
   pictureUrl: string;
   gallery: string[];
@@ -70,10 +70,10 @@ export interface CartProduct {
   skuId: number;
   skuName: string;
   pictureUrl: string;
-  price: number;
+  price: string;
   quantity: number;
   checked: boolean;
-  subtotal?: number;
+  subtotal?: string;
   limits?: number | null;
 }
 
