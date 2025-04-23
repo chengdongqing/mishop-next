@@ -3,28 +3,35 @@
 import popup from '@/components/ui/popup';
 import useCountdown from '@/hooks/useCountdown';
 import useToggle from '@/hooks/useToggle';
-import { EmptyValue, formatAmount } from '@/lib/utils';
+import { formatAmount } from '@/lib/utils';
+import { Order } from '@/types/order';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 
-export default function OrderDetails() {
+export default function OrderDetails({ order }: { order: Order }) {
   const [expanded, toggleExpanded] = useToggle();
 
   return (
     <section className={'flex items-start bg-white p-[30_48]'}>
       <CheckCircleIcon className={'mt-4 w-[100] text-[var(--color-success)]'} />
       <div className={'ml-[38] flex-1 text-[rgb(97,97,97)]'}>
-        <PaymentInfo expanded={expanded} onToggle={toggleExpanded} />
+        <PaymentInfo
+          order={order}
+          expanded={expanded}
+          onToggle={toggleExpanded}
+        />
         <motion.div
           initial={{ height: 0 }}
           animate={{ height: expanded ? 'auto' : 0 }}
           className={'overflow-hidden'}
         >
           <div className={'border-primary my-[30] border-t-1'} />
-          <OrderInfo />
+          <OrderInfo order={order} />
         </motion.div>
       </div>
     </section>
@@ -32,15 +39,25 @@ export default function OrderDetails() {
 }
 
 function PaymentInfo({
+  order,
   expanded,
   onToggle
 }: {
+  order: Order;
   expanded: boolean;
   onToggle: () => void;
 }) {
   const router = useRouter();
 
-  const [remaining] = useCountdown(60 * 30, false, () => {
+  // 剩余时间（秒）
+  const seconds = useMemo(() => {
+    if (order) {
+      return dayjs(order.createdAt).add(60, 'minutes').diff(dayjs(), 'seconds');
+    }
+    return 0;
+  }, [order]);
+  // 倒计时
+  const [remaining] = useCountdown(seconds, false, () => {
     popup.alert('支付超时，订单已取消', () => {
       router.replace('/orders');
     });
@@ -60,14 +77,22 @@ function PaymentInfo({
           内完成支付，超时后将取消订单
         </div>
         <div hidden={expanded}>
-          收货信息：海盐芝士不加糖 189****2398 重庆市 江北区 马栏星镇 一心村
+          收货信息：
+          {[
+            order.recipientName,
+            order.recipientPhone,
+            order.recipientAddress
+          ].join(' ')}
         </div>
       </div>
       <div className={'text-right'}>
         <div>
           应付金额：
           <span className={'text-primary'}>
-            <span className={'text-2xl'}>{formatAmount(188.9)}</span>元
+            <span className={'text-2xl'}>
+              {formatAmount(order.payableAmount)}
+            </span>
+            元
           </span>
         </div>
         <button
@@ -88,47 +113,79 @@ function PaymentInfo({
   );
 }
 
-function OrderInfo() {
+function OrderInfo({ order }: { order: Order }) {
   return (
     <div className={'flex'}>
       <div className={'grid grid-cols-[auto_auto] gap-[8_20]'}>
         <span>订单号：</span>
-        <span className={'text-primary'}>5238374728934895</span>
+        <span className={'text-primary'}>{order.orderNumber}</span>
         <span>收货信息：</span>
-        <span>海盐芝士不加糖 189****2398 重庆市 江北区 马栏星镇 一心村</span>
+        <span>
+          {[
+            order.recipientName,
+            order.recipientPhone,
+            order.recipientAddress
+          ].join(' ')}
+        </span>
         <span>商品名称：</span>
         <span>
-          米家负离子速干吹风机 H300
-          <span className={'text-[rgb(176,176,176)]'}> x 1</span>
-          <br />
-          米家指甲刀五件套
-          <span className={'text-[rgb(176,176,176)]'}> x 1</span>
+          {order.items.map((item) => (
+            <span key={item.id}>
+              {item.productName} {item.skuName}
+              <span className={'ml-1 text-[rgb(176,176,176)]'}>
+                x {item.quantity}
+              </span>
+              <br />
+            </span>
+          ))}
         </span>
       </div>
     </div>
   );
 }
 
+/**
+ * 时长格式化
+ */
 function formatDuration(seconds: number) {
-  if (seconds < 0) return EmptyValue;
-
-  const minutes = Math.floor(seconds / 60);
-  const hours = seconds / 60 / 60;
-
-  // 1小时内
-  if (minutes < 60) {
-    const seconds1 = Math.floor(seconds % 60);
-    return `${minutes ? `${minutes}分` : ''}${seconds1 ? `${seconds1}秒` : ''}`;
+  // 处理负数和零的情况
+  if (seconds <= 0) {
+    return '0秒';
   }
-  // 一天以上
-  if (hours >= 24) {
-    const days = Math.floor(hours / 24);
-    const hours1 = Math.round(hours % 24);
-    return `${days ? `${days}天` : ''}${hours1 ? `${hours1}时` : ''}`;
+
+  // 定义时间单位对应的秒数常量
+  const SECONDS_IN_MINUTE = 60;
+  const SECONDS_IN_HOUR = 60 * SECONDS_IN_MINUTE;
+  const SECONDS_IN_DAY = 24 * SECONDS_IN_HOUR;
+
+  // 确保处理的是整数秒（丢弃小数部分）
+  let remainingSeconds = Math.floor(seconds);
+
+  // 计算天、时、分、秒
+  const days = Math.floor(remainingSeconds / SECONDS_IN_DAY);
+  remainingSeconds %= SECONDS_IN_DAY; // 计算去除天后剩余的秒数
+
+  const hours = Math.floor(remainingSeconds / SECONDS_IN_HOUR);
+  remainingSeconds %= SECONDS_IN_HOUR; // 计算去除时后剩余的秒数
+
+  const minutes = Math.floor(remainingSeconds / SECONDS_IN_MINUTE);
+  const finalSeconds = remainingSeconds % SECONDS_IN_MINUTE; // 最终剩余的秒数
+
+  // 构建结果
+  const parts: string[] = [];
+
+  if (days > 0) {
+    parts.push(`${days}天`);
   }
-  // 一天以内
-  const hours1 = Math.floor(hours);
-  const minutes1 = Math.floor((hours - hours1) * 60);
-  const seconds1 = Math.floor((seconds - (hours - hours1) * 60) % 60);
-  return `${hours1 ? `${hours1}时` : ''}${minutes1 ? `${minutes1}分` : ''}${seconds1 ? `${seconds1}秒` : ''}`;
+  if (hours > 0) {
+    parts.push(`${hours}时`);
+  }
+  if (minutes > 0) {
+    parts.push(`${minutes}分`);
+  }
+  if (finalSeconds > 0) {
+    parts.push(`${finalSeconds}秒`);
+  }
+
+  return parts.join('');
 }

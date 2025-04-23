@@ -1,9 +1,11 @@
 'use server';
 
+import { OrderStatus } from '@/enums/order';
 import { db } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { cartItems, orderEvents, orderItems, orders, products, productSkus, shippingAddresses } from '@/lib/schema';
-import { getUserId } from '@/lib/utils';
+import { getUserId, maskPhone } from '@/lib/utils';
+import { orderQueue } from '@/queues/order';
 import { CartCheckout } from '@/types/cart';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
@@ -71,7 +73,7 @@ export async function createOrder(addressId: number) {
       }))
     );
 
-    return db.transaction(async (tx) => {
+    const orderId = await db.transaction(async (tx) => {
       // 插入订单信息
       const insertingOrder: typeof orders.$inferInsert = {
         orderNumber: generateOrderNo(),
@@ -148,6 +150,13 @@ export async function createOrder(addressId: number) {
 
       return insertId;
     });
+
+    // 30分钟后未支付自动取消订单
+    const delay = 30 * 60 * 1000; // 30分钟（毫秒）
+    const jobName = 'cancelOrder';
+    await orderQueue.add(jobName, { orderId }, { delay });
+
+    return orderId;
   } finally {
     // 释放锁
     const currentLock = await redis.get(lockKey);
@@ -243,5 +252,29 @@ export async function findOrder(id: number): Promise<Order> {
     notFound();
   }
 
+  // 手机号脱敏
+  order.recipientPhone = maskPhone(order.recipientPhone);
+
   return order;
+}
+
+/**
+ * 更新订单状态
+ */
+export async function cancelOrderAutomatic(id: number) {
+  const [{ affectedRows }] = await db
+    .update(orders)
+    .set({
+      status: OrderStatus.CANCELED
+    })
+    .where(
+      and(eq(orders.id, id), eq(orders.status, OrderStatus.PENDING_PAYMENT))
+    );
+  if (!affectedRows) {
+    return;
+  }
+
+  console.log(`[Worker] Order ${id} successfully cancelled.`);
+
+  // 释放库存 TODO
 }

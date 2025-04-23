@@ -15,5 +15,6 @@ export enum OrderStatus {
  */
 export enum PaymentMethod {
   ALIPAY = 'alipay', // 支付宝
-  WECHAT = 'wechat' // 微信
+  WECHAT_PAY = 'wechat_pay', // 微信支付
+  MI_PAY = 'mi_pay' // 小米钱包
 }

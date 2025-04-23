@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "bcryptjs": "^3.0.2",
+    "bullmq": "^5.49.2",
     "dayjs": "^1.11.13",
     "decimal.js": "^10.5.0",
     "drizzle-orm": "^0.40.0",

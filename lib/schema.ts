@@ -219,6 +219,13 @@ export const orderItems = mysqlTable(
   (t) => [unique().on(t.orderId, t.skuId)]
 );
 
+export const orderItemsRelations = relations(orderItems, ({ one }) => ({
+  product: one(orders, {
+    fields: [orderItems.orderId],
+    references: [orders.id]
+  })
+}));
+
 export const orderEvents = mysqlTable('order_events', {
   id: serial('id').primaryKey(),
   orderId: int('order_id').notNull().unique(),
