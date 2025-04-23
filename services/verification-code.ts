@@ -1,6 +1,6 @@
 'use server';
 
-import redis from '@/lib/redis';
+import { redis } from '@/lib/redis';
 import { EMAIL_REGEX, PHONE_REGEX } from '@/lib/regex';
 import { generateRandomCode } from '@/lib/utils';
 import { ActionState } from '@/types/common';
