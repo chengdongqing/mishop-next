@@ -1,6 +1,7 @@
 'use server';
 
-import { BannerType, LayoutHeroCategoryItemType } from '@/enums';
+import { BannerType } from '@/enums/banner';
+import { LayoutHeroCategoryItemType } from '@/enums/layout';
 import { db } from '@/lib/db';
 import {
   banners,

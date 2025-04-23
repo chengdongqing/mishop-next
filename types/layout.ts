@@ -1,4 +1,4 @@
-import { LayoutHeroCategoryItemType } from '@/enums';
+import { LayoutHeroCategoryItemType } from '@/enums/layout';
 import { Banner } from '@/types/banner';
 import { Product } from '@/types/product';
 

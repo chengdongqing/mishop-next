@@ -1,7 +1,8 @@
 import Breadcrumb from '@/components/ui/breadcrumb';
 import Loading from '@/components/ui/loading';
 import RecommendProducts from '@/components/ui/recommend-products';
-import { ProductOrderBy } from '@/enums';
+
+import { ProductOrderBy } from '@/enums/product';
 import {
   findProductCategories,
   findProductLabels,

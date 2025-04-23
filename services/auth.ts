@@ -253,14 +253,14 @@ export async function authenticateByCode(
     // 不存在则自动注册
     try {
       // 保存用户信息
-      const [res] = await db.insert(users).values({
+      const [{ insertId }] = await db.insert(users).values({
         phone,
         // 密码使用随机数，下次登录仅能继续通过验证码登录或重置密码
         password: bcrypt.hashSync(generateRandomCode(), 10)
       });
 
       await signIn('credentials', {
-        id: res.insertId,
+        id: insertId,
         redirect: false
       });
     } catch (e) {

@@ -1,4 +1,4 @@
-import { BannerType } from '@/enums';
+import { BannerType } from '@/enums/banner';
 import { db } from '@/lib/db';
 import { banners } from '@/lib/schema';
 import { eq } from 'drizzle-orm';

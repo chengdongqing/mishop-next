@@ -1,7 +1,8 @@
 'use client';
 
 import Checkbox from '@/components/ui/checkbox';
-import { ProductOrderBy } from '@/enums';
+
+import { ProductOrderBy } from '@/enums/product';
 import { ProductCategory, ProductLabel } from '@/types/product';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Key, use } from 'react';

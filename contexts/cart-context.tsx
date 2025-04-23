@@ -29,6 +29,7 @@ interface CartContext {
   setChecked: (product: CartProduct, checked: boolean) => Promise<void>;
   setAllChecked: (checked: boolean) => Promise<void>;
   removeSelected: () => Promise<void>;
+  reloadCart: () => void;
 }
 
 const CartContext = createContext<CartContext | null>(null);
@@ -44,6 +45,20 @@ export function CartProvider({ children }: PropsWithChildren) {
    * 获取初始数据
    */
   useEffect(() => {
+    reloadCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasLogin]);
+
+  /**
+   * 未登录时实时同步到本地缓存
+   */
+  useUpdateEffect(() => {
+    if (!hasLogin) {
+      window.localStorage.setItem(cacheKey, JSON.stringify(products));
+    }
+  }, [products, hasLogin]);
+
+  function reloadCart() {
     startTransition(async () => {
       let products: CartProduct[] = [];
       // 获取本地缓存的数据
@@ -70,20 +85,8 @@ export function CartProvider({ children }: PropsWithChildren) {
 
       setProducts(products);
     });
-  }, [hasLogin]);
+  }
 
-  /**
-   * 未登录时实时同步到本地缓存
-   */
-  useUpdateEffect(() => {
-    if (!hasLogin) {
-      window.localStorage.setItem(cacheKey, JSON.stringify(products));
-    }
-  }, [products, hasLogin]);
-
-  /**
-   * 已选中的商品列表
-   */
   const selectedProducts = useMemo(() => {
     return products.filter((product) => product.checked);
   }, [products]);
@@ -233,7 +236,8 @@ export function CartProvider({ children }: PropsWithChildren) {
       modifyCount,
       setChecked,
       setAllChecked,
-      removeSelected
+      removeSelected,
+      reloadCart
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [products, selectedProducts, totalCount, totalAmount, hasLogin, isLoading]

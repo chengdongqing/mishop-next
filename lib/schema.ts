@@ -1,9 +1,7 @@
-import {
-  BannerType,
-  GenderType,
-  LayoutHeroCategoryItemType,
-  TargetType
-} from '@/enums';
+import { BannerType, TargetType } from '@/enums/banner';
+import { LayoutHeroCategoryItemType } from '@/enums/layout';
+import { OrderStatus, PaymentMethod } from '@/enums/order';
+import { GenderType } from '@/enums/user';
 import { ProductDetailItem, SkuAttribute } from '@/types/product';
 import { relations } from 'drizzle-orm';
 import {
@@ -127,16 +125,20 @@ export const productReviews = mysqlTable('product_reviews', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
-export const cartItems = mysqlTable('cart_items', {
-  id: serial('id').primaryKey(),
-  userId: int('user_id').notNull(),
-  productId: int('product_id').notNull(),
-  skuId: int('sku_id').notNull(),
-  quantity: int('quantity').default(1).notNull(),
-  checked: boolean('checked').default(true).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
-});
+export const cartItems = mysqlTable(
+  'cart_items',
+  {
+    id: serial('id').primaryKey(),
+    userId: int('user_id').notNull(),
+    productId: int('product_id').notNull(),
+    skuId: int('sku_id').notNull(),
+    quantity: int('quantity').default(1).notNull(),
+    checked: boolean('checked').default(true).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+  },
+  (t) => [unique().on(t.userId, t.skuId)]
+);
 
 export const cartItemsRelations = relations(cartItems, ({ one }) => ({
   product: one(products, {
@@ -151,8 +153,9 @@ export const cartItemsRelations = relations(cartItems, ({ one }) => ({
 
 export const orders = mysqlTable('orders', {
   id: serial('id').primaryKey(),
-  orderNumber: varchar('order_number', { length: 100 }).notNull(),
+  orderNumber: varchar('order_number', { length: 100 }).notNull().unique(),
   userId: int('user_id').notNull(),
+  productsCount: int('products_count').notNull(),
   productsAmount: decimal('products_amount', {
     precision: 19,
     scale: 2
@@ -169,30 +172,58 @@ export const orders = mysqlTable('orders', {
   recipientName: varchar('recipient_name', { length: 255 }).notNull(),
   recipientPhone: varchar('recipient_phone', { length: 50 }).notNull(),
   recipientAddress: varchar('recipient_address', { length: 500 }).notNull(),
-  paymentMethod: varchar('payment_method', { length: 50 }),
+  paymentMethod: mysqlEnum('payment_method', [
+    PaymentMethod.WECHAT,
+    PaymentMethod.ALIPAY
+  ]),
   paymentTime: timestamp('payment_time'),
   paymentOrderNumber: varchar('payment_order_number', { length: 255 }),
   expressCompany: varchar('express_company', { length: 255 }),
   expressNumber: varchar('express_number', { length: 255 }),
   isReviewed: boolean('is_reviewed').default(false).notNull(),
-  status: varchar('status', { length: 30 })
-    .default('pending_payment')
+  status: mysqlEnum('status', [
+    OrderStatus.PENDING_PAYMENT,
+    OrderStatus.PENDING_PACKING,
+    OrderStatus.PENDING_SHIPPING,
+    OrderStatus.PENDING_DELIVERY,
+    OrderStatus.COMPLETED,
+    OrderStatus.CANCELED
+  ])
+    .default(OrderStatus.PENDING_PAYMENT)
     .notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
-export const orderItems = mysqlTable('order_items', {
+export const orderItems = mysqlTable(
+  'order_items',
+  {
+    id: serial('id').primaryKey(),
+    orderId: int('order_id').notNull(),
+    productId: int('product_id').notNull(),
+    productName: varchar('product_name', { length: 255 }).notNull(),
+    skuId: int('sku_id').notNull(),
+    skuName: varchar('sku_name', { length: 255 }).notNull(),
+    pictureUrl: varchar('picture_url', { length: 500 }),
+    price: decimal('price', { precision: 19, scale: 2 }).notNull(),
+    quantity: int('quantity').notNull(),
+    subtotal: decimal('subtotal', { precision: 19, scale: 2 }).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+  },
+  (t) => [unique().on(t.orderId, t.skuId)]
+);
+
+export const orderEvents = mysqlTable('order_events', {
   id: serial('id').primaryKey(),
-  orderId: int('order_id').notNull(),
-  productId: int('product_id').notNull(),
-  productName: varchar('product_name', { length: 255 }).notNull(),
-  skuId: int('sku_id').notNull(),
-  skuName: varchar('sku_name', { length: 255 }).notNull(),
-  pictureUrl: varchar('picture_url', { length: 500 }),
-  unitPrice: decimal('unit_price', { precision: 19, scale: 2 }).notNull(),
-  quantity: int('quantity').notNull(),
-  subtotal: decimal('subtotal', { precision: 19, scale: 2 }).notNull(),
+  orderId: int('order_id').notNull().unique(),
+  userId: int('user_id').notNull(),
+  paymentAt: timestamp('payment_at'),
+  packingAt: timestamp('packing_at'),
+  shippedAt: timestamp('shipped_at'),
+  completedAt: timestamp('completed_at'),
+  canceledAt: timestamp('canceled_at'),
+  refundedAt: timestamp('refunded_at'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });

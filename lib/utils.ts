@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import { getRemoteFile } from '@/services/file';
 import { PageRequest } from '@/types/common';
-import crypto from 'crypto';
+import { randomInt } from 'crypto';
 import { AuthError } from 'next-auth';
 
 // 空值占位符
@@ -76,8 +76,7 @@ export function sleep(ms: number = 2000) {
  * 生成6位数字随机数
  */
 export function generateRandomCode() {
-  const code = crypto.randomInt(0, 1000000);
-  return code.toString().padStart(6, '0');
+  return randomInt(100000, 1000000).toString();
 }
 
 /**

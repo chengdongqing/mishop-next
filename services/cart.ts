@@ -3,6 +3,7 @@
 import { db } from '@/lib/db';
 import { cartItems, productSkus } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
+import { calcOrderSummary } from '@/services/orders';
 import { CartProduct } from '@/types/product';
 import Decimal from 'decimal.js';
 import { and, eq } from 'drizzle-orm';
@@ -231,8 +232,8 @@ export async function syncCart(products: CartProduct[]) {
 export interface CheckoutData {
   products: CartProduct[];
   summary: {
-    itemCount: number; // 商品总件数
-    totalProductAmount: number; // 商品总价
+    productsCount: number; // 商品总件数
+    productsAmount: number; // 商品总价
     discountAmount: number; // 优惠金额
     shippingFee: number; // 运费
     payableAmount: number; // 应付金额
@@ -262,7 +263,7 @@ export async function getCheckoutData(): Promise<CheckoutData> {
     .filter((item) => {
       return (
         // 有库存
-        item.sku.stocks > 0 &&
+        item.sku.stocks >= item.quantity &&
         // 不超过限购数量
         (!item.sku.limits || item.quantity <= item.sku.limits)
       );
@@ -282,35 +283,11 @@ export async function getCheckoutData(): Promise<CheckoutData> {
     redirect('/');
   }
 
-  // 总件数
-  const itemCount = products.reduce((acc, product) => {
-    return acc + product.quantity;
-  }, 0);
-  // 商品总价
-  const totalProductAmount = products.reduce((acc, product) => {
-    return new Decimal(product.price)
-      .mul(product.quantity)
-      .plus(acc)
-      .toNumber();
-  }, 0);
-  // 优惠金额
-  const discountAmount = 0;
-  // 运费
-  const shippingFee = 0;
-  // 应付金额
-  const payableAmount = new Decimal(totalProductAmount)
-    .minus(discountAmount)
-    .plus(shippingFee)
-    .toNumber();
+  // 计算订单汇总信息
+  const summary = await calcOrderSummary(products);
 
   return {
     products,
-    summary: {
-      itemCount,
-      totalProductAmount,
-      discountAmount,
-      shippingFee,
-      payableAmount
-    }
+    summary
   };
 }

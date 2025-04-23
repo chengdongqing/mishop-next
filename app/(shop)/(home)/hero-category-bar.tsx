@@ -1,6 +1,6 @@
 'use client';
 
-import { LayoutHeroCategoryItemType } from '@/enums';
+import { LayoutHeroCategoryItemType } from '@/enums/layout';
 import { LayoutHeroCategory, LayoutHeroCategoryItem } from '@/types/layout';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';

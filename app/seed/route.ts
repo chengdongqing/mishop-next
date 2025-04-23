@@ -1,4 +1,3 @@
-import { seedOrderItems, seedOrders } from '@/app/seed/orders';
 import { seedBanners } from './banners';
 import { seedCartItems } from './cart';
 import {
@@ -6,6 +5,7 @@ import {
   seedLayoutHeader,
   seedLayoutHeroCategories
 } from './layouts';
+import { seedOrderEvents, seedOrderItems, seedOrders } from './orders';
 import {
   seedProductCategories,
   seedProductLabelRelations,
@@ -38,6 +38,7 @@ function seedDatabase() {
     seedCartItems(),
     seedOrders(),
     seedOrderItems(),
+    seedOrderEvents(),
     seedBanners(),
     seedVideos(),
     seedUsers(),

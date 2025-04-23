@@ -1,4 +1,5 @@
-import { GenderType, LayoutHeroCategoryItemType } from '@/enums';
+import { LayoutHeroCategoryItemType } from '@/enums/layout';
+import { GenderType } from '@/enums/user';
 import { Banner } from '@/types/banner';
 import {
   Product,

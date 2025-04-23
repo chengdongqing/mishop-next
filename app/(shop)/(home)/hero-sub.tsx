@@ -1,4 +1,4 @@
-import { BannerType } from '@/enums';
+import { BannerType } from '@/enums/banner';
 import { findBannersByType } from '@/services/banners';
 import Image from 'next/image';
 import { Suspense } from 'react';

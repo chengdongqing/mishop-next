@@ -1,15 +1,19 @@
 import Button from '@/components/ui/button';
+import popup from '@/components/ui/popup';
+import { useCart } from '@/contexts/cart-context';
+import { createOrder } from '@/services/orders';
 import { ShippingAddress } from '@/types/user';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function CheckoutBar({
-  address,
-  onOrder
+  address
 }: {
   address: ShippingAddress | null;
-  onOrder: () => void;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const { reloadCart } = useCart();
 
   return (
     <section
@@ -39,7 +43,30 @@ export default function CheckoutBar({
         >
           返回购物车
         </Button>
-        <Button onClick={onOrder}>立即下单</Button>
+        <Button
+          loading={isPending}
+          onClick={() => {
+            if (!address) {
+              popup.alert('请选择地址');
+              return;
+            }
+
+            startTransition(async () => {
+              try {
+                const id = await createOrder(address.id);
+                reloadCart();
+
+                router.replace(`/orders/pay?id=${id}`);
+              } catch (e) {
+                if (e instanceof Error) {
+                  popup.alert(e.message);
+                }
+              }
+            });
+          }}
+        >
+          立即下单
+        </Button>
       </div>
     </section>
   );

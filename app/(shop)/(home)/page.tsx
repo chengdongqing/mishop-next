@@ -1,6 +1,7 @@
 import Loading from '@/components/ui/loading';
 import ToolBar from '@/components/ui/tool-bar';
-import { BannerType } from '@/enums';
+
+import { BannerType } from '@/enums/banner';
 import { findBannersByType } from '@/services/banners';
 import { Suspense } from 'react';
 import Banner from './banner';

@@ -1,4 +1,4 @@
-import { GenderType } from '@/enums';
+import { GenderType } from '@/enums/user';
 
 export interface User {
   id: number;

@@ -1,6 +1,6 @@
 'use server';
 
-import { ProductOrderBy } from '@/enums';
+import { ProductOrderBy } from '@/enums/product';
 import { db } from '@/lib/db';
 import {
   productCategories,
