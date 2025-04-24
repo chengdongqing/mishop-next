@@ -30,7 +30,7 @@ export default async function OrderPayPage({
       <div className={'bg-primary py-[38]'}>
         <div className={'w-primary'}>
           <OrderDetails order={order} timeout={OrderTimeout} />
-          <PaymentMethods />
+          <PaymentMethods id={id} />
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 'use server';
 
+import { OrderStatus, PaymentMethod } from '@/enums/order';
 import { orderQueue } from '@/jobs/queues/order';
 import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
@@ -275,4 +276,36 @@ export async function findOrder(id: number): Promise<Order> {
   order.recipientPhone = maskPhone(order.recipientPhone);
 
   return order;
+}
+
+/**
+ * 处理支付成功
+ */
+export async function handlePaySuccess(
+  id: number,
+  paymentMethod: PaymentMethod
+) {
+  // 实际可能从支付提供商处获取
+  const paymentTime = new Date();
+
+  // 更新订单信息
+  await db
+    .update(orders)
+    .set({
+      status: OrderStatus.PENDING_PACKING,
+      paymentMethod,
+      paymentTime
+    })
+    .where(eq(orders.id, id));
+
+  // 记录订单日志
+  await db
+    .update(orderEvents)
+    .set({
+      paymentAt: paymentTime
+    })
+    .where(eq(orderEvents.orderId, id));
+
+  // 发布到redis
+  await redis.publish('order_paid', id.toString());
 }

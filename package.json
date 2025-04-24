@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "worker": "tsup scripts/start-worker.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-worker.js",
-    "dev:worker": "concurrently 'npm run dev' 'npm run worker'"
+    "socket-server": "tsup scripts/start-socket-server.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-socket-server.js",
+    "dev:all": "concurrently 'npm run dev' 'npm run worker' 'npm run socket-server'"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -27,6 +28,8 @@
     "next-intl": "^4.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },

@@ -13,8 +13,6 @@ if (fs.existsSync('.env.local')) {
   dotenv.config();
 }
 
-// 注意：此文件单独运行
-
 const worker = new Worker(
   'order-queue',
   async (job) => {
