@@ -1,16 +1,17 @@
 'use server';
 
-import { OrderStatus } from '@/enums/order';
-import { db } from '@/lib/db';
+import { orderQueue } from '@/jobs/queues/order';
+import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
-import { cartItems, orderEvents, orderItems, orders, products, productSkus, shippingAddresses } from '@/lib/schema';
-import { getUserId, maskPhone } from '@/lib/utils';
-import { orderQueue } from '@/queues/order';
+import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
+import { getUserId, maskPhone, OrderTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
 import Decimal from 'decimal.js';
-import { and, eq, gte, sql } from 'drizzle-orm';
+import { and, eq, ExtractTablesWithRelations, gte, sql } from 'drizzle-orm';
+import { MySqlTransaction } from 'drizzle-orm/mysql-core';
+import { MySql2PreparedQueryHKT, MySql2QueryResultHKT } from 'drizzle-orm/mysql2';
 import { notFound } from 'next/navigation';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -57,6 +58,7 @@ export async function createOrder(addressId: number) {
   }
 
   try {
+    // 检查库存和限购
     checkStockAndLimits(items);
 
     // 计算订单汇总信息
@@ -106,38 +108,10 @@ export async function createOrder(addressId: number) {
       );
       await tx.insert(orderItems).values(insertingItems);
 
-      // 扣减库存与增加销量
-      for (const item of items) {
-        const [result] = await tx
-          .update(productSkus)
-          .set({
-            stocks: sql`${productSkus.stocks} - ${item.quantity}`,
-            sales: sql`${productSkus.sales} + ${item.quantity}`
-          })
-          .where(
-            and(
-              eq(productSkus.id, item.skuId),
-              gte(productSkus.stocks, item.quantity)
-            )
-          );
-        if (result.affectedRows === 0) {
-          throw new Error(
-            `商品【${item.product.name} ${item.sku.name}】库存不足`
-          );
-        }
-      }
-      await Promise.all(
-        items.map((item) => {
-          return tx
-            .update(products)
-            .set({
-              sales: sql`${products.sales} + ${item.quantity}`
-            })
-            .where(and(eq(products.id, item.productId)));
-        })
-      );
+      // 扣减库存
+      await lockStock(items, tx);
 
-      // 插入订单事件
+      // 记录日志
       await tx.insert(orderEvents).values({
         orderId: insertId,
         userId
@@ -151,10 +125,12 @@ export async function createOrder(addressId: number) {
       return insertId;
     });
 
-    // 30分钟后未支付自动取消订单
-    const delay = 30 * 60 * 1000; // 30分钟（毫秒）
-    const jobName = 'cancelOrder';
-    await orderQueue.add(jobName, { orderId }, { delay });
+    // 加入队列，超时未支付自动取消订单
+    await orderQueue.add(
+      'cancelOrder',
+      { orderId },
+      { delay: OrderTimeout * 60 * 1000 }
+    );
 
     return orderId;
   } finally {
@@ -188,6 +164,49 @@ function checkStockAndLimits(
       );
     }
   });
+}
+
+/**
+ * 锁定库存
+ */
+function lockStock(
+  items: {
+    skuId: number;
+    quantity: number;
+    product: {
+      name: string;
+    };
+    sku: {
+      name: string;
+    };
+  }[],
+  tx: MySqlTransaction<
+    MySql2QueryResultHKT,
+    MySql2PreparedQueryHKT,
+    SchemaType,
+    ExtractTablesWithRelations<SchemaType>
+  >
+) {
+  return Promise.all(
+    items.map(async (item) => {
+      const [result] = await tx
+        .update(productSkus)
+        .set({
+          stocks: sql`${productSkus.stocks} - ${item.quantity}`
+        })
+        .where(
+          and(
+            eq(productSkus.id, item.skuId),
+            gte(productSkus.stocks, item.quantity)
+          )
+        );
+      if (result.affectedRows === 0) {
+        throw new Error(
+          `商品【${item.product.name} ${item.sku.name}】库存不足`
+        );
+      }
+    })
+  );
 }
 
 /**
@@ -256,25 +275,4 @@ export async function findOrder(id: number): Promise<Order> {
   order.recipientPhone = maskPhone(order.recipientPhone);
 
   return order;
-}
-
-/**
- * 更新订单状态
- */
-export async function cancelOrderAutomatic(id: number) {
-  const [{ affectedRows }] = await db
-    .update(orders)
-    .set({
-      status: OrderStatus.CANCELED
-    })
-    .where(
-      and(eq(orders.id, id), eq(orders.status, OrderStatus.PENDING_PAYMENT))
-    );
-  if (!affectedRows) {
-    return;
-  }
-
-  console.log(`[Worker] Order ${id} successfully cancelled.`);
-
-  // 释放库存 TODO
 }

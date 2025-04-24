@@ -7,6 +7,9 @@ import { AuthError } from 'next-auth';
 // 空值占位符
 export const EmptyValue = '--';
 
+// 支付超时时长（分钟）
+export const OrderTimeout = Number(process.env.ORDER_TIMEOUT!);
+
 /**
  * 创建商品访问地址
  */

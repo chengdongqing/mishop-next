@@ -173,8 +173,9 @@ export const orders = mysqlTable('orders', {
   recipientPhone: varchar('recipient_phone', { length: 50 }).notNull(),
   recipientAddress: varchar('recipient_address', { length: 500 }).notNull(),
   paymentMethod: mysqlEnum('payment_method', [
-    PaymentMethod.WECHAT,
-    PaymentMethod.ALIPAY
+    PaymentMethod.WECHAT_PAY,
+    PaymentMethod.ALIPAY,
+    PaymentMethod.MI_PAY
   ]),
   paymentTime: timestamp('payment_time'),
   paymentOrderNumber: varchar('payment_order_number', { length: 255 }),

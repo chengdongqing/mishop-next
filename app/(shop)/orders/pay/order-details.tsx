@@ -9,11 +9,20 @@ import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-export default function OrderDetails({ order }: { order: Order }) {
+dayjs.extend(duration);
+
+export default function OrderDetails({
+  order,
+  timeout
+}: {
+  order: Order;
+  timeout: number;
+}) {
   const [expanded, toggleExpanded] = useToggle();
 
   return (
@@ -22,6 +31,7 @@ export default function OrderDetails({ order }: { order: Order }) {
       <div className={'ml-[38] flex-1 text-[rgb(97,97,97)]'}>
         <PaymentInfo
           order={order}
+          timeout={timeout}
           expanded={expanded}
           onToggle={toggleExpanded}
         />
@@ -40,10 +50,12 @@ export default function OrderDetails({ order }: { order: Order }) {
 
 function PaymentInfo({
   order,
+  timeout,
   expanded,
   onToggle
 }: {
   order: Order;
+  timeout: number;
   expanded: boolean;
   onToggle: () => void;
 }) {
@@ -52,16 +64,25 @@ function PaymentInfo({
   // 剩余时间（秒）
   const seconds = useMemo(() => {
     if (order) {
-      return dayjs(order.createdAt).add(60, 'minutes').diff(dayjs(), 'seconds');
+      return dayjs(order.createdAt)
+        .add(timeout, 'minutes')
+        .diff(dayjs(), 'seconds');
     }
     return 0;
-  }, [order]);
+  }, [order, timeout]);
   // 倒计时
   const [remaining] = useCountdown(seconds, false, () => {
     popup.alert('支付超时，订单已取消', () => {
       router.replace('/orders');
     });
   });
+
+  // 格式化后的时长
+  // 避免在jsx中直接格式化，可能因为客户端和服务端的时间不一致导致水合出错
+  const [formattedDuration, setFormattedDuration] = useState('');
+  useEffect(() => {
+    setFormattedDuration(formatDuration(remaining));
+  }, [remaining]);
 
   return (
     <div className={'flex justify-between pt-5'}>
@@ -71,9 +92,7 @@ function PaymentInfo({
         </h3>
         <div className={'leading-[2]'}>
           请在
-          <span className={'text-primary mx-1'}>
-            {formatDuration(remaining)}
-          </span>
+          <span className={'text-primary mx-1'}>{formattedDuration}</span>
           内完成支付，超时后将取消订单
         </div>
         <div hidden={expanded}>
@@ -144,47 +163,24 @@ function OrderInfo({ order }: { order: Order }) {
   );
 }
 
-/**
- * 时长格式化
- */
-function formatDuration(seconds: number) {
-  // 处理负数和零的情况
-  if (seconds <= 0) {
-    return '0秒';
-  }
-
-  // 定义时间单位对应的秒数常量
-  const SECONDS_IN_MINUTE = 60;
-  const SECONDS_IN_HOUR = 60 * SECONDS_IN_MINUTE;
-  const SECONDS_IN_DAY = 24 * SECONDS_IN_HOUR;
-
-  // 确保处理的是整数秒（丢弃小数部分）
-  let remainingSeconds = Math.floor(seconds);
-
-  // 计算天、时、分、秒
-  const days = Math.floor(remainingSeconds / SECONDS_IN_DAY);
-  remainingSeconds %= SECONDS_IN_DAY; // 计算去除天后剩余的秒数
-
-  const hours = Math.floor(remainingSeconds / SECONDS_IN_HOUR);
-  remainingSeconds %= SECONDS_IN_HOUR; // 计算去除时后剩余的秒数
-
-  const minutes = Math.floor(remainingSeconds / SECONDS_IN_MINUTE);
-  const finalSeconds = remainingSeconds % SECONDS_IN_MINUTE; // 最终剩余的秒数
+function formatDuration(totalSeconds: number) {
+  const d = dayjs.duration(totalSeconds, 'seconds');
+  // 提取时、分、秒
+  const hours = Math.floor(d.asHours());
+  const minutes = d.minutes();
+  const seconds = d.seconds();
 
   // 构建结果
   const parts: string[] = [];
 
-  if (days > 0) {
-    parts.push(`${days}天`);
-  }
   if (hours > 0) {
     parts.push(`${hours}时`);
   }
   if (minutes > 0) {
     parts.push(`${minutes}分`);
   }
-  if (finalSeconds > 0) {
-    parts.push(`${finalSeconds}秒`);
+  if (seconds > 0) {
+    parts.push(`${seconds}秒`);
   }
 
   return parts.join('');
