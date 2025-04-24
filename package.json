@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "worker": "tsup scripts/start-worker.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-worker.js",
-    "socket-server": "tsup scripts/start-socket-server.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-socket-server.js",
-    "dev:all": "concurrently 'npm run dev' 'npm run worker' 'npm run socket-server'"
+    "bullmq": "tsup scripts/start-bullmq.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-bullmq.js",
+    "socket": "tsup scripts/start-socket.ts --format cjs --out-dir scripts/dist && node scripts/dist/start-socket.js",
+    "dev:all": "concurrently 'npm run dev' 'npm run bullmq' 'npm run socket'"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
