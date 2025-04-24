@@ -5,7 +5,7 @@ import { orderQueue } from '@/jobs/queues/order';
 import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
-import { getUserId, maskPhone, OrderTimeout } from '@/lib/utils';
+import { getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
@@ -130,7 +130,7 @@ export async function createOrder(addressId: number) {
     await orderQueue.add(
       'cancelOrder',
       { orderId },
-      { delay: OrderTimeout * 60 * 1000 }
+      { delay: PaymentTimeout * 60 * 1000 }
     );
 
     return orderId;

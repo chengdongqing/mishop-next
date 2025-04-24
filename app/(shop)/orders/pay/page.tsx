@@ -1,6 +1,6 @@
 import MiniHeader from '@/components/ui/mini-header';
 import { OrderStatus } from '@/enums/order';
-import { OrderTimeout } from '@/lib/utils';
+import { PaymentTimeout } from '@/lib/utils';
 import { findOrder } from '@/services/orders';
 import { notFound, redirect } from 'next/navigation';
 import OrderDetails from './order-details';
@@ -29,7 +29,7 @@ export default async function OrderPayPage({
       <MiniHeader title={'支付订单'} />
       <div className={'bg-primary py-[38]'}>
         <div className={'w-primary'}>
-          <OrderDetails order={order} timeout={OrderTimeout} />
+          <OrderDetails order={order} timeout={PaymentTimeout} />
           <PaymentMethods id={id} />
         </div>
       </div>
