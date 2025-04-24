@@ -1,10 +1,10 @@
-import { CheckoutData } from '@/services/cart';
+import { CartCheckout } from '@/types/cart';
 import { PropsWithChildren, ReactNode } from 'react';
 
 export default function CheckoutSummary({
   summary
 }: {
-  summary: CheckoutData['summary'];
+  summary: CartCheckout['summary'];
 }) {
   return (
     <section className={'flex justify-end py-5'}>

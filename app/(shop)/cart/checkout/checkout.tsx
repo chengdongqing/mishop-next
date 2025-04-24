@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckoutData } from '@/services/cart';
+import { CartCheckout } from '@/types/cart';
 import { ShippingAddress } from '@/types/user';
 import { useState } from 'react';
 import CheckoutAddresses from './addresses';
@@ -11,7 +11,7 @@ import Title from './title';
 
 interface CheckoutProps {
   addresses: ShippingAddress[];
-  checkoutData: CheckoutData;
+  checkoutData: CartCheckout;
 }
 
 export default function Checkout({ addresses, checkoutData }: CheckoutProps) {

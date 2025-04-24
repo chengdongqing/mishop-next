@@ -460,8 +460,8 @@ export const productsData: Product[] = [
       '徕卡1英寸主摄 | 徕卡2亿超级长焦 | 徕卡超纯光学系统 | 骁龙8至尊版移动平台 | 6000mAh 小米金沙江电池 | 小米澎湃OS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c5728efe6a6ca16912c1ed60487a7447.png?thumb=1&f=webp&q=90',
-    price: 6499,
-    originalPrice: 6499,
+    price: '6499',
+    originalPrice: '6499',
     hasMultipleSkus: true,
     categoryId: 1,
     tags: ['小米', '手机', '新款', '旗舰机', '2025年']
@@ -472,8 +472,8 @@ export const productsData: Product[] = [
     description: 'REDMI Turbo 4 好看又能打',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b7b35c6e85b764c6d8b07ca0dc4924af.jpg?thumb=1&f=webp&q=90',
-    price: 1999,
-    originalPrice: 1999,
+    price: '1999',
+    originalPrice: '1999',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -483,8 +483,8 @@ export const productsData: Product[] = [
     description: '【持久续航】5160mAh 大电池',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/07318b6d71b43c8f1093d0ceabe23e7a.png?thumb=1&f=webp&q=90',
-    price: 499,
-    originalPrice: 499,
+    price: '499',
+    originalPrice: '499',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -494,8 +494,8 @@ export const productsData: Product[] = [
     description: '骁龙8至尊版|2K新国屏|全焦段影像',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/08f9d298aa64bd81b4c01891266e4572.png?thumb=1&f=webp&q=90',
-    price: 3699,
-    originalPrice: 3699,
+    price: '3699',
+    originalPrice: '3699',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -505,8 +505,8 @@ export const productsData: Product[] = [
     description: '第三代骁龙8|2K新国屏|6550mAh 超长续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f9da01e805c1d61c650bc27b754f173.png?thumb=1&f=webp&q=90',
-    price: 2499,
-    originalPrice: 2499,
+    price: '2499',
+    originalPrice: '2499',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -517,8 +517,8 @@ export const productsData: Product[] = [
       '徕卡光学 Summilux 高速镜头｜骁龙®8至尊版移动平台｜5400mAh 小米金沙江电池 小米澎湃OS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d0acdc0fc97f894fc1c698522e8e1cc9.png?thumb=1&f=webp&q=90',
-    price: 4499,
-    originalPrice: 4499,
+    price: '4499',
+    originalPrice: '4499',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -529,8 +529,8 @@ export const productsData: Product[] = [
       '徕卡光学 Summilux 高速镜头｜ 骁龙®8至尊版移动平台｜6100mAh 小米金沙江电池｜小米澎湃OS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3fd13de87bcd8755fdbb804bfba467a.png?thumb=1&f=webp&q=90',
-    price: 5299,
-    originalPrice: 5299,
+    price: '5299',
+    originalPrice: '5299',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -541,8 +541,8 @@ export const productsData: Product[] = [
       '徕卡光学 Summilux 高速镜头｜骁龙®8至尊版移动平台｜5400mAh 小米金沙江电池 小米澎湃OS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b17e107bd68b683c92e2245715bb7e54.png?thumb=1&f=webp&q=90',
-    price: 4999,
-    originalPrice: 4999,
+    price: '4999',
+    originalPrice: '4999',
     categoryId: 1
   },
   {
@@ -551,8 +551,8 @@ export const productsData: Product[] = [
     description: '小米首发双功放三单元｜55dB 深度降噪｜哈曼联合调音',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202502261429_9c6e3418562ed4404309aac4038abd2a.png?thumb=1&f=webp&q=90',
-    price: 1299,
-    originalPrice: 1299,
+    price: '1299',
+    originalPrice: '1299',
     hasMultipleSkus: true,
     categoryId: 1601
   },
@@ -562,8 +562,8 @@ export const productsData: Product[] = [
     description: '小米首发圈瓷同轴三单元 | 55dB深度降噪 | 无级动态降噪技术',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261600_4ae42d79b9b21e0727c1bb7a2cddbbf6.png?thumb=1&f=webp&q=90',
-    price: 399,
-    originalPrice: 399,
+    price: '399',
+    originalPrice: '399',
     hasMultipleSkus: true,
     categoryId: 1601
   },
@@ -573,8 +573,8 @@ export const productsData: Product[] = [
     description: '42dB深度主动降噪 | 双麦AI通话抗风噪 | 12.4mm超大镀钛动圈',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410112149_8c1b7e0aa8f1aca565ca4da1b3f609e6.png?thumb=1&f=webp&q=90',
-    price: 139,
-    originalPrice: 139,
+    price: '139',
+    originalPrice: '139',
     categoryId: 1601
   },
   {
@@ -583,8 +583,8 @@ export const productsData: Product[] = [
     description: '旗舰双单元架构 | 49dB深度降噪 | 42h超长续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202409252052_478e3626f4c809beb3e6d65cddbcc77b.png?thumb=1&f=webp&q=90',
-    price: 199,
-    originalPrice: 199,
+    price: '199',
+    originalPrice: '199',
     categoryId: 1601
   },
   {
@@ -593,8 +593,8 @@ export const productsData: Product[] = [
     description: '舒适无感佩戴｜高通全链路无损音频｜哈曼 AudioEFX 联合调音',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172252_14dde1819e157be030514edaddf0ead9.png?thumb=1&f=webp&q=90',
-    price: 679,
-    originalPrice: 699,
+    price: '679',
+    originalPrice: '699',
     categoryId: 1601
   },
   {
@@ -603,8 +603,8 @@ export const productsData: Product[] = [
     description: '14.2mm超大动圈单元 | 半入耳主动降噪 | 33小时超长续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0ed30ba825d2c0a27f9c9867c6376e02.png?thumb=1&f=webp&q=90',
-    price: 199,
-    originalPrice: 199,
+    price: '199',
+    originalPrice: '199',
     categoryId: 1601
   },
   {
@@ -613,8 +613,8 @@ export const productsData: Product[] = [
     description: '14.2mm超大动圈 | 内置五种调音模式 | 30小时长续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202405161349_af5d2bb2e50bf45ff23d766e49da6cc5.png?thumb=1&f=webp&q=90',
-    price: 99,
-    originalPrice: 99,
+    price: '99',
+    originalPrice: '99',
     categoryId: 1601
   },
   {
@@ -623,8 +623,8 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202404091941_350d7e8fb99f243754861b986168c187.png?thumb=1&f=webp&q=90',
-    price: 599,
-    originalPrice: 599,
+    price: '599',
+    originalPrice: '599',
     categoryId: 1601
   },
   {
@@ -633,8 +633,8 @@ export const productsData: Product[] = [
     description: '2.07英寸高刷高亮大屏 | 24天超长续航 | 搭载小米澎湃OS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261459_d47c23aa207b6cb0e2e6feee7d9888c5.png?thumb=1&f=webp&q=90',
-    price: 599,
-    originalPrice: 599,
+    price: '599',
+    originalPrice: '599',
     hasMultipleSkus: true,
     categoryId: 1303
   },
@@ -644,8 +644,8 @@ export const productsData: Product[] = [
     description: '百变表圈 | 旋转表冠 | 小米澎湃OS2 | 双模对讲模式',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410291552_19d4f0c5cf4b4cedc7443bb2963b9ffc.jpg?thumb=1&f=webp&q=90',
-    price: 999,
-    originalPrice: 999,
+    price: '999',
+    originalPrice: '999',
     hasMultipleSkus: true,
     categoryId: 1303
   },
@@ -655,8 +655,8 @@ export const productsData: Product[] = [
     description: '超窄四等边大屏 | 金属机身 | 21天超长续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410291455_6a011d078acca2c8d21b5ece4e680206.jpg?thumb=1&f=webp&q=90',
-    price: 399,
-    originalPrice: 399,
+    price: '399',
+    originalPrice: '399',
     hasMultipleSkus: true,
     categoryId: 1302
   },
@@ -666,8 +666,8 @@ export const productsData: Product[] = [
     description: '18天超长续航 | 60Hz高刷大屏 | 全天健康监测 ',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410241417_9ef2404939fdf794fda9cd16953dd28c.png?thumb=1&f=webp&q=90',
-    price: 159,
-    originalPrice: 169,
+    price: '159',
+    originalPrice: '169',
     categoryId: 1302
   },
   {
@@ -676,8 +676,8 @@ export const productsData: Product[] = [
     description: '多彩金属机身 | 高精度运动健康监测 | 21天超耐久续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407191728_08a7317fb96cc5394a838eac9867ede3.png?thumb=1&f=webp&q=90',
-    price: 239,
-    originalPrice: 249,
+    price: '239',
+    originalPrice: '249',
     categoryId: 1302
   },
   {
@@ -686,8 +686,8 @@ export const productsData: Product[] = [
     description: '多彩金属机身 | 高精度运动健康监测 | 18天超耐久续航',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407172345_d733abf05349f016af715feb12841bf8.png?thumb=1&f=webp&q=90',
-    price: 279,
-    originalPrice: 299,
+    price: '279',
+    originalPrice: '299',
     hasMultipleSkus: true,
     categoryId: 1302
   },
@@ -697,8 +697,8 @@ export const productsData: Product[] = [
     description: '一体钛机身 蓝宝石玻璃 | 颂拓运动算法支持 | 全新旋转表冠',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202407180024_944832315a706120a005947cbd642dfc.png?thumb=1&f=webp&q=90',
-    price: 1799,
-    originalPrice: 1999,
+    price: '1799',
+    originalPrice: '1999',
     hasMultipleSkus: true,
     categoryId: 1303
   },
@@ -708,8 +708,8 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202312081723_8c6876edb9fd120f765149945f77a4f1.png?thumb=1&&f=webp&q=90',
-    price: 549,
-    originalPrice: 549,
+    price: '549',
+    originalPrice: '549',
     categoryId: 1302
   },
   {
@@ -717,7 +717,7 @@ export const productsData: Product[] = [
     name: 'Xiaomi MIX Fold 4',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9a8fec02d8edf2bc5d1ed975823465c6.png?thumb=1&f=webp&q=90',
-    price: 8999,
+    price: '8999',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -726,7 +726,7 @@ export const productsData: Product[] = [
     name: 'Xiaomi MIX Flip',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/851b0039398ebce5909ef54360b03d1a.png?thumb=1&f=webp&q=90',
-    price: 5999,
+    price: '5999',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -735,7 +735,7 @@ export const productsData: Product[] = [
     name: 'Redmi Note 14 Pro+',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fa1b75b14fd41a5e1d98d25cbe6a1a89.png?thumb=1&f=webp&q=90',
-    price: 1799,
+    price: '1799',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -744,7 +744,7 @@ export const productsData: Product[] = [
     name: 'Redmi Note 14 Pro',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/106529ca2a44569b3955198ac43b525b.png?thumb=1&f=webp&q=90',
-    price: 1299,
+    price: '1299',
     hasMultipleSkus: true,
     categoryId: 1
   },
@@ -754,8 +754,8 @@ export const productsData: Product[] = [
     description: '144Hz超高刷、4+64G大存储',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c3e9eafd588b3994ec7f370379ecd2f4.jpg?thumb=1&f=webp&q=90',
-    price: 4799,
-    originalPrice: 4999,
+    price: '4799',
+    originalPrice: '4999',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -765,8 +765,8 @@ export const productsData: Product[] = [
     description: 'Mini LED 高分区背光、1200nits峰值亮度',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/300ebd5f0fa66a25a52da567134db676.png?thumb=1&f=webp&q=90',
-    price: 3499,
-    originalPrice: 3999,
+    price: '3499',
+    originalPrice: '3999',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -775,8 +775,8 @@ export const productsData: Product[] = [
     name: 'REDMI智能电视 MAX',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a32280bcf272b9ee7cc03f01ff921db0.png?thumb=1&f=webp&q=90',
-    price: 4599,
-    originalPrice: 4999,
+    price: '4599',
+    originalPrice: '4999',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -786,8 +786,8 @@ export const productsData: Product[] = [
     description: '240Hz竞技模式|4+64GB|全色温双色域色准管控',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81ae6882d5145e6b823b6c09040f7722.png?thumb=1&f=webp&q=90',
-    price: 2899,
-    originalPrice: 3499,
+    price: '2899',
+    originalPrice: '3499',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -796,8 +796,8 @@ export const productsData: Product[] = [
     name: 'REDMI智能电视 A Pro',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/61d3c019bbee8d3d38eb4f286fd0e9fe.png?thumb=1&f=webp&q=90',
-    price: 1399,
-    originalPrice: 1699,
+    price: '1399',
+    originalPrice: '1699',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -806,8 +806,8 @@ export const productsData: Product[] = [
     name: 'REDMI智能电视 A 2025',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88642b7abd98604c65434c8bd4359181.png?thumb=1&f=webp&q=90',
-    price: 699,
-    originalPrice: 899,
+    price: '699',
+    originalPrice: '899',
     hasMultipleSkus: true,
     categoryId: 301
   },
@@ -816,7 +816,7 @@ export const productsData: Product[] = [
     name: 'REDMI Book Pro 16 2025',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/259137ab3669314d5db646bb10ea874d.png?thumb=1&f=webp&q=90',
-    price: 6499,
+    price: '6499',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -825,7 +825,7 @@ export const productsData: Product[] = [
     name: 'REDMI Book Pro 14 2025',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f865ec1d50cda194589e084fc6c0647c.png?thumb=1&f=webp&q=90',
-    price: 5699,
+    price: '5699',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -835,7 +835,7 @@ export const productsData: Product[] = [
     description: '47W 满血性能 | 小米澎湃智联 | 旗舰硬核品质',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1e3e74dfb320c28e0264fd52427a94b3.jpg?thumb=1&f=webp&q=90',
-    price: 3999,
+    price: '3999',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -845,7 +845,7 @@ export const productsData: Product[] = [
     description: '47W 满血性能 | 小米澎湃智联 | 旗舰硬核品质',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2705ad0c89bebc151a7dc480c77f64e4.png?thumb=1&f=webp&q=90',
-    price: 3499,
+    price: '3499',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -855,7 +855,7 @@ export const productsData: Product[] = [
     description: '65W 满血性能｜全新酷睿 Ultra 处理器',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b3442ea8432af37766b3a1f900348469.png?thumb=1&f=webp&q=90',
-    price: 4999,
+    price: '4999',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -865,7 +865,7 @@ export const productsData: Product[] = [
     description: '70W 狂暴性能｜3.1K 165Hz 高刷高亮屏',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a1f6a20434940961e37aa3ab8f956217.png?thumb=1&f=webp&q=90',
-    price: 6399,
+    price: '6399',
     hasMultipleSkus: true,
     categoryId: 201
   },
@@ -875,8 +875,8 @@ export const productsData: Product[] = [
     description: '11.2英寸3.2K高清高刷屏 | 第三代骁龙8s 旗舰芯片 | HyperOS 2 ',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/db2d3127c6bf5b89488efa8f6fd85ded.png?thumb=1&f=webp&q=90',
-    price: 2399,
-    originalPrice: 2499,
+    price: '2399',
+    originalPrice: '2499',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -886,7 +886,7 @@ export const productsData: Product[] = [
     description: '11.2英寸3.2K高清高刷屏 | 第三代骁龙7+ 旗舰芯片 | HyperOS 2',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a87263f635654280e26c605090caaa16.png?thumb=1&f=webp&q=90',
-    price: 1999,
+    price: '1999',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -896,7 +896,7 @@ export const productsData: Product[] = [
     description: '12.1英寸2.5K旗舰机大屏 | 10000mAh超大电池',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f8dd1013092765f219fb3f90a1076539.png?thumb=1&f=webp&q=90',
-    price: 1499,
+    price: '1499',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -906,7 +906,7 @@ export const productsData: Product[] = [
     description: '第二代骁龙8 旗舰处理器 | 小米澎湃OS',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/02afd89b3e5ca18b30e73b4ff7a31893.png?thumb=1&f=webp&q=90',
-    price: 2599,
+    price: '2599',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -916,7 +916,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/75f234c4bc74c6a3cc6b054b24a5a94c.png?thumb=1&f=webp&q=90',
-    price: 999,
+    price: '999',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -926,7 +926,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/dca0249868dc6938fda3f71baafe10db.png?thumb=1&f=webp&q=90',
-    price: 3399,
+    price: '3399',
     hasMultipleSkus: true,
     categoryId: 202
   },
@@ -936,7 +936,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/531efbd4fd88b64a94079436851f56f1.png?thumb=1&f=webp&q=90',
-    price: 2099,
+    price: '2099',
     categoryId: 303
   },
   {
@@ -945,7 +945,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/52c8cab6760eadd9e01871dfbf27817f.png?thumb=1&f=webp&q=90',
-    price: 1999,
+    price: '1999',
     categoryId: 303
   },
   {
@@ -954,8 +954,8 @@ export const productsData: Product[] = [
     description: '强劲制冷 | 高效节能 | 智能互联',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e5bc8371b1e2efb551605cf2eb1baa87.png?thumb=1&f=webp&q=90',
-    price: 6299,
-    originalPrice: 6499,
+    price: '6299',
+    originalPrice: '6499',
     categoryId: 302
   },
   {
@@ -964,8 +964,8 @@ export const productsData: Product[] = [
     description: '强劲制冷 | 高效节能 | 智能互联',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/80416c1c7040aabbafa527a6ea652948.png?thumb=1&f=webp&q=90',
-    price: 2199,
-    originalPrice: 2499,
+    price: '2199',
+    originalPrice: '2499',
     categoryId: 302,
     staticDetails: [
       {
@@ -1003,7 +1003,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/85009f514f7505825899635daeb761b0.png?thumb=1&f=webp&q=90',
-    price: 1999,
+    price: '1999',
     categoryId: 304
   },
   {
@@ -1012,7 +1012,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3b6361cf5069af62f4208ee326bd0e43.png?thumb=1&f=webp&q=90',
-    price: 799,
+    price: '799',
     categoryId: 303
   },
   {
@@ -1021,7 +1021,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b5de7ae24c438974939453553420f1a0.png?thumb=1&f=webp&q=90',
-    price: 159,
+    price: '159',
     categoryId: 9
   },
   {
@@ -1030,7 +1030,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f6ae2a9be0012e6ee477b6aed44c88a3.png?thumb=1&f=webp&q=90',
-    price: 699,
+    price: '699',
     categoryId: 9
   },
   {
@@ -1039,7 +1039,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a8cc8ccb1c0e8cc58d96b7ec00df6634.png?thumb=1&f=webp&q=90',
-    price: 219,
+    price: '219',
     categoryId: 9
   },
   {
@@ -1048,7 +1048,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2e4e053bd4dd41341ce8950ae1c3896d.png?thumb=1&f=webp&q=90',
-    price: 599,
+    price: '599',
     categoryId: 9
   },
   {
@@ -1057,7 +1057,7 @@ export const productsData: Product[] = [
     description: null,
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/81f833a72b840274af1cf5931fb516f8.png?thumb=1&f=webp&q=90',
-    price: 279,
+    price: '279',
     categoryId: 9
   },
   {
@@ -1066,8 +1066,8 @@ export const productsData: Product[] = [
     description: '高温煮洗 杀菌除螨',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202212131701_80db3da0f97aeb6b724039a4c5a24dd7.png?thumb=1&q=90',
-    price: 749,
-    originalPrice: 1599,
+    price: '749',
+    originalPrice: '1599',
     categoryId: 304
   },
   {
@@ -1076,8 +1076,8 @@ export const productsData: Product[] = [
     description: '小体积大容量 节能低噪',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6852696ece843f1a1f9667e21bb09c71.jpg?thumb=1&f=webp&q=90',
-    price: 799,
-    originalPrice: 1299,
+    price: '799',
+    originalPrice: '1299',
     categoryId: 303
   },
   {
@@ -1085,14 +1085,14 @@ export const productsData: Product[] = [
     name: '米家电烤箱',
     pictureUrl:
       'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1612c93ad4756215774a0dbec7a81bb2.jpg?thumb=1&f=webp&q=90',
-    price: 299,
+    price: '299',
     categoryId: 306
   },
   {
     id: 69,
     name: '小米巨能写多彩中性笔',
     pictureUrl: '',
-    price: 9.99,
+    price: '9.99',
     categoryId: 1401,
     staticDetails: [
       {
@@ -1116,7 +1116,7 @@ export const productsData: Product[] = [
     id: 70,
     name: '日常元素软乎毛巾/浴巾',
     pictureUrl: '',
-    price: 19.9,
+    price: '19.9',
     categoryId: 506,
     staticDetails: [
       {
@@ -1300,7 +1300,7 @@ export const productSkusData: ProductSku[] = [
     id: 1,
     productId: 1,
     name: '16GB+512GB 经典黑银 标准版',
-    price: 6999,
+    price: '6999',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63475132.png',
     gallery: [
@@ -1330,7 +1330,7 @@ export const productSkusData: ProductSku[] = [
     id: 2,
     productId: 1,
     name: '16GB+512GB 白色 标准版',
-    price: 6999,
+    price: '6999',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.62086732.png',
     gallery: [
@@ -1360,7 +1360,7 @@ export const productSkusData: ProductSku[] = [
     id: 3,
     productId: 1,
     name: '16GB+512GB 松柏绿 标准版',
-    price: 6999,
+    price: '6999',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.63373411.png',
     gallery: [
@@ -1390,7 +1390,7 @@ export const productSkusData: ProductSku[] = [
     id: 4,
     productId: 1,
     name: '16GB+512GB 黑色 标准版',
-    price: 6999,
+    price: '6999',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578505.75065575.png',
     gallery: [
@@ -1420,7 +1420,7 @@ export const productSkusData: ProductSku[] = [
     id: 5,
     productId: 1,
     name: '16GB+256GB 黑色 标准版',
-    price: 6499,
+    price: '6499',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1740578491.37431726.png',
     gallery: [
@@ -1450,8 +1450,8 @@ export const productSkusData: ProductSku[] = [
     id: 6,
     productId: 58,
     name: '白色',
-    price: 2199,
-    originalPrice: 2499,
+    price: '2199',
+    originalPrice: '2499',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/75430C54AC5944E773D050D1B69DBAB3.jpg',
     gallery: [
@@ -1469,7 +1469,7 @@ export const productSkusData: ProductSku[] = [
     id: 7,
     productId: 69,
     name: '彩色',
-    price: 9.99,
+    price: '9.99',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1607063604.46323457.jpg',
     gallery: [
@@ -1490,7 +1490,7 @@ export const productSkusData: ProductSku[] = [
     id: 8,
     productId: 70,
     name: '轻柔毛巾34cmx76cm 肤粉',
-    price: 19.9,
+    price: '19.9',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
     gallery: [
@@ -1512,7 +1512,7 @@ export const productSkusData: ProductSku[] = [
     id: 9,
     productId: 70,
     name: '轻柔毛巾34cmx76cm 灰绿',
-    price: 19.9,
+    price: '19.9',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/3750549012FD87F249092FC44C76DAE0.png',
     gallery: [
@@ -1534,8 +1534,8 @@ export const productSkusData: ProductSku[] = [
     id: 10,
     productId: 70,
     name: '浴巾70cmx140cm 肤粉',
-    price: 69,
-    originalPrice: 99,
+    price: '69',
+    originalPrice: '99',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/0EB370B22670394DAD68160227D96ECC.png',
     gallery: [
@@ -1557,8 +1557,8 @@ export const productSkusData: ProductSku[] = [
     id: 11,
     productId: 70,
     name: '浴巾70cmx140cm 灰绿',
-    price: 69,
-    originalPrice: 99,
+    price: '69',
+    originalPrice: '99',
     pictureUrl:
       'https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/7A5DEED07B18751D7FAAA391F109A494.png',
     gallery: [

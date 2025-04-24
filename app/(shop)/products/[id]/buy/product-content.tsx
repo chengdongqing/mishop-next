@@ -100,7 +100,7 @@ function ProductSkus({
   );
 }
 
-function SelectedInfo({ name, amount }: { name?: string; amount?: number }) {
+function SelectedInfo({ name, amount }: { name?: string; amount?: string }) {
   return (
     <div className={'my-[30] bg-[rgb(249,249,249)] p-[30]'}>
       <div className={'flex justify-between text-[rgb(97,97,97)]'}>
