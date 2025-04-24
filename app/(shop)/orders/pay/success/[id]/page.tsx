@@ -1,11 +1,15 @@
 import Button from '@/components/ui/button';
 import RecommendProducts from '@/components/ui/recommend-products';
+import { OrderStatus } from '@/enums/order';
 import { formatAmount } from '@/lib/utils';
+import { findOrder } from '@/services/orders';
+import { Order } from '@/types/order';
 import { ChevronRightIcon } from '@heroicons/react/16/solid';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import { redirect } from 'next/navigation';
+import { Fragment, PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
   title: '支付成功 - 小米商城'
@@ -17,28 +21,32 @@ export default async function PaySuccessPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  console.log({ id });
+  const order = await findOrder(Number(id));
+
+  if (order.status !== OrderStatus.PENDING_PACKING) {
+    redirect('/orders');
+  }
 
   return (
     <div className={'bg-primary'}>
       <div className={'w-primary py-[38]'}>
-        <SuccessContent />
+        <SuccessContent order={order} />
         <RecommendProducts title={'为你推荐'} />
       </div>
     </div>
   );
 }
 
-function SuccessContent() {
+function SuccessContent({ order }: { order: Order }) {
   return (
     <div className={'mb-[100] flex min-h-[400]'}>
-      <SuccessPanel />
-      <DetailsPanel />
+      <SuccessPanel order={order} />
+      <DetailsPanel order={order} />
     </div>
   );
 }
 
-function SuccessPanel() {
+function SuccessPanel({ order }: { order: Order }) {
   return (
     <div
       className={
@@ -47,9 +55,10 @@ function SuccessPanel() {
     >
       <h1 className={'mb-[1] text-[48px] text-white'}>支付成功</h1>
       <div className={'m-[20_0_30] text-[#ff0]'}>
-        <span className={'text-2xl'}>{formatAmount(188.9)}</span>元
+        <span className={'text-2xl'}>{formatAmount(order.payableAmount)}</span>
+        元
       </div>
-      <Link href={'/orders/123'}>
+      <Link href={`/orders/${order.id}`}>
         <Button
           className={
             'mx-auto mb-[30] !border-[#fff] !bg-transparent !text-white hover:opacity-80'
@@ -77,26 +86,30 @@ function SuccessPanel() {
   );
 }
 
-function DetailsPanel() {
+function DetailsPanel({ order }: { order: Order }) {
   return (
     <div className={'relative flex-1 bg-white p-[50_60]'}>
       <ul>
-        <DetailItem label={'订单编号'}>5230601985602776</DetailItem>
+        <DetailItem label={'订单编号'}>{order.orderNumber}</DetailItem>
         <DetailItem label={'收货信息'}>
-          海盐芝士不加糖 189****2398
+          {order.recipientName} {order.recipientPhone}
           <br />
-          重庆市 江北区 马栏星镇 一心村
+          {order.recipientAddress}
           <br />
           <span className={'text-primary'}>
             * 在“订单详情页”你可以确认收货地址或者更改收货地址
           </span>
         </DetailItem>
         <DetailItem label={'商品名称'}>
-          米家负离子速干吹风机 H300
-          <span className={'ml-1 text-[rgb(176,176,176)]'}>x 1</span>
-          <br />
-          米家指甲刀五件套
-          <span className={'ml-1 text-[rgb(176,176,176)]'}>x 1</span>
+          {order.items.map((item) => (
+            <Fragment key={item.id}>
+              {item.productName} {item.skuName}
+              <span className={'ml-1 text-[rgb(176,176,176)]'}>
+                x {item.quantity}
+              </span>
+              <br />
+            </Fragment>
+          ))}
         </DetailItem>
       </ul>
       <div className={'absolute right-[40] bottom-[25] text-center text-xs'}>
