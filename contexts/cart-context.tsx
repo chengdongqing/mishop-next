@@ -135,11 +135,14 @@ export function CartProvider({ children }: PropsWithChildren) {
 
   async function addToCart(product: CartProduct) {
     if (hasLogin) {
-      await cartService.addToCart({
+      const res = await cartService.addToCart({
         skuId: product.skuId,
         productId: product.productId,
         quantity: 1
       });
+      if (!res.ok) {
+        throw new Error(res.error);
+      }
 
       const items = await cartService.findCartItems();
       setProducts(items);
@@ -179,10 +182,13 @@ export function CartProvider({ children }: PropsWithChildren) {
           throw new Error('商品加入购物车数量超过限购数');
         }
       } else if (product.id) {
-        await cartService.modifyCartItem({
+        const res = await cartService.modifyCartItem({
           id: product.id,
           quantity
         });
+        if (!res.ok) {
+          throw new Error(res.error);
+        }
       }
 
       product.quantity = quantity;
@@ -192,10 +198,13 @@ export function CartProvider({ children }: PropsWithChildren) {
 
   async function setChecked(product: CartProduct, checked: boolean) {
     if (hasLogin && product.id) {
-      await cartService.modifyCartItem({
+      const res = await cartService.modifyCartItem({
         id: product.id,
         checked
       });
+      if (!res.ok) {
+        throw new Error(res.error);
+      }
     }
 
     product.checked = checked;

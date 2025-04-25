@@ -151,9 +151,8 @@ function ActionBar({
               startTransition(async () => {
                 try {
                   await downloadFileAsync(src);
-                } catch (e) {
-                  const message = e instanceof Error ? e.message : String(e);
-                  toast.error(`下载失败（${message}）`);
+                } catch (err) {
+                  toast.error(`下载失败（${(err as Error).message}）`);
                 }
               });
             }}

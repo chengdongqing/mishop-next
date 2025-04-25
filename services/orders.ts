@@ -4,6 +4,7 @@ import { OrderStatus, PaymentMethod } from '@/enums/order';
 import { orderQueue } from '@/jobs/queues/order';
 import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
+import { Result } from '@/lib/result';
 import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
 import { getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
@@ -30,7 +31,7 @@ export async function createOrder(addressId: number) {
     )
   });
   if (!address) {
-    throw new Error('收货地址不存在');
+    return Result.fail('收货地址不存在');
   }
 
   // 查询待支付商品
@@ -47,7 +48,7 @@ export async function createOrder(addressId: number) {
     where: and(eq(cartItems.userId, userId), eq(cartItems.checked, true))
   });
   if (!items.length) {
-    throw new Error('待支付商品为空');
+    return Result.fail('待支付商品为空');
   }
 
   // 设置redis锁，避免重复提交
@@ -55,7 +56,7 @@ export async function createOrder(addressId: number) {
   const lockValue = uuidV4();
   const lockAcquired = await redis.set(lockKey, lockValue, 'EX', 5, 'NX'); // 5秒后自动过期释放
   if (!lockAcquired) {
-    throw new Error('订单正在处理中，请勿重复提交');
+    return Result.fail('订单正在处理中，请勿重复提交');
   }
 
   try {
@@ -133,7 +134,9 @@ export async function createOrder(addressId: number) {
       { delay: PaymentTimeout * 60 * 1000 }
     );
 
-    return orderId;
+    return Result.ok(orderId);
+  } catch (err) {
+    return Result.fail((err as Error).message);
   } finally {
     // 释放锁
     const currentLock = await redis.get(lockKey);

@@ -52,15 +52,12 @@ export default function CheckoutBar({
             }
 
             startTransition(async () => {
-              try {
-                const id = await createOrder(address.id);
+              const res = await createOrder(address.id);
+              if (res.ok) {
                 reloadCart();
-
-                router.replace(`/orders/pay?id=${id}`);
-              } catch (e) {
-                if (e instanceof Error) {
-                  popup.alert(e.message);
-                }
+                router.replace(`/orders/pay?id=${res.data}`);
+              } else {
+                popup.alert(res.error);
               }
             });
           }}

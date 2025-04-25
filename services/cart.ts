@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { Result } from '@/lib/result';
 import { cartItems, productSkus } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
 import { calcOrderSummary } from '@/services/orders';
@@ -33,7 +34,7 @@ export async function addToCart(
     where: eq(productSkus.id, product.skuId)
   });
   if (!sku) {
-    throw new Error('sku不存在');
+    return Result.fail('sku不存在');
   }
 
   // 根据userId和skuId查询是否存在该购物车商品
@@ -45,10 +46,10 @@ export async function addToCart(
   if (cartItem) {
     cartItem.quantity += product.quantity ?? 1;
     if (sku.limits && cartItem.quantity > sku.limits) {
-      throw new Error('商品加入购物车数量超过限购数');
+      return Result.fail('商品加入购物车数量超过限购数');
     }
     if (cartItem.quantity > sku.stocks) {
-      throw new Error('商品库存不足');
+      return Result.fail('商品库存不足');
     }
 
     // 更新数据库
@@ -62,7 +63,7 @@ export async function addToCart(
   // 否则创建购物车商品
   else {
     if (!sku.stocks) {
-      throw new Error('商品库存不足');
+      return Result.fail('商品库存不足');
     }
 
     await db.insert(cartItems).values({
@@ -72,6 +73,8 @@ export async function addToCart(
       quantity: product.quantity ?? 1
     });
   }
+
+  return Result.ok();
 }
 
 /**
@@ -91,17 +94,17 @@ export async function modifyCartItem(product: {
     where: and(eq(cartItems.id, product.id), eq(cartItems.userId, userId))
   });
   if (!cartItem) {
-    throw new Error('该购物车商品不存在');
+    return Result.fail('该购物车商品不存在');
   }
 
   if (product.quantity) {
     cartItem.quantity = product.quantity;
     const { sku } = cartItem;
     if (sku.limits && cartItem.quantity > sku.limits) {
-      throw new Error('商品加入购物车数量超过限购数');
+      return Result.fail('商品加入购物车数量超过限购数');
     }
     if (cartItem.quantity > sku.stocks) {
-      throw new Error('商品库存不足');
+      return Result.fail('商品库存不足');
     }
   }
   if (product.checked !== undefined) {
@@ -115,6 +118,8 @@ export async function modifyCartItem(product: {
       checked: cartItem.checked
     })
     .where(eq(cartItems.id, cartItem.id));
+
+  return Result.ok();
 }
 
 export async function modifyAllChecked(checked: boolean) {
