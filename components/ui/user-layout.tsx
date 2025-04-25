@@ -49,7 +49,7 @@ function NavBar() {
       </dl>
       <dl>
         <DT>账户管理</DT>
-        <DD href={'/account'} target={'_blank'}>
+        <DD href={'/account/profile'} target={'_blank'}>
           个人信息
         </DD>
         <DD href={'/account?action=password'} target={'_blank'}>

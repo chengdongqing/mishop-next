@@ -18,6 +18,7 @@ import { ActionState } from '@/types/common';
 import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 const userInsertSchema = createInsertSchema(users, {
@@ -189,6 +190,8 @@ export async function authenticate(
     };
   }
 
+  revalidatePath('/');
+
   return {
     success: true
   };
@@ -271,6 +274,8 @@ export async function authenticateByCode(
       };
     }
   }
+
+  revalidatePath('/');
 
   return {
     success: true

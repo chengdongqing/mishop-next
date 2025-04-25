@@ -74,10 +74,10 @@ function UserInfo() {
       }
     >
       <Image
-        src={userInfo.avatarUrl ?? '/logo'}
+        src={userInfo.avatarUrl}
         alt={'User Avatar'}
-        width={80}
-        height={80}
+        width={128}
+        height={128}
         className={'mb-1 inline h-[80] w-[80] rounded-full object-scale-down'}
       />
       <h4 className={'text-lg leading-[40px] font-semibold'}>
