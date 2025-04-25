@@ -3,6 +3,7 @@ import LanguagePicker from '@/components/ui/language-picker';
 import MiLogo from '@/components/ui/mi-logo';
 import Space from '@/components/ui/space';
 import { logout } from '@/services/auth';
+import clsx from 'clsx';
 import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
@@ -122,12 +123,13 @@ function LinkItem(props: HTMLProps<HTMLAnchorElement>) {
   );
 }
 
-function Footer() {
+export function Footer({ className }: { className?: string }) {
   return (
     <footer
-      className={
-        'absolute right-0 bottom-4 left-0 px-5 text-center text-xs text-ellipsis text-[#999]'
-      }
+      className={clsx(
+        'absolute right-0 bottom-4 left-0 px-5 text-center text-xs text-ellipsis text-[#999]',
+        className
+      )}
     >
       小米公司版权所有-京ICP备10046444-
       <a
