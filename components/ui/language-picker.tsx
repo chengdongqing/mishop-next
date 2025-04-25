@@ -3,19 +3,16 @@
 import Dropdown from '@/components/ui/dropdown';
 import { setUserLocale } from '@/services/locale';
 import { Locale } from '@/types/common';
-import { Key, startTransition, use, useState } from 'react';
+import { Key, startTransition, useState } from 'react';
+import { useLocale } from 'use-intl';
 
-export default function LanguagePicker({
-  getLocalePromise
-}: {
-  getLocalePromise: Promise<Locale>;
-}) {
-  const local = use(getLocalePromise);
+export default function LanguagePicker() {
+  const local = useLocale() as Locale;
   const [current, setCurrent] = useState<Lang | undefined>(() =>
     getLanguageByKey(local)
   );
 
-  function handleLanguageChange(key: Key) {
+  function handleChange(key: Key) {
     setCurrent(getLanguageByKey(key as Locale));
     startTransition(async () => {
       await setUserLocale(key as Locale);
@@ -27,9 +24,11 @@ export default function LanguagePicker({
       <Dropdown
         menus={languages.filter((item) => item.key !== current?.key)}
         overlayStyle={{ minWidth: 65 }}
-        onChange={handleLanguageChange}
+        onChange={handleChange}
       >
-        <a className={'group-hover:text-[var(--color-primary)]'}>
+        <a
+          className={'font-extralight group-hover:text-[var(--color-primary)]'}
+        >
           {current?.label}
         </a>
       </Dropdown>

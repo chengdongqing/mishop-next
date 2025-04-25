@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
 import Agreement from '../agreement';
 
-export default function SignupForm() {
+export default function SignUpForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
     signup,
     {}

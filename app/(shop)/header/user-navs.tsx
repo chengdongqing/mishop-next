@@ -62,7 +62,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
               <ChevronDownIcon className={'ml-1 w-4'} />
             </span>
           }
-          href={`/user`}
+          href={'/user'}
           isCartHeader={isCartHeader}
         />
 

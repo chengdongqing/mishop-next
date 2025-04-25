@@ -1,11 +1,12 @@
+import { auth } from '@/auth';
 import LanguagePicker from '@/components/ui/language-picker';
 import MiLogo from '@/components/ui/mi-logo';
 import Space from '@/components/ui/space';
-import { getUserLocale } from '@/services/locale';
+import { logout } from '@/services/auth';
 import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import { HTMLProps, PropsWithChildren, Suspense } from 'react';
+import { HTMLProps, PropsWithChildren } from 'react';
 import MainCard from './main-card';
 
 export const metadata: Metadata = {
@@ -19,14 +20,12 @@ export const viewport: Viewport = {
   width: 'device-width'
 };
 
-export default async function AuthLayout({ children }: PropsWithChildren) {
-  const t = await getTranslations('AuthLayout');
-
+export default function AuthLayout({ children }: PropsWithChildren) {
   return (
     <div className={'flex min-h-screen dark:bg-black'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
-        <Header t={t} />
+        <Header />
         <div className={'flex flex-1 items-center justify-center'}>
           <div className={'my-[80] min-h-[570]'}>
             <MainCard>{children}</MainCard>
@@ -58,8 +57,9 @@ function SideBar() {
   );
 }
 
-async function Header({ t }: { t: (key: string) => string }) {
-  const getLocalePromise = getUserLocale();
+export async function Header() {
+  const session = await auth();
+  const t = await getTranslations('LayoutHeader');
 
   return (
     <header className={'flex items-center justify-between p-5'}>
@@ -78,30 +78,33 @@ async function Header({ t }: { t: (key: string) => string }) {
         <div className={'max-sm:hidden'}>
           <Space size={10}>
             <LinkItem
-              href={
-                'https://cn.account.xiaomi.com/about/protocol/agreement?_locale=zh_CN'
-              }
+              href={'https://cn.account.xiaomi.com/about/protocol/agreement'}
             >
               {t('userAgreement')}
             </LinkItem>
             <LinkItem
-              href={
-                'https://cn.account.xiaomi.com/about/protocol/privacy?_locale=zh_CN'
-              }
+              href={'https://cn.account.xiaomi.com/about/protocol/privacy'}
             >
               {t('privacyPolicy')}
             </LinkItem>
-            <LinkItem
-              href={'https://cn.account.xiaomi.com/helpcenter?_locale=zh_CN'}
-            >
+            <LinkItem href={'https://cn.account.xiaomi.com/helpcenter'}>
               {t('helpCenter')}
             </LinkItem>
           </Space>
           <span className={'ml-[10] text-[#ddd]'}>|</span>
         </div>
-        <Suspense>
-          <LanguagePicker getLocalePromise={getLocalePromise} />
-        </Suspense>
+        <LanguagePicker />
+        {!!session && (
+          <button
+            className={'text-primary ml-2.5 cursor-pointer font-extralight'}
+            onClick={async () => {
+              'use server';
+              await logout();
+            }}
+          >
+            {t('logout')}
+          </button>
+        )}
       </div>
     </header>
   );
@@ -112,7 +115,9 @@ function LinkItem(props: HTMLProps<HTMLAnchorElement>) {
     <a
       {...props}
       target={'_blank'}
-      className={'hover:text-primary text-[#838383] duration-200'}
+      className={
+        'hover:text-primary font-extralight text-[#838383] duration-200'
+      }
     />
   );
 }

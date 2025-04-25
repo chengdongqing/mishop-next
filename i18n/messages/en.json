@@ -1,9 +1,10 @@
 {
-  "AuthLayout": {
+  "LayoutHeader": {
     "title": "Xiaomi Account",
     "userAgreement": "User Agreement",
     "privacyPolicy": "Privacy Policy",
-    "helpCenter": "Need help?"
+    "helpCenter": "Need help?",
+    "logout": "Logout"
   },
   "ResetPassword": {
     "title": "Reset password"

@@ -1,13 +1,10 @@
 import { PrivacyIcon } from '@/components/icons';
 import LanguagePicker from '@/components/ui/language-picker';
-import { getUserLocale } from '@/services/locale';
 
 export default function TopBar() {
-  const getLocalPromise = getUserLocale();
-
   return (
     <div className={'flex items-center justify-between py-4'}>
-      <LanguagePicker getLocalePromise={getLocalPromise} />
+      <LanguagePicker />
       <div
         className={
           'flex items-center gap-x-3 pr-2 text-[rgba(0,0,0,.5)] dark:text-[var(--color-primary)]'

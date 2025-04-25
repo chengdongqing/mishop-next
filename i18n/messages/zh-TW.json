@@ -1,9 +1,10 @@
 {
-  "AuthLayout": {
+  "LayoutHeader": {
     "title": "小米帳號",
     "userAgreement": "使用協議",
     "privacyPolicy": "隱私政策",
-    "helpCenter": "幫助中心"
+    "helpCenter": "幫助中心",
+    "logout": "登出"
   },
   "ResetPassword": {
     "title": "重設密碼"

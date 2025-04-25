@@ -1,12 +1,12 @@
 import { MiSans } from '@/components/fonts';
 import { ThemeProvider } from '@/contexts/theme-context';
-import { getUserLocale } from '@/services/locale';
 import { getUserTheme } from '@/services/theme';
-import { Locale } from '@/types/common';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import { PropsWithChildren } from 'react';
+import { getLangDir } from 'rtl-detect';
 
 export const metadata: Metadata = {
   title: '小米商城 - Xiaomi 15、REDMI K80、MIX Fold 4，小米电视官方网站',
@@ -26,11 +26,9 @@ export const viewport: Viewport = {
   width: 1226
 };
 
-const rtlLanguages: Locale[] = ['ug'];
-
 export default async function RootLayout({ children }: PropsWithChildren) {
-  const [locale, theme] = await Promise.all([getUserLocale(), getUserTheme()]);
-  const dir = rtlLanguages.includes(locale) ? 'rtl' : undefined;
+  const [locale, theme] = await Promise.all([getLocale(), getUserTheme()]);
+  const dir = getLangDir(locale);
 
   return (
     <html
