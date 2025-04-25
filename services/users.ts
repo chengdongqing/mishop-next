@@ -68,7 +68,7 @@ export async function modifyProfile(
     })
     .where(eq(users.id, userId));
 
-  revalidatePath('/');
+  revalidatePath('/account');
 
   return { success: true };
 }

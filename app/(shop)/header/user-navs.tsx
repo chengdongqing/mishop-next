@@ -37,7 +37,7 @@ export default function UserNavs({ isCartHeader }: { isCartHeader?: boolean }) {
 
 function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
   const [open, setOpen] = useState(false);
-  const userInfo = useUserInfo();
+  const userInfo = useUserInfo()!;
 
   return (
     <>
@@ -56,8 +56,11 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
                 'hover:text-primary flex w-[110] items-center justify-center'
               }
             >
-              <span className={'max-w-[80] text-ellipsis'}>
-                {userInfo?.name}
+              <span
+                className={'max-w-[80] text-ellipsis'}
+                title={userInfo.name}
+              >
+                {userInfo.name}
               </span>
               <ChevronDownIcon className={'ml-1 w-4'} />
             </span>
