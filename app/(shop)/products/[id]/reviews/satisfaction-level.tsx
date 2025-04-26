@@ -8,7 +8,7 @@ export default function SatisfactionLevel({
   positiveRate
 }: Props) {
   return (
-    <div className={'bg-white p-[22_30_40]'}>
+    <div className={'bg-[var(--color-bg)] p-[22_30_40]'}>
       <div>
         <span className={'text-primary text-[60px]'}>{positiveCount}</span>
         <span className={'text-sm text-[#b0b0b0]'}>人购买后满意</span>

@@ -23,7 +23,9 @@ export default function CartBar() {
       ref={footerRef}
       className={clsx(
         'sticky bottom-0 mt-5 mb-[60] flex h-[50] justify-between',
-        fixed ? 'bg-[#fafafa] shadow-[0_-3px_6px_rgba(0,0,0,.1)]' : 'bg-white'
+        fixed
+          ? 'bg-[#fafafa] shadow-[0_-3px_6px_rgba(0,0,0,.1)]'
+          : 'bg-[var(--color-bg)]'
       )}
     >
       <div className={'flex items-center pl-8 text-[#757575]'}>
@@ -93,7 +95,7 @@ function CheckoutButton() {
       {noChecked && (
         <div
           className={
-            'text-primary absolute top-[-58] right-0 z-1 h-[50] w-[202] border-1 border-[var(--color-primary)] bg-white text-center leading-[48px]'
+            'text-primary absolute top-[-58] right-0 z-1 h-[50] w-[202] border-1 border-[var(--color-primary)] bg-[var(--color-bg)] text-center leading-[48px]'
           }
         >
           请勾选需要结算的商品

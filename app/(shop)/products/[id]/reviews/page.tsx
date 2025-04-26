@@ -62,7 +62,11 @@ export default async function ProductReviewsPage({
             </div>
           </Suspense>
         ) : (
-          <div className={'w-full bg-white py-[50] text-center text-xl'}>
+          <div
+            className={
+              'w-full bg-[var(--color-bg)] py-[50] text-center text-xl'
+            }
+          >
             该商品暂无评论
           </div>
         )}

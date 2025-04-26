@@ -67,7 +67,7 @@ function ToolButton(props: {
   return (
     <button
       className={clsx(
-        'group relative flex h-[90] w-[82] cursor-pointer flex-col items-center justify-center border-1 border-[#f5f5f5] bg-white',
+        'group relative flex h-[90] w-[82] cursor-pointer flex-col items-center justify-center border-1 border-[#f5f5f5] bg-[var(--color-bg)]',
         props.className
       )}
       onClick={props.onClick}

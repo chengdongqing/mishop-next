@@ -93,7 +93,7 @@ export default function ReviewList() {
       ) : hasMore ? (
         <button
           className={
-            'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-white'
+            'text-primary mt-3.5 flex h-[45] w-full cursor-pointer items-center justify-center bg-[var(--color-bg)]'
           }
           onClick={() => loadReviews(page + 1)}
         >
@@ -106,7 +106,11 @@ export default function ReviewList() {
 
 function ReviewItem({ review }: { review: ProductReview }) {
   return (
-    <li className={'relative mb-3.5 bg-white p-[40_40_46_103] last:mb-0'}>
+    <li
+      className={
+        'relative mb-3.5 bg-[var(--color-bg)] p-[40_40_46_103] last:mb-0'
+      }
+    >
       <ReviewHeader review={review} />
       <ReviewContent content={review.content} />
       <ReviewPhotos urls={review.photoUrls} />

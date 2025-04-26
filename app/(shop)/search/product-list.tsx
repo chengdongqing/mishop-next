@@ -28,7 +28,7 @@ function ProductItem({ product }: { product: SearchProduct }) {
     <Link href={createProductUrl(product)}>
       <li
         className={
-          'flex cursor-pointer flex-col items-center bg-white py-[46] duration-300 ease-linear hover:shadow-[0_5px_15px_rgba(0,0,0,0.2)]'
+          'flex cursor-pointer flex-col items-center bg-[var(--color-bg)] py-[46] duration-300 ease-linear hover:shadow-[0_5px_15px_rgba(0,0,0,0.2)]'
         }
       >
         <Image

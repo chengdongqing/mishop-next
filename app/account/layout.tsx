@@ -9,7 +9,7 @@ export default async function AccountLayout({ children }: PropsWithChildren) {
 
   return (
     <UserInfoProvider userInfo={userInfo}>
-      <div className={'flex min-h-screen flex-col dark:bg-black'}>
+      <div className={'flex min-h-screen flex-col'}>
         <Header />
         <div
           className={

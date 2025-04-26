@@ -29,7 +29,7 @@ export default function VideoCard({
   return (
     <li
       className={clsx(
-        'group cursor-pointer bg-white duration-200 ease-linear',
+        'group cursor-pointer bg-[var(--color-bg)] duration-200 ease-linear',
         'hover:translate-y-[-2px] hover:shadow-[0_15px_30px_rgba(0,0,0,.1)]'
       )}
     >

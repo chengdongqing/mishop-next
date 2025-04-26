@@ -162,7 +162,7 @@ function AddressTopBar({
   return (
     <div
       className={
-        'fixed top-0 right-0 left-0 z-20 bg-white shadow-[0_3px_6px_#0000001a]'
+        'fixed top-0 right-0 left-0 z-20 bg-[var(--color-bg)] shadow-[0_3px_6px_#0000001a]'
       }
     >
       <div className={'w-primary flex h-[70] items-center justify-between'}>

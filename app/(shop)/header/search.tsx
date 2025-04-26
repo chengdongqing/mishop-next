@@ -75,7 +75,7 @@ function RecommendedList({ keywords }: { keywords: string[] }) {
   return (
     <ul
       className={
-        'absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border border-[var(--color-primary)] bg-white'
+        'absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border border-[var(--color-primary)] bg-[var(--color-bg)]'
       }
     >
       {keywords.map((keyword) => (

@@ -47,11 +47,11 @@ function ProductsPanel({ items }: { items: LayoutHeroCategoryItem[] }) {
   return (
     <ul
       className={
-        'border-primary absolute top-0 left-[234] z-10 grid h-[460] grid-flow-col grid-rows-6 border-1 bg-white shadow-[0_8px_16px_rgba(0,0,0,.18)]'
+        'border-primary absolute top-0 left-[234] z-10 grid h-[460] grid-flow-col grid-rows-6 border-1 bg-[var(--color-bg)] shadow-[0_8px_16px_rgba(0,0,0,.18)]'
       }
     >
       {items.slice(0, 24).map((item) => (
-        <li key={item.name} className={'bg-white'}>
+        <li key={item.name} className={'bg-[var(--color-bg)]'}>
           <a
             href={getHref(item)}
             className={

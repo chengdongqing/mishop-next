@@ -29,7 +29,7 @@ export default function Header({ ratingsMap = {}, all = 0 }: Props) {
 
   return (
     <>
-      <div className={'bg-white p-[40]'}>
+      <div className={'bg-[var(--color-bg)] p-[40]'}>
         <h2 className={'text-lg text-[#757575]'}>大家认为</h2>
         <ul className={'mt-3.5 flex gap-x-6'}>
           {categories.map((category) => (

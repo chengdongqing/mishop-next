@@ -14,7 +14,7 @@ export default function ProductTable() {
   const { products } = useCart();
 
   return (
-    <table className={'w-full bg-white'}>
+    <table className={'w-full bg-[var(--color-bg)]'}>
       <TableHeader />
       <tbody>
         {products.map((product) => (

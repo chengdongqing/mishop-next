@@ -15,7 +15,7 @@ export default async function ResetPasswordPage() {
   const t = await getTranslations('ResetPassword');
 
   return (
-    <div className={'min-h-screen min-w-screen dark:bg-black'}>
+    <div className={'min-h-screen min-w-screen'}>
       <div className={'mx-auto flex min-h-screen flex-col md:w-[956]'}>
         <TopBar />
         <h4

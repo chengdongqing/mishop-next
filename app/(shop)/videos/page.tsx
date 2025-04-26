@@ -26,7 +26,7 @@ function Title() {
   return (
     <h1
       className={
-        'h-[80] bg-white ps-[40px] text-xl leading-[80px] text-[#424242]'
+        'h-[80] bg-[var(--color-bg)] ps-[40px] text-xl leading-[80px] text-[#424242]'
       }
     >
       全部视频

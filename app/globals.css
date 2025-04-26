@@ -12,7 +12,7 @@
     }
 
     .bg-primary {
-        background-color: var(--color-bg);
+        background-color: var(--color-bg-secondary);
     }
 
     .w-primary {
@@ -30,17 +30,25 @@
     --color-error: #f04645;
     --color-success: #83c44e;
     --color-border: #e0e0e0;
-    --color-bg: #f5f5f5;
+    --color-text-primary: #333;
+    --color-bg: #fff;
+    --color-bg-secondary: #f5f5f5;
+
     --width-primary: 1226px;
 }
 
-body {
-    color: #333;
-    font-size: 14px;
+@media (prefers-color-scheme: dark) {
+    :root:where(.dark, .dark *) {
+        --color-text-primary: #fffc;
+        --color-bg: #000;
+        --color-bg-secondary: #242424;
+    }
 }
 
-body:where(.dark, .dark *) {
-    color: #fffc;
+body {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
 }
 
 .text-ellipsis {

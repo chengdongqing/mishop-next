@@ -62,7 +62,7 @@ export default function PaymentMethods({ id }: { id: string }) {
   }
 
   return (
-    <section className={'mt-[30] bg-white p-[30_48]'}>
+    <section className={'mt-[30] bg-[var(--color-bg)] p-[30_48]'}>
       <div className={'text-lg text-[rgb(66,66,66)]'}>选择以下支付方式付款</div>
       <div className={'border-primary my-[30] border-t-1'} />
       <ul className={'flex gap-[14]'}>

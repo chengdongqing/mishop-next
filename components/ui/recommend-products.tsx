@@ -141,7 +141,7 @@ function ProductCard({ product }: { product: RecommendedProduct }) {
     >
       <li
         className={
-          'group relative flex h-[300] flex-col items-center overflow-hidden bg-white'
+          'group relative flex h-[300] flex-col items-center overflow-hidden bg-[var(--color-bg)]'
         }
       >
         <Image

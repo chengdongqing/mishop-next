@@ -53,7 +53,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
       >
         <NavItem
           className={
-            'relative z-11 group-hover:bg-white group-hover:text-[#424242]'
+            'relative z-11 group-hover:bg-[var(--color-bg)] group-hover:text-[#424242]'
           }
           title={
             <span
@@ -76,7 +76,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
 
         <motion.div
           className={
-            'absolute top-full right-0 left-0 z-10 overflow-hidden bg-white text-center shadow-[0_2px_10px_rgba(0,0,0,0.15)]'
+            'absolute top-full right-0 left-0 z-10 overflow-hidden bg-[var(--color-bg)] text-center shadow-[0_2px_10px_rgba(0,0,0,0.15)]'
           }
           initial={{ height: 0 }}
           animate={{ height: open ? 'auto' : 0 }}

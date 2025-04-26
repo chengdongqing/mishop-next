@@ -142,7 +142,7 @@ function ProductsPanel({
   return (
     <div
       className={clsx(
-        'border-primary absolute top-[100] left-0 z-24 w-full overflow-hidden bg-white',
+        'border-primary absolute top-[100] left-0 z-24 w-full overflow-hidden bg-[var(--color-bg)]',
         products.length
           ? 'h-[229] border-t-1 shadow-[0_3px_4px_rgba(0,0,0,.18)]'
           : 'h-0'

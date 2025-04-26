@@ -44,7 +44,7 @@ export default async function ProductsLayout({
     <>
       <div
         className={
-          'border-primary sticky top-0 z-10 border-t-1 border-b-1 bg-white shadow-[0_5px_5px_#00000012]'
+          'border-primary sticky top-0 z-10 border-t-1 border-b-1 bg-[var(--color-bg)] shadow-[0_5px_5px_#00000012]'
         }
       >
         <div className={'w-primary flex h-[65] items-center justify-between'}>

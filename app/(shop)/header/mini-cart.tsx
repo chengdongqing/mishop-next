@@ -31,8 +31,8 @@ export default function MiniCart() {
         <div
           className={clsx(
             'relative z-21 flex h-full cursor-pointer items-center px-3.5',
-            'hover:text-primary hover:bg-white',
-            'group-hover:bg-white group-hover:text-[var(--color-primary)]',
+            'hover:text-primary hover:bg-[var(--color-bg)]',
+            'group-hover:bg-[var(--color-bg)] group-hover:text-[var(--color-primary)]',
             count ? 'bg-[var(--color-primary)] text-white' : 'bg-[#424242]'
           )}
         >
@@ -65,7 +65,7 @@ function CartPopover({ open, count }: { open: boolean; count: number }) {
   return (
     <motion.div
       className={
-        'absolute top-full right-0 z-20 flex max-h-[500] w-[320] flex-col overflow-hidden bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)]'
+        'absolute top-full right-0 z-20 flex max-h-[500] w-[320] flex-col overflow-hidden bg-[var(--color-bg)] shadow-[0_2px_10px_rgba(0,0,0,0.15)]'
       }
       initial={{ height: 0 }}
       animate={{ height: open ? 'auto' : 0 }}

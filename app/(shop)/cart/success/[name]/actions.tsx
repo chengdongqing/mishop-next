@@ -14,7 +14,7 @@ export default function Actions() {
         outlined
         className={clsx(
           '!w-[182] !border-[#b0b0b0] !bg-transparent !text-[#b0b0b0]',
-          'hover:!border-[#757575] hover:!bg-white hover:!text-[#757575]'
+          'hover:!border-[#757575] hover:!bg-[var(--color-bg)] hover:!text-[#757575]'
         )}
         onClick={router.back}
       >

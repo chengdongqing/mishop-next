@@ -18,7 +18,7 @@ export default async function CheckoutPage() {
     <>
       <MiniHeader title={'确认订单'} />
       <div className={'bg-primary p-[40_0_60]'}>
-        <div className={'w-primary bg-white p-[48] pb-0'}>
+        <div className={'w-primary bg-[var(--color-bg)] p-[48] pb-0'}>
           <Checkout checkoutData={checkoutData} addresses={addresses} />
         </div>
       </div>

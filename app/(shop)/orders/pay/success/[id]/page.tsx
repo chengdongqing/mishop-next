@@ -88,7 +88,7 @@ function SuccessPanel({ order }: { order: Order }) {
 
 function DetailsPanel({ order }: { order: Order }) {
   return (
-    <div className={'relative flex-1 bg-white p-[50_60]'}>
+    <div className={'relative flex-1 bg-[var(--color-bg)] p-[50_60]'}>
       <ul>
         <DetailItem label={'订单编号'}>{order.orderNumber}</DetailItem>
         <DetailItem label={'收货信息'}>

@@ -57,7 +57,7 @@ export default function Checkbox({
             'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
             checked || indeterminate
               ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
-              : `border-primary bg-white ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
+              : `border-primary bg-[var(--color-bg)] ${autoTheme ? 'dark:!border-[#333] dark:bg-[#333]' : ''}`,
             {
               'opacity-80': disabled
             },

@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <div className={'flex min-h-screen dark:bg-black'}>
+    <div className={'flex min-h-screen'}>
       <SideBar />
       <div className={'relative flex flex-1 flex-col'}>
         <Header />

@@ -17,7 +17,7 @@ export default function UserLayout({
     <div className={'bg-primary'}>
       <div className={'w-primary flex gap-x-3.5 pb-[40]'}>
         <NavBar />
-        <main className={'flex-1 bg-white p-[36px_48px]'}>
+        <main className={'flex-1 bg-[var(--color-bg)] p-[36px_48px]'}>
           {!!title && (
             <header className={'flex items-center text-[#757575]'}>
               <h2 className={'text-[30px] leading-[68px]'}>{title}</h2>
@@ -35,7 +35,9 @@ export default function UserLayout({
 
 function NavBar() {
   return (
-    <nav className={'flex w-[234] flex-col gap-y-3 bg-white p-[36_48]'}>
+    <nav
+      className={'flex w-[234] flex-col gap-y-3 bg-[var(--color-bg)] p-[36_48]'}
+    >
       <dl>
         <DT>订单中心</DT>
         <DD href={'/orders'}>我的订单</DD>

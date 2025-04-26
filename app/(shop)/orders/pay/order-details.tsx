@@ -26,7 +26,7 @@ export default function OrderDetails({
   const [expanded, toggleExpanded] = useToggle();
 
   return (
-    <section className={'flex items-start bg-white p-[30_48]'}>
+    <section className={'flex items-start bg-[var(--color-bg)] p-[30_48]'}>
       <CheckCircleIcon className={'mt-4 w-[100] text-[var(--color-success)]'} />
       <div className={'ml-[38] flex-1 text-[rgb(97,97,97)]'}>
         <PaymentInfo
