@@ -3,7 +3,7 @@ export type StyleSize = { width: number; height: number };
 export type StyleRot = { rotationDeg: number };
 export type DeltaPos = { x: number; y: number };
 export type DeltaSize = { w: number; h: number };
-export type DeltaRot = { deg: number };
+export type Rect = DeltaPos & DeltaSize;
 
 export type OnDragStartHandler = VoidFunction;
 export type OnDragHandler = (e: {
@@ -31,19 +31,6 @@ export type OnResizeEndHandler = (e: {
   nativeEvent: MouseEvent | TouchEvent;
 }) => void;
 
-export type OnRotateStartHandler = VoidFunction;
-export type OnRotateHandler = (e: {
-  style: StyleRot;
-  delta: DeltaRot;
-  totalDelta: DeltaRot;
-  nativeEvent: MouseEvent | TouchEvent;
-}) => void;
-export type OnRotateEndHandler = (e: {
-  style: StyleRot;
-  totalDelta: DeltaRot;
-  nativeEvent: MouseEvent | TouchEvent;
-}) => void;
-
 export type ResizeHandlerType =
   | 'nw'
   | 'n'
@@ -58,4 +45,3 @@ export type OnResizeMouseDown = (
   e: MouseEvent | TouchEvent,
   type: ResizeHandlerType
 ) => void;
-export type OnRotateMouseDown = (e: MouseEvent | TouchEvent) => void;

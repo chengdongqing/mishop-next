@@ -55,8 +55,8 @@ export default function ProfilePage() {
             <div
               className={'flex cursor-pointer items-center justify-between'}
               onClick={() =>
-                openImageCropper((value) => {
-                  console.log(value);
+                openImageCropper((file) => {
+                  console.log(file);
                 })
               }
             >
@@ -161,7 +161,7 @@ function FormItem({ children, label }: PropsWithChildren<{ label?: string }>) {
   );
 }
 
-function openImageCropper(onChange: (value: string) => void) {
+function openImageCropper(onChange: (file: File) => void) {
   const close = popup.open({
     width: 450,
     footer: null,
