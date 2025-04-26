@@ -4,6 +4,7 @@ import popup from '@/components/ui/popup';
 import { useUserInfo } from '@/contexts/user-info-context';
 import { logout } from '@/services/auth';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -15,11 +16,15 @@ const menus = [
     href: '/user'
   },
   {
+    label: '评价晒单',
+    href: '/orders/reviews'
+  },
+  {
     label: '我的喜欢',
     href: '/user/favorites'
   },
   {
-    label: '我的账户',
+    label: '小米账户',
     href: '/account',
     target: '_blank'
   }
@@ -69,11 +74,13 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
           isCartHeader={isCartHeader}
         />
 
-        <div
+        <motion.div
           className={
-            'absolute top-full right-0 left-0 z-10 overflow-hidden bg-white text-center shadow-[0_2px_10px_rgba(0,0,0,0.15)] duration-200'
+            'absolute top-full right-0 left-0 z-10 overflow-hidden bg-white text-center shadow-[0_2px_10px_rgba(0,0,0,0.15)]'
           }
-          style={{ height: open ? 136 : 0 }}
+          initial={{ height: 0 }}
+          animate={{ height: open ? 'auto' : 0 }}
+          transition={{ duration: 0.2 }}
         >
           <ul className={'py-2'}>
             {menus.map((item) => (
@@ -104,7 +111,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
               </button>
             </li>
           </ul>
-        </div>
+        </motion.div>
       </div>
       <Sep />
       <NavItem
