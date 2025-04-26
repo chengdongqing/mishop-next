@@ -1,12 +1,19 @@
 'use server';
 
 import { Result } from '@/lib/result';
+import { existsSync } from 'fs';
+import { mkdir, writeFile } from 'fs/promises';
+import path from 'path';
+import { v7 as uuidV7 } from 'uuid';
 
 const maxSize = 5 * 1024 * 1024; // 限制5MB
 
-export async function getRemoteFile(src: string) {
+/**
+ * 下载文件
+ */
+export async function downloadFile(url: string) {
   try {
-    const response = await fetch(src);
+    const response = await fetch(url);
 
     if (!response.ok) {
       return Result.fail('获取文件失败');
@@ -23,4 +30,30 @@ export async function getRemoteFile(src: string) {
   } catch (err) {
     return Result.fail((err as Error).message);
   }
+}
+
+/**
+ * 上传文件
+ */
+export async function uploadFile(file: File) {
+  if (file.size > maxSize) {
+    return Result.fail('文件不能超过5MB');
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const ext = path.extname(file.name);
+  const filename = `${uuidV7().replaceAll('-', '')}${ext}`;
+  const uploadDir = path.join(process.cwd(), 'public/uploads');
+  const filepath = path.join(uploadDir, filename);
+
+  if (!existsSync(uploadDir)) {
+    await mkdir(uploadDir, {
+      recursive: true // 支持多层目录递归创建
+    });
+  }
+
+  await writeFile(filepath, buffer);
+
+  const url = `/uploads/${filename}`;
+  return Result.ok(url);
 }

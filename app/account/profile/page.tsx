@@ -9,10 +9,17 @@ import Radio from '@/components/ui/radio';
 import { useUserInfo } from '@/contexts/user-info-context';
 import { displayGender, GenderType } from '@/enums/user';
 import useSetState from '@/hooks/useSetState';
+import { uploadFile } from '@/services/file';
 import { modifyProfile } from '@/services/users';
 import { ChevronRightIcon } from '@heroicons/react/16/solid';
 import Image from 'next/image';
-import { PropsWithChildren, useActionState, useEffect, useState } from 'react';
+import {
+  PropsWithChildren,
+  ReactNode,
+  useActionState,
+  useEffect,
+  useState
+} from 'react';
 import Title from '../title';
 
 export default function ProfilePage() {
@@ -52,17 +59,11 @@ export default function ProfilePage() {
           {!isEdit ? (
             avatar(userInfo.avatarUrl)
           ) : (
-            <div
-              className={'flex cursor-pointer items-center justify-between'}
-              onClick={() =>
-                openImageCropper((file) => {
-                  console.log(file);
-                })
-              }
-            >
-              {avatar(profile.avatarUrl)}
-              <ChevronRightIcon className={'w-7 text-[silver]'} />
-            </div>
+            <EditableAvatar
+              value={profile.avatarUrl}
+              avatar={avatar(profile.avatarUrl)}
+              onChange={(value) => setProfile({ avatarUrl: value })}
+            />
           )}
         </FormItem>
         <FormItem label={'昵称'}>
@@ -75,9 +76,7 @@ export default function ProfilePage() {
               required
               error={!!errors?.name?.length}
               aria-describedby="name-error"
-              onChange={(value) => {
-                setProfile({ name: value });
-              }}
+              onChange={(value) => setProfile({ name: value })}
             />
           )}
         </FormItem>
@@ -116,6 +115,36 @@ export default function ProfilePage() {
         </FormItem>
       </form>
     </>
+  );
+}
+
+function EditableAvatar({
+  value,
+  avatar,
+  onChange
+}: {
+  value: string;
+  avatar: ReactNode;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div
+      className={'flex cursor-pointer items-center justify-between'}
+      onClick={() =>
+        openImageCropper(async (file) => {
+          const res = await uploadFile(file);
+          if (res.ok) {
+            onChange(res.data);
+          } else {
+            popup.alert(res.error);
+          }
+        })
+      }
+    >
+      {avatar}
+      <input type={'hidden'} name={'avatarUrl'} value={value} />
+      <ChevronRightIcon className={'w-7 text-[silver]'} />
+    </div>
   );
 }
 

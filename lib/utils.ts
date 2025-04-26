@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getRemoteFile } from '@/services/file';
+import * as fileService from '@/services/file';
 import { PageRequest } from '@/types/common';
 import { randomInt } from 'crypto';
 import { AuthError } from 'next-auth';
@@ -47,7 +47,7 @@ export function downloadFile(src: string, filename?: string) {
  * 服务端获取后再下载，可以避免跨域等不能下载的问题
  */
 export async function downloadFileAsync(src: string, filename?: string) {
-  const res = await getRemoteFile(src);
+  const res = await fileService.downloadFile(src);
   if (res.ok) {
     const url = URL.createObjectURL(res.data);
     downloadFile(url, filename);
