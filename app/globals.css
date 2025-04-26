@@ -39,6 +39,10 @@ body {
     font-size: 14px;
 }
 
+body:where(.dark, .dark *) {
+    color: #fffc;
+}
+
 .text-ellipsis {
     white-space: nowrap;
     text-overflow: ellipsis;

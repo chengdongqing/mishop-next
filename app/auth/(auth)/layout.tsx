@@ -66,13 +66,7 @@ export async function Header() {
     <header className={'flex items-center justify-between p-5'}>
       <Space size={10}>
         <MiLogo size={40} />
-        <h2
-          className={
-            'text-[26px] text-[rgba(0,0,0,.8)] dark:text-[hsla(0,0%,100%,.8)]'
-          }
-        >
-          {t('title')}
-        </h2>
+        <h2 className={'text-[26px]'}>{t('title')}</h2>
       </Space>
 
       <div className={'flex items-center'}>

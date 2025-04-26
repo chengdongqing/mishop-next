@@ -82,7 +82,10 @@ function Popup({
 
   return createPortal(
     <div className={clsx(styles.popup, closing && styles.closing)}>
-      <div style={{ width }} className={styles.container}>
+      <div
+        style={{ width }}
+        className={clsx(styles.container, 'dark:!bg-[#181818]')}
+      >
         <div className={clsx(styles.header, !title && styles.headless)}>
           {!!title && <div className={styles.title}>{title}</div>}
           {closable && <CloseIcon onClick={handleClose} />}
@@ -109,7 +112,7 @@ function Popup({
       </div>
 
       <div
-        className={styles.mask}
+        className={clsx(styles.mask, 'dark:!bg-[hsla(0,0%,100%,.5)]')}
         onClick={() => {
           if (maskClosable) {
             handleClose();
