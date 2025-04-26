@@ -18,9 +18,7 @@ export default async function AccountLayout({ children }: PropsWithChildren) {
         >
           <SideBar />
           <main
-            className={
-              'flex-1 rounded-sm font-light shadow-[0_20px_50px_6px_#a3a3a31a]'
-            }
+            className={'flex-1 rounded-sm shadow-[0_20px_50px_6px_#a3a3a31a]'}
           >
             {children}
           </main>

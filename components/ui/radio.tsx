@@ -40,7 +40,7 @@ export default function Radio({
         />
         <span
           className={clsx(
-            'z-1 h-5 w-5 rounded-full border-1 duration-200',
+            'z-1 h-5 w-5 rounded-full border-1 bg-white duration-200',
             checked
               ? 'border-5 border-[var(--color-primary)]'
               : 'border-1 border-[#d9d9d9]',
@@ -51,11 +51,7 @@ export default function Radio({
           )}
         />
         {!!children && (
-          <span
-            className={
-              'text-sm text-[#424242] group-hover:text-[var(--color-primary)]'
-            }
-          >
+          <span className={'text-sm group-hover:text-[var(--color-primary)]'}>
             {children}
           </span>
         )}
