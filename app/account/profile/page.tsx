@@ -2,7 +2,9 @@
 
 import Button from '@/components/ui/button';
 import FormErrorTips from '@/components/ui/form-error-tips';
+import ImageCropper from '@/components/ui/image-cropper';
 import Input from '@/components/ui/input';
+import popup from '@/components/ui/popup';
 import Radio from '@/components/ui/radio';
 import { useUserInfo } from '@/contexts/user-info-context';
 import { displayGender, GenderType } from '@/enums/user';
@@ -50,7 +52,14 @@ export default function ProfilePage() {
           {!isEdit ? (
             avatar(userInfo.avatarUrl)
           ) : (
-            <div className={'flex cursor-pointer items-center justify-between'}>
+            <div
+              className={'flex cursor-pointer items-center justify-between'}
+              onClick={() =>
+                openImageCropper((value) => {
+                  console.log(value);
+                })
+              }
+            >
               {avatar(profile.avatarUrl)}
               <ChevronRightIcon className={'w-7 text-[silver]'} />
             </div>
@@ -150,4 +159,19 @@ function FormItem({ children, label }: PropsWithChildren<{ label?: string }>) {
       <div className={'w-[358] pl-5'}>{children}</div>
     </div>
   );
+}
+
+function openImageCropper(onChange: (value: string) => void) {
+  const close = popup.open({
+    width: 450,
+    footer: null,
+    content: (
+      <ImageCropper
+        onChange={(value) => {
+          onChange(value);
+          close();
+        }}
+      />
+    )
+  });
 }
