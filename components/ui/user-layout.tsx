@@ -57,7 +57,7 @@ function NavBar() {
         <DD href={'/account?action=password'} target={'_blank'}>
           修改密码
         </DD>
-        <DD href={'/account?action=delete'} target={'_blank'}>
+        <DD href={'/account/privacy?action=delete'} target={'_blank'}>
           注销账号
         </DD>
       </dl>

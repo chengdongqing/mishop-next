@@ -48,7 +48,7 @@ function NavItem({
         href={href}
         target={target}
         className={clsx(
-          'block h-[60] cursor-pointer border-l-6 pl-[64] text-base leading-[60px]',
+          'block h-[60] cursor-pointer text-base leading-[60px] not-rtl:border-l-6 not-rtl:pl-[64] rtl:border-r-6 rtl:pr-[64]',
           isActive
             ? 'border-[var(--color-primary)] bg-[#fff3e6] dark:bg-[#321300]'
             : 'border-transparent'
