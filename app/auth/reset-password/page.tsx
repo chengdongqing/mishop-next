@@ -11,6 +11,8 @@ export const viewport: Viewport = {
   width: 'device-width'
 };
 
+export const dynamic = 'force-static';
+
 export default async function ResetPasswordPage() {
   const t = await getTranslations('ResetPassword');
 

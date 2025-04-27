@@ -3,7 +3,7 @@ import LanguagePicker from '@/components/ui/language-picker';
 import MiLogo from '@/components/ui/mi-logo';
 import Space from '@/components/ui/space';
 import ThemePicker from '@/components/ui/theme-picker';
-import { logout } from '@/services/auth';
+import { signOut } from '@/services/auth';
 import clsx from 'clsx';
 import { Metadata, type Viewport } from 'next';
 import { getTranslations } from 'next-intl/server';
@@ -21,6 +21,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width'
 };
+
+export const dynamic = 'force-static';
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
@@ -97,7 +99,7 @@ export async function Header() {
             className={'text-primary ml-2.5 cursor-pointer font-extralight'}
             onClick={async () => {
               'use server';
-              await logout();
+              await signOut();
             }}
           >
             {t('logout')}

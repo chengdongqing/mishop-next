@@ -7,7 +7,7 @@ import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import toast from '@/components/ui/toast';
 import VerificationCodeInput from '@/components/ui/verification-code-input';
-import { authenticateByCode } from '@/services/auth';
+import { signInByCode } from '@/services/auth';
 import { sendSmsVerificationCode } from '@/services/verification-code';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect, useRef } from 'react';
@@ -15,7 +15,7 @@ import Agreement from '../../agreement';
 
 export default function SignInForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
-    authenticateByCode,
+    signInByCode,
     {}
   );
   const phone = useRef('');

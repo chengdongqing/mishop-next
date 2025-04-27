@@ -6,14 +6,14 @@ import FormErrorTips from '@/components/ui/form-error-tips';
 import Input from '@/components/ui/input';
 import popup from '@/components/ui/popup';
 import toast from '@/components/ui/toast';
-import { authenticate } from '@/services/auth';
+import { signIn } from '@/services/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useActionState, useEffect } from 'react';
 import Agreement from '../../agreement';
 
 export default function SignInForm() {
   const [{ errors, success, message }, formAction, isPending] = useActionState(
-    authenticate,
+    signIn,
     {}
   );
   const router = useRouter();

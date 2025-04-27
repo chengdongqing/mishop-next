@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
+import * as authService from '@/auth';
 import { db } from '@/lib/db';
 import {
   EMAIL_REGEX,
@@ -137,7 +137,7 @@ type AuthenticateState = ActionState<{
 /**
  * 根据手机号/邮箱+密码认证
  */
-export async function authenticate(
+export async function signIn(
   _: AuthenticateState,
   formData: FormData
 ): Promise<AuthenticateState> {
@@ -177,7 +177,7 @@ export async function authenticate(
       };
     }
 
-    await signIn('credentials', {
+    await authService.signIn('credentials', {
       ...user,
       redirect: false
     });
@@ -214,7 +214,7 @@ type AuthenticateByCodeState = ActionState<{
 /**
  * 根据手机号+验证码认证
  */
-export async function authenticateByCode(
+export async function signInByCode(
   _: AuthenticateByCodeState,
   formData: FormData
 ): Promise<AuthenticateByCodeState> {
@@ -245,7 +245,7 @@ export async function authenticateByCode(
     where: eq(users.phone, phone)
   });
   if (user) {
-    await signIn('credentials', {
+    await authService.signIn('credentials', {
       ...user,
       redirect: false
     });
@@ -259,7 +259,7 @@ export async function authenticateByCode(
         password: bcrypt.hashSync(generateRandomCode(), 10)
       });
 
-      await signIn('credentials', {
+      await authService.signIn('credentials', {
         id: insertId,
         redirect: false
       });
@@ -383,8 +383,8 @@ export async function resetPassword(
 /**
  * 退出登录
  */
-export async function logout() {
-  await signOut({
+export async function signOut() {
+  await authService.signOut({
     redirectTo: '/'
   });
 }

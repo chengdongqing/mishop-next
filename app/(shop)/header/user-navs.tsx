@@ -2,7 +2,7 @@
 
 import popup from '@/components/ui/popup';
 import { useUserInfo } from '@/contexts/user-info-context';
-import { logout } from '@/services/auth';
+import { signOut } from '@/services/auth';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { motion } from 'motion/react';
 import Link from 'next/link';
@@ -103,7 +103,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
                 }
                 onClick={() => {
                   popup.confirm('确定退出登录吗？', {
-                    onOk: logout
+                    onOk: signOut
                   });
                 }}
               >
