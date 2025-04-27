@@ -1,30 +1,9 @@
-'use client';
-
-import { useTheme } from '@/contexts/theme-context';
-import { setUserLocale } from '@/services/locale';
-import { setUserTheme } from '@/services/theme';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useLocale } from 'use-intl';
 
 export default function MiLogo({ size = 56 }: { size?: number }) {
-  const locale = useLocale();
-  const theme = useTheme();
-
-  /**
-   * 重置语言和主题
-   */
-  function resetSettings() {
-    if (locale !== 'zh-CN') {
-      setUserLocale('zh-CN').then(() => {});
-    }
-    if (theme !== 'system') {
-      setUserTheme('system').then(() => {});
-    }
-  }
-
   return (
-    <Link href={'/'} className={'cursor-pointer'} onClick={resetSettings}>
+    <Link href={'/'} className={'cursor-pointer'}>
       <Image
         src={'/logo.png'}
         title={'小米官网'}
