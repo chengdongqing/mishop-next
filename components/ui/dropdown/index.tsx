@@ -13,14 +13,14 @@ import {
 } from 'react';
 import styles from './styles.module.css';
 
-export interface MenuOption {
-  key: Key;
+export interface MenuOption<K = string> {
+  key: K;
   label: ReactNode;
   disabled?: boolean;
 }
 
-interface Props extends PropsWithChildren {
-  menus: MenuOption[];
+interface Props<K> extends PropsWithChildren {
+  menus: MenuOption<K>[];
   active?: Key;
   arrow?: boolean;
   trigger?: 'hover' | 'click';
@@ -29,11 +29,11 @@ interface Props extends PropsWithChildren {
   style?: CSSProperties;
   className?: string;
 
-  onChange?: (key: Key) => void;
+  onChange?: (key: K) => void;
   onOpenChange?: (open: boolean) => void;
 }
 
-export default function Dropdown({
+export default function Dropdown<K>({
   children,
   menus,
   active,
@@ -45,7 +45,7 @@ export default function Dropdown({
   overlayStyle,
   onChange,
   onOpenChange
-}: Props) {
+}: Props<K>) {
   const [willOpen, setWillOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const timeoutId = useRef<NodeJS.Timeout | undefined>(undefined);
@@ -125,7 +125,7 @@ export default function Dropdown({
       >
         {menus.map((item) => (
           <li
-            key={item.key}
+            key={item.key as string}
             className={clsx(
               'dark:!text-[hsla(0,0%,100%,.8)] hover:dark:!bg-[hsla(0,0%,100%,.15)]',
               styles.item,

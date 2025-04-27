@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import LanguagePicker from '@/components/ui/language-picker';
 import MiLogo from '@/components/ui/mi-logo';
 import Space from '@/components/ui/space';
+import ThemePicker from '@/components/ui/theme-picker';
 import { logout } from '@/services/auth';
 import clsx from 'clsx';
 import { Metadata, type Viewport } from 'next';
@@ -89,6 +90,8 @@ export async function Header() {
           <span className={'ml-[10] text-[#ddd]'}>|</span>
         </div>
         <LanguagePicker />
+        <span className={'ml-[10] text-[#ddd]'}>|</span>
+        <ThemePicker />
         {!!session && (
           <button
             className={'text-primary ml-2.5 cursor-pointer font-extralight'}

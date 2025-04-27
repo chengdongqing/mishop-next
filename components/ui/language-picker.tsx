@@ -3,19 +3,19 @@
 import Dropdown from '@/components/ui/dropdown';
 import { setUserLocale } from '@/services/locale';
 import { Locale } from '@/types/common';
-import { Key, startTransition, useState } from 'react';
+import { startTransition, useState } from 'react';
 import { useLocale } from 'use-intl';
 
 export default function LanguagePicker() {
   const local = useLocale() as Locale;
-  const [current, setCurrent] = useState<Lang | undefined>(() =>
+  const [current, setCurrent] = useState<LangOption | undefined>(() =>
     getLanguageByKey(local)
   );
 
-  function handleChange(key: Key) {
-    setCurrent(getLanguageByKey(key as Locale));
+  function handleChange(key: Locale) {
+    setCurrent(getLanguageByKey(key));
     startTransition(async () => {
-      await setUserLocale(key as Locale);
+      await setUserLocale(key);
     });
   }
 
@@ -36,12 +36,12 @@ export default function LanguagePicker() {
   );
 }
 
-interface Lang {
+interface LangOption {
   key: Locale;
   label: string;
 }
 
-const languages: Lang[] = [
+const languages: LangOption[] = [
   { key: 'zh-CN', label: '中文(简体)' },
   { key: 'zh-TW', label: '中文(繁體)' },
   { key: 'en', label: 'English' },

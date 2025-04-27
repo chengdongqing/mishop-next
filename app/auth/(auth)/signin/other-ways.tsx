@@ -1,7 +1,4 @@
-'use client';
-
 import Space from '@/components/ui/space';
-import { setUserTheme } from '@/services/theme';
 import { AlipayIcon, QQIcon, WeChatIcon, WeiboIcon } from './icons';
 
 export default function OtherWays() {
@@ -14,19 +11,13 @@ export default function OtherWays() {
       </h4>
       <div className={'mt-2.5 flex justify-center'}>
         <Space size={24}>
-          <button title={'切换为深色主题'} onClick={() => setUserTheme('dark')}>
+          <button title={'切换为深色主题'}>
             <AlipayIcon className={iconClass} />
           </button>
-          <button
-            title={'切换为浅色主题'}
-            onClick={() => setUserTheme('light')}
-          >
+          <button title={'切换为浅色主题'}>
             <WeChatIcon className={iconClass} />
           </button>
-          <button
-            title={'自适应系统主题'}
-            onClick={() => setUserTheme('system')}
-          >
+          <button title={'自适应系统主题'}>
             <QQIcon className={iconClass} />
           </button>
           <button>
