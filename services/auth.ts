@@ -74,7 +74,7 @@ export async function signup(
   }
 
   // 是否存在账号
-  const existing = await isAccountExists(phone);
+  const existing = await accountExists(phone);
   if (existing) {
     return {
       errors: {
@@ -108,7 +108,7 @@ export async function signup(
 /**
  * 是否存在账号
  */
-async function isAccountExists(identifier: string) {
+async function accountExists(identifier: string) {
   const existing = await db.query.users.findFirst({
     columns: { id: true },
     where: or(eq(users.phone, identifier), eq(users.email, identifier))
@@ -354,7 +354,7 @@ export async function resetPassword(
   }
 
   // 账号是否存在
-  const exists = await isAccountExists(identifier);
+  const exists = await accountExists(identifier);
   if (!exists) {
     return {
       errors: {
