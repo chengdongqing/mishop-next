@@ -11,20 +11,20 @@ export default function MiLogo({ size = 56 }: { size?: number }) {
   const locale = useLocale();
   const theme = useTheme();
 
+  /**
+   * 重置语言和主题
+   */
+  function resetSettings() {
+    if (locale !== 'zh-CN') {
+      setUserLocale('zh-CN').then(() => {});
+    }
+    if (theme !== 'system') {
+      setUserTheme('system').then(() => {});
+    }
+  }
+
   return (
-    <Link
-      href={'/'}
-      className={'cursor-pointer'}
-      onClick={() => {
-        // 重置语言和主题
-        if (locale !== 'zh-CN') {
-          setUserLocale('zh-CN').then(() => {});
-        }
-        if (theme !== 'system') {
-          setUserTheme('system').then(() => {});
-        }
-      }}
-    >
+    <Link href={'/'} className={'cursor-pointer'} onClick={resetSettings}>
       <Image
         src={'/logo.png'}
         title={'小米官网'}

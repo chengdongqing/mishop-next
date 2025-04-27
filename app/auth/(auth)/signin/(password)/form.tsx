@@ -51,7 +51,7 @@ export default function SignInForm() {
         value={'12345678abc'}
       />
       <FormErrorTips id={'password-error'} errors={errors?.password} />
-      <Checkbox name={'agreed'} value={'1'} required autoTheme>
+      <Checkbox name={'agreed'} value={'1'} required>
         <Agreement />
       </Checkbox>
       <Button

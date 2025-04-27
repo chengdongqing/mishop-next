@@ -87,7 +87,7 @@ export default function SignUpForm() {
         id={'confirm-password-error'}
         errors={errors?.confirmPassword}
       />
-      <Checkbox name={'agreed'} value={'1'} required autoTheme>
+      <Checkbox name={'agreed'} value={'1'} required>
         <Agreement />
       </Checkbox>
       <Button
