@@ -78,7 +78,7 @@ function UserInfo() {
           height={128}
           className={'mb-1 inline h-[80] w-[80] rounded-full object-scale-down'}
         />
-        <h4 className={'text-lg leading-[40px]'}>
+        <h4 className={'text-lg leading-[40px]'} dir={'ltr'}>
           {userInfo.name}
           <br />
           +86 {userInfo.phone}

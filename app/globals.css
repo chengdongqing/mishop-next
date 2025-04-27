@@ -37,12 +37,10 @@
     --width-primary: 1226px;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root:where(.dark, .dark *) {
-        --color-text-primary: #fffc;
-        --color-bg: #000;
-        --color-bg-secondary: #242424;
-    }
+:root:where(.dark, .dark *) {
+    --color-text-primary: #fffc;
+    --color-bg: #000;
+    --color-bg-secondary: #242424;
 }
 
 body {

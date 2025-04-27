@@ -77,7 +77,7 @@ function PrivacyItem({
       })}
       onClick={onClick}
     >
-      <div className={'flex'}>
+      <div className={'flex gap-x-2.5'}>
         <Image
           src={icon}
           alt={'icon'}
@@ -85,12 +85,12 @@ function PrivacyItem({
           height={30}
           className={'h-[30] w-[30]'}
         />
-        <div className={'ml-2.5'}>
+        <div>
           <h4 className={'mb-1 text-base text-[#666]'}>{label}</h4>
           <p className={'text-[#999]'}>{description}</p>
         </div>
       </div>
-      <ChevronRightIcon className={'w-6 text-[silver]'} />
+      <ChevronRightIcon className={'w-6 text-[silver] rtl:rotate-180'} />
     </li>
   );
 }
