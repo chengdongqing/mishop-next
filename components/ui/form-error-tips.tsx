@@ -1,9 +1,13 @@
+import clsx from 'clsx';
+
 export default function FormErrorTips({
   id,
-  errors
+  errors,
+  className
 }: {
   id: string;
   errors?: string[];
+  className?: string;
 }) {
   if (!errors?.length) {
     return null;
@@ -12,7 +16,7 @@ export default function FormErrorTips({
   return (
     <div id={id} aria-live="polite" aria-atomic="true">
       {errors?.map((error) => (
-        <p className="-mt-2 text-red-500" key={error}>
+        <p className={clsx(className, '-mt-2 text-red-500')} key={error}>
           {error}
         </p>
       ))}

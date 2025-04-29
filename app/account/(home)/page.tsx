@@ -1,5 +1,5 @@
-import Title from '@/app/account/title';
 import { Metadata } from 'next';
+import Title from '../title';
 import AccountLinks from './account-links';
 import AccountSecurity from './account-security';
 

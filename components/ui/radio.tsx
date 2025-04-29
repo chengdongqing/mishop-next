@@ -40,7 +40,7 @@ export default function Radio({
         />
         <span
           className={clsx(
-            'z-1 h-5 w-5 rounded-full border-1 bg-[var(--color-bg)] duration-200',
+            'z-1 h-5 w-5 rounded-full bg-white duration-200',
             checked
               ? 'border-5 border-[var(--color-primary)]'
               : 'border-1 border-[#d9d9d9]',

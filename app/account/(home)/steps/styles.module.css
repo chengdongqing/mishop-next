@@ -1,0 +1,59 @@
+.steps {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.stepItem {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+
+    &:last-child {
+        flex: unset;
+        margin-right: 0;
+
+        .line {
+            display: none;
+        }
+    }
+
+    &.active {
+        .icon {
+            box-shadow: 0 0 0 3px rgba(255, 92, 0, 0.25);
+            background-color: var(--color-primary);
+            border: none;
+            color: #fff;
+        }
+
+        .label {
+            color: #333;
+        }
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 17px;
+        color: #aaa;
+        border: 1px solid #aaa;
+        margin: 3px;
+    }
+
+    .label {
+        color: #aaa;
+        font-size: 16px;
+        margin-left: 5px;
+        padding-right: 16px;
+    }
+
+    .line {
+        flex: 1;
+        height: 1px;
+        background-color: #f0f0f0;
+    }
+}

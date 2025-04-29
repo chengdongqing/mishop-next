@@ -1,6 +1,6 @@
 'use client';
 
-import SettingItem from '@/app/account/(home)/setting-item';
+import SettingItem from './setting-item';
 
 export default function AccountSecurity() {
   return (
