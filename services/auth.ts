@@ -385,6 +385,6 @@ export async function resetPassword(
  */
 export async function signOut() {
   await authService.signOut({
-    redirectTo: '/'
+    redirect: false
   });
 }

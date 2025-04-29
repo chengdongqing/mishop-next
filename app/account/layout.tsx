@@ -1,4 +1,5 @@
-import { Footer, Header } from '@/app/auth/(auth)/layout';
+import Header from '@/app/auth/(auth)/header';
+import { Footer } from '@/app/auth/(auth)/layout';
 import { UserInfoProvider } from '@/contexts/user-info-context';
 import { getUserInfo } from '@/services/users';
 import { PropsWithChildren } from 'react';
