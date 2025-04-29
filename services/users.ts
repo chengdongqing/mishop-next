@@ -6,6 +6,7 @@ import { GenderType } from '@/enums/user';
 import { db } from '@/lib/db';
 import {
   EMAIL_REGEX,
+  PASSWORD_REGEX,
   PHONE_REGEX,
   USERNAME_REGEX,
   VERIFICATION_CODE_REGEX
@@ -18,10 +19,12 @@ import {
 } from '@/services/verification-code';
 import { ActionState } from '@/types/common';
 import { User } from '@/types/user';
+import bcrypt from 'bcryptjs';
 import { eq, or } from 'drizzle-orm';
 import { unlink } from 'fs/promises';
 import { revalidatePath } from 'next/cache';
 import path from 'path';
+import { z } from 'zod';
 
 export async function getUserInfo(): Promise<User | null> {
   const session = await auth();
@@ -218,4 +221,55 @@ async function accountExists(account: string) {
     or(eq(users.phone, account), eq(users.email, account))
   );
   return !!count;
+}
+
+const modifyPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合'),
+    confirmPassword: z.string()
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: '两次输入的密码不一致',
+    path: ['confirmPassword']
+  });
+
+type ModifyPasswordState = ActionState<{
+  password?: string[];
+  confirmPassword?: string[];
+}>;
+
+export async function modifyPassword(
+  _: ModifyPasswordState,
+  formData: FormData
+): Promise<ModifyPasswordState> {
+  const userId = await getUserId();
+
+  // 校验密码格式
+  const validatedFields = modifyPasswordSchema.safeParse({
+    password: formData.get('password'),
+    confirmPassword: formData.get('confirmPassword')
+  });
+  if (validatedFields.error) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors
+    };
+  }
+
+  const { password } = validatedFields.data;
+  // 计算密码哈希
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  // 执行修改
+  await db
+    .update(users)
+    .set({
+      password: hashedPassword
+    })
+    .where(eq(users.id, userId));
+
+  return {
+    success: true
+  };
 }

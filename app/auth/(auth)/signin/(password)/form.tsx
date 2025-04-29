@@ -38,7 +38,7 @@ export default function SignInForm() {
         required
         error={!!errors?.identifier?.length}
         aria-describedby="identifier-error"
-        value={'19999999999'}
+        defaultValue={'19999999999'}
       />
       <FormErrorTips id={'identifier-error'} errors={errors?.identifier} />
       <Input
@@ -48,7 +48,7 @@ export default function SignInForm() {
         required
         error={!!errors?.password?.length}
         aria-describedby="password-error"
-        value={'12345678abc'}
+        defaultValue={'12345678abc'}
       />
       <FormErrorTips id={'password-error'} errors={errors?.password} />
       <Checkbox name={'agreed'} value={'1'} required>

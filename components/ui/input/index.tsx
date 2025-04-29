@@ -17,6 +17,7 @@ export interface InputProps
 export default function Input({
   name,
   value: propValue,
+  defaultValue,
   placeholder,
   type,
   error,
@@ -33,7 +34,7 @@ export default function Input({
   const inputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
   const [showPwd, toggleShowPwd] = useToggle();
-  const [innerValue, setInnerValue] = useState(propValue ?? '');
+  const [innerValue, setInnerValue] = useState(propValue ?? defaultValue ?? '');
 
   const value = propValue ?? innerValue;
   const isPwdType = type === 'password';
