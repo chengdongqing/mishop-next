@@ -3,7 +3,7 @@ import Title from '../title';
 import ProfileForm from './form';
 
 export const metadata: Metadata = {
-  title: '个人信息 - 小米账号'
+  title: '个人信息-小米账号'
 };
 
 export default function ProfilePage() {

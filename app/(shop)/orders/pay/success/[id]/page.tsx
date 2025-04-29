@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation';
 import { Fragment, PropsWithChildren } from 'react';
 
 export const metadata: Metadata = {
-  title: '支付成功 - 小米商城'
+  title: '支付成功-小米商城'
 };
 
 export default async function PaySuccessPage({

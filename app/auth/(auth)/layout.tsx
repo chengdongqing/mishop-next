@@ -16,8 +16,6 @@ export const viewport: Viewport = {
   width: 'device-width'
 };
 
-export const dynamic = 'force-static';
-
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
     <div className={'flex min-h-screen'}>

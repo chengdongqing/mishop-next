@@ -3,7 +3,7 @@ import Title from '../title';
 import Privacy from './privacy';
 
 export const metadata: Metadata = {
-  title: '隐私中心 - 小米账号'
+  title: '隐私中心-小米账号'
 };
 
 export default async function PrivacyPage({

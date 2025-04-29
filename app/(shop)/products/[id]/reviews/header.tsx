@@ -35,9 +35,9 @@ export default function Header({ ratingsMap = {}, all = 0 }: Props) {
           {categories.map((category) => (
             <CategoryItem
               key={category.label}
-              isActive={category.value === currentCategory}
               label={category.label}
               value={category.value ? (ratingsMap[category.value] ?? 0) : all}
+              isActive={category.value === currentCategory}
               onClick={() => handleSearch('rating', category.value)}
             />
           ))}
@@ -58,14 +58,14 @@ export default function Header({ ratingsMap = {}, all = 0 }: Props) {
 }
 
 function CategoryItem({
-  isActive,
   label,
   value,
+  isActive,
   onClick
 }: {
-  isActive: boolean;
   label: string;
   value: number;
+  isActive: boolean;
   onClick: () => void;
 }) {
   return (
@@ -74,8 +74,7 @@ function CategoryItem({
         'h-[44] w-[170] cursor-pointer border-1 text-center leading-[44px] duration-200',
         isActive
           ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-white'
-          : 'bg-primary border-primary text-[#b0b0b0]',
-        { 'hover:bg-[#eee]': !isActive }
+          : 'bg-primary border-primary text-[#b0b0b0] hover:bg-[#eee]'
       )}
       onClick={onClick}
     >

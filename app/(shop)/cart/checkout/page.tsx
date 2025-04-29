@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import Checkout from './checkout';
 
 export const metadata: Metadata = {
-  title: '填写订单信息 - 小米商城'
+  title: '填写订单信息-小米商城'
 };
 
 export default async function CheckoutPage() {

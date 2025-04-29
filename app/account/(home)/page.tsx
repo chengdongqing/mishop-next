@@ -4,7 +4,7 @@ import AccountLinks from './account-links';
 import AccountSecurity from './account-security';
 
 export const metadata: Metadata = {
-  title: '登录与安全 - 小米账号'
+  title: '登录与安全-小米账号'
 };
 
 export default function AccountPage() {

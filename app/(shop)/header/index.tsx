@@ -20,24 +20,11 @@ export default function Header({
   navsPromise: Promise<LayoutHeaderNav[]>;
   hotNamesPromise: Promise<string[]>;
 }) {
-  const theme = useTheme();
-  const locale = useLocale() as Locale;
-
   /**
    * 商城主页暂未适配深色模式和多语言
    */
-  useEffect(() => {
-    if (theme !== 'light') {
-      startTransition(async () => {
-        await setUserTheme('light');
-      });
-    }
-    if (locale !== 'zh-CN') {
-      startTransition(async () => {
-        await setUserLocale('zh-CN');
-      });
-    }
-  }, [theme, locale]);
+  useThemeReset();
+  useLocaleReset();
 
   const pathname = usePathname();
   if (excludedPaths.includes(pathname)) {
@@ -50,4 +37,28 @@ export default function Header({
       <NavBar navsPromise={navsPromise} hotNamesPromise={hotNamesPromise} />
     </header>
   );
+}
+
+function useThemeReset() {
+  const theme = useTheme();
+
+  useEffect(() => {
+    if (theme !== 'light') {
+      startTransition(async () => {
+        await setUserTheme('light');
+      });
+    }
+  }, [theme]);
+}
+
+function useLocaleReset() {
+  const locale = useLocale() as Locale;
+
+  useEffect(() => {
+    if (locale !== 'zh-CN') {
+      startTransition(async () => {
+        await setUserLocale('zh-CN');
+      });
+    }
+  }, [locale]);
 }
