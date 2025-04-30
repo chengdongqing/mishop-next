@@ -1,4 +1,3 @@
-import { MiSans } from '@/components/fonts';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { getUserTheme } from '@/services/theme';
 import type { Metadata, Viewport } from 'next';
@@ -31,12 +30,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const dir = getLangDir(locale);
 
   return (
-    <html
-      dir={dir}
-      lang={locale}
-      data-theme={theme}
-      className={MiSans.className}
-    >
+    <html dir={dir} lang={locale} data-theme={theme}>
       <body>
         <NextIntlClientProvider>
           <ThemeProvider theme={theme}>{children}</ThemeProvider>

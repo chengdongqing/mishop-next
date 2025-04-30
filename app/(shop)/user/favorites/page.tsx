@@ -1,4 +1,3 @@
-import Breadcrumb from '@/components/ui/breadcrumb';
 import Button from '@/components/ui/button';
 import UserLayout, { Empty } from '@/components/ui/user-layout';
 import { favoriteProducts } from '@/lib/schema';
@@ -12,28 +11,27 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const title = '喜欢的商品';
+
 export const metadata: Metadata = {
-  title: '喜欢的商品'
+  title
 };
 
 export default async function FavoriteProductsPage() {
   const products = await findFavoriteProducts();
 
   return (
-    <>
-      <Breadcrumb value={'喜欢的商品'} />
-      <UserLayout title={'喜欢的商品'}>
-        {products.length ? (
-          <div className={'grid grid-cols-3'}>
-            {products.map((product) => (
-              <ProductItem key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <Empty>您暂未收藏任何商品。</Empty>
-        )}
-      </UserLayout>
-    </>
+    <UserLayout label={title} title={title}>
+      {products.length ? (
+        <div className={'grid grid-cols-3'}>
+          {products.map((product) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
+        </div>
+      ) : (
+        <Empty>您暂未收藏任何商品。</Empty>
+      )}
+    </UserLayout>
   );
 }
 

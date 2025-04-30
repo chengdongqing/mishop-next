@@ -1,16 +1,12 @@
-import Breadcrumb from '@/components/ui/breadcrumb';
 import UserLayout from '@/components/ui/user-layout';
 import { Metadata } from 'next';
 
+const title = '订单评价';
+
 export const metadata: Metadata = {
-  title: '订单评价'
+  title
 };
 
 export default function OrderReviewsPage() {
-  return (
-    <>
-      <Breadcrumb value={'订单评价'} />
-      <UserLayout title={'订单评价'}></UserLayout>
-    </>
-  );
+  return <UserLayout label={title} title={title}></UserLayout>;
 }

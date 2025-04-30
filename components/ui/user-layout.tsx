@@ -1,5 +1,6 @@
 'use client';
 
+import Breadcrumb from '@/components/ui/breadcrumb';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -7,31 +8,38 @@ import { HTMLAttributeAnchorTarget, PropsWithChildren, ReactNode } from 'react';
 
 export default function UserLayout({
   children,
+  label,
   title,
   extra
 }: PropsWithChildren<{
+  label: string;
   title?: ReactNode;
   extra?: ReactNode;
 }>) {
   return (
-    <div className={'bg-primary'}>
-      <div className={'w-primary flex gap-x-3.5 pb-[40]'}>
-        <NavBar />
-        <main
-          className={'flex flex-1 flex-col bg-[var(--color-bg)] p-[36px_48px]'}
-        >
-          {!!title && (
-            <header className={'flex items-center text-[#757575]'}>
-              <h2 className={'text-[30px] leading-[68px]'}>{title}</h2>
-              {!!extra && (
-                <span className={'mt-3 ml-2.5 text-xs'}>{extra}</span>
-              )}
-            </header>
-          )}
-          {children}
-        </main>
+    <>
+      <Breadcrumb value={label} />
+      <div className={'bg-primary'}>
+        <div className={'w-primary flex gap-x-3.5 pb-[40]'}>
+          <NavBar />
+          <main
+            className={
+              'flex flex-1 flex-col bg-[var(--color-bg)] p-[36px_48px]'
+            }
+          >
+            {!!title && (
+              <header className={'flex items-center text-[#757575]'}>
+                <h2 className={'text-[30px] leading-[68px]'}>{title}</h2>
+                {!!extra && (
+                  <span className={'mt-3 ml-2.5 text-xs'}>{extra}</span>
+                )}
+              </header>
+            )}
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
