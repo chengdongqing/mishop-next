@@ -10,5 +10,5 @@ export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
 /** 验证码：6位数字 */
 export const VERIFICATION_CODE_REGEX = /^\d{6}$/;
 
-/** 用户名规则：允许中文、英文、数字，2~16位 */
-export const USERNAME_REGEX = /^[\u4e00-\u9fa5a-zA-Z0-9]{2,16}$/;
+/** 用户名规则：允许中文、英文、数字，2~16位，允许中间有空格 */
+export const USERNAME_REGEX = /^(?! )[ \u4e00-\u9fa5a-zA-Z0-9]{1,14}(?<! )$/;

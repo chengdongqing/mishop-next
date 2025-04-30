@@ -1877,45 +1877,110 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 1,
     userId: 1,
     recipientName: '海盐芝士不加糖',
-    recipientPhone: '189****2398',
-    city: '重庆市 江北区 马栏星镇',
-    address: '一心村',
+    recipientPhone: '18922792398',
+    city: [
+      {
+        code: '500000',
+        name: '重庆'
+      },
+      {
+        code: '500100',
+        name: '重庆市'
+      },
+      {
+        code: '500105',
+        name: '江北区'
+      }
+    ],
+    address: '马栏星镇 一心村',
     label: '家'
   },
   {
     id: 2,
     userId: 1,
     recipientName: '海盐芝士不加糖1',
-    recipientPhone: '189****2398',
-    city: '重庆市 江北区 马栏星镇',
-    address: '一心村',
+    recipientPhone: '18922792398',
+    city: [
+      {
+        code: '500000',
+        name: '重庆'
+      },
+      {
+        code: '500100',
+        name: '重庆市'
+      },
+      {
+        code: '500105',
+        name: '江北区'
+      }
+    ],
+    address: '马栏星镇 一心村',
     label: '公司'
   },
   {
     id: 3,
     userId: 1,
     recipientName: '海盐芝士不加糖2',
-    recipientPhone: '189****2398',
-    city: '重庆市 江北区 马栏星镇',
-    address: '一心村',
+    recipientPhone: '18922792398',
+    city: [
+      {
+        code: '500000',
+        name: '重庆'
+      },
+      {
+        code: '500100',
+        name: '重庆市'
+      },
+      {
+        code: '500105',
+        name: '江北区'
+      }
+    ],
+    address: '马栏星镇 一心村',
     label: '公司'
   },
   {
     id: 4,
     userId: 1,
     recipientName: '海盐芝士不加糖3',
-    recipientPhone: '189****2398',
-    city: '重庆市 江北区 马栏星镇',
-    address: '一心村',
+    recipientPhone: '18922792398',
+    city: [
+      {
+        code: '500000',
+        name: '重庆'
+      },
+      {
+        code: '500100',
+        name: '重庆市'
+      },
+      {
+        code: '500105',
+        name: '江北区'
+      }
+    ],
+    address: '马栏星镇 一心村',
     label: '公司'
   },
   {
     id: 5,
     userId: 1,
     recipientName: '海盐芝士不加糖4',
-    recipientPhone: '189****2398',
-    city: '重庆市 江北区 马栏星镇',
-    address: '一心村',
+    recipientPhone: '18922792398',
+    city: [
+      {
+        code: '500000',
+        name: '重庆'
+      },
+      {
+        code: '500100',
+        name: '重庆市'
+      },
+      {
+        code: '500105',
+        name: '江北区'
+      }
+    ],
+    address: '马栏星镇 一心村',
     label: '公司'
   }
 ];

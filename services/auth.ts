@@ -20,7 +20,7 @@ import { eq, or } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-const userInsertSchema = createInsertSchema(users, {
+const createUserSchema = createInsertSchema(users, {
   phone: z.string().regex(PHONE_REGEX, '请输入正确的手机号'),
   password: z.string().regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合')
 })
@@ -49,7 +49,7 @@ export async function signup(
   formData: FormData
 ): Promise<SignupState> {
   // 校验数据格式
-  const validatedFields = userInsertSchema.safeParse({
+  const validatedFields = createUserSchema.safeParse({
     phone: formData.get('phone'),
     verificationCode: formData.get('verificationCode'),
     password: formData.get('password'),
@@ -117,7 +117,7 @@ async function accountExists(identifier: string) {
   return !!existing;
 }
 
-const authenticateSchema = z.object({
+const signInSchema = z.object({
   identifier: z.string().refine(
     (val) => {
       return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
@@ -142,7 +142,7 @@ export async function signIn(
   formData: FormData
 ): Promise<AuthenticateState> {
   // 校验数据格式
-  const validatedFields = authenticateSchema.safeParse({
+  const validatedFields = signInSchema.safeParse({
     identifier: formData.get('identifier'),
     password: formData.get('password')
   });
@@ -194,7 +194,7 @@ export async function signIn(
   };
 }
 
-const authenticateByCodeSchema = z.object({
+const signInByCodeSchema = z.object({
   phone: z.string().refine(
     (val) => {
       return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
@@ -219,7 +219,7 @@ export async function signInByCode(
   formData: FormData
 ): Promise<AuthenticateByCodeState> {
   // 校验数据格式
-  const validatedFields = authenticateByCodeSchema.safeParse({
+  const validatedFields = signInByCodeSchema.safeParse({
     phone: formData.get('phone'),
     verificationCode: formData.get('verificationCode')
   });

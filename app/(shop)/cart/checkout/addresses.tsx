@@ -1,8 +1,11 @@
+import AddBox from '@/app/(shop)/user/addresses/add';
+import AddressBox from '@/app/(shop)/user/addresses/address';
 import Button from '@/components/ui/button';
 import useElementVisible from '@/hooks/useElementVisible';
 import useToggle from '@/hooks/useToggle';
+import { displayAddress } from '@/lib/utils';
 import { ShippingAddress } from '@/types/user';
-import { ChevronDownIcon, PlusCircleIcon } from '@heroicons/react/16/solid';
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
 import { useRef } from 'react';
@@ -32,14 +35,15 @@ export default function CheckoutAddresses({
           animate={{ height: expanded ? 'auto' : 178 }}
         >
           {addresses.map((address) => (
-            <AddressItem
+            <AddressBox
               key={address.id}
               address={address}
               active={address.id === value?.id}
+              allowDelete={false}
               onClick={() => onChange(address)}
             />
           ))}
-          <AddItem />
+          <AddBox />
         </motion.ul>
         {addresses.length > 4 && (
           <ExpandButton expanded={expanded} onToggle={onToggle} />
@@ -59,64 +63,6 @@ export default function CheckoutAddresses({
         />
       )}
     </>
-  );
-}
-
-function AddressItem({
-  address,
-  active,
-  onClick
-}: {
-  address: ShippingAddress;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <li
-      className={clsx(
-        'group relative h-[178] cursor-pointer border-1 p-[16_24] leading-[22px] text-[#757575] duration-200',
-        active
-          ? 'border-[var(--color-primary)]'
-          : 'border-primary hover:border-[#b0b0b0]'
-      )}
-      onClick={onClick}
-    >
-      <div className={'mb-2.5 flex items-center justify-between'}>
-        <span className={'text-lg text-[#333]'}>{address.recipientName}</span>
-        <span className={'text-[#b0b0b0]'}>{address.label}</span>
-      </div>
-      <div>{address.recipientPhone}</div>
-      <div>
-        {address.city}
-        <br />
-        {address.address}
-      </div>
-      <button
-        className={
-          'text-primary invisible absolute right-6 bottom-2.5 cursor-pointer group-hover:visible'
-        }
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        修改
-      </button>
-    </li>
-  );
-}
-
-function AddItem() {
-  return (
-    <li
-      className={
-        'border-primary flex cursor-pointer items-center justify-center border-1 duration-200 hover:border-[#b0b0b0]'
-      }
-    >
-      <span className={'flex flex-col items-center text-[#b0b0b0]'}>
-        <PlusCircleIcon className={'mb-2 w-[35] text-[var(--color-border)]'} />
-        添加新地址
-      </span>
-    </li>
   );
 }
 
@@ -166,11 +112,11 @@ function AddressTopBar({
       }
     >
       <div className={'w-primary flex h-[70] items-center justify-between'}>
-        <div>
+        <div className={'flex gap-x-1'}>
           <span>{address.recipientName}</span>
           <span>{address.recipientPhone}</span>
           <span>
-            {address.city} {address.address}
+            {displayAddress(address.city)} {address.address}
           </span>
         </div>
         <Button onClick={onSelect}>选择该收货地址</Button>

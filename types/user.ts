@@ -15,7 +15,12 @@ export interface ShippingAddress {
   userId: number;
   recipientName: string;
   recipientPhone: string;
-  city: string;
+  city: CityItem[];
   address: string;
   label?: string | null;
+}
+
+export interface CityItem {
+  name: string;
+  code: string;
 }

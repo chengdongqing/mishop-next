@@ -4,8 +4,8 @@ import UserLayout, { Empty } from '@/components/ui/user-layout';
 import { favoriteProducts } from '@/lib/schema';
 import { createProductUrl, formatAmount } from '@/lib/utils';
 import {
-  findFavoriteProducts,
-  removeFavoriteProduct
+  deleteFavoriteProduct,
+  findFavoriteProducts
 } from '@/services/favorite-products';
 import clsx from 'clsx';
 import { Metadata } from 'next';
@@ -77,7 +77,7 @@ function ProductItem({
           )}
           onClick={async () => {
             'use server';
-            await removeFavoriteProduct(product.skuId);
+            await deleteFavoriteProduct(product.skuId);
           }}
         >
           删除

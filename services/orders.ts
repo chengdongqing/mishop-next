@@ -6,7 +6,7 @@ import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { Result } from '@/lib/result';
 import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
-import { getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
+import { displayAddress, getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
@@ -90,7 +90,9 @@ export async function createOrder(addressId: number) {
         payableAmount: payableAmount.toString(),
         recipientName: address.recipientName,
         recipientPhone: address.recipientPhone,
-        recipientAddress: [address.city, address.address].join(' ')
+        recipientAddress: [displayAddress(address.city), address.address].join(
+          ' '
+        )
       };
       const [{ insertId }] = await tx.insert(orders).values(insertingOrder);
 

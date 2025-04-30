@@ -40,15 +40,15 @@ export async function seedShippingAddresses() {
   await db.execute(`
       create table mishop.shipping_addresses
       (
-          id              int          not null auto_increment primary key,
-          user_id         int          not null,
-          recipient_name  varchar(50)  not null comment '收货人姓名',
-          recipient_phone varchar(11)  not null comment '收货人手机号',
-          city            varchar(100) not null comment '收货城市',
-          address         varchar(50)  not null comment '收货地址',
+          id              int         not null auto_increment primary key,
+          user_id         int         not null,
+          recipient_name  varchar(50) not null comment '收货人姓名',
+          recipient_phone varchar(11) not null comment '收货人手机号',
+          city            json        not null comment '收货城市',
+          address         varchar(50) not null comment '收货地址',
           label           varchar(10) comment '标签',
-          created_at      timestamp    not null default current_timestamp,
-          updated_at      timestamp             default current_timestamp on update current_timestamp
+          created_at      timestamp   not null default current_timestamp,
+          updated_at      timestamp            default current_timestamp on update current_timestamp
       ) comment '收货地址表';
   `);
 

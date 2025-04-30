@@ -60,9 +60,9 @@ export async function addFavoriteProduct(skuId: number) {
 }
 
 /**
- * 移除收藏的商品
+ * 删除收藏的商品
  */
-export async function removeFavoriteProduct(skuId: number) {
+export async function deleteFavoriteProduct(skuId: number) {
   const userId = await getUserId();
 
   await db

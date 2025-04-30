@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import * as fileService from '@/services/file';
 import { PageRequest } from '@/types/common';
+import { CityItem } from '@/types/user';
 import { randomInt } from 'crypto';
 import { AuthError } from 'next-auth';
 
@@ -117,4 +118,11 @@ export async function getUserId() {
   }
 
   return Number(session.user?.id);
+}
+
+/**
+ * 格式化地址
+ */
+export function displayAddress(city: CityItem[] | undefined) {
+  return city?.map((item) => item.name).join(' ');
 }

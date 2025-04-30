@@ -3,6 +3,7 @@ import { LayoutHeroCategoryItemType } from '@/enums/layout';
 import { OrderStatus, PaymentMethod } from '@/enums/order';
 import { GenderType } from '@/enums/user';
 import { ProductDetailItem, SkuAttribute } from '@/types/product';
+import { CityItem } from '@/types/user';
 import { relations } from 'drizzle-orm';
 import {
   boolean,
@@ -292,7 +293,7 @@ export const shippingAddresses = mysqlTable('shipping_addresses', {
   userId: int('user_id').notNull(),
   recipientName: varchar('recipient_name', { length: 50 }).notNull(),
   recipientPhone: varchar('recipient_phone', { length: 11 }).notNull(),
-  city: varchar('city', { length: 100 }).notNull(),
+  city: customJson<CityItem[]>('city').notNull(),
   address: varchar('address', { length: 50 }).notNull(),
   label: varchar('label', { length: 10 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),

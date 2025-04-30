@@ -8,7 +8,7 @@
     justify-content: center;
     cursor: pointer;
 
-    &:hover {
+    &.hoverable:hover {
         color: #fff;
         background-color: #e53935;
     }

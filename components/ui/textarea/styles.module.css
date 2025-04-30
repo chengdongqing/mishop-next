@@ -1,0 +1,40 @@
+.textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    color: #757575;
+    font-size: 16px;
+    resize: vertical;
+
+    &.indent {
+        text-indent: 30px;
+    }
+
+    &.gray {
+        border: none;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+    }
+
+    &.error {
+        background-color: #fcf2f3;
+    }
+}
+
+.prefix_icon {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 1;
+    width: 16px;
+    color: var(--color-border);
+}
+
+.limits {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    color: #bdbdbd;
+    font-size: 14px;
+}

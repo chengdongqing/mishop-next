@@ -1,6 +1,7 @@
 import Button from '@/components/ui/button';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
+import { displayAddress } from '@/lib/utils';
 import { createOrder } from '@/services/orders';
 import { ShippingAddress } from '@/types/user';
 import { useRouter } from 'next/navigation';
@@ -27,7 +28,7 @@ export default function CheckoutBar({
             <span>
               {address.recipientName} {address.recipientPhone}
               <br />
-              {address.city} {address.address}
+              {displayAddress(address.city)} {address.address}
             </span>
             <button className={'text-primary ml-2 cursor-pointer'}>修改</button>
           </>

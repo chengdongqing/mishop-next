@@ -11,6 +11,7 @@ export interface InputProps
   error?: boolean;
   prefix?: ReactNode;
   suffix?: ReactNode;
+  clickable?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -28,6 +29,7 @@ export default function Input({
   style,
   className,
   required,
+  clickable,
   onChange,
   ...rest
 }: InputProps) {
@@ -64,7 +66,10 @@ export default function Input({
         className={clsx(
           'dark:!text-white',
           styles.input,
-          !!placeholder && styles.with_label
+          !!placeholder && styles.with_label,
+          {
+            'cursor-pointer': clickable
+          }
         )}
         onChange={(e) => {
           const { value } = e.target;

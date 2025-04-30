@@ -7,8 +7,8 @@ import { useProduct } from '@/contexts/product-context';
 import { formatAmount } from '@/lib/utils';
 import {
   addFavoriteProduct,
-  existsFavoriteProduct,
-  removeFavoriteProduct
+  deleteFavoriteProduct,
+  existsFavoriteProduct
 } from '@/services/favorite-products';
 import { DetailProduct, ProductSku } from '@/types/product';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
@@ -182,7 +182,7 @@ function FavoriteButton({ sku }: { sku: ProductSku }) {
 
   function toggleLiked() {
     startTransition(async () => {
-      const res = await (!liked ? addFavoriteProduct : removeFavoriteProduct)(
+      const res = await (!liked ? addFavoriteProduct : deleteFavoriteProduct)(
         sku.id
       );
       if (res.ok) {
