@@ -53,7 +53,7 @@ function NavsWithSignIn({ isCartHeader }: { isCartHeader?: boolean }) {
       >
         <NavItem
           className={
-            'relative group-hover:bg-[var(--color-bg)] group-hover:text-[#424242]'
+            'relative z-13 group-hover:bg-[var(--color-bg)] group-hover:text-[#424242]'
           }
           title={
             <span
