@@ -383,8 +383,9 @@ export async function resetPassword(
 /**
  * 退出登录
  */
-export async function signOut() {
+export async function signOut(redirect = false) {
   await authService.signOut({
-    redirect: false
+    redirect,
+    redirectTo: redirect ? '/' : undefined
   });
 }

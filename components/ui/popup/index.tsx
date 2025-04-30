@@ -86,11 +86,16 @@ function Popup({
         style={{ width }}
         className={clsx(styles.container, 'dark:!bg-[#181818]')}
       >
-        <div className={clsx(styles.header, !title && styles.headless)}>
+        <div
+          className={clsx(styles.header, !title && styles.headless)}
+          dir={'ltr'}
+        >
           {!!title && <div className={styles.title}>{title}</div>}
           {closable && <CloseIcon onClick={handleClose} />}
         </div>
-        <div className={styles.body}>{children}</div>
+        <div className={styles.body} dir={'ltr'}>
+          {children}
+        </div>
         {footer !== undefined ? (
           footer
         ) : (

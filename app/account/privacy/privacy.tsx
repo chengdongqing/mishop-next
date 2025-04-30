@@ -16,7 +16,7 @@ export default function Privacy({ action }: { action?: 'delete' }) {
   function handleDeleteAccount() {
     popup.confirm(
       <>
-        确定注销账号吗？
+        确定注销吗？
         <br />
         <span className={'text-sm text-[var(--color-error)]'}>
           将永久删除小米账号及其下所有数据并永远无法恢复!

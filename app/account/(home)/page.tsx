@@ -7,11 +7,17 @@ export const metadata: Metadata = {
   title: '登录与安全-小米账号'
 };
 
-export default function AccountPage() {
+export default async function AccountPage({
+  searchParams
+}: {
+  searchParams: Promise<{ action?: 'password' }>;
+}) {
+  const { action } = await searchParams;
+
   return (
     <>
       <Title>登录方式</Title>
-      <AccountLinks />
+      <AccountLinks action={action} />
       <Title>账号安全</Title>
       <AccountSecurity />
     </>

@@ -97,13 +97,13 @@
 
     .message {
         margin: 50px 0;
-        color: #333;
+        color: var(--color-text-primary);
         font-size: 26px;
         text-align: center;
 
         &.confirm {
             font-size: 18px;
-            color: #424242;
+            color: var(--color-text-primary);
         }
     }
 }
@@ -111,6 +111,6 @@
 .footer {
     padding: 20px;
     border-top: 1px solid var(--color-border);
-    background-color: #f5f5f5;
+    background-color: var(--color-bg-secondary);
     text-align: center;
 }

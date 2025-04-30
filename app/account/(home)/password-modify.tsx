@@ -19,7 +19,7 @@ function PasswordModify({
 
   useEffect(() => {
     if (success) {
-      onOk();
+      setTimeout(onOk);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [success]);
@@ -51,7 +51,9 @@ function PasswordModify({
         />
         <div className={'mt-5 flex gap-x-5'}>
           <Button
-            className={'!h-[50] flex-1 rounded-sm !bg-[#f9f9f9] !text-base'}
+            className={
+              '!h-[50] flex-1 rounded-sm !bg-[var(--color-bg-secondary)] !text-base !text-[var(--color-text-primary)]'
+            }
             onClick={onCancel}
           >
             取消

@@ -1,18 +1,15 @@
-'use client';
-
+import { auth } from '@/auth';
 import LanguagePicker from '@/components/ui/language-picker';
 import MiLogo from '@/components/ui/mi-logo';
-import popup from '@/components/ui/popup';
 import Space from '@/components/ui/space';
 import ThemePicker from '@/components/ui/theme-picker';
-import { useUserInfo } from '@/contexts/user-info-context';
 import { signOut } from '@/services/auth';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { HTMLProps } from 'react';
 
-export default function Header() {
-  const hasLogin = !!useUserInfo();
-  const t = useTranslations('LayoutHeader');
+export default async function Header() {
+  const hasLogin = !!(await auth());
+  const t = await getTranslations('LayoutHeader');
 
   return (
     <header className={'flex items-center justify-between p-5'}>
@@ -46,13 +43,9 @@ export default function Header() {
         {hasLogin && (
           <button
             className={'text-primary ml-2.5 cursor-pointer font-extralight'}
-            onClick={() => {
-              popup.confirm('确定退出登录吗？', {
-                async onOk() {
-                  await signOut();
-                  window.location.reload();
-                }
-              });
+            onClick={async () => {
+              'use server';
+              await signOut(true);
             }}
           >
             {t('logout')}

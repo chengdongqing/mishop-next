@@ -4,10 +4,19 @@ import openAccountModifyPopup from '@/app/account/(home)/account-modify';
 import openPasswordModifyPopup from '@/app/account/(home)/password-modify';
 import popup from '@/components/ui/popup';
 import { useUserInfo } from '@/contexts/user-info-context';
+import { useEffect } from 'react';
 import SettingItem from './setting-item';
 
-export default function AccountLinks() {
+export default function AccountLinks({ action }: { action?: 'password' }) {
   const userInfo = useUserInfo()!;
+
+  useEffect(() => {
+    if (action === 'password') {
+      openPasswordModifyPopup(() => {
+        popup.alert('密码修改成功！');
+      });
+    }
+  }, [action]);
 
   return (
     <ul className={'p-5'}>

@@ -28,15 +28,16 @@
         }
 
         .label {
-            color: #333;
+            color: var(--color-text-primary);
         }
     }
 
     .icon {
         width: 24px;
         height: 24px;
-        line-height: 24px;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 50%;
         font-size: 17px;
         color: #aaa;
