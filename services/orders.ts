@@ -39,6 +39,7 @@ export async function createOrder(addressId: number) {
     with: {
       product: {
         columns: {
+          id: true,
           name: true,
           slug: true
         }
@@ -88,24 +89,24 @@ export async function createOrder(addressId: number) {
         shippingFee: shippingFee.toString(),
         payableAmount: payableAmount.toString(),
         recipientName: address.recipientName,
-        recipientPhone: address.phoneNumber,
+        recipientPhone: address.recipientPhone,
         recipientAddress: [address.city, address.address].join(' ')
       };
       const [{ insertId }] = await tx.insert(orders).values(insertingOrder);
 
       // 插入订单明细
       const insertingItems: (typeof orderItems.$inferInsert)[] = items.map(
-        (item) => ({
+        ({ product, sku, ...item }) => ({
           orderId: insertId,
-          productId: item.productId,
-          productName: item.product.name,
-          productSlug: item.product.slug,
-          skuId: item.skuId,
-          skuName: item.sku.name,
-          pictureUrl: item.sku.pictureUrl,
-          price: item.sku.price,
+          productId: product.id,
+          productName: product.name,
+          productSlug: product.slug,
+          skuId: sku.id,
+          skuName: sku.name,
+          pictureUrl: sku.pictureUrl,
+          price: sku.price,
           quantity: item.quantity,
-          subtotal: new Decimal(item.sku.price).mul(item.quantity).toString()
+          subtotal: new Decimal(sku.price).mul(item.quantity).toString()
         })
       );
       await tx.insert(orderItems).values(insertingItems);

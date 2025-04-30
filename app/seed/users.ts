@@ -40,18 +40,41 @@ export async function seedShippingAddresses() {
   await db.execute(`
       create table mishop.shipping_addresses
       (
-          id             int          not null auto_increment primary key,
-          user_id        int          not null,
-          recipient_name varchar(50)  not null,
-          phone_number   varchar(11)  not null,
-          city           varchar(100) not null,
-          address        varchar(50)  not null,
-          label          varchar(10),
-          created_at     timestamp    not null default current_timestamp,
-          updated_at     timestamp             default current_timestamp on update current_timestamp
-      );
+          id              int          not null auto_increment primary key,
+          user_id         int          not null,
+          recipient_name  varchar(50)  not null comment '收货人姓名',
+          recipient_phone varchar(11)  not null comment '收货人手机号',
+          city            varchar(100) not null comment '收货城市',
+          address         varchar(50)  not null comment '收货地址',
+          label           varchar(10) comment '标签',
+          created_at      timestamp    not null default current_timestamp,
+          updated_at      timestamp             default current_timestamp on update current_timestamp
+      ) comment '收货地址表';
   `);
 
   // 插入数据
   await db.insert(shippingAddresses).values(shippingAddressesData);
+}
+
+export async function seedFavoriteProducts() {
+  // 删除表
+  await db.execute('drop table if exists mishop.favorite_products;');
+
+  // 创建表
+  await db.execute(`
+      create table mishop.favorite_products
+      (
+          id           int            not null auto_increment primary key,
+          user_id      int            not null comment '用户id',
+          product_id   int            not null comment '商品id',
+          product_name varchar(100)   not null comment '商品名称',
+          product_slug varchar(100) comment '商品访问标识',
+          sku_id       int            not null comment 'sku id',
+          sku_name     varchar(255)   not null comment 'sku名称',
+          picture_url  varchar(500)   not null comment '商品图片',
+          price        decimal(19, 2) not null comment '商品单价',
+          created_at   timestamp      not null default current_timestamp,
+          updated_at   timestamp               default current_timestamp on update current_timestamp
+      ) comment '商品收藏表';
+  `);
 }

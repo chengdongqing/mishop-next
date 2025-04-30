@@ -4,14 +4,18 @@ import Button from '@/components/ui/button';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
 import { useProduct } from '@/contexts/product-context';
-import useToggle from '@/hooks/useToggle';
 import { formatAmount } from '@/lib/utils';
+import {
+  addFavoriteProduct,
+  existsFavoriteProduct,
+  removeFavoriteProduct
+} from '@/services/favorite-products';
 import { DetailProduct, ProductSku } from '@/types/product';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
 
@@ -53,7 +57,7 @@ export default function ProductContent() {
       <SelectedInfo name={fullName} amount={sku?.price} />
       <div className={'mt-2.5 mb-5 flex gap-x-2.5'}>
         <AddToCartButton product={product} name={fullName} sku={sku!} />
-        <FavoriteButton />
+        <FavoriteButton sku={sku!} />
       </div>
       <ServiceGuarantee />
     </div>
@@ -161,20 +165,53 @@ function AddToCartButton({
   );
 }
 
-function FavoriteButton() {
-  const [liked, toggle] = useToggle();
+function FavoriteButton({ sku }: { sku: ProductSku }) {
+  const { product } = useProduct();
+  const [liked, setLiked] = useState(false);
+  const flag = useRef(false);
+  const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    if (!product.id) return;
+
+    startTransition(async () => {
+      const exists = await existsFavoriteProduct(product.id);
+      setLiked(exists);
+    });
+  }, [product.id]);
+
+  function toggleLiked() {
+    startTransition(async () => {
+      const res = await (!liked ? addFavoriteProduct : removeFavoriteProduct)(
+        sku.id
+      );
+      if (res.ok) {
+        flag.current = true;
+        setLiked(!liked);
+      } else {
+        popup.alert(res.error);
+      }
+    });
+  }
 
   return (
-    <Button className={'!h-[54] !w-[142] !text-base'} gray onClick={toggle}>
+    <Button
+      gray
+      disabled={isPending}
+      className={'!h-[54] !w-[142] !text-base'}
+      onClick={toggleLiked}
+    >
       {liked ? (
         <>
           <SolidHeartIcon className={'mr-1 w-5.5 text-[var(--color-error)]'} />
-          <SolidHeartIcon
-            className={clsx(
-              'mr-1 w-[60] text-[var(--color-error)]',
-              styles.animation
-            )}
-          />
+          {flag.current && (
+            <SolidHeartIcon
+              className={clsx(
+                'mr-1 w-[60] text-[var(--color-error)]',
+                styles.animation
+              )}
+            />
+          )}
         </>
       ) : (
         <HeartIcon className={'mr-1 w-5.5'} />

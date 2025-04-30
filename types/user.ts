@@ -14,7 +14,7 @@ export interface ShippingAddress {
   id: number;
   userId: number;
   recipientName: string;
-  phoneNumber: string;
+  recipientPhone: string;
   city: string;
   address: string;
   label?: string | null;

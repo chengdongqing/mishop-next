@@ -1877,7 +1877,7 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 1,
     userId: 1,
     recipientName: '海盐芝士不加糖',
-    phoneNumber: '189****2398',
+    recipientPhone: '189****2398',
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '家'
@@ -1886,7 +1886,7 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 2,
     userId: 1,
     recipientName: '海盐芝士不加糖1',
-    phoneNumber: '189****2398',
+    recipientPhone: '189****2398',
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '公司'
@@ -1895,7 +1895,7 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 3,
     userId: 1,
     recipientName: '海盐芝士不加糖2',
-    phoneNumber: '189****2398',
+    recipientPhone: '189****2398',
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '公司'
@@ -1904,7 +1904,7 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 4,
     userId: 1,
     recipientName: '海盐芝士不加糖3',
-    phoneNumber: '189****2398',
+    recipientPhone: '189****2398',
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '公司'
@@ -1913,7 +1913,7 @@ export const shippingAddressesData: ShippingAddress[] = [
     id: 5,
     userId: 1,
     recipientName: '海盐芝士不加糖4',
-    phoneNumber: '189****2398',
+    recipientPhone: '189****2398',
     city: '重庆市 江北区 马栏星镇',
     address: '一心村',
     label: '公司'

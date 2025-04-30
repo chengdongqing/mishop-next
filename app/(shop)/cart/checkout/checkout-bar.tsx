@@ -25,7 +25,7 @@ export default function CheckoutBar({
         {!!address && (
           <>
             <span>
-              {address.recipientName} {address.phoneNumber}
+              {address.recipientName} {address.recipientPhone}
               <br />
               {address.city} {address.address}
             </span>

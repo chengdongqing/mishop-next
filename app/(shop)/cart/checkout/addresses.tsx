@@ -85,7 +85,7 @@ function AddressItem({
         <span className={'text-lg text-[#333]'}>{address.recipientName}</span>
         <span className={'text-[#b0b0b0]'}>{address.label}</span>
       </div>
-      <div>{address.phoneNumber}</div>
+      <div>{address.recipientPhone}</div>
       <div>
         {address.city}
         <br />
@@ -168,7 +168,7 @@ function AddressTopBar({
       <div className={'w-primary flex h-[70] items-center justify-between'}>
         <div>
           <span>{address.recipientName}</span>
-          <span>{address.phoneNumber}</span>
+          <span>{address.recipientPhone}</span>
           <span>
             {address.city} {address.address}
           </span>

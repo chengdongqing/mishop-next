@@ -291,10 +291,24 @@ export const shippingAddresses = mysqlTable('shipping_addresses', {
   id: serial('id').primaryKey(),
   userId: int('user_id').notNull(),
   recipientName: varchar('recipient_name', { length: 50 }).notNull(),
-  phoneNumber: varchar('phone_number', { length: 11 }).notNull(),
+  recipientPhone: varchar('recipient_phone', { length: 11 }).notNull(),
   city: varchar('city', { length: 100 }).notNull(),
   address: varchar('address', { length: 50 }).notNull(),
   label: varchar('label', { length: 10 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
+export const favoriteProducts = mysqlTable('favorite_products', {
+  id: serial('id').primaryKey(),
+  userId: int('user_id').notNull(),
+  productId: int('product_id').notNull(),
+  productName: varchar('product_name', { length: 100 }).notNull(),
+  productSlug: varchar('product_slug', { length: 100 }),
+  skuId: int('sku_id').notNull(),
+  skuName: varchar('sku_name', { length: 255 }).notNull(),
+  pictureUrl: varchar('picture_url', { length: 500 }).notNull(),
+  price: decimal('price', { precision: 19, scale: 2 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });

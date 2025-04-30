@@ -14,7 +14,11 @@ import {
   seedProducts,
   seedProductSkus
 } from './products';
-import { seedShippingAddresses, seedUsers } from './users';
+import {
+  seedFavoriteProducts,
+  seedShippingAddresses,
+  seedUsers
+} from './users';
 import { seedVideos } from './videos';
 
 export async function GET() {
@@ -43,6 +47,7 @@ function seedDatabase() {
     seedVideos(),
     seedUsers(),
     seedShippingAddresses(),
+    seedFavoriteProducts(),
     seedLayoutHeader(),
     seedLayoutHeroCategories(),
     seedLayoutBricks()
