@@ -8,8 +8,13 @@ import {
   removeFavoriteProduct
 } from '@/services/favorite-products';
 import clsx from 'clsx';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: '喜欢的商品'
+};
 
 export default async function FavoriteProductsPage() {
   const products = await findFavoriteProducts();
