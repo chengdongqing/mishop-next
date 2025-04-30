@@ -5,6 +5,7 @@ import { Result } from '@/lib/result';
 import { favoriteProducts, productSkus } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
 import { and, eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 /**
  * 添加收藏的商品
@@ -72,6 +73,8 @@ export async function removeFavoriteProduct(skuId: number) {
         eq(favoriteProducts.skuId, skuId)
       )
     );
+
+  revalidatePath('/user/favorites');
 
   return Result.ok();
 }

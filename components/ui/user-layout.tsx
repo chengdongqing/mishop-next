@@ -17,7 +17,9 @@ export default function UserLayout({
     <div className={'bg-primary'}>
       <div className={'w-primary flex gap-x-3.5 pb-[40]'}>
         <NavBar />
-        <main className={'flex-1 bg-[var(--color-bg)] p-[36px_48px]'}>
+        <main
+          className={'flex flex-1 flex-col bg-[var(--color-bg)] p-[36px_48px]'}
+        >
           {!!title && (
             <header className={'flex items-center text-[#757575]'}>
               <h2 className={'text-[30px] leading-[68px]'}>{title}</h2>
@@ -29,6 +31,18 @@ export default function UserLayout({
           {children}
         </main>
       </div>
+    </div>
+  );
+}
+
+export function Empty({ children }: PropsWithChildren) {
+  return (
+    <div
+      className={
+        'mt-[-10%] flex flex-1 items-center justify-center text-lg text-[#b0b0b0]'
+      }
+    >
+      {children}
     </div>
   );
 }
