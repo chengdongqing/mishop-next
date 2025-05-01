@@ -1,5 +1,6 @@
 import UserLayout from '@/components/ui/user-layout';
 import { Metadata } from 'next';
+import FilterBar from './filter-bar';
 
 const title = '我的订单';
 
@@ -24,6 +25,8 @@ export default function OrdersPage() {
           </a>
         </>
       }
-    ></UserLayout>
+    >
+      <FilterBar />
+    </UserLayout>
   );
 }
