@@ -2,30 +2,25 @@
 
 import { AccountTypes } from '@/app/account/(home)/account-modify';
 import { auth } from '@/auth';
+import { OrderStatus } from '@/enums/order';
 import { GenderType } from '@/enums/user';
 import { db } from '@/lib/db';
-import {
-  EMAIL_REGEX,
-  PASSWORD_REGEX,
-  PHONE_REGEX,
-  USERNAME_REGEX,
-  VERIFICATION_CODE_REGEX
-} from '@/lib/regex';
-import { users } from '@/lib/schema';
+import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX, USERNAME_REGEX, VERIFICATION_CODE_REGEX } from '@/lib/regex';
+import { favoriteProducts, orders, users } from '@/lib/schema';
 import { getUserId, maskEmail, maskPhone } from '@/lib/utils';
-import {
-  verifyEmailVerificationCode,
-  verifySmsVerificationCode
-} from '@/services/verification-code';
+import { verifyEmailVerificationCode, verifySmsVerificationCode } from '@/services/verification-code';
 import { ActionState } from '@/types/common';
 import { User } from '@/types/user';
 import bcrypt from 'bcryptjs';
-import { eq, or } from 'drizzle-orm';
+import { and, eq, or } from 'drizzle-orm';
 import { unlink } from 'fs/promises';
 import { revalidatePath } from 'next/cache';
 import path from 'path';
 import { z } from 'zod';
 
+/**
+ * 获取当前登录的用户信息
+ */
 export async function getUserInfo(): Promise<User | null> {
   const session = await auth();
   const userId = session?.user?.id;
@@ -57,6 +52,9 @@ export async function getUserInfo(): Promise<User | null> {
 
 type ModifyProfileState = ActionState<{ name?: string[] }>;
 
+/**
+ * 修改个人信息
+ */
 export async function modifyProfile(
   _: ModifyProfileState,
   formData: FormData
@@ -215,6 +213,9 @@ export async function modifyAccount(
   };
 }
 
+/**
+ * 账号是否存在
+ */
 async function accountExists(account: string) {
   const count = await db.$count(
     users,
@@ -240,6 +241,9 @@ type ModifyPasswordState = ActionState<{
   confirmPassword?: string[];
 }>;
 
+/**
+ * 修改密码
+ */
 export async function modifyPassword(
   _: ModifyPasswordState,
   formData: FormData
@@ -272,4 +276,58 @@ export async function modifyPassword(
   return {
     success: true
   };
+}
+
+/**
+ * 统计用户数量
+ */
+export async function countStats() {
+  const userId = await getUserId();
+
+  // 查询待支付的订单数量
+  const pendingPaymentCountPromise = countOrderByStatus(
+    userId,
+    OrderStatus.PENDING_PAYMENT
+  );
+  // 查询待收货的订单数量
+  const pendingDeliveryCountPromise = countOrderByStatus(
+    userId,
+    OrderStatus.PENDING_DELIVERY
+  );
+  // 查询待评价的订单数量
+  const pendingReviewCountPromise = countOrderByStatus(
+    userId,
+    OrderStatus.COMPLETED
+  );
+  // 查询喜欢的商品数量
+  const favoriteCountPromise = db.$count(
+    favoriteProducts,
+    eq(favoriteProducts.userId, userId)
+  );
+
+  const [
+    pendingPaymentCount,
+    pendingDeliveryCount,
+    pendingReviewCount,
+    favoriteCount
+  ] = await Promise.all([
+    pendingPaymentCountPromise,
+    pendingDeliveryCountPromise,
+    pendingReviewCountPromise,
+    favoriteCountPromise
+  ]);
+
+  return {
+    pendingPaymentCount,
+    pendingDeliveryCount,
+    pendingReviewCount,
+    favoriteCount
+  };
+}
+
+function countOrderByStatus(userId: number, status: OrderStatus) {
+  return db.$count(
+    orders,
+    and(eq(orders.userId, userId), eq(orders.status, status))
+  );
 }

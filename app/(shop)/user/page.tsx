@@ -1,5 +1,6 @@
 import UserLayout from '@/components/ui/user-layout';
-import { getUserInfo } from '@/services/users';
+import { countStats, getUserInfo } from '@/services/users';
+import { ChevronRightIcon } from '@heroicons/react/16/solid';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -68,8 +69,69 @@ async function UserInfo() {
   );
 }
 
-function CountInfo() {
-  return <div></div>;
+async function CountInfo() {
+  const {
+    pendingPaymentCount,
+    pendingDeliveryCount,
+    pendingReviewCount,
+    favoriteCount
+  } = await countStats();
+
+  return (
+    <div className={'mt-[60] grid grid-cols-2 gap-y-[60]'}>
+      <CountItem
+        iconUrl={'https://s01.mifile.cn/i/user/portal-icon-1.png'}
+        title={'待支付的订单'}
+        value={pendingPaymentCount}
+        linkUrl={'/orders?status=pending_payment'}
+      />
+      <CountItem
+        iconUrl={'https://s01.mifile.cn/i/user/portal-icon-2.png'}
+        title={'待收货的订单'}
+        value={pendingDeliveryCount}
+        linkUrl={'/orders?status=pending_delivery'}
+      />
+      <CountItem
+        iconUrl={'https://s01.mifile.cn/i/user/portal-icon-3.png'}
+        title={'待评价的订单'}
+        value={pendingReviewCount}
+        linkUrl={'/orders/reviews'}
+      />
+      <CountItem
+        iconUrl={'https://s01.mifile.cn/i/user/portal-icon-4.png'}
+        title={'喜欢的商品'}
+        value={favoriteCount}
+        linkUrl={'/user/favorites'}
+      />
+    </div>
+  );
+}
+
+function CountItem({
+  iconUrl,
+  title,
+  value,
+  linkUrl
+}: {
+  iconUrl: string;
+  title: string;
+  value: number;
+  linkUrl: string;
+}) {
+  return (
+    <div className={'flex items-center gap-x-5'}>
+      <Image src={iconUrl} alt={''} width={100} height={100} unoptimized />
+      <div className={'text-[#757575]'}>
+        <h4 className={'mb-1 text-lg'}>
+          {title}：<span className={'text-primary'}>{value}</span>
+        </h4>
+        <Link href={linkUrl} className={'hover:text-primary flex duration-200'}>
+          查看{title}
+          <ChevronRightIcon className={'w-5'} />
+        </Link>
+      </div>
+    </div>
+  );
 }
 
 function currentPeriod() {

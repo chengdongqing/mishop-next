@@ -41,7 +41,7 @@ export default function Textarea({
   const value = propValue ?? innerValue;
 
   return (
-    <div className={'relative'}>
+    <div className={'relative flex'}>
       {withPrefix && <PencilIcon className={styles.prefix_icon} />}
       <textarea
         value={value}
