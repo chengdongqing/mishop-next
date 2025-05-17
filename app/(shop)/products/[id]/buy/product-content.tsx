@@ -4,6 +4,7 @@ import Button from '@/components/ui/button';
 import popup from '@/components/ui/popup';
 import { useCart } from '@/contexts/cart-context';
 import { useProduct } from '@/contexts/product-context';
+import { useUserInfo } from '@/contexts/user-info-context';
 import { formatAmount } from '@/lib/utils';
 import {
   addFavoriteProduct,
@@ -14,7 +15,7 @@ import { DetailProduct, ProductSku } from '@/types/product';
 import { CheckCircleIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import styles from './styles.module.css';
 import useSkus from './useSkus';
@@ -167,20 +168,29 @@ function AddToCartButton({
 
 function FavoriteButton({ sku }: { sku: ProductSku }) {
   const { product } = useProduct();
+  const hasLogin = !!useUserInfo();
   const [liked, setLiked] = useState(false);
   const flag = useRef(false);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    if (!product.id) return;
+    if (!product.id || !hasLogin) return;
 
     startTransition(async () => {
       const exists = await existsFavoriteProduct(product.id);
       setLiked(exists);
     });
-  }, [product.id]);
+  }, [product.id, hasLogin]);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   function toggleLiked() {
+    if (!hasLogin) {
+      router.push(`/auth/signin?callback=${encodeURIComponent(pathname)}`);
+      return;
+    }
+
     startTransition(async () => {
       const res = await (!liked ? addFavoriteProduct : deleteFavoriteProduct)(
         sku.id
