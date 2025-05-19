@@ -15,28 +15,32 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### .env.local文件
+```
+DATABASE_URL=mysql://root:yourpassword@localhost:3306/mishop
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically
-optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+REDIS_URL=redis://localhost:6379
 
-## Learn More
+AUTH_SECRET=N43vXS1P9zIWLeU24pjIPusmY99LqmAFcYS9RqiL7w8=
+```
 
-To learn more about Next.js, take a look at the following resources:
+#### AUTH_SECRET的生成
+```
+# macOS
+openssl rand -base64 32
+# Windows can use https://generate-secret.vercel.app/32
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### docker运行mysql
+```
+docker run --name mysql \                    
+  -e MYSQL_ROOT_PASSWORD=yourpassword \
+  -p 3306:3306 \
+  -d mysql         
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions
-are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use
-the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for
-more details.
+#### docker运行redis
+```
+docker run --name redis -p 6379:6379 -d redis
+```
