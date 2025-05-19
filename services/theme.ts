@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 
 const COOKIE_NAME = 'theme';
 
-const defaultTheme: Theme = 'system';
+const defaultTheme: Theme = 'light';
 
 export async function getUserTheme() {
   return ((await cookies()).get(COOKIE_NAME)?.value as Theme) ?? defaultTheme;

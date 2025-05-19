@@ -23,6 +23,8 @@ DATABASE_URL=mysql://root:yourpassword@localhost:3306/mishop
 REDIS_URL=redis://localhost:6379
 
 AUTH_SECRET=N43vXS1P9zIWLeU24pjIPusmY99LqmAFcYS9RqiL7w8=
+
+PAYMENT_TIMEOUT=30
 ```
 
 #### AUTH_SECRET的生成
