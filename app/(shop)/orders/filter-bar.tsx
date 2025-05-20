@@ -1,14 +1,14 @@
 'use client';
 
-import { OrderStatus } from '@/enums/order';
+import { OrderStatus, OrderStatusMap } from '@/enums/order';
 import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 export default function FilterBar() {
   return (
-    <div className={'flex h-[56] items-center justify-between'}>
+    <div className={'z-1 mb-3 flex h-[56] items-center justify-between'}>
       <StatusFilter />
       <SearchBar />
     </div>
@@ -19,10 +19,12 @@ function StatusFilter() {
   return (
     <div className={'flex items-center'}>
       <StatusItem label={'全部'} />
-      <Sep />
-      <StatusItem label={'待支付'} status={OrderStatus.PENDING_PAYMENT} />
-      <Sep />
-      <StatusItem label={'待收货'} status={OrderStatus.PENDING_DELIVERY} />
+      {Object.entries(OrderStatusMap).map(([value, label]) => (
+        <Fragment key={value}>
+          <Sep />
+          <StatusItem label={label} status={value as OrderStatus} />
+        </Fragment>
+      ))}
     </div>
   );
 }

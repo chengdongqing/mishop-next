@@ -34,9 +34,19 @@
         border: 1px solid var(--color-primary);
         background-color: #fff;
 
-        &:hover {
+        &.gray {
+            color: #757575;
+            border-color: #b0b0b0;
+        }
+
+        &:not(.gray):hover {
             color: #fff;
             background-color: var(--color-primary);
+        }
+
+        &.gray:hover {
+            color: #b0b0b0;
+            background-color: transparent;
         }
     }
 

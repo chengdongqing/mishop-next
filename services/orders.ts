@@ -6,16 +6,17 @@ import { db, SchemaType } from '@/lib/db';
 import { redis } from '@/lib/redis';
 import { Result } from '@/lib/result';
 import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
-import { displayAddress, getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
+import { createPaginationMeta, displayAddress, getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
 import Decimal from 'decimal.js';
-import { and, eq, ExtractTablesWithRelations, gte, sql } from 'drizzle-orm';
+import { and, eq, ExtractTablesWithRelations, gte, like, SQL, sql } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import { MySql2PreparedQueryHKT, MySql2QueryResultHKT } from 'drizzle-orm/mysql2';
 import { notFound } from 'next/navigation';
 import { v4 as uuidV4 } from 'uuid';
+import { Page, PageRequest } from '@/types/common';
 
 /**
  * 创建订单
@@ -314,4 +315,55 @@ export async function handlePaySuccess(
 
   // 发布到redis
   await redis.publish('order_paid', id.toString());
+}
+
+interface OrdersRequest extends PageRequest {
+  keyword: string;
+  status: OrderStatus;
+}
+
+/**
+ * 查询订单列表
+ */
+export async function findOrders(
+  request: Partial<OrdersRequest> = {}
+): Promise<Page<Order>> {
+  const conditions = getSearchConditions(request);
+
+  // 查询总数量
+  const total = await db.$count(orders, conditions);
+
+  // 计算分页参数
+  const { page, size, offset, pages } = createPaginationMeta(request, total);
+
+  // 查询订单数据
+  const list = await db.query.orders.findMany({
+    with: {
+      items: true
+    },
+    where: conditions,
+    limit: size,
+    offset
+  });
+
+  return {
+    total,
+    page,
+    size,
+    pages,
+    data: list
+  };
+}
+
+function getSearchConditions(request: Partial<OrdersRequest>) {
+  const filters: SQL[] = [];
+
+  if (request.status) {
+    filters.push(eq(orders.status, request.status));
+  }
+  if (request.keyword) {
+    filters.push(like(orders.orderNumber, `%${request.keyword}%`));
+  }
+
+  return and(...filters);
 }

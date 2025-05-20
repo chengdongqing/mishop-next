@@ -8,8 +8,12 @@ import { AuthError } from 'next-auth';
 // 空值占位符
 export const EmptyValue = '--';
 
+// 日期格式
+export const DateFormat = 'YYYY-MM-DD';
+export const DateTimeFormat = 'YYYY-MM-DD HH:mm';
+
 // 支付超时时长（分钟）
-export const PaymentTimeout = Number(process.env.PAYMENT_TIMEOUT!);
+export const PaymentTimeout = Number(process.env.PAYMENT_TIMEOUT ?? 30);
 
 /**
  * 创建商品访问地址

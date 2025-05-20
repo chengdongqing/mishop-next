@@ -3,7 +3,7 @@
 import previewImages from '@/components/ui/image-preview';
 import Loading from '@/components/ui/loading';
 import Rate from '@/components/ui/rate';
-import { sleep } from '@/lib/utils';
+import { DateFormat, sleep } from '@/lib/utils';
 import { findReviews } from '@/services/product-reviews';
 import { ProductReview } from '@/types/product-review';
 import { FaceFrownIcon, FaceSmileIcon } from '@heroicons/react/24/outline';
@@ -132,7 +132,7 @@ function ReviewHeader({ review }: { review: ProductReview }) {
         <div>
           <div className={'text-base text-[#8d665a]'}>{review.user.name}</div>
           <div className={'mt-1 text-[#b0b0b0]'}>
-            {dayjs(review.createdAt).format('YYYY-MM-DD')}
+            {dayjs(review.createdAt).format(DateFormat)}
           </div>
         </div>
         <Rate
