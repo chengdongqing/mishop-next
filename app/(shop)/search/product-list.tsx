@@ -1,5 +1,3 @@
-'use client';
-
 import { createProductUrl, formatAmount } from '@/lib/utils';
 import { SearchProduct } from '@/types/product';
 import clsx from 'clsx';

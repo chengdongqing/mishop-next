@@ -8,15 +8,15 @@ import { Result } from '@/lib/result';
 import { cartItems, orderEvents, orderItems, orders, productSkus, shippingAddresses } from '@/lib/schema';
 import { createPaginationMeta, displayAddress, getUserId, maskPhone, PaymentTimeout } from '@/lib/utils';
 import { CartCheckout } from '@/types/cart';
+import { Page, PageRequest } from '@/types/common';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
 import Decimal from 'decimal.js';
-import { and, eq, ExtractTablesWithRelations, gte, like, SQL, sql } from 'drizzle-orm';
+import { and, desc, eq, ExtractTablesWithRelations, gte, like, or, SQL, sql } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import { MySql2PreparedQueryHKT, MySql2QueryResultHKT } from 'drizzle-orm/mysql2';
 import { notFound } from 'next/navigation';
 import { v4 as uuidV4 } from 'uuid';
-import { Page, PageRequest } from '@/types/common';
 
 /**
  * 创建订单
@@ -328,41 +328,76 @@ interface OrdersRequest extends PageRequest {
 export async function findOrders(
   request: Partial<OrdersRequest> = {}
 ): Promise<Page<Order>> {
-  const conditions = getSearchConditions(request);
+  const userId = await getUserId();
+
+  const conditions = getSearchConditions(request, userId);
 
   // 查询总数量
-  const total = await db.$count(orders, conditions);
+  const totalQuery = await db
+    .select({
+      id: orders.id
+    })
+    .from(orders)
+    .leftJoin(orderItems, eq(orders.id, orderItems.orderId))
+    .where(conditions)
+    .groupBy(orders.id);
+  const total = totalQuery.length;
 
   // 计算分页参数
   const { page, size, offset, pages } = createPaginationMeta(request, total);
 
   // 查询订单数据
-  const list = await db.query.orders.findMany({
-    with: {
-      items: true
-    },
-    where: conditions,
-    limit: size,
-    offset
-  });
+  const list = await db
+    .select({
+      order: orders
+    })
+    .from(orders)
+    .leftJoin(orderItems, eq(orders.id, orderItems.orderId))
+    .where(conditions)
+    .groupBy(orders.id)
+    .orderBy(desc(orders.createdAt))
+    .limit(size)
+    .offset(offset);
+
+  // 查询订单子项
+  const list1 = await Promise.all(
+    list.map(async ({ order }) => {
+      const items = await db.query.orderItems.findMany({
+        where: eq(orderItems.orderId, order.id)
+      });
+
+      return {
+        ...order,
+        items
+      };
+    })
+  );
 
   return {
     total,
     page,
     size,
     pages,
-    data: list
+    data: list1
   };
 }
 
-function getSearchConditions(request: Partial<OrdersRequest>) {
+function getSearchConditions(request: Partial<OrdersRequest>, userId: number) {
   const filters: SQL[] = [];
 
+  filters.push(eq(orders.userId, userId));
   if (request.status) {
     filters.push(eq(orders.status, request.status));
   }
   if (request.keyword) {
-    filters.push(like(orders.orderNumber, `%${request.keyword}%`));
+    const keywordLike = `%${request.keyword}%`;
+    filters.push(
+      or(
+        like(orders.orderNumber, keywordLike),
+        like(orderItems.productName, keywordLike),
+        like(orderItems.skuName, keywordLike)
+      )!
+    );
   }
 
   return and(...filters);

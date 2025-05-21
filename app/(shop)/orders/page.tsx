@@ -1,11 +1,11 @@
-import UserLayout from '@/components/ui/user-layout';
-import { Metadata } from 'next';
-import FilterBar from './filter-bar';
-import OrderList from './order-list';
-import { findOrders } from '@/services/orders';
-import { OrderStatus } from '@/enums/order';
 import Loading from '@/components/ui/loading';
+import UserLayout from '@/components/ui/user-layout';
+import { OrderStatus } from '@/enums/order';
+import { findOrders } from '@/services/orders';
+import { Metadata } from 'next';
 import { Suspense } from 'react';
+import FilterBar from './filter-bar';
+import SearchResult from './search-result';
 
 const title = '我的订单';
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title
 };
 
-const pageSize = 2;
+const pageSize = 10;
 
 export default async function OrdersPage({
   searchParams
@@ -36,11 +36,13 @@ export default async function OrdersPage({
     size: pageSize
   });
 
+  const searchKey = `${q1 ?? ''}-${status ?? ''}-${currentPage}`;
+
   return (
     <UserLayout label={'交易订单'} title={title} extra={<Safety />}>
       <FilterBar />
-      <Suspense fallback={<Loading className={'bg-primary h-[20vh]'} />}>
-        <OrderList searchPromise={searchPromise} />
+      <Suspense key={searchKey} fallback={<Loading className={'h-[20vh]'} />}>
+        <SearchResult searchPromise={searchPromise} />
       </Suspense>
     </UserLayout>
   );

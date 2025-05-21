@@ -52,6 +52,7 @@ function StatusItem({
     } else {
       params.delete('status');
     }
+    params.delete('page');
     router.replace(`${pathname}?${params.toString()}`);
   }
 
@@ -84,6 +85,7 @@ function SearchBar() {
     } else {
       params.delete('q1');
     }
+    params.delete('page');
     router.replace(`${pathname}?${params.toString()}`);
   }
 
@@ -91,10 +93,11 @@ function SearchBar() {
     <form action={formAction} className={'group flex'}>
       <input
         name={'q1'}
+        autoComplete={'off'}
         defaultValue={searchParams.get('q1')?.toString()}
         placeholder={'输入商品名称、订单号'}
         className={clsx(
-          'h-[42] w-[220] border-1 px-2.5 text-xs duration-300',
+          'h-[42] w-[220] border-1 px-2.5 text-xs duration-300 placeholder:text-[#666]',
           focused
             ? 'border-[var(--color-primary)]'
             : 'border-primary group-hover:border-[#b0b0b0]'

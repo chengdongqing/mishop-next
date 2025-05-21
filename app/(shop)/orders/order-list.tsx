@@ -1,57 +1,20 @@
-'use client';
-
+import Button from '@/components/ui/button';
 import Space from '@/components/ui/space';
-import clsx from 'clsx';
+import { OrderStatus, OrderStatusMap, PaymentMethodMap } from '@/enums/order';
 import { createProductUrl, DateTimeFormat, formatAmount } from '@/lib/utils';
+import type { Order, OrderItem } from '@/types/order';
+import clsx from 'clsx';
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from '@/components/ui/button';
-import { Page } from '@/types/common';
-import type { Order, OrderItem } from '@/types/order';
-import { use } from 'react';
-import { Empty } from '@/components/ui/user-layout';
-import Pagination from '@/components/ui/pagination';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import dayjs from 'dayjs';
-import { OrderStatus, OrderStatusMap, PaymentMethodMap } from '@/enums/order';
 
-export default function OrderList({
-  searchPromise
-}: {
-  searchPromise: Promise<Page<Order>>;
-}) {
-  const { page, size, total, pages, data: orders } = use(searchPromise);
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  function switchPage(page: number) {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', page.toString());
-    router.replace(`${pathname}?${params.toString()}`);
-  }
-
-  if (!orders.length) {
-    return <Empty>暂无数据。</Empty>;
-  }
-
+export default function OrderList({ orders }: { orders: Order[] }) {
   return (
-    <>
-      <ul>
-        {orders.map((order) => (
-          <OrderItem key={order.id} order={order} />
-        ))}
-      </ul>
-      {pages > 1 && (
-        <Pagination
-          current={page}
-          pageSize={size}
-          totalSize={total}
-          onChange={switchPage}
-        />
-      )}
-    </>
+    <ul>
+      {orders.map((order) => (
+        <OrderItem key={order.id} order={order} />
+      ))}
+    </ul>
   );
 }
 
