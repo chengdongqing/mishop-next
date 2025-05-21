@@ -2,7 +2,7 @@ import Breadcrumb from '@/components/ui/breadcrumb';
 import VideoCard from '@/components/ui/video-card';
 import { findVideos } from '@/services/videos';
 
-export const dynamic = 'force-static';
+// export const dynamic = 'force-static';
 
 export default async function VideosPage() {
   const videos = await findVideos();

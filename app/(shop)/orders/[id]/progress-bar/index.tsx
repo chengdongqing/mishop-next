@@ -27,7 +27,7 @@ export default function ProgressBar({
     return (
       OrderProgressOptions.findIndex((item) => {
         return item.statusCode === status;
-      }) || 0
+      }) + 1 || 0
     );
   }, [status]);
 

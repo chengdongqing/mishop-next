@@ -9,7 +9,7 @@ import Hero, { HeroSkeleton } from './hero';
 import HeroSub from './hero-sub';
 import Videos from './videos';
 
-export const dynamic = 'force-static';
+// export const dynamic = 'force-static';
 
 export default async function HomePage() {
   const banners = await findBannersByType(BannerType.HOME_BANNER, 2);

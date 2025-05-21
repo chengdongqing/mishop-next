@@ -171,7 +171,7 @@ function SummaryInfo({ order }: { order: Order }) {
         <SummaryItem label={'运费'}>
           {formatAmount(order.shippingFee)}元
         </SummaryItem>
-        <SummaryItem label={<span className={'leading-[35px]'}>应付金额</span>}>
+        <SummaryItem label={<span className={'leading-[35px]'}>实付金额</span>}>
           <span className={'mr-1 text-[30px] font-extralight'}>
             {formatAmount(order.payableAmount)}
           </span>
