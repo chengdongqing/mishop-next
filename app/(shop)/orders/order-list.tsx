@@ -1,4 +1,3 @@
-import Button from '@/components/ui/button';
 import Space from '@/components/ui/space';
 import { OrderStatus, OrderStatusMap, PaymentMethodMap } from '@/enums/order';
 import { createProductUrl, DateTimeFormat, formatAmount } from '@/lib/utils';
@@ -7,6 +6,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import ActionGroup from './action-group';
 
 export default function OrderList({ orders }: { orders: Order[] }) {
   return (
@@ -24,7 +24,7 @@ function OrderItem({ order }: { order: Order }) {
       <Header order={order} />
       <div className={'flex justify-between p-[20px_30px]'}>
         <ProductList products={order.items} />
-        <ActionGroup order={order} />
+        <ActionGroup order={order} direction={'vertical'} />
       </div>
     </li>
   );
@@ -109,26 +109,5 @@ function ProductList({ products }: { products: OrderItem[] }) {
         );
       })}
     </div>
-  );
-}
-
-function ActionGroup({ order }: { order: Order }) {
-  return (
-    <Space direction={'vertical'} size={10}>
-      <Link href={`/orders/${order.id}`}>
-        <Button outlined size={'small'} gray>
-          订单详情
-        </Button>
-      </Link>
-      <Button outlined size={'small'}>
-        评价晒单
-      </Button>
-      <Button outlined size={'small'} gray>
-        申请售后
-      </Button>
-      <Button outlined size={'small'} gray>
-        联系客服
-      </Button>
-    </Space>
   );
 }

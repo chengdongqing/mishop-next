@@ -5,6 +5,7 @@ import { findOrders } from '@/services/orders';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import FilterBar from './filter-bar';
+import Safety from './safety';
 import SearchResult from './search-result';
 
 const title = '我的订单';
@@ -45,20 +46,5 @@ export default async function OrdersPage({
         <SearchResult searchPromise={searchPromise} />
       </Suspense>
     </UserLayout>
-  );
-}
-
-export function Safety() {
-  return (
-    <>
-      请谨防钓鱼链接或诈骗电话，
-      <a
-        href={'https://www.mi.com/service/buy/Avoid%20Fraud'}
-        target={'_blank'}
-        className={'cursor-pointer'}
-      >
-        了解更多{'>'}
-      </a>
-    </>
   );
 }

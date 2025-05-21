@@ -12,9 +12,10 @@ import { Page, PageRequest } from '@/types/common';
 import { Order } from '@/types/order';
 import { randomInt } from 'crypto';
 import Decimal from 'decimal.js';
-import { and, desc, eq, ExtractTablesWithRelations, gte, like, or, SQL, sql } from 'drizzle-orm';
+import { and, desc, eq, ExtractTablesWithRelations, gte, like, ne, or, SQL, sql } from 'drizzle-orm';
 import { MySqlTransaction } from 'drizzle-orm/mysql-core';
 import { MySql2PreparedQueryHKT, MySql2QueryResultHKT } from 'drizzle-orm/mysql2';
+import { revalidatePath } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -401,4 +402,69 @@ function getSearchConditions(request: Partial<OrdersRequest>, userId: number) {
   }
 
   return and(...filters);
+}
+
+export async function cancelOrder(id: number) {
+  const userId = await getUserId();
+
+  // 更新状态
+  const [{ affectedRows }] = await db
+    .update(orders)
+    .set({
+      status: OrderStatus.CANCELED
+    })
+    .where(
+      and(
+        eq(orders.id, id),
+        eq(orders.userId, userId),
+        ne(orders.status, OrderStatus.COMPLETED),
+        ne(orders.status, OrderStatus.CANCELED)
+      )
+    );
+  // 没有更新数据则终止执行
+  if (!affectedRows) {
+    return;
+  }
+
+  // 记录日志
+  await db
+    .update(orderEvents)
+    .set({
+      canceledAt: new Date()
+    })
+    .where(eq(orderEvents.orderId, id));
+
+  // 释放库存
+  const items = await db.query.orderItems.findMany({
+    columns: {
+      skuId: true,
+      quantity: true
+    },
+    where: eq(orderItems.orderId, id)
+  });
+  await Promise.all(
+    items.map(async (item) => {
+      await db
+        .update(productSkus)
+        .set({
+          stocks: sql`${productSkus.stocks} + ${item.quantity}`
+        })
+        .where(eq(productSkus.id, item.skuId));
+    })
+  );
+
+  // TODO 关闭支付通道
+
+  revalidatePath('/orders');
+}
+
+/**
+ * 查询订单事件数据
+ */
+export async function findOrderEvents(id: number) {
+  const userId = await getUserId();
+
+  return db.query.orderEvents.findFirst({
+    where: and(eq(orderEvents.orderId, id), eq(orderEvents.userId, userId))
+  });
 }

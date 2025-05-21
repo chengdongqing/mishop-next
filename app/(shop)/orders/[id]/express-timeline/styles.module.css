@@ -1,0 +1,64 @@
+.container {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 0 20px 12px;
+    border: 1px solid var(--color-success);
+    color: #757575;
+    font-size: 12px;
+}
+
+.header {
+    margin: 10px 0;
+    line-height: 30px;
+    border-bottom: 1px solid #cfeeab;
+
+    :is(a) {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 12px;
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+}
+
+.timeline {
+    max-height: 120px;
+    overflow-y: auto;
+
+    .time_node {
+        position: relative;
+        padding: 6px 6px 6px 18px;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 7px;
+            height: 7px;
+            border-radius: 7px;
+            background-color: var(--color-border);
+            z-index: 1;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: -10px;
+            left: 3px;
+            width: 1px;
+            background-color: var(--color-border);
+        }
+
+        &:first-child::before {
+            background-color: var(--color-success);
+        }
+
+        &:last-child::after {
+            width: 0;
+        }
+    }
+}

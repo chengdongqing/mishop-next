@@ -1,0 +1,51 @@
+.container {
+    height: 55px;
+    margin-bottom: 15px;
+}
+
+.wrapper {
+    display: flex;
+    height: 20px;
+    font-size: 12px;
+    background-color: #eee;
+    border-radius: 20px;
+
+    .time_node {
+        flex: 1;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+
+        &:first-child {
+            .step {
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+            }
+        }
+
+        &:last-child,
+        &.active.last {
+            .step {
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+        }
+
+        &.active {
+            .step {
+                color: #fff;
+                background-color: var(--color-success);
+            }
+        }
+
+        .step {
+            height: 20px;
+            color: #424242;
+        }
+
+        .datetime {
+            margin-top: 15px;
+            color: #757575;
+        }
+    }
+}
