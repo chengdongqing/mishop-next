@@ -95,7 +95,7 @@ function ProductList({ products }: { products: OrderItem[] }) {
               height={80}
               className={'mr-5 h-[80] w-[80] object-scale-down'}
             />
-            <span className={'w-[350]'}>
+            <span className={'hover:text-primary w-[350] duration-200'}>
               {product.productName} {product.skuName}
             </span>
           </Link>
