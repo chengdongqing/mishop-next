@@ -86,7 +86,9 @@ export default function Space({
         return isValidElement(child) ||
           ['string', 'number'].includes(typeof child) ? (
           <>
-            <span style={isNotLast(index) ? itemStyle : undefined}>
+            <span
+              style={isNotLast(index) ? itemStyle : { display: 'inline-flex' }}
+            >
               {child}
             </span>
             {isNotLast(index) && !!split && (

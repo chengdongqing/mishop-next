@@ -5,7 +5,12 @@ import {
   seedLayoutHeader,
   seedLayoutHeroCategories
 } from './layouts';
-import { seedOrderEvents, seedOrderItems, seedOrders } from './orders';
+import {
+  seedOrderEvents,
+  seedOrderItems,
+  seedOrderReviews,
+  seedOrders
+} from './orders';
 import {
   seedProductCategories,
   seedProductLabelRelations,
@@ -43,6 +48,7 @@ function seedDatabase() {
     seedOrders(),
     seedOrderItems(),
     seedOrderEvents(),
+    seedOrderReviews(),
     seedBanners(),
     seedVideos(),
     seedUsers(),

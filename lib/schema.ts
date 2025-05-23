@@ -242,6 +242,20 @@ export const orderEvents = mysqlTable('order_events', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const orderReviews = mysqlTable('order_reviews', {
+  id: serial('id').primaryKey(),
+  orderId: int('order_id').notNull().unique(),
+  userId: int('user_id').notNull(),
+  packagingRating: int('packaging_rating').default(5).notNull(),
+  speedRating: int('speed_rating').default(5).notNull(),
+  serviceRating: int('service_rating').default(5).notNull(),
+  content: text('content'),
+  photoUrls: customJson<string[]>('photo_urls'),
+  isAnonymous: boolean('is_anonymous').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
+});
+
 export const banners = mysqlTable('banners', {
   id: serial('id').primaryKey(),
   type: mysqlEnum('type', [

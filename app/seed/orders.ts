@@ -86,7 +86,6 @@ export async function seedOrderEvents() {
 export async function seedOrderReviews() {
   // 删除表
   await db.execute('drop table if exists mishop.order_reviews;');
-  await db.execute('drop table if exists mishop.product_reviews;');
 
   // 创建表
   await db.execute(`
@@ -105,20 +104,5 @@ export async function seedOrderReviews() {
             updated_at       timestamp default (now()) on update current_timestamp,
             constraint order_reviews_pk unique (order_id)
         ) comment '订单评价表';
-    `);
-  await db.execute(`
-        create table product_reviews
-        (
-            id           int auto_increment primary key,
-            order_id     int                                 not null comment '订单id',
-            user_id      int                                 not null comment '用户id',
-            rating       int comment '商品评分',
-            content      varchar(200) comment '评价内容',
-            photo_urls   json comment '上传的图片地址',
-            is_anonymous boolean comment '是否匿名',
-            created_at   timestamp default current_timestamp not null,
-            updated_at   timestamp default (now()) on update current_timestamp,
-            constraint order_reviews_pk unique (order_id)
-        ) comment '商品评价表';
     `);
 }
