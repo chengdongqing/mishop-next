@@ -1,20 +1,22 @@
 'use server';
 
 import { AccountTypes } from '@/app/account/(home)/account-modify';
-import { auth } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { OrderStatus } from '@/enums/order';
 import { GenderType } from '@/enums/user';
 import { db } from '@/lib/db';
 import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX, USERNAME_REGEX, VERIFICATION_CODE_REGEX } from '@/lib/regex';
-import { favoriteProducts, orders, users } from '@/lib/schema';
+import { Result } from '@/lib/result';
+import { cartItems, favoriteProducts, orders, shippingAddresses, users } from '@/lib/schema';
 import { getUserId, maskEmail, maskPhone } from '@/lib/utils';
 import { verifyEmailVerificationCode, verifySmsVerificationCode } from '@/services/verification-code';
 import { ActionState } from '@/types/common';
 import { User } from '@/types/user';
 import bcrypt from 'bcryptjs';
-import { and, eq, or } from 'drizzle-orm';
+import { and, eq, notInArray, or } from 'drizzle-orm';
 import { unlink } from 'fs/promises';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import path from 'path';
 import { z } from 'zod';
 
@@ -330,4 +332,39 @@ function countOrderByStatus(userId: number, status: OrderStatus) {
     orders,
     and(eq(orders.userId, userId), eq(orders.status, status))
   );
+}
+
+/**
+ * 注销账号
+ */
+export async function deleteUser() {
+  const userId = await getUserId();
+
+  // 查询是否有进行中的订单
+  const exist = !!(await db.query.orders.findFirst({
+    where: and(
+      eq(orders.userId, userId),
+      notInArray(orders.status, [OrderStatus.COMPLETED, OrderStatus.CANCELED])
+    )
+  }));
+  if (exist) {
+    return Result.fail('您还有进行中的订单，无法注销账号');
+  }
+
+  // 尽可能删除用户的个人数据
+  await db.transaction(async (tx) => {
+    await tx.delete(users).where(eq(users.id, userId));
+    await tx.delete(cartItems).where(eq(cartItems.userId, userId));
+    await tx
+      .delete(shippingAddresses)
+      .where(eq(shippingAddresses.userId, userId));
+    await tx
+      .delete(favoriteProducts)
+      .where(eq(favoriteProducts.userId, userId));
+  });
+
+  // 退出登录
+  await signOut();
+
+  redirect('/');
 }

@@ -1,6 +1,8 @@
 'use client';
 
 import popup from '@/components/ui/popup';
+import toast from '@/components/ui/toast';
+import { deleteUser } from '@/services/users';
 import { ChevronRightIcon } from '@heroicons/react/16/solid';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -23,7 +25,12 @@ export default function Privacy({ action }: { action?: 'delete' }) {
         </span>
       </>,
       {
-        onOk() {}
+        async onOk() {
+          const res = await deleteUser();
+          if (!res.ok) {
+            toast.warning(res.error);
+          }
+        }
       }
     );
   }
