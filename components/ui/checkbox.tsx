@@ -32,7 +32,8 @@ export default function Checkbox({
     <span className={'flex'}>
       <label
         className={clsx(
-          'group relative flex cursor-pointer items-center gap-x-1.5 select-none'
+          'group relative flex items-center gap-x-1.5 select-none',
+          disabled ? 'cursor-default' : 'cursor-pointer'
         )}
       >
         <input
@@ -59,7 +60,7 @@ export default function Checkbox({
             {
               'opacity-80': disabled
             },
-            'group-hover:border-[var(--color-primary)]'
+            !disabled && 'group-hover:border-[var(--color-primary)]'
           )}
         >
           {checked ? (
@@ -70,9 +71,10 @@ export default function Checkbox({
         </span>
         {!!children && (
           <span
-            className={
-              'text-sm text-[#424242] group-hover:text-[var(--color-primary)]'
-            }
+            className={clsx(
+              'text-sm text-[#424242]',
+              !disabled && 'group-hover:text-[var(--color-primary)]'
+            )}
           >
             {children}
           </span>

@@ -15,10 +15,8 @@ export default async function OrderReviewPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const { orderReview, items } = await findOrderReview(Number(id));
-
-  console.log({ orderReview, items });
+  const id = Number((await params).id);
+  const { orderReview, items } = await findOrderReview(id);
 
   return (
     <UserLayout
@@ -35,8 +33,11 @@ export default async function OrderReviewPage({
         </span>
       }
     >
-      <OrderReviewForm />
-      <ProductReviewForm />
+      <OrderReviewForm id={id} orderReview={orderReview} />
+
+      {items.map((item) => (
+        <ProductReviewForm key={item.id} orderId={id} item={item} />
+      ))}
     </UserLayout>
   );
 }

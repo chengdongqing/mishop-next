@@ -1,12 +1,17 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { Result } from '@/lib/result';
 import { productReviews } from '@/lib/schema';
-import { createPaginationMeta } from '@/lib/utils';
+import { createPaginationMeta, getUserId, maskPhone } from '@/lib/utils';
 import { Page, PageRequest } from '@/types/common';
 import { ProductReview } from '@/types/product-review';
 import { and, eq, gte, isNotNull, SQL, sql } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
+/**
+ * 统计指定商品的评价相关数量
+ */
 export async function countReviews(productId: number) {
   // 评价总数
   const totalCount = await db.$count(
@@ -57,6 +62,9 @@ interface ReviewsRequest extends PageRequest {
   onlyWithPhotos?: boolean;
 }
 
+/**
+ * 查询指定商品的评价数据
+ */
 export async function findReviews(
   request: ReviewsRequest
 ): Promise<Page<ProductReview>> {
@@ -69,40 +77,91 @@ export async function findReviews(
   if (request.onlyWithPhotos) {
     filters.push(isNotNull(productReviews.photoUrls));
   }
-  const where = and(...filters);
+  const conditions = and(...filters);
 
   // 查询总数量
-  const total = await db.$count(productReviews, where);
+  const total = await db.$count(productReviews, conditions);
 
   // 计算分页参数
   const { page, size, offset, pages } = createPaginationMeta(request, total);
 
   // 查询评价数据
-  const list = await db
-    .select()
-    .from(productReviews)
-    .where(where)
-    .limit(size)
-    .offset(offset);
+  const list = await db.query.productReviews.findMany({
+    with: {
+      user: {
+        columns: {
+          id: true,
+          avatarUrl: true,
+          name: true,
+          phone: true
+        }
+      }
+    },
+    where: conditions,
+    limit: size,
+    offset
+  });
 
   return {
     page,
     size,
     pages,
     total,
-    data: list.map((review) => ({
-      id: review.id,
-      rating: review.rating,
-      content: review.content,
-      photoUrls: review.photoUrls ? review.photoUrls : [],
-      user: {
-        id: 1,
-        name: '萌团子',
-        avatarUrl:
-          'https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/0f2e4308-6768-4ad4-945a-30a86e294b88.jpg',
-        phone: '199******89'
-      },
-      createdAt: review.createdAt
-    }))
+    data: list.map(({ user, ...review }) => {
+      const phone = maskPhone(user.phone);
+
+      return {
+        ...review,
+        photoUrls: review.photoUrls ?? [],
+        user: {
+          id: user.id,
+          name: user.name ?? phone,
+          avatarUrl: user.avatarUrl ?? '/avatar.webp',
+          phone
+        }
+      };
+    })
   };
+}
+
+interface CreateProductReviewRequest {
+  rating: number;
+  content?: string;
+  photoUrls?: string[];
+  isAnonymous: boolean;
+}
+
+/**
+ * 创建商品评价
+ */
+export async function createProductReview(
+  orderId: number,
+  productId: number,
+  request: CreateProductReviewRequest
+): Promise<Result<void>> {
+  const userId = await getUserId();
+
+  // 查询该订单是否已评价
+  const isExisted = !!(await db.query.productReviews.findFirst({
+    where: and(
+      eq(productReviews.userId, userId),
+      eq(productReviews.orderId, orderId),
+      eq(productReviews.productId, productId)
+    )
+  }));
+  if (isExisted) {
+    return Result.fail('该商品已评价');
+  }
+
+  // 保存评价信息
+  await db.insert(productReviews).values({
+    userId,
+    orderId,
+    productId,
+    ...request
+  });
+
+  revalidatePath('/orders/reviews');
+
+  return Result.ok();
 }

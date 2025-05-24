@@ -2,9 +2,11 @@
 
 import { OrderStatus } from '@/enums/order';
 import { db } from '@/lib/db';
+import { Result } from '@/lib/result';
 import { orderItems, orderReviews, orders, productReviews } from '@/lib/schema';
 import { getUserId } from '@/lib/utils';
 import { and, desc, eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 /**
  * 查询所有待评价的订单
@@ -78,4 +80,63 @@ export async function findOrderReview(id: number) {
     orderReview,
     items
   };
+}
+
+interface CreateOrderReviewRequest {
+  packagingRating: number;
+  speedRating: number;
+  serviceRating: number;
+  content?: string;
+  photoUrls?: string[];
+  isAnonymous: boolean;
+}
+
+/**
+ * 创建订单评价
+ */
+export async function createOrderReview(
+  orderId: number,
+  request: CreateOrderReviewRequest
+): Promise<Result<void>> {
+  const userId = await getUserId();
+
+  // 查询该订单是否存在
+  const order = await db.query.orders.findFirst({
+    where: and(eq(orders.id, orderId), eq(orders.userId, userId))
+  });
+  if (!order) {
+    return Result.fail('该订单不存在');
+  }
+
+  // 查询该订单是否已评价
+  const isExisted = !!(await db.query.orderReviews.findFirst({
+    where: and(
+      eq(orderReviews.userId, userId),
+      eq(orderReviews.orderId, orderId)
+    )
+  }));
+  if (isExisted) {
+    return Result.fail('该订单已评价');
+  }
+
+  await db.transaction(async (tx) => {
+    // 保存评价信息
+    await tx.insert(orderReviews).values({
+      userId,
+      orderId,
+      ...request
+    });
+
+    // 修改订单评价状态
+    await tx
+      .update(orders)
+      .set({
+        isReviewed: true
+      })
+      .where(eq(orders.id, orderId));
+  });
+
+  revalidatePath('/orders/reviews');
+
+  return Result.ok();
 }

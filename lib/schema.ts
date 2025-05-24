@@ -126,6 +126,13 @@ export const productReviews = mysqlTable('product_reviews', {
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow()
 });
 
+export const productReviewsRelations = relations(productReviews, ({ one }) => ({
+  user: one(users, {
+    fields: [productReviews.userId],
+    references: [users.id]
+  })
+}));
+
 export const cartItems = mysqlTable(
   'cart_items',
   {
