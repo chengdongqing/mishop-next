@@ -14,15 +14,30 @@
 - ✅ 使用 **Next.js App Router** 最新架构，服务端渲染
 - ✅ 使用 **React 19** 新特性（如 `useActionState`, `useOptimistic`, `useTransition`, `use` 等提升开发体验和用户体验）
 - ✅ 部分页面支持 **深色/浅色/自适应主题**
-- ✅ 部分页面支持 **多语言切换+RTL（基于`next-intl`）**
-- ✅ WebSocket 支付成功模拟
-- ✅ Redis + BullMQ 实现超时订单自动取消
-- ✅ 使用 **Drizzle ORM** 操作 MySQL 数据库
+- ✅ 部分页面支持 **多语言切换+`RTL`**
+- ✅ `WebSocket` 支付成功模拟
+- ✅ `Redis` + `BullMQ` 实现超时订单自动取消
+- ✅ 使用 `Drizzle ORM` 操作 MySQL 数据库
 - ✅ 部分动画使用 `motion`
 - ✅ 样式使用 `tailwindcss`
 - ✅ 前后端异步交互使用Next.js内部`RPC`协议
 
 ---
+
+## 效果预览
+
+<img src="readme/home.png" alt="home page" width="240"></img>
+<img src="readme/search.png" alt="search page" width="240"></img>
+<img src="readme/buy.png" alt="buy page" width="240"></img>
+<img src="readme/spec.png" alt="spec page" width="240"></img>
+<img src="readme/product.png" alt="product page" width="240"></img>
+<img src="readme/cart.png" alt="cart page" width="240"></img>
+<img src="readme/orders.png" alt="orders page" width="240"></img>
+<img src="readme/order.png" alt="order page" width="240"></img>
+<img src="readme/address.png" alt="address page" width="240"></img>
+<img src="readme/profile.png" alt="profile page" width="240"></img>
+<img src="readme/account.png" alt="account page" width="240"></img>
+<img src="readme/auth.png" alt="account page" width="240"></img>
 
 ## 🧩 功能一览
 
@@ -51,7 +66,7 @@
 
 - 视频列表页
 - 部分页面国际化支持
-- 部分页面主题切换（亮 / 暗 / 自适应）
+- 部分页面主题切换（亮 / 暗 / 自适应）等
 
 ---
 
