@@ -54,6 +54,6 @@ export async function uploadFile(file: File) {
 
   await writeFile(filepath, buffer);
 
-  const url = `/uploads/${filename}`;
+  const url = `/files/${filename}`;
   return Result.ok(url);
 }
