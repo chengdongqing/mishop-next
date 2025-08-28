@@ -23,7 +23,8 @@ export default function SettingItem({ icon, label, value, onClick }: Props) {
           alt={''}
           width={30}
           height={30}
-          className={'h-[30] w-[30]'}
+          unoptimized
+          className={'size-[30]'}
         />
         <h4 className={'ms-2.5'}>{label}</h4>
       </div>

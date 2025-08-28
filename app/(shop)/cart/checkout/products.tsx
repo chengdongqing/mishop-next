@@ -30,7 +30,7 @@ function ProductItem({ product }: { product: CartProduct }) {
           alt={'Product Picture'}
           width={30}
           height={30}
-          className={'h-[30] w-[30] object-scale-down'}
+          className={'size-[30] object-scale-down'}
         />
         <Link
           href={createProductUrl({

@@ -90,7 +90,8 @@ function PrivacyItem({
           alt={'icon'}
           width={30}
           height={30}
-          className={'h-[30] w-[30]'}
+          unoptimized
+          className={'size-[30]'}
         />
         <div>
           <h4 className={'mb-1 text-base text-[#666]'}>{label}</h4>
