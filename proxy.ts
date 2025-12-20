@@ -7,7 +7,7 @@ const protectedRoutes: string[] = [
   '/user'
 ];
 
-export const middleware = auth((req) => {
+export const proxy = auth((req) => {
   const pathname = req.nextUrl.pathname;
   const isProtected = protectedRoutes.some((path) => pathname.startsWith(path));
 

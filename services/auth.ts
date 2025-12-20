@@ -280,7 +280,7 @@ export async function signInByCode(
 const resetPasswordSchema = z
   .object({
     type: z.enum(['phone', 'email'], {
-      required_error: '请选择类型'
+      error: '请选择类型'
     }),
     identifier: z.string(),
     verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误'),
