@@ -1,10 +1,10 @@
-import { CartProvider } from '@/contexts/cart-context';
-import { UserInfoProvider } from '@/contexts/user-info-context';
-import { findHeaderNavs } from '@/services/layout';
-import { findHotProductNames } from '@/services/products';
-import { PropsWithChildren } from 'react';
-import Footer from './footer';
-import Header from './header';
+import { CartProvider } from "@/contexts/cart-context";
+import { UserInfoProvider } from "@/contexts/user-info-context";
+import { findHeaderNavs } from "@/services/layout";
+import { findHotProductNames } from "@/services/products";
+import { PropsWithChildren } from "react";
+import Footer from "./footer";
+import Header from "./header";
 
 export default async function ShopLayout({ children }: PropsWithChildren) {
   const navsPromise = findHeaderNavs();

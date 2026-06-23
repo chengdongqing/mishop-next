@@ -1,11 +1,7 @@
-import useLatest from '@/hooks/useLatest';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import useLatest from "@/hooks/useLatest";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-export default function useCountdown(
-  seconds = 60,
-  manual = false,
-  onEnd?: () => void
-) {
+export default function useCountdown(seconds = 60, manual = false, onEnd?: () => void) {
   const [remaining, setRemaining] = useState(seconds);
   const intervalId = useRef<NodeJS.Timeout>(undefined);
 

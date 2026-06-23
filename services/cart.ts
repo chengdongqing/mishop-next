@@ -1,76 +1,74 @@
-'use server';
+"use server";
 
-import { db } from '@/lib/db';
-import { Result } from '@/lib/result';
-import { cartItems, productSkus } from '@/lib/schema';
-import { getUserId } from '@/lib/utils';
-import { calcOrderSummary } from '@/services/orders';
-import { CartCheckout } from '@/types/cart';
-import { CartProduct } from '@/types/product';
-import Decimal from 'decimal.js';
-import { and, eq } from 'drizzle-orm';
-import { createInsertSchema } from 'drizzle-zod';
-import { pick } from 'lodash';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
+import { db } from "@/lib/db";
+import { Result } from "@/lib/result";
+import { cartItems, productSkus } from "@/lib/schema";
+import { getUserId } from "@/lib/utils";
+import { calcOrderSummary } from "@/services/orders";
+import { CartCheckout } from "@/types/cart";
+import { CartProduct } from "@/types/product";
+import Decimal from "decimal.js";
+import { and, eq } from "drizzle-orm";
+import { createInsertSchema } from "drizzle-zod";
+import { pick } from "lodash";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
 const createCartSchema = createInsertSchema(cartItems)
   .omit({ userId: true })
   .extend({
-    quantity: z.number().min(1, { message: '数量必须至少为1' })
+    quantity: z.number().min(1, { message: "数量必须至少为1" }),
   });
 
 /**
  * 加入商品到购物车
  */
-export async function addToCart(
-  product: Omit<typeof cartItems.$inferInsert, 'userId'>
-) {
+export async function addToCart(product: Omit<typeof cartItems.$inferInsert, "userId">) {
   createCartSchema.parse(product);
   const userId = await getUserId();
 
   // 查询sku详情
   const sku = await db.query.productSkus.findFirst({
-    where: eq(productSkus.id, product.skuId)
+    where: eq(productSkus.id, product.skuId),
   });
   if (!sku) {
-    return Result.fail('sku不存在');
+    return Result.fail("sku不存在");
   }
 
   // 根据userId和skuId查询是否存在该购物车商品
   const cartItem = await db.query.cartItems.findFirst({
-    where: and(eq(cartItems.userId, userId), eq(cartItems.skuId, product.skuId))
+    where: and(eq(cartItems.userId, userId), eq(cartItems.skuId, product.skuId)),
   });
 
   // 已存在则仅更新数量
   if (cartItem) {
     cartItem.quantity += product.quantity ?? 1;
     if (sku.limits && cartItem.quantity > sku.limits) {
-      return Result.fail('商品加入购物车数量超过限购数');
+      return Result.fail("商品加入购物车数量超过限购数");
     }
     if (cartItem.quantity > sku.stocks) {
-      return Result.fail('商品库存不足');
+      return Result.fail("商品库存不足");
     }
 
     // 更新数据库
     await db
       .update(cartItems)
       .set({
-        quantity: cartItem.quantity
+        quantity: cartItem.quantity,
       })
       .where(eq(cartItems.id, cartItem.id));
   }
   // 否则创建购物车商品
   else {
     if (!sku.stocks) {
-      return Result.fail('商品库存不足');
+      return Result.fail("商品库存不足");
     }
 
     await db.insert(cartItems).values({
       userId,
       skuId: sku.id,
       productId: sku.productId,
-      quantity: product.quantity ?? 1
+      quantity: product.quantity ?? 1,
     });
   }
 
@@ -89,22 +87,22 @@ export async function modifyCartItem(product: {
 
   const cartItem = await db.query.cartItems.findFirst({
     with: {
-      sku: true
+      sku: true,
     },
-    where: and(eq(cartItems.id, product.id), eq(cartItems.userId, userId))
+    where: and(eq(cartItems.id, product.id), eq(cartItems.userId, userId)),
   });
   if (!cartItem) {
-    return Result.fail('该购物车商品不存在');
+    return Result.fail("该购物车商品不存在");
   }
 
   if (product.quantity) {
     cartItem.quantity = product.quantity;
     const { sku } = cartItem;
     if (sku.limits && cartItem.quantity > sku.limits) {
-      return Result.fail('商品加入购物车数量超过限购数');
+      return Result.fail("商品加入购物车数量超过限购数");
     }
     if (cartItem.quantity > sku.stocks) {
-      return Result.fail('商品库存不足');
+      return Result.fail("商品库存不足");
     }
   }
   if (product.checked !== undefined) {
@@ -115,7 +113,7 @@ export async function modifyCartItem(product: {
     .update(cartItems)
     .set({
       quantity: cartItem.quantity,
-      checked: cartItem.checked
+      checked: cartItem.checked,
     })
     .where(eq(cartItems.id, cartItem.id));
 
@@ -128,7 +126,7 @@ export async function modifyAllChecked(checked: boolean) {
   await db
     .update(cartItems)
     .set({
-      checked
+      checked,
     })
     .where(eq(cartItems.userId, userId));
 }
@@ -146,11 +144,11 @@ export async function findCartItems(): Promise<CartProduct[]> {
         columns: {
           id: true,
           name: true,
-          slug: true
-        }
-      }
+          slug: true,
+        },
+      },
     },
-    where: eq(cartItems.userId, userId)
+    where: eq(cartItems.userId, userId),
   });
 
   return items.map(({ product, sku, ...item }) => ({
@@ -158,14 +156,14 @@ export async function findCartItems(): Promise<CartProduct[]> {
     productId: item.productId,
     productSlug: product.slug,
     productName: product.name,
-    fullName: [product.name, sku.name].join(' '),
+    fullName: [product.name, sku.name].join(" "),
     skuId: item.skuId,
     skuName: sku.name,
     pictureUrl: sku.pictureUrl,
     price: sku.price,
     quantity: item.quantity,
     checked: item.checked,
-    limits: sku.limits
+    limits: sku.limits,
   }));
 }
 
@@ -175,9 +173,7 @@ export async function findCartItems(): Promise<CartProduct[]> {
 export async function removeFromCart(id: number) {
   const userId = await getUserId();
 
-  await db
-    .delete(cartItems)
-    .where(and(eq(cartItems.id, id), eq(cartItems.userId, userId)));
+  await db.delete(cartItems).where(and(eq(cartItems.id, id), eq(cartItems.userId, userId)));
 }
 
 /**
@@ -186,9 +182,7 @@ export async function removeFromCart(id: number) {
 export async function removeSelected() {
   const userId = await getUserId();
 
-  await db
-    .delete(cartItems)
-    .where(and(eq(cartItems.userId, userId), eq(cartItems.checked, true)));
+  await db.delete(cartItems).where(and(eq(cartItems.userId, userId), eq(cartItems.checked, true)));
 }
 
 /**
@@ -198,17 +192,14 @@ export async function syncCart(products: CartProduct[]) {
   const userId = await getUserId();
 
   // 查询所有的购物车商品
-  const items = await db
-    .select()
-    .from(cartItems)
-    .where(eq(cartItems.userId, userId));
+  const items = await db.select().from(cartItems).where(eq(cartItems.userId, userId));
 
   // 新添加的商品
   const newProducts = products
     .filter((product) => !items.some((p1) => p1.skuId === product.skuId))
     .map((product) => ({
       userId,
-      ...pick(product, ['productId', 'skuId', 'quantity', 'checked'])
+      ...pick(product, ["productId", "skuId", "quantity", "checked"]),
     }));
 
   await db.transaction(async (tx) => {
@@ -221,11 +212,11 @@ export async function syncCart(products: CartProduct[]) {
             .update(cartItems)
             .set({
               quantity: product.quantity ?? item.quantity,
-              checked: product.checked ?? item.checked
+              checked: product.checked ?? item.checked,
             })
             .where(eq(cartItems.id, item.id));
         }
-      })
+      }),
     );
 
     // 不存在则添加
@@ -248,11 +239,11 @@ export async function getCheckoutData(): Promise<CartCheckout> {
       product: {
         columns: {
           name: true,
-          slug: true
-        }
-      }
+          slug: true,
+        },
+      },
     },
-    where: and(eq(cartItems.userId, userId), eq(cartItems.checked, true))
+    where: and(eq(cartItems.userId, userId), eq(cartItems.checked, true)),
   });
   const products: CartProduct[] = items
     .filter((item) => {
@@ -264,18 +255,18 @@ export async function getCheckoutData(): Promise<CartCheckout> {
       );
     })
     .map(({ sku, product, ...item }) => ({
-      ...pick(item, ['id', 'productId', 'skuId', 'quantity', 'checked']),
+      ...pick(item, ["id", "productId", "skuId", "quantity", "checked"]),
       productName: product.name,
       productSlug: product.slug,
       skuName: sku.name,
-      fullName: [product.name, sku.name].join(' '),
+      fullName: [product.name, sku.name].join(" "),
       pictureUrl: sku.pictureUrl,
       price: sku.price,
-      subtotal: new Decimal(sku.price).mul(item.quantity).toString()
+      subtotal: new Decimal(sku.price).mul(item.quantity).toString(),
     }));
 
   if (!products.length) {
-    redirect('/');
+    redirect("/");
   }
 
   // 计算订单汇总信息
@@ -283,6 +274,6 @@ export async function getCheckoutData(): Promise<CartCheckout> {
 
   return {
     products,
-    summary
+    summary,
   };
 }

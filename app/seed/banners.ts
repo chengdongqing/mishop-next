@@ -1,16 +1,16 @@
-import { BannerType } from '@/enums/banner';
-import { db } from '@/lib/db';
+import { BannerType } from "@/enums/banner";
+import { db } from "@/lib/db";
 import {
   bannersData,
   brickPromotionsData,
   carouselsData,
-  promotionsData
-} from '@/lib/placeholder-data';
-import { banners } from '@/lib/schema';
+  promotionsData,
+} from "@/lib/placeholder-data";
+import { banners } from "@/lib/schema";
 
 export async function seedBanners() {
   // 删除表
-  await db.execute('drop table if exists mishop.banners;');
+  await db.execute("drop table if exists mishop.banners;");
 
   // 创建表
   await db.execute(`
@@ -35,21 +35,21 @@ export async function seedBanners() {
     values.push({
       ...banner,
       type: BannerType.HOME_HERO,
-      sortNo: index + 1
+      sortNo: index + 1,
     });
   });
   promotionsData.forEach((banner, index) => {
     values.push({
       ...banner,
       type: BannerType.HOME_HERO_SUB,
-      sortNo: index + 1
+      sortNo: index + 1,
     });
   });
   bannersData.forEach((banner, index) => {
     values.push({
       ...banner,
       type: BannerType.HOME_BANNER,
-      sortNo: index + 1
+      sortNo: index + 1,
     });
   });
   brickPromotionsData.forEach(({ categoryId, ...banner }, index) => {
@@ -57,7 +57,7 @@ export async function seedBanners() {
       ...banner,
       associatedId: categoryId,
       type: BannerType.HOME_BRICK,
-      sortNo: index + 1
+      sortNo: index + 1,
     });
   });
   await db.insert(banners).values(values);

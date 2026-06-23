@@ -19,5 +19,5 @@ export const Result = {
   },
   fail(error: string): Result<never> {
     return { ok: false, error };
-  }
+  },
 };

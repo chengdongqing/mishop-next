@@ -1,23 +1,17 @@
-import clsx from 'clsx';
-import Image from 'next/image';
-import styles from './styles.module.css';
+import clsx from "clsx";
+import Image from "next/image";
+import styles from "./styles.module.css";
 
 export default function Xiaomi13UltraSpecs() {
   return (
-    <div style={{ backgroundColor: '#000' }}>
-      <div
-        className={clsx(
-          'flex items-center justify-between',
-          styles.section,
-          styles.section1
-        )}
-      >
+    <div style={{ backgroundColor: "#000" }}>
+      <div className={clsx("flex items-center justify-between", styles.section, styles.section1)}>
         <div>
           <Image
             src={
-              'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4363.png'
+              "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4363.png"
             }
-            alt={''}
+            alt={""}
             width={463}
             height={92}
           />
@@ -53,16 +47,16 @@ export default function Xiaomi13UltraSpecs() {
         </div>
         <Image
           src={
-            'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/99999.png'
+            "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/99999.png"
           }
-          alt={''}
+          alt={""}
           width={628}
           height={396}
           style={{ width: 568 }}
         />
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>外观尺寸</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
@@ -81,9 +75,9 @@ export default function Xiaomi13UltraSpecs() {
           </div>
           <Image
             src={
-              'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4028.png'
+              "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/4028.png"
             }
-            alt={''}
+            alt={""}
             width={764}
             height={363}
             style={{ width: 687, marginTop: 40 }}
@@ -91,7 +85,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx(styles.section, 'flex justify-between')}>
+      <div className={clsx(styles.section, "flex justify-between")}>
         <div className={styles.title}>内存容量</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>16GB+1TB 最高可选</div>
@@ -111,7 +105,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>移动平台</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>第二代骁龙®8移动平台</div>
@@ -127,14 +121,14 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>屏幕显示</div>
         <div className={styles.content}>
           <Image
             src={
-              'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/3935.png'
+              "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-ultraeyyn4y/specs/3935.png"
             }
-            alt={''}
+            alt={""}
             width={468}
             height={219}
             style={{ width: 420, marginBottom: 30 }}
@@ -154,8 +148,7 @@ export default function Xiaomi13UltraSpecs() {
             峰值亮度：2600nit
           </div>
           <div className={styles.descriptions} style={{ marginTop: 40 }}>
-            专业原色屏｜LTPO丨12bit丨DCI-P3｜经典护眼 / 纸质护眼｜360°
-            感光｜阳光屏｜
+            专业原色屏｜LTPO丨12bit丨DCI-P3｜经典护眼 / 纸质护眼｜360° 感光｜阳光屏｜
             <br />
             自动亮度2.0｜AI 大师画质引擎｜超薄屏下指纹｜暗光解锁｜心率检测
             <br />
@@ -166,7 +159,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>续航与充电</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>5000mAh(typ) / 4880mAh(min)</div>
@@ -175,21 +168,19 @@ export default function Xiaomi13UltraSpecs() {
             <br />
             USB Type-C 双面充电接口
             <br />
-            手机支持 QC4 / QC3+ / QC3.0 / QC2.0 / PD3.0 /PD2.0 快充协议 / MI FC
-            2.0 快充
+            手机支持 QC4 / QC3+ / QC3.0 / QC2.0 / PD3.0 /PD2.0 快充协议 / MI FC 2.0 快充
             <br />
             90W 小米澎湃有线秒充 / 50W Pro 小米澎湃无线秒充 / 无线反充
           </div>
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>影像系统</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>徕卡光学全焦段四摄</div>
           <div className={styles.descriptions}>
-            一英寸可变光圈主摄：50MP｜Sony&#39;s
-            IMX989｜超大感光元件｜f/1.9，f/4.0 两挡可变光圈｜
+            一英寸可变光圈主摄：50MP｜Sony&#39;s IMX989｜超大感光元件｜f/1.9，f/4.0 两挡可变光圈｜
             <br />
             等效 23mm 焦距｜支持四合一 3.2μm 大像素输出｜HyperOIS 超级光学防抖｜
             <br />
@@ -205,24 +196,18 @@ export default function Xiaomi13UltraSpecs() {
             <br />
           </div>
           <div className={styles.descriptions}>
-            徕卡专业超长焦：50MP｜Sony’s IMX858｜f/3.0 光圈｜等效 120mm
-            焦距｜支持 OIS 光学防抖｜
+            徕卡专业超长焦：50MP｜Sony’s IMX858｜f/3.0 光圈｜等效 120mm 焦距｜支持 OIS 光学防抖｜
             <br />
             支持 Zoom EIS 防抖
             <br />
             <br />
           </div>
           <div className={styles.descriptions}>
-            徕卡超广角：50MP｜Sony’s IMX858｜f/1.8 光圈｜等效 12mm 焦距｜122°
-            超广视角｜
+            徕卡超广角：50MP｜Sony’s IMX858｜f/1.8 光圈｜等效 12mm 焦距｜122° 超广视角｜
             <br />
             AF 自动对焦｜5cm 超级微距
-            <div
-              className={styles.remark}
-              style={{ marginTop: 10, lineHeight: '20px' }}
-            >
-              *
-              50MP为传感器物理像素数，实际照片与视频使用像素数因模式不同略有差异，请以实际为准。
+            <div className={styles.remark} style={{ marginTop: 10, lineHeight: "20px" }}>
+              * 50MP为传感器物理像素数，实际照片与视频使用像素数因模式不同略有差异，请以实际为准。
               <br />*
               各镜头焦距，为默认模式下等效焦距数字，与物理等效焦距可能存有差异，请以实际为准。
               <br />
@@ -230,11 +215,11 @@ export default function Xiaomi13UltraSpecs() {
             </div>
           </div>
           <div className={styles.descriptions}>
-            徕卡原生双画质｜杜比视界｜大师镜头包｜万物追焦｜运动抓拍｜
-            微电影｜人像模式｜全景模式｜ 萌拍｜
+            徕卡原生双画质｜杜比视界｜大师镜头包｜万物追焦｜运动抓拍｜ 微电影｜人像模式｜全景模式｜
+            萌拍｜
             <br />
-            专业模式｜延时摄影｜街拍｜导演模式｜超级夜景
-            2.0｜文档模式｜超级月亮｜慢动作拍摄｜AI 水印｜
+            专业模式｜延时摄影｜街拍｜导演模式｜超级夜景 2.0｜文档模式｜超级月亮｜慢动作拍摄｜AI
+            水印｜
             <br />
             长曝光｜AI 相机｜电影模式｜人像虚化调节｜AI
             美颜｜身份证影印模式｜语音字幕｜视频滤镜｜视频美颜｜
@@ -244,7 +229,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>网络频段</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>双卡5G丨全网通 8.0</div>
@@ -255,41 +240,35 @@ export default function Xiaomi13UltraSpecs() {
             <br />
             支持双卡双通，双卡高清语音④
           </div>
-          <div className={styles.remark} style={{ margin: '10px 0' }}>
+          <div className={styles.remark} style={{ margin: "10px 0" }}>
             注①：是否支持 5G 取决于当地运营商网络
             ；当使用两张电信卡时，非上网卡需要开通高清语音业务，未开通或者当地网络不支持高清语音业务
             <br />
-            <span style={{ display: 'inline-block', textIndent: 36 }}>
-              则无法使用；
-            </span>
+            <span style={{ display: "inline-block", textIndent: 36 }}>则无法使用；</span>
             <br />
             注②：广电不支持2G和3G网络；广电不支持彩信业务；
             <br />
-            注③：不支持 TD-SCDMA 制式（移动 3G）；不支持CDMA 2000 EVDO
-            制式（电信 3G）；
+            注③：不支持 TD-SCDMA 制式（移动 3G）；不支持CDMA 2000 EVDO 制式（电信 3G）；
             <br />
-            注④：双卡双通仅支持SA模式下5G+5G和5G+4G的部分频段组合，支持移动 /
-            联通 / 电信 / 广电的高清语音业务， 实际使用情况取决于运营
+            注④：双卡双通仅支持SA模式下5G+5G和5G+4G的部分频段组合，支持移动 / 联通 / 电信 /
+            广电的高清语音业务， 实际使用情况取决于运营
             <br />
-            <span style={{ display: 'inline-block', textIndent: 36 }}>
-              商当地网络和业务部署；
-            </span>
+            <span style={{ display: "inline-block", textIndent: 36 }}>商当地网络和业务部署；</span>
           </div>
           <div className={styles.subtitle} style={{ marginTop: 40 }}>
             支持频段
           </div>
           <div className={styles.descriptions}>
-            5G：n1 / n3 / n5 / n8 /
-            n28a（上行:703MHz-733MHz,下行:758MHz-788MHz） / n38 / n40 / n41 /
+            5G：n1 / n3 / n5 / n8 / n28a（上行:703MHz-733MHz,下行:758MHz-788MHz） / n38 / n40 / n41
+            /
             <br />
             n77 / n78 / n79
             <br />
-            4G：FDD-LTE：B1 / B3 / B4 / B5 / B7 / B8 / B12 / B17 /B18 / B19 /
-            B26
+            4G：FDD-LTE：B1 / B3 / B4 / B5 / B7 / B8 / B12 / B17 /B18 / B19 / B26
             <br />
             TDD-LTE：B34 / B38 / B39 / B40 / B41 / B42
           </div>
-          <div className={styles.remark} style={{ margin: '10px 0' }}>
+          <div className={styles.remark} style={{ margin: "10px 0" }}>
             注：LTE B41（2496-2690 194MHz）;
           </div>
           <div className={styles.descriptions}>
@@ -302,15 +281,14 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>数据连接</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
             WLAN 协议： WiFi 6 增强版，WiFi 5，WiFi 4 以及 802.11a / b / g<br />
             WLAN 频率： 2.4G WiFi | 5G WiFi
             <br />
-            支持2x2 MIMO，8x8 Sounding for MU-MIMO，WiFi
-            Direct，Miracast，高频并发技术
+            支持2x2 MIMO，8x8 Sounding for MU-MIMO，WiFi Direct，Miracast，高频并发技术
             <br />
             高通FastConnect 7800
             <br />
@@ -321,12 +299,11 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>多功能NFC</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
-            在钱包App开通NFC相关服务后，通过双击电源键可使用交通卡、Mi
-            Pay、门卡、车钥匙等功能。
+            在钱包App开通NFC相关服务后，通过双击电源键可使用交通卡、Mi Pay、门卡、车钥匙等功能。
             <br />
             <br />
             交通卡：支持 300+ 座城市，支持 40+
@@ -339,8 +316,8 @@ export default function Xiaomi13UltraSpecs() {
             <br />
             及被扫支付，支付宝、微信等标准的收款二维码主扫支付。
             <br />
-            门卡：实体门卡、智能门锁、社区门卡、自定义空白卡。（仅能模拟频段为
-            13.56MHz 的门卡，有门卡功能
+            门卡：实体门卡、智能门锁、社区门卡、自定义空白卡。（仅能模拟频段为 13.56MHz
+            的门卡，有门卡功能
             <br />
             的银行卡和带有储值消费、公交消费等功能的门卡即使模拟成功，这些卡片也不具备银行、公交等功能）
             <br />
@@ -354,7 +331,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>导航定位</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
@@ -367,7 +344,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>视频音频</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
@@ -385,7 +362,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>传感器</div>
         <div className={styles.content}>
           <div className={styles.descriptions}>
@@ -396,7 +373,7 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div className={clsx('flex justify-between', styles.section)}>
+      <div className={clsx("flex justify-between", styles.section)}>
         <div className={styles.title}>操作系统</div>
         <div className={styles.content}>
           <div className={styles.subtitle}>MIUI 14</div>
@@ -404,8 +381,8 @@ export default function Xiaomi13UltraSpecs() {
       </div>
 
       <div
-        className={clsx(styles.section, 'flex justify-between')}
-        style={{ borderBottom: 'none' }}
+        className={clsx(styles.section, "flex justify-between")}
+        style={{ borderBottom: "none" }}
       >
         <div className={styles.title}>包装清单</div>
         <div className={styles.content}>
@@ -420,9 +397,9 @@ export default function Xiaomi13UltraSpecs() {
         </div>
       </div>
 
-      <div style={{ backgroundColor: '#111' }}>
+      <div style={{ backgroundColor: "#111" }}>
         <div className={styles.section}>
-          <div className={styles.remark} style={{ color: '#797979' }}>
+          <div className={styles.remark} style={{ color: "#797979" }}>
             特别说明：
             <br />
             <br />
@@ -442,8 +419,7 @@ export default function Xiaomi13UltraSpecs() {
             均为小米内部测试结果，涉及的对比均为与小米产品相比较。
             <br />
             <br />
-            *Xiaomi 13 Ultra
-            可防溅、防水、防尘，在受控实验室条件下经测试，其效果在 IEC 60529
+            *Xiaomi 13 Ultra 可防溅、防水、防尘，在受控实验室条件下经测试，其效果在 IEC 60529
             标准下达到 IP68 级别 (在最深 1.5 米的水下停留时间最长可达 30
             分钟)。防溅、防水、防尘功能并非永久有效，
             <br />

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Children,
@@ -8,14 +8,14 @@ import {
   ReactNode,
   useLayoutEffect,
   useMemo,
-  useState
-} from 'react';
+  useState,
+} from "react";
 
 interface SpaceProps extends HTMLAttributes<HTMLDivElement> {
   // 排列方向
-  direction?: 'horizontal' | 'vertical';
+  direction?: "horizontal" | "vertical";
   // 对齐方式
-  align?: 'start' | 'end' | 'center';
+  align?: "start" | "end" | "center";
   // 间距大小
   size?: string | number;
   // 分隔元素
@@ -25,14 +25,14 @@ interface SpaceProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const spaceAlign = {
-  start: 'flex-start',
-  center: 'center',
-  end: 'flex-end'
+  start: "flex-start",
+  center: "center",
+  end: "flex-end",
 };
 
 export default function Space({
-  direction = 'horizontal',
-  align = 'center',
+  direction = "horizontal",
+  align = "center",
   size = 8,
   split,
   wrap,
@@ -43,16 +43,16 @@ export default function Space({
 }: SpaceProps) {
   const [cssGapSupported, setCssGapSupported] = useState(false);
   useLayoutEffect(() => {
-    setCssGapSupported(CSS.supports('gap', '1px'));
+    setCssGapSupported(CSS.supports("gap", "1px"));
   }, []);
 
   const containerStyle = useMemo(() => {
     const style1: CSSProperties = {
-      ...(style || {}),
-      display: 'inline-flex',
-      flexDirection: direction === 'horizontal' ? 'row' : 'column',
+      ...style,
+      display: "inline-flex",
+      flexDirection: direction === "horizontal" ? "row" : "column",
       alignItems: spaceAlign[align],
-      flexWrap: wrap ? 'wrap' : 'nowrap'
+      flexWrap: wrap ? "wrap" : "nowrap",
     };
     if (cssGapSupported) {
       style1.gap = size;
@@ -63,8 +63,7 @@ export default function Space({
   const itemStyle = useMemo(() => {
     const style1: CSSProperties = {};
     if (!cssGapSupported) {
-      style1[direction === 'horizontal' ? 'marginRight' : 'marginBottom'] =
-        size;
+      style1[direction === "horizontal" ? "marginRight" : "marginBottom"] = size;
     }
     return style1;
   }, [cssGapSupported, direction, size]);
@@ -73,8 +72,7 @@ export default function Space({
     return (
       index <
       Children.toArray(children).filter(
-        (child) =>
-          isValidElement(child) || ['string', 'number'].includes(typeof child)
+        (child) => isValidElement(child) || ["string", "number"].includes(typeof child),
       ).length -
         1
     );
@@ -83,17 +81,10 @@ export default function Space({
   return (
     <div style={containerStyle} className={className} {...rest}>
       {Children.map(children, (child, index) => {
-        return isValidElement(child) ||
-          ['string', 'number'].includes(typeof child) ? (
+        return isValidElement(child) || ["string", "number"].includes(typeof child) ? (
           <>
-            <span
-              style={isNotLast(index) ? itemStyle : { display: 'inline-flex' }}
-            >
-              {child}
-            </span>
-            {isNotLast(index) && !!split && (
-              <span style={itemStyle}>{split}</span>
-            )}
+            <span style={isNotLast(index) ? itemStyle : { display: "inline-flex" }}>{child}</span>
+            {isNotLast(index) && !!split && <span style={itemStyle}>{split}</span>}
           </>
         ) : null;
       })}

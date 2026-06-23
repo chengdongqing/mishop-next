@@ -1,14 +1,14 @@
-import { LoadingIcon } from '@/components/icons';
-import clsx from 'clsx';
-import { ButtonHTMLAttributes } from 'react';
-import styles from './styles.module.css';
+import { LoadingIcon } from "@/components/icons";
+import clsx from "clsx";
+import { ButtonHTMLAttributes } from "react";
+import styles from "./styles.module.css";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   gray?: boolean;
   outlined?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  size?: 'default' | 'small';
+  size?: "default" | "small";
 }
 
 export default function Button({
@@ -18,7 +18,7 @@ export default function Button({
   loading,
   className,
   children,
-  type = 'button',
+  type = "button",
   disabled,
   ...rest
 }: ButtonProps) {
@@ -33,13 +33,11 @@ export default function Button({
         gray && styles.gray,
         !!size && styles[size],
         outlined && styles.outlined,
-        (disabled || loading) && styles.disabled
+        (disabled || loading) && styles.disabled,
       )}
     >
       {!!loading && (
-        <LoadingIcon
-          className={clsx('mr-2 text-white', size === 'small' ? 'w-4' : 'w-6')}
-        />
+        <LoadingIcon className={clsx("mr-2 text-white", size === "small" ? "w-4" : "w-6")} />
       )}
       {children}
     </button>

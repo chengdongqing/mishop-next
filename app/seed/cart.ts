@@ -1,8 +1,8 @@
-import { db } from '@/lib/db';
+import { db } from "@/lib/db";
 
 export async function seedCartItems() {
   // 删除表
-  await db.execute('drop table if exists mishop.cart_items;');
+  await db.execute("drop table if exists mishop.cart_items;");
 
   // 创建表
   await db.execute(`

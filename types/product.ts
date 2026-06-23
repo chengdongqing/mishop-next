@@ -77,7 +77,6 @@ export interface CartProduct {
   limits?: number | null;
 }
 
-export interface RecommendedProduct
-  extends Omit<CartProduct, 'id' | 'quantity' | 'checked'> {
+export interface RecommendedProduct extends Omit<CartProduct, "id" | "quantity" | "checked"> {
   reviews: number;
 }

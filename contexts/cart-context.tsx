@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import useUpdateEffect from '@/hooks/useUpdateEffect';
-import * as cartService from '@/services/cart';
-import { CartProduct } from '@/types/product';
-import Decimal from 'decimal.js';
+import useUpdateEffect from "@/hooks/useUpdateEffect";
+import * as cartService from "@/services/cart";
+import { CartProduct } from "@/types/product";
+import Decimal from "decimal.js";
 import {
   createContext,
   PropsWithChildren,
@@ -11,9 +11,9 @@ import {
   useEffect,
   useMemo,
   useState,
-  useTransition
-} from 'react';
-import { useUserInfo } from './user-info-context';
+  useTransition,
+} from "react";
+import { useUserInfo } from "./user-info-context";
 
 interface CartContext {
   isLoading: boolean;
@@ -34,7 +34,7 @@ interface CartContext {
 
 const CartContext = createContext<CartContext | null>(null);
 
-const cacheKey = 'cart-products';
+const cacheKey = "cart-products";
 
 export function CartProvider({ children }: PropsWithChildren) {
   const [products, setProducts] = useState<CartProduct[]>([]);
@@ -75,7 +75,7 @@ export function CartProvider({ children }: PropsWithChildren) {
             // 清除本地缓存
             window.localStorage.removeItem(cacheKey);
           } catch (e) {
-            console.error('同步购物车失败', e);
+            console.error("同步购物车失败", e);
           }
         }
 
@@ -92,45 +92,36 @@ export function CartProvider({ children }: PropsWithChildren) {
   }, [products]);
 
   function calculateCount(onlySelected: boolean = false) {
-    return (onlySelected ? selectedProducts : products).reduce(
-      (acc, product) => {
-        return acc + product.quantity;
-      },
-      0
-    );
+    return (onlySelected ? selectedProducts : products).reduce((acc, product) => {
+      return acc + product.quantity;
+    }, 0);
   }
 
   function calculateAmount(onlySelected: boolean = false) {
-    return (onlySelected ? selectedProducts : products).reduce(
-      (acc, product) => {
-        return new Decimal(product.price)
-          .mul(product.quantity)
-          .plus(acc)
-          .toString();
-      },
-      '0'
-    );
+    return (onlySelected ? selectedProducts : products).reduce((acc, product) => {
+      return new Decimal(product.price).mul(product.quantity).plus(acc).toString();
+    }, "0");
   }
 
   const totalCount = useMemo(
     () => calculateCount(),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products]
+    [products],
   );
   const totalAmount = useMemo(
     () => calculateAmount(),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products]
+    [products],
   );
   const selectedAmount = useMemo(
     () => calculateAmount(true),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedProducts]
+    [selectedProducts],
   );
   const selectedCount = useMemo(
     () => calculateCount(true),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedProducts]
+    [selectedProducts],
   );
 
   async function addToCart(product: CartProduct) {
@@ -138,7 +129,7 @@ export function CartProvider({ children }: PropsWithChildren) {
       const res = await cartService.addToCart({
         skuId: product.skuId,
         productId: product.productId,
-        quantity: 1
+        quantity: 1,
       });
       if (!res.ok) {
         throw new Error(res.error);
@@ -151,14 +142,11 @@ export function CartProvider({ children }: PropsWithChildren) {
 
     const cartProduct = products.find((item) => item.skuId === product.skuId);
     if (cartProduct) {
-      if (
-        !cartProduct.limits ||
-        cartProduct.quantity + 1 <= cartProduct.limits
-      ) {
+      if (!cartProduct.limits || cartProduct.quantity + 1 <= cartProduct.limits) {
         cartProduct.quantity++;
         setProducts((prev) => [...prev]);
       } else {
-        throw new Error('商品加入购物车数量超过限购数');
+        throw new Error("商品加入购物车数量超过限购数");
       }
     } else {
       setProducts((prev) => [...prev, product]);
@@ -179,12 +167,12 @@ export function CartProvider({ children }: PropsWithChildren) {
     if (quantity > 0) {
       if (!hasLogin) {
         if (product.limits && quantity > product.limits) {
-          throw new Error('商品加入购物车数量超过限购数');
+          throw new Error("商品加入购物车数量超过限购数");
         }
       } else if (product.id) {
         const res = await cartService.modifyCartItem({
           id: product.id,
-          quantity
+          quantity,
         });
         if (!res.ok) {
           throw new Error(res.error);
@@ -200,7 +188,7 @@ export function CartProvider({ children }: PropsWithChildren) {
     if (hasLogin && product.id) {
       const res = await cartService.modifyCartItem({
         id: product.id,
-        checked
+        checked,
       });
       if (!res.ok) {
         throw new Error(res.error);
@@ -246,10 +234,10 @@ export function CartProvider({ children }: PropsWithChildren) {
       setChecked,
       setAllChecked,
       removeSelected,
-      reloadCart
+      reloadCart,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [products, selectedProducts, totalCount, totalAmount, hasLogin, isLoading]
+    [products, selectedProducts, totalCount, totalAmount, hasLogin, isLoading],
   );
 
   return <CartContext value={contextValue}>{children}</CartContext>;
@@ -258,7 +246,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 export function useCart() {
   const ctx = use(CartContext);
   if (!ctx) {
-    throw new Error('useCart must be used within CartProvider');
+    throw new Error("useCart must be used within CartProvider");
   }
   return ctx;
 }

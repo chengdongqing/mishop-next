@@ -1,12 +1,12 @@
-'use server';
+"use server";
 
-import { OrderStatus } from '@/enums/order';
-import { db } from '@/lib/db';
-import { Result } from '@/lib/result';
-import { orderItems, orderReviews, orders, productReviews } from '@/lib/schema';
-import { getUserId } from '@/lib/utils';
-import { and, desc, eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
+import { OrderStatus } from "@/enums/order";
+import { db } from "@/lib/db";
+import { Result } from "@/lib/result";
+import { orderItems, orderReviews, orders, productReviews } from "@/lib/schema";
+import { getUserId } from "@/lib/utils";
+import { and, desc, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 /**
  * 查询所有待评价的订单
@@ -20,23 +20,23 @@ export async function findPendingReviewOrders() {
       id: true,
       orderNumber: true,
       createdAt: true,
-      payableAmount: true
+      payableAmount: true,
     },
     with: {
       items: {
         columns: {
           id: true,
-          pictureUrl: true
-        }
-      }
+          pictureUrl: true,
+        },
+      },
     },
     where: and(
       eq(orders.userId, userId),
       eq(orders.status, OrderStatus.COMPLETED),
-      eq(orders.isReviewed, false)
+      eq(orders.isReviewed, false),
     ),
     orderBy: desc(orders.createdAt),
-    limit: 10
+    limit: 10,
   });
 }
 
@@ -48,20 +48,17 @@ export async function findOrderReview(id: number) {
 
   // 查询订单评价信息
   const orderReview = await db.query.orderReviews.findFirst({
-    where: and(eq(orderReviews.userId, userId), eq(orderReviews.orderId, id))
+    where: and(eq(orderReviews.userId, userId), eq(orderReviews.orderId, id)),
   });
   // 查询订单商品列表
   const orderProducts = await db.query.orderItems.findMany({
-    where: eq(orderItems.orderId, id)
+    where: eq(orderItems.orderId, id),
   });
   // 构建订单商品评价信息
   const items = await Promise.all(
     orderProducts.map(async (product) => {
       const productReview = await db.query.productReviews.findFirst({
-        where: and(
-          eq(productReviews.orderId, id),
-          eq(productReviews.productId, product.productId)
-        )
+        where: and(eq(productReviews.orderId, id), eq(productReviews.productId, product.productId)),
       });
 
       return {
@@ -71,14 +68,14 @@ export async function findOrderReview(id: number) {
         rating: productReview?.rating,
         content: productReview?.content,
         photoUrls: productReview?.photoUrls,
-        isAnonymous: productReview?.isAnonymous
+        isAnonymous: productReview?.isAnonymous,
       };
-    })
+    }),
   );
 
   return {
     orderReview,
-    items
+    items,
   };
 }
 
@@ -96,27 +93,24 @@ interface CreateOrderReviewRequest {
  */
 export async function createOrderReview(
   orderId: number,
-  request: CreateOrderReviewRequest
+  request: CreateOrderReviewRequest,
 ): Promise<Result<void>> {
   const userId = await getUserId();
 
   // 查询该订单是否存在
   const order = await db.query.orders.findFirst({
-    where: and(eq(orders.id, orderId), eq(orders.userId, userId))
+    where: and(eq(orders.id, orderId), eq(orders.userId, userId)),
   });
   if (!order) {
-    return Result.fail('该订单不存在');
+    return Result.fail("该订单不存在");
   }
 
   // 查询该订单是否已评价
   const isExisted = !!(await db.query.orderReviews.findFirst({
-    where: and(
-      eq(orderReviews.userId, userId),
-      eq(orderReviews.orderId, orderId)
-    )
+    where: and(eq(orderReviews.userId, userId), eq(orderReviews.orderId, orderId)),
   }));
   if (isExisted) {
-    return Result.fail('该订单已评价');
+    return Result.fail("该订单已评价");
   }
 
   await db.transaction(async (tx) => {
@@ -124,19 +118,19 @@ export async function createOrderReview(
     await tx.insert(orderReviews).values({
       userId,
       orderId,
-      ...request
+      ...request,
     });
 
     // 修改订单评价状态
     await tx
       .update(orders)
       .set({
-        isReviewed: true
+        isReviewed: true,
       })
       .where(eq(orders.id, orderId));
   });
 
-  revalidatePath('/orders/reviews');
+  revalidatePath("/orders/reviews");
 
   return Result.ok();
 }

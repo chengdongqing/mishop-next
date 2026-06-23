@@ -1,11 +1,11 @@
-import CloseIcon from '@/components/ui/close-icon';
-import Input from '@/components/ui/input';
-import { displayAddress } from '@/lib/utils';
-import { CityItem } from '@/types/user';
-import clsx from 'clsx';
-import { useMemo, useState } from 'react';
-import cities, { City } from './cities';
-import styles from './styles.module.css';
+import CloseIcon from "@/components/ui/close-icon";
+import Input from "@/components/ui/input";
+import { displayAddress } from "@/lib/utils";
+import { CityItem } from "@/types/user";
+import clsx from "clsx";
+import { useMemo, useState } from "react";
+import cities, { City } from "./cities";
+import styles from "./styles.module.css";
 
 interface CitySelectorProps {
   value?: CityItem[];
@@ -25,13 +25,13 @@ export default function CityPicker({
   required,
   error,
   ariaDescribedby,
-  onChange
+  onChange,
 }: CitySelectorProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<CityItem[]>(propValue);
 
   const tips = useMemo(() => {
-    return ['省份/自治区', '城市/地区', '区县'][value.length];
+    return ["省份/自治区", "城市/地区", "区县"][value.length];
   }, [value.length]);
 
   const options = useMemo(() => {
@@ -53,14 +53,14 @@ export default function CityPicker({
   }, [value]);
 
   return (
-    <div className={'relative'}>
-      <div className={'relative'} onClick={() => setOpen(true)}>
+    <div className={"relative"}>
+      <div className={"relative"} onClick={() => setOpen(true)}>
         <input
           name={name}
           required={required}
           aria-describedby={ariaDescribedby}
-          value={value.length ? JSON.stringify(value) : ''}
-          className={'absolute top-0 left-0 h-full w-full opacity-0'}
+          value={value.length ? JSON.stringify(value) : ""}
+          className={"absolute top-0 left-0 h-full w-full opacity-0"}
           onChange={() => {}}
         />
         <Input
@@ -74,7 +74,7 @@ export default function CityPicker({
 
       <div className={clsx(styles.picker, open && styles.open)} hidden={!open}>
         <div className={styles.header}>
-          <div className={'flex gap-2'}>
+          <div className={"flex gap-2"}>
             {value.map((item, index) => (
               <span
                 key={item.code}
@@ -93,7 +93,7 @@ export default function CityPicker({
           </div>
           <CloseIcon
             size={24}
-            type={'button'}
+            type={"button"}
             hoverable={false}
             onClick={() => {
               setOpen(false);
@@ -105,7 +105,7 @@ export default function CityPicker({
           />
         </div>
         <div className={styles.options}>
-          <div className={'flex flex-wrap gap-3.5'}>
+          <div className={"flex flex-wrap gap-3.5"}>
             {options?.map((item) => (
               <div
                 key={item.code}
@@ -113,7 +113,7 @@ export default function CityPicker({
                 onClick={() => {
                   const option = {
                     name: item.name,
-                    code: item.code
+                    code: item.code,
                   };
                   if (!tips) {
                     value.splice(value.length - 1, 1, option);

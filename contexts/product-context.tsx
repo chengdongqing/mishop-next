@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { DetailProduct } from '@/types/product';
-import { createContext, PropsWithChildren, use, useState } from 'react';
+import { DetailProduct } from "@/types/product";
+import { createContext, PropsWithChildren, use, useState } from "react";
 
 interface ProductContext {
   product: DetailProduct;
@@ -13,21 +13,17 @@ const ProductContext = createContext<ProductContext | null>(null);
 
 export function ProductProvider({
   children,
-  product
+  product,
 }: PropsWithChildren<{ product: DetailProduct }>) {
   const [pictures, setPictures] = useState<string[]>([]);
 
-  return (
-    <ProductContext value={{ product, pictures, setPictures }}>
-      {children}
-    </ProductContext>
-  );
+  return <ProductContext value={{ product, pictures, setPictures }}>{children}</ProductContext>;
 }
 
 export function useProduct() {
   const ctx = use(ProductContext);
   if (!ctx) {
-    throw new Error('useProduct must be used within ProductProvider');
+    throw new Error("useProduct must be used within ProductProvider");
   }
   return ctx;
 }

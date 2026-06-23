@@ -1,21 +1,16 @@
-import { auth } from '@/auth';
+import { auth } from "@/auth";
 
-const protectedRoutes: string[] = [
-  '/cart/checkout',
-  '/account',
-  '/orders',
-  '/user'
-];
+const protectedRoutes: string[] = ["/cart/checkout", "/account", "/orders", "/user"];
 
 export const proxy = auth((req) => {
   const pathname = req.nextUrl.pathname;
   const isProtected = protectedRoutes.some((path) => pathname.startsWith(path));
 
   if (isProtected && !req.auth) {
-    return Response.redirect(new URL('/auth/signin', req.nextUrl.origin));
+    return Response.redirect(new URL("/auth/signin", req.nextUrl.origin));
   }
 });
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'] // 匹配所有的页面访问
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"], // 匹配所有的页面访问
 };

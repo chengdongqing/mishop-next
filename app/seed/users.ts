@@ -1,11 +1,11 @@
-import { db } from '@/lib/db';
-import { shippingAddressesData, usersData } from '@/lib/placeholder-data';
-import { shippingAddresses, users } from '@/lib/schema';
-import bcrypt from 'bcryptjs';
+import { db } from "@/lib/db";
+import { shippingAddressesData, usersData } from "@/lib/placeholder-data";
+import { shippingAddresses, users } from "@/lib/schema";
+import bcrypt from "bcryptjs";
 
 export async function seedUsers() {
   // 删除表
-  await db.execute('drop table if exists mishop.users;');
+  await db.execute("drop table if exists mishop.users;");
 
   // 创建表
   await db.execute(`
@@ -27,14 +27,14 @@ export async function seedUsers() {
   await db.insert(users).values(
     usersData.map((user) => ({
       ...user,
-      password: bcrypt.hashSync(user.password!, 10)
-    }))
+      password: bcrypt.hashSync(user.password!, 10),
+    })),
   );
 }
 
 export async function seedShippingAddresses() {
   // 删除表
-  await db.execute('drop table if exists mishop.shipping_addresses;');
+  await db.execute("drop table if exists mishop.shipping_addresses;");
 
   // 创建表
   await db.execute(`
@@ -58,7 +58,7 @@ export async function seedShippingAddresses() {
 
 export async function seedFavoriteProducts() {
   // 删除表
-  await db.execute('drop table if exists mishop.favorite_products;');
+  await db.execute("drop table if exists mishop.favorite_products;");
 
   // 创建表
   await db.execute(`

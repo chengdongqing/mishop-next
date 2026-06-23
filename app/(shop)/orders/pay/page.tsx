@@ -1,13 +1,13 @@
-import MiniHeader from '@/components/ui/mini-header';
-import { OrderStatus } from '@/enums/order';
-import { PaymentTimeout } from '@/lib/utils';
-import { findOrder } from '@/services/orders';
-import { notFound, redirect } from 'next/navigation';
-import OrderDetails from './order-details';
-import PaymentMethods from './payment-methods';
+import MiniHeader from "@/components/ui/mini-header";
+import { OrderStatus } from "@/enums/order";
+import { PaymentTimeout } from "@/lib/utils";
+import { findOrder } from "@/services/orders";
+import { notFound, redirect } from "next/navigation";
+import OrderDetails from "./order-details";
+import PaymentMethods from "./payment-methods";
 
 export default async function OrderPayPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: Promise<{ id?: string }>;
 }) {
@@ -21,14 +21,14 @@ export default async function OrderPayPage({
 
   // 是否是待支付状态
   if (order.status !== OrderStatus.PENDING_PAYMENT) {
-    redirect('/orders');
+    redirect("/orders");
   }
 
   return (
     <>
-      <MiniHeader title={'支付订单'} />
-      <div className={'bg-primary py-[38]'}>
-        <div className={'w-primary'}>
+      <MiniHeader title={"支付订单"} />
+      <div className={"bg-primary py-[38]"}>
+        <div className={"w-primary"}>
           <OrderDetails order={order} timeout={PaymentTimeout} />
           <PaymentMethods id={id} />
         </div>

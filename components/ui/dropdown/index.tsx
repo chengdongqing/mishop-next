@@ -1,17 +1,10 @@
-'use client';
+"use client";
 
-import { CaretDownIcon } from '@/components/icons';
-import useUpdateEffect from '@/hooks/useUpdateEffect';
-import clsx from 'clsx';
-import {
-  CSSProperties,
-  Key,
-  PropsWithChildren,
-  ReactNode,
-  useRef,
-  useState
-} from 'react';
-import styles from './styles.module.css';
+import { CaretDownIcon } from "@/components/icons";
+import useUpdateEffect from "@/hooks/useUpdateEffect";
+import clsx from "clsx";
+import { CSSProperties, Key, PropsWithChildren, ReactNode, useRef, useState } from "react";
+import styles from "./styles.module.css";
 
 export interface MenuOption<K = string> {
   key: K;
@@ -23,7 +16,7 @@ interface Props<K> extends PropsWithChildren {
   menus: MenuOption<K>[];
   active?: Key;
   arrow?: boolean;
-  trigger?: 'hover' | 'click';
+  trigger?: "hover" | "click";
   isSelect?: boolean;
   overlayStyle?: CSSProperties;
   style?: CSSProperties;
@@ -38,13 +31,13 @@ export default function Dropdown<K>({
   menus,
   active,
   arrow = true,
-  trigger = 'hover',
+  trigger = "hover",
   style,
   className,
   isSelect,
   overlayStyle,
   onChange,
-  onOpenChange
+  onOpenChange,
 }: Props<K>) {
   const [willOpen, setWillOpen] = useState(false);
   const [open, setOpen] = useState(false);
@@ -65,9 +58,9 @@ export default function Dropdown<K>({
       setOpen(true);
     }, 100);
 
-    if (trigger === 'click') {
+    if (trigger === "click") {
       setTimeout(() => {
-        window.addEventListener('click', closeOverlay);
+        window.addEventListener("click", closeOverlay);
       });
     }
   }
@@ -79,58 +72,54 @@ export default function Dropdown<K>({
       setWillOpen(false);
     }, 200);
 
-    if (trigger === 'click') {
-      window.removeEventListener('click', closeOverlay);
+    if (trigger === "click") {
+      window.removeEventListener("click", closeOverlay);
     }
   }
 
   return (
     <div
       style={style}
-      className={clsx('relative py-1', className)}
+      className={clsx("relative py-1", className)}
       onMouseEnter={() => {
-        if (trigger === 'hover') {
+        if (trigger === "hover") {
           openOverlay();
         }
       }}
       onMouseLeave={() => {
-        if (trigger === 'hover') {
+        if (trigger === "hover") {
           closeOverlay();
         }
       }}
       onClick={() => {
-        if (trigger === 'click') {
+        if (trigger === "click") {
           openOverlay();
         }
       }}
     >
       <div className={styles.content}>
         {children}
-        {arrow && (
-          <CaretDownIcon
-            className={clsx(styles.arrow, open && styles.active)}
-          />
-        )}
+        {arrow && <CaretDownIcon className={clsx(styles.arrow, open && styles.active)} />}
       </div>
 
       <ul
         hidden={!willOpen}
         style={overlayStyle}
         className={clsx(
-          'dark:!bg-[#2c2c2e]',
+          "dark:!bg-[#2c2c2e]",
           styles.overlay,
           isSelect && styles.select,
-          open && styles.open
+          open && styles.open,
         )}
       >
         {menus.map((item) => (
           <li
             key={item.key as string}
             className={clsx(
-              'dark:!text-[hsla(0,0%,100%,.8)] hover:dark:!bg-[hsla(0,0%,100%,.15)]',
+              "dark:!text-[hsla(0,0%,100%,.8)] hover:dark:!bg-[hsla(0,0%,100%,.15)]",
               styles.item,
               item.disabled && styles.disabled,
-              item.key === active && [styles.active, 'active']
+              item.key === active && [styles.active, "active"],
             )}
             onClick={() => {
               if (!item.disabled) {

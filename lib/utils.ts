@@ -1,16 +1,16 @@
-import { auth } from '@/auth';
-import * as fileService from '@/services/file';
-import { PageRequest } from '@/types/common';
-import { CityItem } from '@/types/user';
-import { randomInt } from 'crypto';
-import { AuthError } from 'next-auth';
+import { auth } from "@/auth";
+import * as fileService from "@/services/file";
+import { PageRequest } from "@/types/common";
+import { CityItem } from "@/types/user";
+import { randomInt } from "crypto";
+import { AuthError } from "next-auth";
 
 // 空值占位符
-export const EmptyValue = '--';
+export const EmptyValue = "--";
 
 // 日期格式
-export const DateFormat = 'YYYY-MM-DD';
-export const DateTimeFormat = 'YYYY-MM-DD HH:mm';
+export const DateFormat = "YYYY-MM-DD";
+export const DateTimeFormat = "YYYY-MM-DD HH:mm";
 
 // 支付超时时长（分钟）
 export const PaymentTimeout = Number(process.env.PAYMENT_TIMEOUT ?? 30);
@@ -18,11 +18,8 @@ export const PaymentTimeout = Number(process.env.PAYMENT_TIMEOUT ?? 30);
 /**
  * 创建商品访问地址
  */
-export function createProductUrl(product: {
-  id: number;
-  slug?: string | null;
-}) {
-  return '/products/' + (product.slug ?? product.id);
+export function createProductUrl(product: { id: number; slug?: string | null }) {
+  return "/products/" + (product.slug ?? product.id);
 }
 
 /**
@@ -30,10 +27,10 @@ export function createProductUrl(product: {
  * 自动加分隔符
  */
 export function formatAmount(value: unknown = 0) {
-  return typeof value === 'number' || typeof value === 'string'
+  return typeof value === "number" || typeof value === "string"
     ? Number(value)
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     : EmptyValue;
 }
 
@@ -41,8 +38,8 @@ export function formatAmount(value: unknown = 0) {
  * 下载文件
  */
 export function downloadFile(src: string, filename?: string) {
-  const a = document.createElement('a');
-  a.download = filename || '';
+  const a = document.createElement("a");
+  a.download = filename || "";
   a.href = src;
   a.click();
 }
@@ -75,7 +72,7 @@ export function createPaginationMeta(request: PageRequest, total: number) {
     page,
     size,
     offset,
-    pages
+    pages,
   };
 }
 
@@ -104,7 +101,7 @@ export function maskPhone(phone: string) {
  * 邮箱脱敏
  */
 export function maskEmail(email: string) {
-  const [local, domain] = email.split('@');
+  const [local, domain] = email.split("@");
   if (local.length <= 2) return `*@$${domain}`;
   const prefix = local.slice(0, 2);
   const suffix = local.slice(-2);
@@ -128,5 +125,5 @@ export async function getUserId() {
  * 格式化地址
  */
 export function displayAddress(city: CityItem[] | undefined) {
-  return city?.map((item) => item.name).join(' ');
+  return city?.map((item) => item.name).join(" ");
 }

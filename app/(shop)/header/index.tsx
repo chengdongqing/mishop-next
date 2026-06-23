@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useTheme } from '@/contexts/theme-context';
-import { setUserLocale } from '@/services/locale';
-import { setUserTheme } from '@/services/theme';
-import { Locale } from '@/types/common';
-import { LayoutHeaderNav } from '@/types/layout';
-import { usePathname } from 'next/navigation';
-import { startTransition, useEffect } from 'react';
-import { useLocale } from 'use-intl';
-import NavBar from './nav-bar';
-import TopBar from './top-bar';
+import { useTheme } from "@/contexts/theme-context";
+import { setUserLocale } from "@/services/locale";
+import { setUserTheme } from "@/services/theme";
+import { Locale } from "@/types/common";
+import { LayoutHeaderNav } from "@/types/layout";
+import { usePathname } from "next/navigation";
+import { startTransition, useEffect } from "react";
+import { useLocale } from "next-intl";
+import NavBar from "./nav-bar";
+import TopBar from "./top-bar";
 
-const excludedPaths = ['/cart', '/cart/checkout', '/orders/pay'];
+const excludedPaths = ["/cart", "/cart/checkout", "/orders/pay"];
 
 export default function Header({
   navsPromise,
-  hotNamesPromise
+  hotNamesPromise,
 }: {
   navsPromise: Promise<LayoutHeaderNav[]>;
   hotNamesPromise: Promise<string[]>;
@@ -43,9 +43,9 @@ function useThemeReset() {
   const theme = useTheme();
 
   useEffect(() => {
-    if (theme !== 'light') {
+    if (theme !== "light") {
       startTransition(async () => {
-        await setUserTheme('light');
+        await setUserTheme("light");
       });
     }
   }, [theme]);
@@ -55,9 +55,9 @@ function useLocaleReset() {
   const locale = useLocale() as Locale;
 
   useEffect(() => {
-    if (locale !== 'zh-CN') {
+    if (locale !== "zh-CN") {
       startTransition(async () => {
-        await setUserLocale('zh-CN');
+        await setUserLocale("zh-CN");
       });
     }
   }, [locale]);

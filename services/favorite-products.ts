@@ -1,11 +1,11 @@
-'use server';
+"use server";
 
-import { db } from '@/lib/db';
-import { Result } from '@/lib/result';
-import { favoriteProducts, productSkus } from '@/lib/schema';
-import { getUserId } from '@/lib/utils';
-import { and, eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
+import { db } from "@/lib/db";
+import { Result } from "@/lib/result";
+import { favoriteProducts, productSkus } from "@/lib/schema";
+import { getUserId } from "@/lib/utils";
+import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 /**
  * 添加收藏的商品
@@ -19,21 +19,21 @@ export async function addFavoriteProduct(skuId: number) {
       id: true,
       name: true,
       price: true,
-      pictureUrl: true
+      pictureUrl: true,
     },
     with: {
       product: {
         columns: {
           id: true,
           name: true,
-          slug: true
-        }
-      }
+          slug: true,
+        },
+      },
     },
-    where: eq(productSkus.id, skuId)
+    where: eq(productSkus.id, skuId),
   });
   if (!sku || !sku.product) {
-    return Result.fail('该商品不存在');
+    return Result.fail("该商品不存在");
   }
 
   const { product } = sku;
@@ -41,7 +41,7 @@ export async function addFavoriteProduct(skuId: number) {
   // 查询是否已收藏
   const exists = await _existsProduct(userId, product.id);
   if (exists) {
-    return Result.fail('该商品已收藏');
+    return Result.fail("该商品已收藏");
   }
 
   // 保存收藏记录
@@ -53,7 +53,7 @@ export async function addFavoriteProduct(skuId: number) {
     skuId: sku.id,
     skuName: sku.name,
     price: sku.price,
-    pictureUrl: sku.pictureUrl
+    pictureUrl: sku.pictureUrl,
   });
 
   return Result.ok();
@@ -67,14 +67,9 @@ export async function deleteFavoriteProduct(skuId: number) {
 
   await db
     .delete(favoriteProducts)
-    .where(
-      and(
-        eq(favoriteProducts.userId, userId),
-        eq(favoriteProducts.skuId, skuId)
-      )
-    );
+    .where(and(eq(favoriteProducts.userId, userId), eq(favoriteProducts.skuId, skuId)));
 
-  revalidatePath('/user/favorites');
+  revalidatePath("/user/favorites");
 
   return Result.ok();
 }
@@ -86,7 +81,7 @@ export async function findFavoriteProducts() {
   const userId = await getUserId();
 
   return db.query.favoriteProducts.findMany({
-    where: eq(favoriteProducts.userId, userId)
+    where: eq(favoriteProducts.userId, userId),
   });
 }
 
@@ -105,10 +100,7 @@ export async function existsFavoriteProduct(productId: number) {
 async function _existsProduct(userId: number, productId: number) {
   const count = await db.$count(
     favoriteProducts,
-    and(
-      eq(favoriteProducts.userId, userId),
-      eq(favoriteProducts.productId, productId)
-    )
+    and(eq(favoriteProducts.userId, userId), eq(favoriteProducts.productId, productId)),
   );
 
   return count > 0;

@@ -1,10 +1,9 @@
-import { PencilIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { TextareaHTMLAttributes, useState } from 'react';
-import styles from './styles.module.css';
+import { PencilIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { TextareaHTMLAttributes, useState } from "react";
+import styles from "./styles.module.css";
 
-interface TextareaProps
-  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
+interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
   value?: string;
   defaultValue?: string;
   placeholder?: string;
@@ -34,14 +33,14 @@ export default function Textarea({
   required,
   style,
   className,
-  onChange
+  onChange,
 }: TextareaProps) {
-  const [innerValue, setInnerValue] = useState(propValue ?? defaultValue ?? '');
+  const [innerValue, setInnerValue] = useState(propValue ?? defaultValue ?? "");
 
   const value = propValue ?? innerValue;
 
   return (
-    <div className={'relative flex'}>
+    <div className={"relative flex"}>
       {withPrefix && <PencilIcon className={styles.prefix_icon} />}
       <textarea
         value={value}
@@ -49,7 +48,7 @@ export default function Textarea({
         required={required}
         disabled={disabled}
         readOnly={readonly}
-        autoComplete={'off'}
+        autoComplete={"off"}
         placeholder={placeholder}
         maxLength={maxLength}
         className={clsx(
@@ -57,7 +56,7 @@ export default function Textarea({
           withPrefix && styles.indent,
           gray && styles.gray,
           error && styles.error,
-          className
+          className,
         )}
         style={style}
         onChange={(e) => {
@@ -67,9 +66,7 @@ export default function Textarea({
         }}
       />
       {showCount && (
-        <div className={styles.limits}>
-          {[value?.length || 0, maxLength].join('/')}
-        </div>
+        <div className={styles.limits}>{[value?.length || 0, maxLength].join("/")}</div>
       )}
     </div>
   );

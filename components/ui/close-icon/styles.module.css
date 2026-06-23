@@ -1,15 +1,15 @@
 .container {
-    border-radius: 50%;
-    color: #757575;
-    font-size: 16px;
-    transition: 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  border-radius: 50%;
+  color: #757575;
+  font-size: 16px;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
-    &.hoverable:hover {
-        color: #fff;
-        background-color: #e53935;
-    }
+  &.hoverable:hover {
+    color: #fff;
+    background-color: #e53935;
+  }
 }

@@ -1,11 +1,11 @@
-import Button from '@/components/ui/button';
-import CloseIcon from '@/components/ui/close-icon';
-import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
-import clsx from 'clsx';
-import { PropsWithChildren, ReactNode, useState, useTransition } from 'react';
-import { createPortal } from 'react-dom';
-import { createRoot, Root } from 'react-dom/client';
-import styles from './styles.module.css';
+import Button from "@/components/ui/button";
+import CloseIcon from "@/components/ui/close-icon";
+import { useKeyboardEscape } from "@/hooks/useKeyboardShortcuts";
+import clsx from "clsx";
+import { PropsWithChildren, ReactNode, useState, useTransition } from "react";
+import { createPortal } from "react-dom";
+import { createRoot, Root } from "react-dom/client";
+import styles from "./styles.module.css";
 
 export interface PopupProps extends PropsWithChildren {
   // 是否弹出
@@ -42,13 +42,13 @@ function Popup({
   footer,
   closable = true,
   maskClosable = true,
-  okText = '确定',
-  cancelText = '取消',
+  okText = "确定",
+  cancelText = "取消",
   closeOnOk,
   confirmLoading,
   children,
   onOk,
-  onCancel
+  onCancel,
 }: PopupProps) {
   const [closing, setClosing] = useState(false);
   const [loading, startTransition] = useTransition();
@@ -82,25 +82,19 @@ function Popup({
 
   return createPortal(
     <div className={clsx(styles.popup, closing && styles.closing)}>
-      <div
-        style={{ width }}
-        className={clsx(styles.container, 'dark:!bg-[#181818]')}
-      >
-        <div
-          className={clsx(styles.header, !title && styles.headless)}
-          dir={'ltr'}
-        >
+      <div style={{ width }} className={clsx(styles.container, "dark:!bg-[#181818]")}>
+        <div className={clsx(styles.header, !title && styles.headless)} dir={"ltr"}>
           {!!title && <div className={styles.title}>{title}</div>}
           {closable && <CloseIcon onClick={handleClose} />}
         </div>
-        <div className={styles.body} dir={'ltr'}>
+        <div className={styles.body} dir={"ltr"}>
           {children}
         </div>
         {footer !== undefined ? (
           footer
         ) : (
           <div className={styles.footer}>
-            <div className={'inline-flex gap-x-3.5'}>
+            <div className={"inline-flex gap-x-3.5"}>
               {!!okText && (
                 <Button loading={finalLoading} onClick={handleOk}>
                   {okText}
@@ -117,7 +111,8 @@ function Popup({
       </div>
 
       <div
-        className={clsx(styles.mask, 'dark:!bg-[hsla(0,0%,100%,.5)]')}
+        aria-label={"关闭"}
+        className={clsx(styles.mask, "dark:!bg-[hsla(0,0%,100%,.5)]")}
         onClick={() => {
           if (maskClosable) {
             handleClose();
@@ -125,17 +120,15 @@ function Popup({
         }}
       />
     </div>,
-    document.getElementById('popup')!
+    document.getElementById("popup")!,
   );
 }
 
 let popup: Root | undefined;
 
-function open(
-  props: Omit<PopupProps, 'open' | 'children'> & { content?: ReactNode }
-) {
+function open(props: Omit<PopupProps, "open" | "children"> & { content?: ReactNode }) {
   popup?.unmount();
-  popup = createRoot(document.getElementById('popup')!);
+  popup = createRoot(document.getElementById("popup")!);
   popup.render(
     <Popup
       open
@@ -146,7 +139,7 @@ function open(
       }}
     >
       {props.content}
-    </Popup>
+    </Popup>,
   );
 
   return () => {
@@ -162,22 +155,17 @@ function alert(title: ReactNode, onOk?: () => void) {
     cancelText: null,
     closeOnOk: true,
     closable: false,
-    onOk
+    onOk,
   });
 }
 
-function confirm(
-  title: ReactNode,
-  props: Omit<PopupProps, 'open' | 'children'>
-) {
+function confirm(title: ReactNode, props: Omit<PopupProps, "open" | "children">) {
   return open({
     width: 480,
-    content: (
-      <div className={clsx(styles.message, styles.confirm)}>{title}</div>
-    ),
+    content: <div className={clsx(styles.message, styles.confirm)}>{title}</div>,
     maskClosable: false,
     closeOnOk: true,
-    ...props
+    ...props,
   });
 }
 

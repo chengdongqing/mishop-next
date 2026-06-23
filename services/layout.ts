@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import { BannerType } from '@/enums/banner';
-import { LayoutHeroCategoryItemType } from '@/enums/layout';
-import { db } from '@/lib/db';
+import { BannerType } from "@/enums/banner";
+import { LayoutHeroCategoryItemType } from "@/enums/layout";
+import { db } from "@/lib/db";
 import {
   banners,
   layoutBricks,
@@ -12,15 +12,10 @@ import {
   layoutHeroCategoryItems,
   productCategories,
   productLabels,
-  products
-} from '@/lib/schema';
-import {
-  LayoutBrick,
-  LayoutBrickTab,
-  LayoutHeaderNav,
-  LayoutHeroCategory
-} from '@/types/layout';
-import { and, eq } from 'drizzle-orm';
+  products,
+} from "@/lib/schema";
+import { LayoutBrick, LayoutBrickTab, LayoutHeaderNav, LayoutHeroCategory } from "@/types/layout";
+import { and, eq } from "drizzle-orm";
 
 export async function findHeaderNavs() {
   const navs = await db.select().from(layoutHeaderNavs).limit(9);
@@ -34,22 +29,17 @@ export async function findHeaderNavs() {
             slug: products.slug,
             pictureUrl: products.pictureUrl,
             price: products.price,
-            hasMultipleSkus: products.hasMultipleSkus
+            hasMultipleSkus: products.hasMultipleSkus,
           })
           .from(layoutHeaderNavItems)
           .leftJoin(products, eq(layoutHeaderNavItems.productId, products.id))
-          .where(
-            and(
-              eq(layoutHeaderNavItems.parentId, nav.id),
-              eq(products.enabled, true)
-            )
-          )
+          .where(and(eq(layoutHeaderNavItems.parentId, nav.id), eq(products.enabled, true)))
           .limit(6)
       : [];
 
     return {
       ...nav,
-      children: items
+      children: items,
     } as LayoutHeaderNav;
   });
 
@@ -65,16 +55,14 @@ export async function findHeroCategories() {
 
     return {
       ...category,
-      children: items
+      children: items,
     } as LayoutHeroCategory;
   });
 
   return Promise.all(categoryPromises);
 }
 
-async function findHeroCategoryItems(
-  category: typeof layoutHeroCategories.$inferSelect
-) {
+async function findHeroCategoryItems(category: typeof layoutHeroCategories.$inferSelect) {
   const items = await db
     .select({
       id: layoutHeroCategoryItems.id,
@@ -87,17 +75,11 @@ async function findHeroCategoryItems(
       name3: products.name,
       pictureUrl3: products.pictureUrl,
       categoryId1: productLabels.categoryId,
-      categoryId2: productCategories.parentId
+      categoryId2: productCategories.parentId,
     })
     .from(layoutHeroCategoryItems)
-    .leftJoin(
-      productLabels,
-      eq(layoutHeroCategoryItems.associatedId, productLabels.id)
-    )
-    .leftJoin(
-      productCategories,
-      eq(layoutHeroCategoryItems.associatedId, productCategories.id)
-    )
+    .leftJoin(productLabels, eq(layoutHeroCategoryItems.associatedId, productLabels.id))
+    .leftJoin(productCategories, eq(layoutHeroCategoryItems.associatedId, productCategories.id))
     .leftJoin(products, eq(layoutHeroCategoryItems.associatedId, products.id))
     .where(eq(layoutHeroCategoryItems.parentId, category.id))
     .limit(24);
@@ -140,7 +122,7 @@ async function findHeroCategoryItems(
       name: name!,
       pictureUrl: pictureUrl!,
       categoryId,
-      parentCategoryId
+      parentCategoryId,
     };
   });
 }
@@ -153,25 +135,20 @@ export async function findBricks() {
       db
         .select()
         .from(banners)
-        .where(
-          and(
-            eq(banners.type, BannerType.HOME_BRICK),
-            eq(banners.associatedId, brick.id)
-          )
-        )
+        .where(and(eq(banners.type, BannerType.HOME_BRICK), eq(banners.associatedId, brick.id)))
         .limit(2),
       db.query.layoutBrickTabs.findMany({
         with: {
           items: {
             with: {
-              product: true
+              product: true,
             },
-            limit: 8
-          }
+            limit: 8,
+          },
         },
         limit: 4,
-        where: (tabs, { eq }) => eq(tabs.parentId, brick.id)
-      })
+        where: (tabs, { eq }) => eq(tabs.parentId, brick.id),
+      }),
     ]);
 
     const children = tabs.map((tab) => {
@@ -179,9 +156,7 @@ export async function findBricks() {
         id: tab.id,
         name: tab.name,
         keyword: tab.keyword,
-        children: tab.items
-          .map((item) => item.product)
-          .filter((item) => item.enabled)
+        children: tab.items.map((item) => item.product).filter((item) => item.enabled),
       } as LayoutBrickTab;
     });
 
@@ -189,7 +164,7 @@ export async function findBricks() {
       id: brick.id,
       name: brick.name,
       promotions,
-      children
+      children,
     } as LayoutBrick;
   });
 

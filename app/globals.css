@@ -3,67 +3,67 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer utilities {
-    .text-primary {
-        color: var(--color-primary);
-    }
+  .text-primary {
+    color: var(--color-primary);
+  }
 
-    .hover\:text-primary:hover {
-        color: var(--color-primary);
-    }
+  .hover\:text-primary:hover {
+    color: var(--color-primary);
+  }
 
-    .bg-primary {
-        background-color: var(--color-bg-secondary);
-    }
+  .bg-primary {
+    background-color: var(--color-bg-secondary);
+  }
 
-    .w-primary {
-        width: var(--width-primary);
-        margin-inline: auto;
-    }
+  .w-primary {
+    width: var(--width-primary);
+    margin-inline: auto;
+  }
 
-    .border-primary {
-        border-color: var(--color-border);
-    }
+  .border-primary {
+    border-color: var(--color-border);
+  }
 }
 
 :root {
-    --color-primary: #ff6700;
-    --color-error: #f04645;
-    --color-success: #83c44e;
-    --color-border: #e0e0e0;
-    --color-text-primary: #333;
-    --color-bg: #fff;
-    --color-bg-secondary: #f5f5f5;
+  --color-primary: #ff6700;
+  --color-error: #f04645;
+  --color-success: #83c44e;
+  --color-border: #e0e0e0;
+  --color-text-primary: #333;
+  --color-bg: #fff;
+  --color-bg-secondary: #f5f5f5;
 
-    --width-primary: 1226px;
+  --width-primary: 1226px;
 }
 
 :root:where(.dark, .dark *) {
-    --color-text-primary: #fffc;
-    --color-bg: #000;
-    --color-bg-secondary: #242424;
+  --color-text-primary: #fffc;
+  --color-bg: #000;
+  --color-bg-secondary: #242424;
 }
 
 body {
-    font-size: 14px;
-    color: var(--color-text-primary);
-    background-color: var(--color-bg);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
 }
 
 .text-ellipsis {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 * {
-    outline: none;
+  outline: none;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

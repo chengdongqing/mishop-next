@@ -1,6 +1,6 @@
 /* Copyright https://github.com/DanteCoder/react-resizableBox */
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   DeltaPos,
   DeltaSize,
@@ -11,8 +11,8 @@ import {
   ResizeHandlerType,
   StylePos,
   StyleRot,
-  StyleSize
-} from './types';
+  StyleSize,
+} from "./types";
 import {
   captureClick,
   center2TopLeft,
@@ -20,8 +20,8 @@ import {
   getEventCoordinates,
   topLeft2Center,
   vectorAngle,
-  vectorLength
-} from './utils';
+  vectorLength,
+} from "./utils";
 
 interface UseResizeProps {
   styles: StylePos & StyleSize & StyleRot;
@@ -34,13 +34,11 @@ interface UseResizeProps {
   onResizeEnd?: OnResizeEndHandler;
 }
 
-export default function useResize(
-  props: UseResizeProps
-): [OnResizeMouseDown, boolean] {
+export default function useResize(props: UseResizeProps): [OnResizeMouseDown, boolean] {
   const { styles, scale, minWidth, minHeight } = props;
   const isMouseDown = useRef(false);
   const isResizing = useRef(false);
-  const handlerType = useRef<ResizeHandlerType>('n');
+  const handlerType = useRef<ResizeHandlerType>("n");
   const startMousePos = useRef({ x: 0, y: 0 });
   const startStyle = useRef(styles);
   const prevStyle = useRef<StylePos & StyleSize>(styles);
@@ -48,13 +46,13 @@ export default function useResize(
     x: 0,
     y: 0,
     w: 0,
-    h: 0
+    h: 0,
   });
 
   const [_isResizing, setIsResizing] = useState(false);
 
   const aspectRatio = useMemo(() => {
-    if (typeof props.aspectRatio === 'boolean') return props.aspectRatio;
+    if (typeof props.aspectRatio === "boolean") return props.aspectRatio;
     if (props.aspectRatio === 0) return false;
     return props.aspectRatio;
   }, [props.aspectRatio]);
@@ -87,7 +85,7 @@ export default function useResize(
 
         const mouseDelta = {
           x: (clientX - startMousePos.current.x) / scale,
-          y: (clientY - startMousePos.current.y) / scale
+          y: (clientY - startMousePos.current.y) / scale,
         };
 
         const newStyle = getNewStyle(
@@ -97,14 +95,14 @@ export default function useResize(
           minWidth,
           minHeight,
           aspectRatio || e.shiftKey,
-          e.altKey
+          e.altKey,
         );
 
         const stylesDelta: DeltaPos & DeltaSize = {
           x: newStyle.left - prevStyle.current.left,
           y: newStyle.top - prevStyle.current.top,
           w: newStyle.width - prevStyle.current.width,
-          h: newStyle.height - prevStyle.current.height
+          h: newStyle.height - prevStyle.current.height,
         };
 
         prevStyle.current = newStyle;
@@ -113,41 +111,41 @@ export default function useResize(
           x: newStyle.left - startStyle.current.left,
           y: newStyle.top - startStyle.current.top,
           w: newStyle.width - startStyle.current.width,
-          h: newStyle.height - startStyle.current.height
+          h: newStyle.height - startStyle.current.height,
         };
 
         props.onResize?.({
           style: newStyle,
           delta: stylesDelta,
           totalDelta: stylesTotalDelta.current,
-          nativeEvent: e
+          nativeEvent: e,
         });
       };
 
       const onMouseUp = (e: MouseEvent | TouchEvent) => {
         if (!isMouseDown.current) return;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('touchmove', onMouseMove);
-        document.removeEventListener('touchend', onMouseUp);
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchmove", onMouseMove);
+        document.removeEventListener("touchend", onMouseUp);
         if (isResizing.current)
           props.onResizeEnd?.({
             style: prevStyle.current,
             totalDelta: stylesTotalDelta.current,
-            nativeEvent: e
+            nativeEvent: e,
           });
         isMouseDown.current = false;
         isResizing.current = false;
         setIsResizing(false);
-        document.body.style.cursor = 'auto';
+        document.body.style.cursor = "auto";
       };
 
-      document.addEventListener('mouseup', onMouseUp);
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('touchend', onMouseUp);
-      document.addEventListener('touchmove', onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("touchend", onMouseUp);
+      document.addEventListener("touchmove", onMouseMove);
     },
-    [aspectRatio, minHeight, minWidth, props, scale, styles]
+    [aspectRatio, minHeight, minWidth, props, scale, styles],
   );
 
   return [onMouseDown, _isResizing];
@@ -160,7 +158,7 @@ const getNewStyle = (
   minWidth: number,
   minHeight: number,
   aspectRatio: number | boolean,
-  symmetrical: boolean
+  symmetrical: boolean,
 ): StylePos & StyleSize => {
   const deltaL = vectorLength(mouseDelta.x, mouseDelta.y);
   const alpha = vectorAngle(mouseDelta.x, mouseDelta.y);
@@ -172,10 +170,10 @@ const getNewStyle = (
     let deltaWidth = 0;
     let deltaHeight = 0;
 
-    if (type.match('w')) deltaWidth = -deltaL * Math.cos(relativeAngle);
-    if (type.match('e')) deltaWidth = deltaL * Math.cos(relativeAngle);
-    if (type.match('n')) deltaHeight = -deltaL * Math.sin(relativeAngle);
-    if (type.match('s')) deltaHeight = deltaL * Math.sin(relativeAngle);
+    if (type.match("w")) deltaWidth = -deltaL * Math.cos(relativeAngle);
+    if (type.match("e")) deltaWidth = deltaL * Math.cos(relativeAngle);
+    if (type.match("n")) deltaHeight = -deltaL * Math.sin(relativeAngle);
+    if (type.match("s")) deltaHeight = deltaL * Math.sin(relativeAngle);
 
     return [deltaWidth, deltaHeight];
   })();
@@ -188,7 +186,7 @@ const getNewStyle = (
   })();
 
   const resizeRatio = (() => {
-    if (typeof aspectRatio === 'number') return aspectRatio;
+    if (typeof aspectRatio === "number") return aspectRatio;
     return initStyle.width / initStyle.height;
   })();
 
@@ -233,7 +231,7 @@ const getNewStyle = (
     initStyle.top,
     initStyle.left,
     initStyle.width,
-    initStyle.height
+    initStyle.height,
   );
 
   // Calculates the center displacement
@@ -242,19 +240,19 @@ const getNewStyle = (
     let centerDY = 0;
     let centerDX = 0;
 
-    if (type.match('w')) {
+    if (type.match("w")) {
       centerDX += -(deltaWidth / 2) * Math.cos(rotationRad);
       centerDY += -(deltaWidth / 2) * Math.sin(rotationRad);
     }
-    if (type.match('e')) {
+    if (type.match("e")) {
       centerDX += (deltaWidth / 2) * Math.cos(rotationRad);
       centerDY += (deltaWidth / 2) * Math.sin(rotationRad);
     }
-    if (type.match('n')) {
+    if (type.match("n")) {
       centerDX += (deltaHeight / 2) * Math.sin(rotationRad);
       centerDY += -(deltaHeight / 2) * Math.cos(rotationRad);
     }
-    if (type.match('s')) {
+    if (type.match("s")) {
       centerDX += -(deltaHeight / 2) * Math.sin(rotationRad);
       centerDY += (deltaHeight / 2) * Math.cos(rotationRad);
     }
@@ -270,6 +268,6 @@ const getNewStyle = (
     left: Math.round(newPos.left),
     top: Math.round(newPos.top),
     width: Math.round(newWidth),
-    height: Math.round(newHeight)
+    height: Math.round(newHeight),
   };
 };

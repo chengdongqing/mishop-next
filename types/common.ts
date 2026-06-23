@@ -13,7 +13,7 @@ export interface PageRequest {
 
 export interface ActionState<
   E extends Record<string, string[]> = Record<string, string[]>,
-  T = unknown
+  T = unknown,
 > {
   data?: T;
   errors?: E;
@@ -21,5 +21,5 @@ export interface ActionState<
   message?: string;
 }
 
-export type Theme = 'dark' | 'light' | 'system';
-export type Locale = 'en' | 'zh-CN' | 'zh-TW' | 'ug';
+export type Theme = "dark" | "light" | "system";
+export type Locale = "en" | "zh-CN" | "zh-TW" | "ug";

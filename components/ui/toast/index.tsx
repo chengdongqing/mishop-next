@@ -1,44 +1,38 @@
-'use client';
+"use client";
 
-import { LoadingIcon } from '@/components/icons';
-import {
-  CheckCircleIcon,
-  InformationCircleIcon
-} from '@heroicons/react/16/solid';
-import {
-  ExclamationCircleIcon,
-  XCircleIcon
-} from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { CSSProperties } from 'react';
-import { createRoot, Root } from 'react-dom/client';
-import styles from './styles.module.css';
+import { LoadingIcon } from "@/components/icons";
+import { CheckCircleIcon, InformationCircleIcon } from "@heroicons/react/16/solid";
+import { ExclamationCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { CSSProperties } from "react";
+import { createRoot, Root } from "react-dom/client";
+import styles from "./styles.module.css";
 
 const types = {
   warning: {
-    icon: <ExclamationCircleIcon className={'w-5'} />,
-    color: 'var(--color-primary)'
+    icon: <ExclamationCircleIcon className={"w-5"} />,
+    color: "var(--color-primary)",
   },
   success: {
-    icon: <CheckCircleIcon className={'w-5'} />,
-    color: 'var(--color-success)'
+    icon: <CheckCircleIcon className={"w-5"} />,
+    color: "var(--color-success)",
   },
   info: {
-    icon: <InformationCircleIcon className={'w-5'} />,
-    color: '#1677ff'
+    icon: <InformationCircleIcon className={"w-5"} />,
+    color: "#1677ff",
   },
   error: {
-    icon: <XCircleIcon className={'w-5'} />,
-    color: 'var(--color-error)'
+    icon: <XCircleIcon className={"w-5"} />,
+    color: "var(--color-error)",
   },
   loading: {
-    icon: <LoadingIcon className={'w-5'} />,
-    color: 'var(--color-primary)'
-  }
+    icon: <LoadingIcon className={"w-5"} />,
+    color: "var(--color-primary)",
+  },
 };
 
 interface ToastProps {
-  type: 'warning' | 'success' | 'info' | 'error' | 'loading';
+  type: "warning" | "success" | "info" | "error" | "loading";
   content: string;
   style?: CSSProperties;
   className?: string;
@@ -65,7 +59,7 @@ let toast: Root | undefined, timeoutId: NodeJS.Timeout | undefined;
 
 function open({ duration = 3000, onClose, ...rest }: OpenToastProps) {
   toast?.unmount();
-  toast = createRoot(document.getElementById('toast') as HTMLElement);
+  toast = createRoot(document.getElementById("toast") as HTMLElement);
   clearTimeout(timeoutId);
   toast.render(<Toast {...rest} />);
   if (duration > 0) {
@@ -79,44 +73,44 @@ function open({ duration = 3000, onClose, ...rest }: OpenToastProps) {
   };
 }
 
-type ToastType = Omit<OpenToastProps, 'type' | 'content'>;
+type ToastType = Omit<OpenToastProps, "type" | "content">;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   warning(content: string, props?: ToastType) {
     return open({
-      type: 'warning',
+      type: "warning",
       content,
-      ...props
+      ...props,
     });
   },
   success(content: string, props?: ToastType) {
     return open({
-      type: 'success',
+      type: "success",
       content,
-      ...props
+      ...props,
     });
   },
   info(content: string, props?: ToastType) {
     return open({
-      type: 'info',
+      type: "info",
       content,
-      ...props
+      ...props,
     });
   },
   error(content: string, props?: ToastType) {
     return open({
-      type: 'error',
+      type: "error",
       content,
-      ...props
+      ...props,
     });
   },
-  loading(content = '加载中...', props?: ToastType) {
+  loading(content = "加载中...", props?: ToastType) {
     return open({
-      type: 'loading',
+      type: "loading",
       content,
       duration: props?.duration || 0,
-      ...props
+      ...props,
     });
-  }
+  },
 };

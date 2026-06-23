@@ -1,50 +1,50 @@
 .loading {
-    padding: 10px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 10px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes waving1 {
-    to {
-        opacity: 0.2;
-        transform: scaleY(0.7);
-    }
+  to {
+    opacity: 0.2;
+    transform: scaleY(0.7);
+  }
 }
 
 @keyframes waving2 {
-    to {
-        opacity: 0.2;
-        transform: scaleY(0.9);
-    }
+  to {
+    opacity: 0.2;
+    transform: scaleY(0.9);
+  }
 }
 
 @keyframes waving3 {
-    to {
-        opacity: 0.2;
-        transform: scaleY(0.8);
-    }
+  to {
+    opacity: 0.2;
+    transform: scaleY(0.8);
+  }
 }
 
 .indicatorItem {
-    display: inline-block;
-    width: 4px;
-    margin-right: 5px;
-    background-color: var(--color-primary);
+  display: inline-block;
+  width: 4px;
+  margin-right: 5px;
+  background-color: var(--color-primary);
 
-    &:nth-child(1) {
-        height: 10px;
-        animation: waving1 0.3s linear infinite alternate-reverse;
-    }
+  &:nth-child(1) {
+    height: 10px;
+    animation: waving1 0.3s linear infinite alternate-reverse;
+  }
 
-    &:nth-child(2) {
-        height: 20px;
-        animation: waving2 0.5s linear infinite alternate-reverse;
-    }
+  &:nth-child(2) {
+    height: 20px;
+    animation: waving2 0.5s linear infinite alternate-reverse;
+  }
 
-    &:nth-child(3) {
-        height: 18px;
-        animation: waving3 0.4s linear infinite alternate-reverse;
-    }
+  &:nth-child(3) {
+    height: 18px;
+    animation: waving3 0.4s linear infinite alternate-reverse;
+  }
 }

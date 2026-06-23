@@ -1,12 +1,12 @@
-import Space from '@/components/ui/space';
-import { OrderStatus, OrderStatusMap, PaymentMethodMap } from '@/enums/order';
-import { createProductUrl, DateTimeFormat, formatAmount } from '@/lib/utils';
-import type { Order, OrderItem } from '@/types/order';
-import clsx from 'clsx';
-import dayjs from 'dayjs';
-import Image from 'next/image';
-import Link from 'next/link';
-import ActionGroup from './action-group';
+import Space from "@/components/ui/space";
+import { OrderStatus, OrderStatusMap, PaymentMethodMap } from "@/enums/order";
+import { createProductUrl, DateTimeFormat, formatAmount } from "@/lib/utils";
+import type { Order, OrderItem } from "@/types/order";
+import clsx from "clsx";
+import dayjs from "dayjs";
+import Image from "next/image";
+import Link from "next/link";
+import ActionGroup from "./action-group";
 
 export default function OrderList({ orders }: { orders: Order[] }) {
   return (
@@ -20,11 +20,11 @@ export default function OrderList({ orders }: { orders: Order[] }) {
 
 function OrderItem({ order }: { order: Order }) {
   return (
-    <li className={'mb-5 border-1 border-[#b0b0b0]'}>
+    <li className={"mb-5 border-1 border-[#b0b0b0]"}>
       <Header order={order} />
-      <div className={'flex justify-between p-[20px_30px]'}>
+      <div className={"flex justify-between p-[20px_30px]"}>
         <ProductList products={order.items} />
-        <ActionGroup order={order} direction={'vertical'} />
+        <ActionGroup order={order} direction={"vertical"} />
       </div>
     </li>
   );
@@ -32,39 +32,35 @@ function OrderItem({ order }: { order: Order }) {
 
 function Header({ order }: { order: Order }) {
   return (
-    <div className={'border-primary border-b-1 p-[25px_30px]'}>
+    <div className={"border-primary border-b-1 p-[25px_30px]"}>
       <div
         className={clsx(
-          'mb-2 text-lg',
-          [OrderStatus.PENDING_PAYMENT, OrderStatus.CANCELED].includes(
-            order.status
-          )
-            ? 'text-[#b0b0b0]'
-            : 'text-[var(--color-success)]'
+          "mb-2 text-lg",
+          [OrderStatus.PENDING_PAYMENT, OrderStatus.CANCELED].includes(order.status)
+            ? "text-[#b0b0b0]"
+            : "text-[var(--color-success)]",
         )}
       >
         {OrderStatusMap[order.status]}
       </div>
-      <div className={'flex justify-between leading-[10px] text-[#757575]'}>
-        <Space split={<span className={'border-primary h-[22] border-r-1'} />}>
+      <div className={"flex justify-between leading-[10px] text-[#757575]"}>
+        <Space split={<span className={"border-primary h-[22] border-r-1"} />}>
           <span>{dayjs(order.createdAt).format(DateTimeFormat)}</span>
           <span>{order.recipientName}</span>
           <span>
             订单号：
             <Link
               href={`/orders/${order.id}`}
-              className={'hover:text-primary cursor-pointer duration-200'}
+              className={"hover:text-primary cursor-pointer duration-200"}
             >
               {order.orderNumber}
             </Link>
           </span>
-          {!!order.paymentMethod && (
-            <span>{PaymentMethodMap[order.paymentMethod]}</span>
-          )}
+          {!!order.paymentMethod && <span>{PaymentMethodMap[order.paymentMethod]}</span>}
         </Space>
         <div>
           实付金额：
-          <span className={'text-[28px] font-extralight text-[#333]'}>
+          <span className={"text-[28px] font-extralight text-[#333]"}>
             {formatAmount(order.payableAmount)}
           </span>
           元
@@ -80,25 +76,22 @@ function ProductList({ products }: { products: OrderItem[] }) {
       {products.map((item) => {
         const productUrl = createProductUrl({
           id: item.productId,
-          slug: item.productSlug
+          slug: item.productSlug,
         });
 
         return (
-          <div key={item.id} className={'my-2.5 flex items-center gap-x-5'}>
+          <div key={item.id} className={"my-2.5 flex items-center gap-x-5"}>
             <Link href={productUrl}>
               <Image
-                alt={'product image'}
+                alt={"product image"}
                 src={item.pictureUrl}
                 width={80}
                 height={80}
-                className={'h-[80] w-[80] object-scale-down'}
+                className={"h-[80] w-[80] object-scale-down"}
               />
             </Link>
             <div>
-              <Link
-                href={productUrl}
-                className={'hover:text-primary cursor-pointer duration-200'}
-              >
+              <Link href={productUrl} className={"hover:text-primary cursor-pointer duration-200"}>
                 {item.productName} {item.skuName}
               </Link>
               <div>

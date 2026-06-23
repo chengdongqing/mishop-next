@@ -1,12 +1,8 @@
-import Loading from '@/components/ui/loading';
-import dynamic, { Loader } from 'next/dynamic';
-import { redirect } from 'next/navigation';
+import Loading from "@/components/ui/loading";
+import dynamic, { Loader } from "next/dynamic";
+import { redirect } from "next/navigation";
 
-export default async function ProductSpecsPage({
-  params
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ProductSpecsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const page = slugMap[id];
   if (!page) {
@@ -14,12 +10,12 @@ export default async function ProductSpecsPage({
   }
 
   const SpecsPage = dynamic(page, {
-    loading: () => <Loading />
+    loading: () => <Loading />,
   });
 
   return <SpecsPage />;
 }
 
 const slugMap: Record<string, Loader> = {
-  'xiaomi-15-ultra': () => import('./xiaomi-13-ultra')
+  "xiaomi-15-ultra": () => import("./xiaomi-13-ultra"),
 };

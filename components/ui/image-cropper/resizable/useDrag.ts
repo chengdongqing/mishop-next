@@ -1,8 +1,15 @@
 /* Copyright https://github.com/DanteCoder/react-resizableBox */
 
-import { useCallback, useRef, useState } from 'react';
-import { DeltaPos, OnDragEndHandler, OnDragHandler, OnDragMouseDown, OnDragStartHandler, StylePos } from './types';
-import { captureClick, getEventCoordinates } from './utils';
+import { useCallback, useRef, useState } from "react";
+import {
+  DeltaPos,
+  OnDragEndHandler,
+  OnDragHandler,
+  OnDragMouseDown,
+  OnDragStartHandler,
+  StylePos,
+} from "./types";
+import { captureClick, getEventCoordinates } from "./utils";
 
 interface UseDragProps {
   styles: StylePos;
@@ -12,9 +19,7 @@ interface UseDragProps {
   onDragEnd?: OnDragEndHandler;
 }
 
-export default function useDrag(
-  props: UseDragProps
-): [OnDragMouseDown, boolean] {
+export default function useDrag(props: UseDragProps): [OnDragMouseDown, boolean] {
   const { styles, scale } = props;
   const isMouseDown = useRef(false);
   const isDragging = useRef(false);
@@ -54,56 +59,56 @@ export default function useDrag(
 
         const mouseDelta = {
           x: (clientX - prevMousePos.current.x) / scale,
-          y: (clientY - prevMousePos.current.y) / scale
+          y: (clientY - prevMousePos.current.y) / scale,
         };
 
         prevMousePos.current = {
           x: clientX,
-          y: clientY
+          y: clientY,
         };
 
         totalPosDelta.current = {
           x: (clientX - startMousePos.current.x) / scale,
-          y: (clientY - startMousePos.current.y) / scale
+          y: (clientY - startMousePos.current.y) / scale,
         };
 
         newStyle.current = {
           left: Math.round(startStyles.current.left + totalPosDelta.current.x),
-          top: Math.round(startStyles.current.top + totalPosDelta.current.y)
+          top: Math.round(startStyles.current.top + totalPosDelta.current.y),
         };
 
         props.onDrag?.({
           style: newStyle.current,
           delta: mouseDelta,
           totalDelta: totalPosDelta.current,
-          nativeEvent: e
+          nativeEvent: e,
         });
       };
 
       const onMouseUp = (e: MouseEvent | TouchEvent) => {
         if (!isMouseDown.current) return;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('touchmove', onMouseMove);
-        document.removeEventListener('touchend', onMouseUp);
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchmove", onMouseMove);
+        document.removeEventListener("touchend", onMouseUp);
         if (isDragging.current)
           props.onDragEnd?.({
             style: newStyle.current,
             totalDelta: totalPosDelta.current,
-            nativeEvent: e
+            nativeEvent: e,
           });
         isMouseDown.current = false;
         isDragging.current = false;
         setIsDragging(false);
-        document.body.style.cursor = 'auto';
+        document.body.style.cursor = "auto";
       };
 
-      document.addEventListener('mouseup', onMouseUp);
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('touchend', onMouseUp);
-      document.addEventListener('touchmove', onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("touchend", onMouseUp);
+      document.addEventListener("touchmove", onMouseMove);
     },
-    [props, scale]
+    [props, scale],
   );
 
   return [onMouseDown, _isDragging];

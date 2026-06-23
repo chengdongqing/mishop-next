@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { CheckIcon, MinusIcon } from '@heroicons/react/16/solid';
-import clsx from 'clsx';
-import { PropsWithChildren, useState } from 'react';
+import { CheckIcon, MinusIcon } from "@heroicons/react/16/solid";
+import clsx from "clsx";
+import { PropsWithChildren, useState } from "react";
 
 interface Props {
   name?: string;
@@ -23,17 +23,17 @@ export default function Checkbox({
   disabled,
   indeterminate,
   required,
-  onChange
+  onChange,
 }: PropsWithChildren<Props>) {
   const [innerChecked, setInnerChecked] = useState(propChecked ?? false);
   const checked = propChecked ?? innerChecked;
 
   return (
-    <span className={'flex'}>
+    <span className={"flex"}>
       <label
         className={clsx(
-          'group relative flex items-center gap-x-1.5 select-none',
-          disabled ? 'cursor-default' : 'cursor-pointer'
+          "group relative flex items-center gap-x-1.5 select-none",
+          disabled ? "cursor-default" : "cursor-pointer",
         )}
       >
         <input
@@ -44,7 +44,7 @@ export default function Checkbox({
           checked={checked}
           required={required}
           disabled={disabled}
-          className={'absolute top-0 left-0 h-4.5 w-4.5 opacity-0'}
+          className={"absolute top-0 left-0 h-4.5 w-4.5 opacity-0"}
           onChange={(e) => {
             const { checked } = e.target;
             setInnerChecked(checked);
@@ -53,27 +53,27 @@ export default function Checkbox({
         />
         <span
           className={clsx(
-            'z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200',
+            "z-1 flex h-4.5 w-4.5 items-center justify-center rounded-xs border-1 text-white duration-200",
             checked || indeterminate
-              ? 'border-[var(--color-primary)] bg-[var(--color-primary)]'
-              : 'border-primary bg-[var(--color-bg)] dark:!border-[#333] dark:bg-[#333]',
+              ? "border-[var(--color-primary)] bg-[var(--color-primary)]"
+              : "border-primary bg-[var(--color-bg)] dark:!border-[#333] dark:bg-[#333]",
             {
-              'opacity-80': disabled
+              "opacity-80": disabled,
             },
-            !disabled && 'group-hover:border-[var(--color-primary)]'
+            !disabled && "group-hover:border-[var(--color-primary)]",
           )}
         >
           {checked ? (
-            <CheckIcon className={'w-4'} />
+            <CheckIcon className={"w-4"} />
           ) : indeterminate ? (
-            <MinusIcon className={'w-4'} />
+            <MinusIcon className={"w-4"} />
           ) : null}
         </span>
         {!!children && (
           <span
             className={clsx(
-              'text-sm text-[#424242]',
-              !disabled && 'group-hover:text-[var(--color-primary)]'
+              "text-sm text-[#424242]",
+              !disabled && "group-hover:text-[var(--color-primary)]",
             )}
           >
             {children}

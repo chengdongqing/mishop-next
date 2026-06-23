@@ -1,13 +1,15 @@
-'use client';
+"use client";
 
-import { EyeIcon, EyeOffIcon } from '@/components/icons';
-import useToggle from '@/hooks/useToggle';
-import clsx from 'clsx';
-import { InputHTMLAttributes, ReactNode, useRef, useState } from 'react';
-import styles from './styles.module.css';
+import { EyeIcon, EyeOffIcon } from "@/components/icons";
+import useToggle from "@/hooks/useToggle";
+import clsx from "clsx";
+import { InputHTMLAttributes, ReactNode, useRef, useState } from "react";
+import styles from "./styles.module.css";
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix'> {
+export interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "prefix"
+> {
   error?: boolean;
   prefix?: ReactNode;
   suffix?: ReactNode;
@@ -36,20 +38,20 @@ export default function Input({
   const inputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
   const [showPwd, toggleShowPwd] = useToggle();
-  const [innerValue, setInnerValue] = useState(propValue ?? defaultValue ?? '');
+  const [innerValue, setInnerValue] = useState(propValue ?? defaultValue ?? "");
 
   const value = propValue ?? innerValue;
-  const isPwdType = type === 'password';
+  const isPwdType = type === "password";
 
   return (
     <div
       style={style}
       className={clsx(
-        'dark:!bg-[#333]',
+        "dark:!bg-[#333]",
         className,
         styles.container,
         focused && styles.active,
-        error && styles.error
+        error && styles.error,
       )}
     >
       {prefix}
@@ -61,16 +63,11 @@ export default function Input({
         required={required}
         readOnly={readOnly}
         disabled={disabled}
-        autoComplete={'off'}
+        autoComplete={"off"}
         type={isPwdType && showPwd ? undefined : type}
-        className={clsx(
-          'dark:!text-white',
-          styles.input,
-          !!placeholder && styles.with_label,
-          {
-            'cursor-pointer': clickable
-          }
-        )}
+        className={clsx("dark:!text-white", styles.input, !!placeholder && styles.with_label, {
+          "cursor-pointer": clickable,
+        })}
         onChange={(e) => {
           const { value } = e.target;
           setInnerValue(value);
@@ -82,9 +79,9 @@ export default function Input({
       {!!placeholder && (
         <span
           className={clsx(
-            'rtl:right-5 dark:!text-[#aaa]',
+            "rtl:right-5 dark:!text-[#aaa]",
             styles.label,
-            (value || (focused && !disabled && !readOnly)) && styles.active
+            (value || (focused && !disabled && !readOnly)) && styles.active,
           )}
           onClick={() => {
             inputRef.current?.focus();
@@ -96,16 +93,12 @@ export default function Input({
       {suffix}
       {isPwdType && (
         <div
-          className={clsx('dark:!text-[#aaa]', styles.icon_eye)}
+          className={clsx("dark:!text-[#aaa]", styles.icon_eye)}
           onClick={() => {
             toggleShowPwd();
           }}
         >
-          {showPwd ? (
-            <EyeIcon className={'w-5'} />
-          ) : (
-            <EyeOffIcon className={'w-5'} />
-          )}
+          {showPwd ? <EyeIcon className={"w-5"} /> : <EyeOffIcon className={"w-5"} />}
         </div>
       )}
     </div>

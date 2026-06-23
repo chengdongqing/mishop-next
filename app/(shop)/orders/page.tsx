@@ -1,23 +1,23 @@
-import Loading from '@/components/ui/loading';
-import UserLayout from '@/components/ui/user-layout';
-import { OrderStatus } from '@/enums/order';
-import { findOrders } from '@/services/orders';
-import { Metadata } from 'next';
-import { Suspense } from 'react';
-import FilterBar from './filter-bar';
-import Safety from './safety';
-import SearchResult from './search-result';
+import Loading from "@/components/ui/loading";
+import UserLayout from "@/components/ui/user-layout";
+import { OrderStatus } from "@/enums/order";
+import { findOrders } from "@/services/orders";
+import { Metadata } from "next";
+import { Suspense } from "react";
+import FilterBar from "./filter-bar";
+import Safety from "./safety";
+import SearchResult from "./search-result";
 
-const title = '我的订单';
+const title = "我的订单";
 
 export const metadata: Metadata = {
-  title
+  title,
 };
 
 const pageSize = 10;
 
 export default async function OrdersPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: Promise<
     Partial<{
@@ -34,15 +34,15 @@ export default async function OrdersPage({
     status,
     keyword: q1,
     page: currentPage,
-    size: pageSize
+    size: pageSize,
   });
 
-  const searchKey = `${q1 ?? ''}-${status ?? ''}-${currentPage}`;
+  const searchKey = `${q1 ?? ""}-${status ?? ""}-${currentPage}`;
 
   return (
-    <UserLayout label={'交易订单'} title={title} extra={<Safety />}>
+    <UserLayout label={"交易订单"} title={title} extra={<Safety />}>
       <FilterBar />
-      <Suspense key={searchKey} fallback={<Loading className={'h-[20vh]'} />}>
+      <Suspense key={searchKey} fallback={<Loading className={"h-[20vh]"} />}>
         <SearchResult searchPromise={searchPromise} />
       </Suspense>
     </UserLayout>

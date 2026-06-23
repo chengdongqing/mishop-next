@@ -1,15 +1,15 @@
-import { ProductProvider } from '@/contexts/product-context';
-import { findProductDetails } from '@/services/products';
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-import { PropsWithChildren } from 'react';
-import Links from './links';
+import { ProductProvider } from "@/contexts/product-context";
+import { findProductDetails } from "@/services/products";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { PropsWithChildren } from "react";
+import Links from "./links";
 
 /**
  * 动态生成SEO信息
  */
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   return {
     title: product?.name,
-    description: product?.description
+    description: product?.description,
   };
 }
 
@@ -30,24 +30,24 @@ export async function generateMetadata({
 
 export default async function ProductsLayout({
   children,
-  params
+  params,
 }: PropsWithChildren<{ params: Promise<{ id: string }> }>) {
   const { id } = await params;
   const product = await findProductDetails(id);
 
   if (!product) {
-    redirect('/404');
+    redirect("/404");
   }
 
   return (
     <>
       <div
         className={
-          'border-primary sticky top-0 z-10 border-t-1 border-b-1 bg-[var(--color-bg)] shadow-[0_5px_5px_#00000012]'
+          "border-primary sticky top-0 z-10 border-t-1 border-b-1 bg-[var(--color-bg)] shadow-[0_5px_5px_#00000012]"
         }
       >
-        <div className={'w-primary flex h-[65] items-center justify-between'}>
-          <h2 className={'text-lg text-[#424242]'}>{product.name}</h2>
+        <div className={"w-primary flex h-[65] items-center justify-between"}>
+          <h2 className={"text-lg text-[#424242]"}>{product.name}</h2>
           <Links product={product} />
         </div>
       </div>

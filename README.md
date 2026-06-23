@@ -1,6 +1,6 @@
 # mishop-next
 
-精仿小米商城，基于Next.js 15 + React 19 + TypeScript。
+精仿小米商城，基于Next.js 16 + React 19 + Vite+。
 
 👉 项目地址：
 
@@ -72,16 +72,16 @@
 
 ## 🏗️ 技术栈
 
-| 类别   | 技术栈                      |
-|------|--------------------------|
-| 前端框架 | Next.js 15+ (App Router) |
-| 前端库  | React 19                 |
-| 样式   | Tailwind CSS, Motion     | |
-| 数据库  | MySQL + Drizzle ORM      |
+| 类别     | 技术栈                   |
+| -------- | ------------------------ | --- |
+| 前端框架 | Next.js 16+ (App Router) |
+| 前端库   | React 19                 |
+| 样式     | Tailwind CSS, Motion     |     |
+| 数据库   | MySQL + Drizzle ORM      |
 | 消息队列 | Redis + BullMQ           |
 | 实时通信 | WebSocket                |
-| 国际化  | next-intl                |
-| 认证   | next-auth                |
+| 国际化   | next-intl                |
+| 认证     | next-auth                |
 
 ---
 
@@ -97,9 +97,25 @@ cd mishop-next
 ### 2. 安装依赖
 
 ```bash
-npm install
+vp install
 # 或
-yarn install
+vp i
+```
+
+#### 注： `vite plus`是vite统一工具链，简称`vite+`，命令为`vp`
+
+安装`vp`：
+
+macOS / Linux
+
+```bash
+curl -fsSL https://vite.plus | bash
+```
+
+Windows
+
+```bash
+irm https://vite.plus/ps1 | iex
 ```
 
 ### 3. 配置环境变量
@@ -141,17 +157,13 @@ docker run --name redis -p 6379:6379 -d redis
 ### 5. 启动开发服务器
 
 ```bash
-npm run dev
-# 或
-yarn dev
+vp run dev
 ```
 
 #### 启动项目同时启动`bullmq`、`socket.io`服务，可实现模拟支付回调、订单超时未支付自动取消
 
 ```bash
-npm run dev:all
-# 或
-yarn dev:all
+vp run dev:all
 ```
 
 ### 6.数据库初始化
@@ -165,15 +177,15 @@ yarn dev:all
 ### 7. 构建生产版本
 
 ```bash
-npm run build
+vp run build
 ```
 
 运行生产版本
 
 ```bash
-npm run start
+vp run start
 # 或
-npm run start:all
+vp run start:all
 ```
 
 构建后页面响应速度将大幅提升

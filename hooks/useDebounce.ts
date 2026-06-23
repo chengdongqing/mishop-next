@@ -1,10 +1,7 @@
-import useLatest from '@/hooks/useLatest';
-import { useCallback, useRef } from 'react';
+import useLatest from "@/hooks/useLatest";
+import { useCallback, useRef } from "react";
 
-export default function useDebounce(
-  fn: (...args: unknown[]) => void,
-  interval = 200
-) {
+export default function useDebounce(fn: (...args: unknown[]) => void, interval = 200) {
   const fnRef = useLatest(fn);
   const timeoutId = useRef<NodeJS.Timeout>(undefined);
 
@@ -15,6 +12,6 @@ export default function useDebounce(
         fnRef.current(...args);
       }, interval);
     },
-    [fnRef, interval]
+    [fnRef, interval],
   );
 }

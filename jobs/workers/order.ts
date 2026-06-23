@@ -1,46 +1,46 @@
-import { OrderStatus } from '@/enums/order';
-import * as schema from '@/lib/schema';
-import { orderEvents, orderItems, orders, productSkus } from '@/lib/schema';
-import { Worker } from 'bullmq';
-import dotenv from 'dotenv';
-import { and, eq, sql } from 'drizzle-orm';
-import { drizzle } from 'drizzle-orm/mysql2';
-import fs from 'node:fs';
+import { OrderStatus } from "@/enums/order";
+import * as schema from "@/lib/schema";
+import { orderEvents, orderItems, orders, productSkus } from "@/lib/schema";
+import { Worker } from "bullmq";
+import dotenv from "dotenv";
+import { and, eq, sql } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/mysql2";
+import fs from "node:fs";
 
-if (fs.existsSync('.env.local')) {
-  dotenv.config({ path: '.env.local' });
+if (fs.existsSync(".env.local")) {
+  dotenv.config({ path: ".env.local" });
 } else {
   dotenv.config();
 }
 
 const worker = new Worker(
-  'order-queue',
+  "order-queue",
   async (job) => {
-    if (job.name === 'cancelOrder') {
+    if (job.name === "cancelOrder") {
       await cancelOrder(job.data.orderId);
     }
   },
   {
     connection: {
-      url: process.env.REDIS_URL!
-    }
-  }
+      url: process.env.REDIS_URL!,
+    },
+  },
 );
 
-worker.on('completed', (job) => {
+worker.on("completed", (job) => {
   console.log(`✅ Job ${job.id} completed`);
 });
 
-worker.on('failed', (job, err) => {
+worker.on("failed", (job, err) => {
   console.error(`❌ Job ${job?.id} failed:`, err);
 });
 
 const db = drizzle({
   connection: {
-    uri: process.env.DATABASE_URL!
+    uri: process.env.DATABASE_URL!,
   },
   schema,
-  mode: 'default'
+  mode: "default",
 });
 
 /**
@@ -51,11 +51,9 @@ async function cancelOrder(id: number) {
   const [{ affectedRows }] = await db
     .update(orders)
     .set({
-      status: OrderStatus.CANCELED
+      status: OrderStatus.CANCELED,
     })
-    .where(
-      and(eq(orders.id, id), eq(orders.status, OrderStatus.PENDING_PAYMENT))
-    );
+    .where(and(eq(orders.id, id), eq(orders.status, OrderStatus.PENDING_PAYMENT)));
   // 不是待支付则终止执行
   if (!affectedRows) {
     return;
@@ -65,7 +63,7 @@ async function cancelOrder(id: number) {
   await db
     .update(orderEvents)
     .set({
-      canceledAt: new Date()
+      canceledAt: new Date(),
     })
     .where(eq(orderEvents.orderId, id));
 
@@ -73,19 +71,19 @@ async function cancelOrder(id: number) {
   const items = await db.query.orderItems.findMany({
     columns: {
       skuId: true,
-      quantity: true
+      quantity: true,
     },
-    where: eq(orderItems.orderId, id)
+    where: eq(orderItems.orderId, id),
   });
   await Promise.all(
     items.map(async (item) => {
       await db
         .update(productSkus)
         .set({
-          stocks: sql`${productSkus.stocks} + ${item.quantity}`
+          stocks: sql`${productSkus.stocks} + ${item.quantity}`,
         })
         .where(eq(productSkus.id, item.skuId));
-    })
+    }),
   );
 
   // TODO 关闭支付通道

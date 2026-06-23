@@ -1,21 +1,22 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function MiLogo({ size = 56 }: { size?: number }) {
   return (
-    <Link href={'/'} className={'cursor-pointer'}>
+    <Link href={"/"} className={"cursor-pointer"}>
       <Image
-        src={'/logo.png'}
-        title={'小米官网'}
-        alt={'logo'}
+        src={"/logo.png"}
+        title={"小米官网"}
+        alt={"logo"}
         unoptimized
         width={size}
         height={size}
         draggable={false}
-        className={'duration-200 active:scale-85'}
+        loading={"eager"}
+        className={"duration-200 active:scale-85"}
         style={{
           width: size,
-          height: size
+          height: size,
         }}
       />
     </Link>

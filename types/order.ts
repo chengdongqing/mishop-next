@@ -1,4 +1,4 @@
-import { OrderStatus, PaymentMethod } from '@/enums/order';
+import { OrderStatus, PaymentMethod } from "@/enums/order";
 
 export interface Order {
   id: number;

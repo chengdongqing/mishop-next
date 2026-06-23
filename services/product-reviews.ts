@@ -1,58 +1,50 @@
-'use server';
+"use server";
 
-import { db } from '@/lib/db';
-import { Result } from '@/lib/result';
-import { productReviews } from '@/lib/schema';
-import { createPaginationMeta, getUserId, maskPhone } from '@/lib/utils';
-import { Page, PageRequest } from '@/types/common';
-import { ProductReview } from '@/types/product-review';
-import { and, eq, gte, isNotNull, SQL, sql } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
+import { db } from "@/lib/db";
+import { Result } from "@/lib/result";
+import { productReviews } from "@/lib/schema";
+import { createPaginationMeta, getUserId, maskPhone } from "@/lib/utils";
+import { Page, PageRequest } from "@/types/common";
+import { ProductReview } from "@/types/product-review";
+import { and, eq, gte, isNotNull, SQL, sql } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 /**
  * 统计指定商品的评价相关数量
  */
 export async function countReviews(productId: number) {
   // 评价总数
-  const totalCount = await db.$count(
-    productReviews,
-    eq(productReviews.productId, productId)
-  );
+  const totalCount = await db.$count(productReviews, eq(productReviews.productId, productId));
 
   // 每种评分的数量
   const groupedRatings = await db
     .select({
       rating: productReviews.rating,
-      value: sql<number>`count(*)`
+      value: sql<number>`count(*)`,
     })
     .from(productReviews)
     .where(eq(productReviews.productId, productId))
     .groupBy(productReviews.rating);
-  const ratingsMap = groupedRatings.reduce(
-    (acc: Record<number, number>, { rating, value }) => {
-      acc[rating] = value;
-      return acc;
-    },
-    {}
-  );
+  const ratingsMap = groupedRatings.reduce((acc: Record<number, number>, { rating, value }) => {
+    acc[rating] = value;
+    return acc;
+  }, {});
 
   // 好评数量
   const positiveCount = await db.$count(
     productReviews,
-    and(eq(productReviews.productId, productId), gte(productReviews.rating, 3))
+    and(eq(productReviews.productId, productId), gte(productReviews.rating, 3)),
   );
 
   // 好评率
   const positiveRate =
-    totalCount > 0
-      ? Math.floor((positiveCount / totalCount) * 10000) / 100
-      : 100;
+    totalCount > 0 ? Math.floor((positiveCount / totalCount) * 10000) / 100 : 100;
 
   return {
     totalCount,
     ratingsMap,
     positiveCount,
-    positiveRate
+    positiveRate,
   };
 }
 
@@ -65,9 +57,7 @@ interface ReviewsRequest extends PageRequest {
 /**
  * 查询指定商品的评价数据
  */
-export async function findReviews(
-  request: ReviewsRequest
-): Promise<Page<ProductReview>> {
+export async function findReviews(request: ReviewsRequest): Promise<Page<ProductReview>> {
   // 构建查询条件
   const filters: SQL[] = [];
   filters.push(eq(productReviews.productId, request.productId));
@@ -93,13 +83,13 @@ export async function findReviews(
           id: true,
           avatarUrl: true,
           name: true,
-          phone: true
-        }
-      }
+          phone: true,
+        },
+      },
     },
     where: conditions,
     limit: size,
-    offset
+    offset,
   });
 
   return {
@@ -116,11 +106,11 @@ export async function findReviews(
         user: {
           id: user.id,
           name: user.name ?? phone,
-          avatarUrl: user.avatarUrl ?? '/avatar.webp',
-          phone
-        }
+          avatarUrl: user.avatarUrl ?? "/avatar.webp",
+          phone,
+        },
       };
-    })
+    }),
   };
 }
 
@@ -137,7 +127,7 @@ interface CreateProductReviewRequest {
 export async function createProductReview(
   orderId: number,
   productId: number,
-  request: CreateProductReviewRequest
+  request: CreateProductReviewRequest,
 ): Promise<Result<void>> {
   const userId = await getUserId();
 
@@ -146,11 +136,11 @@ export async function createProductReview(
     where: and(
       eq(productReviews.userId, userId),
       eq(productReviews.orderId, orderId),
-      eq(productReviews.productId, productId)
-    )
+      eq(productReviews.productId, productId),
+    ),
   }));
   if (isExisted) {
-    return Result.fail('该商品已评价');
+    return Result.fail("该商品已评价");
   }
 
   // 保存评价信息
@@ -158,10 +148,10 @@ export async function createProductReview(
     userId,
     orderId,
     productId,
-    ...request
+    ...request,
   });
 
-  revalidatePath('/orders/reviews');
+  revalidatePath("/orders/reviews");
 
   return Result.ok();
 }

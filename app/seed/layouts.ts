@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { db } from "@/lib/db";
 import {
   layoutBricksData,
   layoutBrickTabItemsData,
@@ -6,8 +6,8 @@ import {
   layoutHeaderNavItemsData,
   layoutHeaderNavsData,
   layoutHeroCategoriesData,
-  layoutHeroCategoryItemsData
-} from '@/lib/placeholder-data';
+  layoutHeroCategoryItemsData,
+} from "@/lib/placeholder-data";
 import {
   layoutBricks,
   layoutBrickTabItems,
@@ -15,13 +15,13 @@ import {
   layoutHeaderNavItems,
   layoutHeaderNavs,
   layoutHeroCategories,
-  layoutHeroCategoryItems
-} from '@/lib/schema';
+  layoutHeroCategoryItems,
+} from "@/lib/schema";
 
 export async function seedLayoutHeader() {
   // 删除表
-  await db.execute('drop table if exists mishop.layout_header_navs;');
-  await db.execute('drop table if exists mishop.layout_header_nav_items;');
+  await db.execute("drop table if exists mishop.layout_header_navs;");
+  await db.execute("drop table if exists mishop.layout_header_nav_items;");
 
   // 创建表
   await db.execute(createHeaderNavsTableSql);
@@ -61,8 +61,8 @@ const createHeaderNavItemsTableSql = `
 
 export async function seedLayoutHeroCategories() {
   // 删除表
-  await db.execute('drop table if exists mishop.layout_hero_categories;');
-  await db.execute('drop table if exists mishop.layout_hero_category_items;');
+  await db.execute("drop table if exists mishop.layout_hero_categories;");
+  await db.execute("drop table if exists mishop.layout_hero_category_items;");
 
   // 创建表
   await db.execute(createHeroCategoriesTableSql);
@@ -102,9 +102,9 @@ const createHeroCategoryItemsTableSql = `
 
 export async function seedLayoutBricks() {
   // 删除表
-  await db.execute('drop table if exists mishop.layout_bricks;');
-  await db.execute('drop table if exists mishop.layout_brick_tabs;');
-  await db.execute('drop table if exists mishop.layout_brick_tab_items;');
+  await db.execute("drop table if exists mishop.layout_bricks;");
+  await db.execute("drop table if exists mishop.layout_brick_tabs;");
+  await db.execute("drop table if exists mishop.layout_brick_tab_items;");
 
   // 创建表
   await db.execute(createBricksTableSql);

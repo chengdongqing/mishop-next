@@ -1,6 +1,6 @@
-import useSetState from '@/hooks/useSetState';
-import { ProductSku } from '@/types/product';
-import { useCallback, useMemo } from 'react';
+import useSetState from "@/hooks/useSetState";
+import { ProductSku } from "@/types/product";
+import { useCallback, useMemo } from "react";
 
 export default function useSkus(skus: ProductSku[]) {
   const [activeSkus, setActiveSkus] = useSetState(() => {
@@ -16,7 +16,7 @@ export default function useSkus(skus: ProductSku[]) {
         });
       });
     },
-    [activeSkus, skus]
+    [activeSkus, skus],
   );
 
   const categories = useMemo(() => {
@@ -46,10 +46,10 @@ export default function useSkus(skus: ProductSku[]) {
             return (
               index === 0 ||
               findSku({
-                [item]: item1
+                [item]: item1,
               })
             );
-          })
+          }),
       }))
       .filter((item) => {
         return item.children.length && activeSkus[item.name];
@@ -60,9 +60,7 @@ export default function useSkus(skus: ProductSku[]) {
 
   function switchSku(name: string, value: string) {
     const attrs = skus.find((item) => {
-      return item.attributes.some(
-        (item3) => item3.name === name && item3.value === value
-      );
+      return item.attributes.some((item3) => item3.name === name && item3.value === value);
     })?.attributes;
     if (attrs) {
       if (!findSku({ [name]: value })) {
@@ -70,7 +68,7 @@ export default function useSkus(skus: ProductSku[]) {
         setActiveSkus(sku, true);
       } else {
         setActiveSkus({
-          [name]: value
+          [name]: value,
         });
       }
     }
@@ -83,7 +81,7 @@ function arrayToObject(source: { name: string; value: string }[]) {
   return source.reduce((acc: Record<string, string>, item) => {
     return {
       ...acc,
-      [item.name]: item.value
+      [item.name]: item.value,
     };
   }, {});
 }

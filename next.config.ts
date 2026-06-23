@@ -1,18 +1,19 @@
-import type { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  reactCompiler: true,
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '*'
-      }
-    ]
+        protocol: "https",
+        hostname: "*",
+      },
+    ],
   },
   experimental: {
-    useCache: true
-  }
+    useCache: true,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

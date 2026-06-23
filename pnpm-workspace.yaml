@@ -1,0 +1,24 @@
+allowBuilds:
+  "@parcel/watcher": set this to true or false
+  "@swc/core": set this to true or false
+  esbuild: set this to true or false
+  msgpackr-extract: set this to true or false
+  sharp: set this to true or false
+  unrs-resolver: set this to true or false
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: 4.1.9
+  vite-plus: latest
+overrides:
+  vite: "catalog:"
+  vitest: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"

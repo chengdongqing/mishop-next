@@ -1,13 +1,9 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect, useState } from 'react';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { useRouter, useSearchParams } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
-export default function Search({
-  hotNamesPromise
-}: {
-  hotNamesPromise: Promise<string[]>;
-}) {
+export default function Search({ hotNamesPromise }: { hotNamesPromise: Promise<string[]> }) {
   const keywords = use(hotNamesPromise);
 
   const router = useRouter();
@@ -16,32 +12,29 @@ export default function Search({
   const [focused, setFocused] = useState(false);
 
   function searchAction(formData: FormData) {
-    const q = formData.get('q') as string;
+    const q = formData.get("q") as string;
     const params = new URLSearchParams(searchParams);
     if (q.trim()) {
-      params.set('q', q);
+      params.set("q", q);
     } else {
-      params.delete('q');
+      params.delete("q");
     }
     router.replace(`/search?${params.toString()}`);
   }
 
   return (
-    <form
-      action={searchAction}
-      className={'group relative ml-auto flex h-[50px] w-[296px]'}
-    >
+    <form action={searchAction} className={"group relative ml-auto flex h-[50px] w-[296px]"}>
       <input
         name="q"
         autoComplete="off"
         placeholder={placeholder}
-        defaultValue={searchParams.get('q')?.toString()}
+        defaultValue={searchParams.get("q")?.toString()}
         className={clsx(
-          'border-primary h-full flex-1 border-1 px-[10px] text-ellipsis',
-          'duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]',
+          "border-primary h-full flex-1 border-1 px-[10px] text-ellipsis",
+          "duration-200 outline-none group-hover:border-[#b0b0b0] placeholder:text-[#777]",
           {
-            '!border-[var(--color-primary)]': focused
-          }
+            "!border-[var(--color-primary)]": focused,
+          },
         )}
         onFocus={() => setFocused(true)}
         onBlur={() => setTimeout(() => setFocused(false), 200)}
@@ -49,14 +42,14 @@ export default function Search({
       <button
         type="submit"
         className={clsx(
-          'border-primary ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border-1 duration-200',
-          'group-hover:border-[#b0b0b0] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white',
+          "border-primary ml-[-1px] flex h-full w-[50px] cursor-pointer items-center justify-center border-1 duration-200",
+          "group-hover:border-[#b0b0b0] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white",
           {
-            '!border-[var(--color-primary)]': focused
-          }
+            "!border-[var(--color-primary)]": focused,
+          },
         )}
       >
-        <MagnifyingGlassIcon className={'h-5 w-5'} />
+        <MagnifyingGlassIcon className={"h-5 w-5"} />
       </button>
 
       {focused && <RecommendedList keywords={keywords} />}
@@ -75,14 +68,14 @@ function RecommendedList({ keywords }: { keywords: string[] }) {
   return (
     <ul
       className={
-        'absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border border-[var(--color-primary)] bg-[var(--color-bg)]'
+        "absolute top-[50px] left-0 z-20 mt-[-1px] w-[calc(100%-49px)] border border-[var(--color-primary)] bg-[var(--color-bg)]"
       }
     >
       {keywords.map((keyword) => (
         <li
           key={keyword}
           className={
-            'cursor-pointer p-[6px_15px] text-xs text-ellipsis text-[#424242] hover:bg-[#fafafa]'
+            "cursor-pointer p-[6px_15px] text-xs text-ellipsis text-[#424242] hover:bg-[#fafafa]"
           }
           onClick={() => searchAction(keyword)}
         >
@@ -94,7 +87,7 @@ function RecommendedList({ keywords }: { keywords: string[] }) {
 }
 
 function usePlaceholderInterval(keywords: string[], interval: number = 5000) {
-  const [placeholder, setPlaceholder] = useState('');
+  const [placeholder, setPlaceholder] = useState("");
 
   useEffect(() => {
     if (keywords.length === 0) return; // 如果 keywords 为空，直接返回，不做任何处理

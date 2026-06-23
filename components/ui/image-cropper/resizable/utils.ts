@@ -23,14 +23,9 @@ export const vectorAngle = (x: number, y: number) => Math.atan2(y, x);
  * @param width - The width of the rectangle
  * @param height - The height of the rectangle
  */
-export const topLeft2Center = (
-  top: number,
-  left: number,
-  width: number,
-  height: number
-) => ({
+export const topLeft2Center = (top: number, left: number, width: number, height: number) => ({
   x: left + width / 2,
-  y: top + height / 2
+  y: top + height / 2,
 });
 
 /**
@@ -44,10 +39,10 @@ export const center2TopLeft = (
   centerX: number,
   centerY: number,
   width: number,
-  height: number
+  height: number,
 ) => ({
   left: centerX - width / 2,
-  top: centerY - height / 2
+  top: centerY - height / 2,
 });
 
 /**
@@ -57,28 +52,28 @@ export const captureClick = () => {
   const onClickHandler = (e: MouseEvent) => {
     e.stopPropagation();
     requestAnimationFrame(() => {
-      document.removeEventListener('click', onClickHandler, true);
+      document.removeEventListener("click", onClickHandler, true);
     });
   };
 
-  document.addEventListener('click', onClickHandler, true);
+  document.addEventListener("click", onClickHandler, true);
 };
 
 /**
  * Returns the normalized x and y coordinates for mouse and touch events.
  */
 export function getEventCoordinates(e: MouseEvent | TouchEvent) {
-  if ('touches' in e) {
+  if ("touches" in e) {
     const { clientX: x, clientY: y } = e.touches[0];
     return {
       x,
-      y
+      y,
     };
   }
 
   return {
     x: e.clientX,
-    y: e.clientY
+    y: e.clientY,
   };
 }
 

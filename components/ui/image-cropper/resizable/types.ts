@@ -31,17 +31,6 @@ export type OnResizeEndHandler = (e: {
   nativeEvent: MouseEvent | TouchEvent;
 }) => void;
 
-export type ResizeHandlerType =
-  | 'nw'
-  | 'n'
-  | 'ne'
-  | 'w'
-  | 'e'
-  | 'sw'
-  | 's'
-  | 'se';
+export type ResizeHandlerType = "nw" | "n" | "ne" | "w" | "e" | "sw" | "s" | "se";
 export type OnDragMouseDown = (e: MouseEvent | TouchEvent) => void;
-export type OnResizeMouseDown = (
-  e: MouseEvent | TouchEvent,
-  type: ResizeHandlerType
-) => void;
+export type OnResizeMouseDown = (e: MouseEvent | TouchEvent, type: ResizeHandlerType) => void;

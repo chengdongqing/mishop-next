@@ -1,14 +1,14 @@
-import Credentials from '@auth/core/providers/credentials';
-import NextAuth from 'next-auth';
+import Credentials from "next-auth/providers/credentials";
+import NextAuth from "next-auth";
 
 export const { signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      authorize: (user) => user
-    })
+      authorize: (user) => user,
+    }),
   ],
   pages: {
-    signIn: '/auth/signin'
+    signIn: "/auth/signin",
   },
   callbacks: {
     jwt({ token, user }) {
@@ -20,6 +20,6 @@ export const { signIn, signOut, auth } = NextAuth({
     session({ session, token }) {
       session.user.id = token.id as string;
       return session;
-    }
-  }
+    },
+  },
 });

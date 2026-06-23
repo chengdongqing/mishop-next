@@ -1,6 +1,6 @@
-import Breadcrumb from '@/components/ui/breadcrumb';
-import VideoCard from '@/components/ui/video-card';
-import { findVideos } from '@/services/videos';
+import Breadcrumb from "@/components/ui/breadcrumb";
+import VideoCard from "@/components/ui/video-card";
+import { findVideos } from "@/services/videos";
 
 // export const dynamic = 'force-static';
 
@@ -9,11 +9,11 @@ export default async function VideosPage() {
 
   return (
     <>
-      <Breadcrumb value={'视频列表'} />
-      <section className={'bg-primary'}>
-        <div className={'w-primary'}>
+      <Breadcrumb value={"视频列表"} />
+      <section className={"bg-primary"}>
+        <div className={"w-primary"}>
           <Title />
-          <ul className={'grid grid-cols-2 gap-3.5 py-4'}>
+          <ul className={"grid grid-cols-2 gap-3.5 py-4"}>
             {videos.map((video) => (
               <VideoCard key={video.id} video={video} large />
             ))}
@@ -26,11 +26,7 @@ export default async function VideosPage() {
 
 function Title() {
   return (
-    <h1
-      className={
-        'h-[80] bg-[var(--color-bg)] ps-[40px] text-xl leading-[80px] text-[#424242]'
-      }
-    >
+    <h1 className={"h-[80] bg-[var(--color-bg)] ps-[40px] text-xl leading-[80px] text-[#424242]"}>
       全部视频
     </h1>
   );

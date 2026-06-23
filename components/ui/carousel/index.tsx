@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
+import clsx from "clsx";
 import React, {
   Children,
   CSSProperties,
   PropsWithChildren,
   RefObject,
-  useImperativeHandle
-} from 'react';
-import styles from './styles.module.css';
-import useCarousel from './useCarousel';
+  useImperativeHandle,
+} from "react";
+import styles from "./styles.module.css";
+import useCarousel from "./useCarousel";
 // 临时解决方案。基于turbopack启动并使用css modules时，且animation中定义的duration是css变量，会导致不能正确解析animation name
-import './keyframes.css';
+import "./keyframes.css";
 
 export interface CarouselProps extends PropsWithChildren {
   ref?: RefObject<CarouselInstance | null>;
@@ -20,9 +20,9 @@ export interface CarouselProps extends PropsWithChildren {
   // 自动切换
   autoplay?: boolean;
   // 动画效果
-  animation?: 'scrollX' | 'scrollY' | 'fade';
+  animation?: "scrollX" | "scrollY" | "fade";
   // 动画方向
-  direction?: 'forward' | 'reverse';
+  direction?: "forward" | "reverse";
   // 动画时长
   duration?: number;
   // 切换间隔
@@ -45,28 +45,26 @@ export default function Carousel({
   ref,
   children,
   autoplay = true,
-  animation = 'fade',
-  direction: direction1 = 'forward',
+  animation = "fade",
+  direction: direction1 = "forward",
   duration = 800,
   interval = 3000,
   circular = true,
   style,
   className,
   afterChange,
-  beforeChange
+  beforeChange,
 }: CarouselProps) {
-  const [
-    { activeIndex, prevIndex, nextIndex, direction, timer },
-    { switchIndex, startPlay }
-  ] = useCarousel({
-    direction: direction1,
-    children,
-    autoplay,
-    interval,
-    circular,
-    afterChange,
-    beforeChange
-  });
+  const [{ activeIndex, prevIndex, nextIndex, direction, timer }, { switchIndex, startPlay }] =
+    useCarousel({
+      direction: direction1,
+      children,
+      autoplay,
+      interval,
+      circular,
+      afterChange,
+      beforeChange,
+    });
 
   function toIndex(index: number) {
     startPlay();
@@ -82,7 +80,7 @@ export default function Carousel({
       startPlay();
       switchIndex(false);
     },
-    to: toIndex
+    to: toIndex,
   }));
 
   return (
@@ -90,7 +88,7 @@ export default function Carousel({
       style={
         {
           ...style,
-          '--duration': `${duration}ms`
+          "--duration": `${duration}ms`,
         } as CSSProperties
       }
       className={clsx(styles.carousel, className)}
@@ -107,7 +105,7 @@ export default function Carousel({
             styles[direction as string],
             index === activeIndex && styles.active,
             prevIndex === index && styles.prev,
-            nextIndex === index && styles.next
+            nextIndex === index && styles.next,
           )}
         >
           {child}

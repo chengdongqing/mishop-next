@@ -1,25 +1,21 @@
-import {
-  ReloadIcon,
-  RotateLeftIcon,
-  RotateRightIcon
-} from '@/components/icons';
-import Space from '@/components/ui/space';
-import toast from '@/components/ui/toast';
-import { useKeyboardEscape } from '@/hooks/useKeyboardShortcuts';
-import useSetState, { SetStateAction } from '@/hooks/useSetState';
-import { downloadFileAsync } from '@/lib/utils';
+import { ReloadIcon, RotateLeftIcon, RotateRightIcon } from "@/components/icons";
+import Space from "@/components/ui/space";
+import toast from "@/components/ui/toast";
+import { useKeyboardEscape } from "@/hooks/useKeyboardShortcuts";
+import useSetState, { SetStateAction } from "@/hooks/useSetState";
+import { downloadFileAsync } from "@/lib/utils";
 import {
   ArrowDownTrayIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   MinusCircleIcon,
   PlusCircleIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { startTransition, useEffect, useMemo, useState } from 'react';
-import { createRoot, Root } from 'react-dom/client';
-import styles from './styles.module.css';
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { startTransition, useEffect, useMemo, useState } from "react";
+import { createRoot, Root } from "react-dom/client";
+import styles from "./styles.module.css";
 
 interface ImagePreviewProps {
   urls: string[];
@@ -28,7 +24,7 @@ interface ImagePreviewProps {
   onClose(): void;
 }
 
-function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
+function ImagePreview({ urls, index = 0, onClose }: ImagePreviewProps) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     setTimeout(() => setOpen(true));
@@ -54,7 +50,7 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
 
   const [transform, setTransform] = useSetState({
     scale: 1,
-    rotate: 0
+    rotate: 0,
   });
 
   useEffect(() => {}, []);
@@ -69,20 +65,16 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={urls[current]}
-          alt={''}
+          alt={""}
           style={{
-            transform: `scale(${transform.scale}) rotate(${transform.rotate}deg)`
+            transform: `scale(${transform.scale}) rotate(${transform.rotate}deg)`,
           }}
         />
       </div>
 
       <button
-        className={clsx(
-          styles.btn_switch,
-          styles.left,
-          isFirst && styles.disabled
-        )}
-        title={isFirst ? '已是第一张' : ''}
+        className={clsx(styles.btn_switch, styles.left, isFirst && styles.disabled)}
+        title={isFirst ? "已是第一张" : ""}
         onClick={() => {
           if (!isFirst) {
             setCurrent(current - 1);
@@ -92,12 +84,8 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
         <ChevronLeftIcon className={styles.icon} />
       </button>
       <button
-        className={clsx(
-          styles.btn_switch,
-          styles.right,
-          isLast && styles.disabled
-        )}
-        title={isLast ? '已是最后一张' : ''}
+        className={clsx(styles.btn_switch, styles.right, isLast && styles.disabled)}
+        title={isLast ? "已是最后一张" : ""}
         onClick={() => {
           if (!isLast) {
             setCurrent(current + 1);
@@ -114,30 +102,30 @@ function ImagePreview({ urls = [], index = 0, onClose }: ImagePreviewProps) {
 
 function ActionBar({
   src,
-  onChange
+  onChange,
 }: {
   src: string;
   onChange: (patch: SetStateAction<{ scale: number; rotate: number }>) => void;
 }) {
   return (
     <div className={styles.footer}>
-      <Space split={'|'} size={30}>
+      <Space split={"|"} size={30}>
         <Space size={20}>
           <button
-            title={'缩小图片'}
+            title={"缩小图片"}
             onClick={() => {
               onChange((value) => ({
-                scale: value.scale - 0.3
+                scale: value.scale - 0.3,
               }));
             }}
           >
             <MinusCircleIcon className={styles.icon} />
           </button>
           <button
-            title={'放大图片'}
+            title={"放大图片"}
             onClick={() => {
               onChange((value) => ({
-                scale: value.scale + 0.3
+                scale: value.scale + 0.3,
               }));
             }}
           >
@@ -146,7 +134,7 @@ function ActionBar({
         </Space>
         <Space size={20}>
           <button
-            title={'下载'}
+            title={"下载"}
             onClick={() => {
               startTransition(async () => {
                 try {
@@ -160,11 +148,11 @@ function ActionBar({
             <ArrowDownTrayIcon className={styles.icon} />
           </button>
           <button
-            title={'还原缩放'}
+            title={"还原缩放"}
             onClick={() => {
               onChange({
                 scale: 1,
-                rotate: 0
+                rotate: 0,
               });
             }}
           >
@@ -173,20 +161,20 @@ function ActionBar({
         </Space>
         <Space size={20}>
           <button
-            title={'向左旋转'}
+            title={"向左旋转"}
             onClick={() => {
               onChange((value) => ({
-                rotate: value.rotate - 90
+                rotate: value.rotate - 90,
               }));
             }}
           >
             <RotateLeftIcon className={styles.icon1} />
           </button>
           <button
-            title={'向右旋转'}
+            title={"向右旋转"}
             onClick={() => {
               onChange((value) => ({
-                rotate: value.rotate + 90
+                rotate: value.rotate + 90,
               }));
             }}
           >
@@ -201,7 +189,7 @@ function ActionBar({
 let popup: Root | undefined;
 export default function previewImages(urls: string[], index?: number) {
   popup?.unmount();
-  popup = createRoot(document.getElementById('popup')!);
+  popup = createRoot(document.getElementById("popup")!);
   popup.render(
     <ImagePreview
       urls={urls}
@@ -209,7 +197,7 @@ export default function previewImages(urls: string[], index?: number) {
       onClose={() => {
         popup?.unmount();
       }}
-    />
+    />,
   );
 }
 

@@ -1,64 +1,64 @@
 .btn {
-    width: 160px;
-    height: 40px;
-    font-size: 14px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    border: none;
-    background-color: var(--color-primary);
-    user-select: none;
-    cursor: pointer;
-    transition: 0.4s;
+  width: 160px;
+  height: 40px;
+  font-size: 14px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: none;
+  background-color: var(--color-primary);
+  user-select: none;
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    background-color: #f25807;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+
+  &.gray {
+    background-color: #b0b0b0;
 
     &:hover {
-        background-color: #f25807;
+      background-color: #757575;
     }
+  }
 
-    &:active {
-        opacity: 0.8;
-    }
+  &.outlined {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background-color: #fff;
 
     &.gray {
-        background-color: #b0b0b0;
-
-        &:hover {
-            background-color: #757575;
-        }
+      color: #757575;
+      border-color: #b0b0b0;
     }
 
-    &.outlined {
-        color: var(--color-primary);
-        border: 1px solid var(--color-primary);
-        background-color: #fff;
-
-        &.gray {
-            color: #757575;
-            border-color: #b0b0b0;
-        }
-
-        &:not(.gray):hover {
-            color: #fff;
-            background-color: var(--color-primary);
-        }
-
-        &.gray:hover {
-            color: #b0b0b0;
-            background-color: transparent;
-        }
+    &:not(.gray):hover {
+      color: #fff;
+      background-color: var(--color-primary);
     }
 
-    &.small {
-        width: 120px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 12px;
+    &.gray:hover {
+      color: #b0b0b0;
+      background-color: transparent;
     }
+  }
 
-    &.disabled {
-        opacity: 0.4;
-        cursor: default;
-    }
+  &.small {
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
 }

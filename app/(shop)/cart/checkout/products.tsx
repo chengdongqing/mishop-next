@@ -1,14 +1,10 @@
-import { createProductUrl } from '@/lib/utils';
-import { CartProduct } from '@/types/product';
-import Image from 'next/image';
-import Link from 'next/link';
-import Title from './title';
+import { createProductUrl } from "@/lib/utils";
+import { CartProduct } from "@/types/product";
+import Image from "next/image";
+import Link from "next/link";
+import Title from "./title";
 
-export default function CheckoutProducts({
-  products
-}: {
-  products: CartProduct[];
-}) {
+export default function CheckoutProducts({ products }: { products: CartProduct[] }) {
   return (
     <section>
       <Title>商品信息</Title>
@@ -23,32 +19,30 @@ export default function CheckoutProducts({
 
 function ProductItem({ product }: { product: CartProduct }) {
   return (
-    <li className={'flex py-4 text-[#424242]'}>
-      <div className={'flex flex-1 items-center gap-x-2.5'}>
+    <li className={"flex py-4 text-[#424242]"}>
+      <div className={"flex flex-1 items-center gap-x-2.5"}>
         <Image
           src={product.pictureUrl}
-          alt={'Product Picture'}
+          alt={"Product Picture"}
           width={30}
           height={30}
-          className={'size-[30] object-scale-down'}
+          className={"size-[30] object-scale-down"}
         />
         <Link
           href={createProductUrl({
             id: product.productId,
-            slug: product.productSlug
+            slug: product.productSlug,
           })}
-          target={'_blank'}
-          className={'hover:text-primary cursor-pointer duration-200'}
+          target={"_blank"}
+          className={"hover:text-primary cursor-pointer duration-200"}
         >
           {product.fullName}
         </Link>
       </div>
-      <div className={'w-[200] text-right'}>
+      <div className={"w-[200] text-right"}>
         {product.price}元 x {product.quantity}
       </div>
-      <div className={'text-primary w-[340] text-right'}>
-        {product.subtotal}元
-      </div>
+      <div className={"text-primary w-[340] text-right"}>{product.subtotal}元</div>
     </li>
   );
 }

@@ -1,15 +1,8 @@
-'use client';
+"use client";
 
-import useUpdateEffect from '@/hooks/useUpdateEffect';
-import {
-  Children,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
-import { CarouselProps } from './index';
+import useUpdateEffect from "@/hooks/useUpdateEffect";
+import { Children, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { CarouselProps } from "./index";
 
 export default function useCarousel({
   direction: direction1,
@@ -18,7 +11,7 @@ export default function useCarousel({
   interval,
   circular,
   afterChange,
-  beforeChange
+  beforeChange,
 }: CarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(-1);
@@ -36,16 +29,16 @@ export default function useCarousel({
         if (index === -1) {
           if (next) {
             newValue = value < length - 1 ? value + 1 : 0;
-            setDirection(newValue === 0 && !circular ? 'reverse' : 'forward');
+            setDirection(newValue === 0 && !circular ? "reverse" : "forward");
           } else {
-            setDirection('reverse');
+            setDirection("reverse");
             newValue = value > 0 ? value - 1 : length - 1;
           }
         } else {
           if (index > value) {
-            setDirection('forward');
+            setDirection("forward");
           } else {
-            setDirection('reverse');
+            setDirection("reverse");
           }
         }
         setNextIndex(newValue);
@@ -53,7 +46,7 @@ export default function useCarousel({
         return newValue;
       });
     },
-    [beforeChange, circular, length]
+    [beforeChange, circular, length],
   );
 
   const startPlay = useCallback(() => {
@@ -75,6 +68,6 @@ export default function useCarousel({
 
   return [
     { activeIndex, prevIndex, nextIndex, direction, timer, length },
-    { switchIndex, startPlay }
+    { switchIndex, startPlay },
   ] as const;
 }

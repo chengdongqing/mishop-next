@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
 export default function useToggle<T = boolean, U = boolean>(
   defaultValue: T = false as T,
-  reverseValue?: U
+  reverseValue?: U,
 ) {
   const [value, setValue] = useState<T | U>(defaultValue);
 

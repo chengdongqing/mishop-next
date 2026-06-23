@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
-import { useMemo } from 'react';
-import styles from './styles.module.css';
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
+import { useMemo } from "react";
+import styles from "./styles.module.css";
 
 interface Props {
   current?: number;
@@ -17,7 +17,7 @@ export default function Pagination({
   current = 1,
   pageSize = 10,
   totalSize = 10,
-  onChange
+  onChange,
 }: Props) {
   const pages = useMemo(() => {
     return totalSize > 0 ? Math.ceil(totalSize / pageSize) : 0;
@@ -55,9 +55,7 @@ export default function Pagination({
   }, [middlePages]);
 
   const hasNextMore = useMemo(() => {
-    return (
-      middlePages.length > 0 && middlePages[middlePages.length - 1] < pages - 1
-    );
+    return middlePages.length > 0 && middlePages[middlePages.length - 1] < pages - 1;
   }, [middlePages, pages]);
 
   function handleChange(page: number) {
@@ -67,8 +65,8 @@ export default function Pagination({
   }
 
   return (
-    <div className={'py-[30] text-center'}>
-      <div className={'inline-flex gap-x-2.5'}>
+    <div className={"py-[30] text-center"}>
+      <div className={"inline-flex gap-x-2.5"}>
         {/* 左箭头 */}
         <span
           className={clsx(styles.item, current <= 1 && styles.disabled)}
@@ -78,10 +76,10 @@ export default function Pagination({
             }
           }}
         >
-          <ChevronLeftIcon className={'w-6'} />
+          <ChevronLeftIcon className={"w-6"} />
         </span>
 
-        <ul className={'flex gap-x-2.5'}>
+        <ul className={"flex gap-x-2.5"}>
           {/* 第一页 */}
           <li
             className={clsx(styles.item, current === 1 && styles.active)}
@@ -92,9 +90,7 @@ export default function Pagination({
             1
           </li>
           {/* 左侧省略页 */}
-          {hasPrevMore && (
-            <li className={clsx(styles.item, styles.disabled)}>...</li>
-          )}
+          {hasPrevMore && <li className={clsx(styles.item, styles.disabled)}>...</li>}
           {/* 中间页 */}
           {middlePages.map((item) => (
             <li
@@ -108,9 +104,7 @@ export default function Pagination({
             </li>
           ))}
           {/* 右侧省略页 */}
-          {hasNextMore && (
-            <li className={clsx(styles.item, styles.disabled)}>...</li>
-          )}
+          {hasNextMore && <li className={clsx(styles.item, styles.disabled)}>...</li>}
           {/* 最后一页 */}
           {pages > 1 && (
             <li
@@ -133,7 +127,7 @@ export default function Pagination({
             }
           }}
         >
-          <ChevronRightIcon className={'w-6'} />
+          <ChevronRightIcon className={"w-6"} />
         </span>
       </div>
     </div>

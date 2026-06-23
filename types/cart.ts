@@ -1,4 +1,4 @@
-import { CartProduct } from '@/types/product';
+import { CartProduct } from "@/types/product";
 
 export interface CartCheckout {
   products: CartProduct[];

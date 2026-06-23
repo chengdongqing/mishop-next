@@ -1,13 +1,13 @@
-import Space from '@/components/ui/space';
-import clsx from 'clsx';
-import Image from 'next/image';
-import { useRef } from 'react';
-import styles from './styles.module.css';
-import useVisible from './useVisible';
+import Space from "@/components/ui/space";
+import clsx from "clsx";
+import Image from "next/image";
+import { useRef } from "react";
+import styles from "./styles.module.css";
+import useVisible from "./useVisible";
 
 const options = [
   {
-    keypoint: '徕卡专业街拍模式',
+    keypoint: "徕卡专业街拍模式",
     otherPoints: (
       <>
         超焦距拍摄，无需对焦
@@ -16,10 +16,10 @@ const options = [
       </>
     ),
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2317.png?x-fds-process=image/resize,q_90'
+      "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2317.png?x-fds-process=image/resize,q_90",
   },
   {
-    keypoint: '徕卡一英寸可变光圈主摄',
+    keypoint: "徕卡一英寸可变光圈主摄",
     otherPoints: (
       <>
         虚实、景深，任你掌控
@@ -28,7 +28,7 @@ const options = [
       </>
     ),
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2867.png?x-fds-process=image/resize,q_90'
+      "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2867.png?x-fds-process=image/resize,q_90",
   },
   {
     keypoint: (
@@ -46,8 +46,8 @@ const options = [
       </>
     ),
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2296.png?x-fds-process=image/resize,q_90',
-    className: styles.group_cpu
+      "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2296.png?x-fds-process=image/resize,q_90",
+    className: styles.group_cpu,
   },
   {
     keypoint: (
@@ -65,8 +65,8 @@ const options = [
       </>
     ),
     pictureUrl:
-      'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/18105.png?x-fds-process=image/resize,q_90'
-  }
+      "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/18105.png?x-fds-process=image/resize,q_90",
+  },
 ];
 
 export default function Section6() {
@@ -74,27 +74,21 @@ export default function Section6() {
   const visible = useVisible(containerRef);
 
   return (
-    <div ref={containerRef} style={{ backgroundColor: '#000' }}>
-      <div
-        className={clsx(
-          styles.section,
-          styles.section6,
-          visible && styles.active
-        )}
-      >
+    <div ref={containerRef} style={{ backgroundColor: "#000" }}>
+      <div className={clsx(styles.section, styles.section6, visible && styles.active)}>
         <div className={styles.header}>
           <Image
             src={
-              'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/4397.jpg?x-fds-process=image/resize,q_90'
+              "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/4397.jpg?x-fds-process=image/resize,q_90"
             }
-            alt={''}
+            alt={""}
             width={1440}
             height={628}
-            className={'w-full'}
+            className={"w-full"}
           />
           <div className={styles.description}>
             <div className={styles.keypoint}>徕卡光学全焦段四摄</div>
-            <Space size={'3rem'} className={styles.other_points}>
+            <Space size={"3rem"} className={styles.other_points}>
               <span>全焦段大光圈</span>
               <span>全焦段夜景</span>
               <span>全焦段抓拍</span>
@@ -107,9 +101,9 @@ export default function Section6() {
             <div className={styles.group}>
               <Image
                 src={
-                  'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2302.png?x-fds-process=image/resize,q_90'
+                  "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2302.png?x-fds-process=image/resize,q_90"
                 }
-                alt={''}
+                alt={""}
                 width={554}
                 height={896}
               />
@@ -123,18 +117,10 @@ export default function Section6() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.right, 'grid grid-cols-2 gap-[10]')}>
+          <div className={clsx(styles.right, "grid grid-cols-2 gap-[10]")}>
             {options.map((item) => (
-              <div
-                key={item.pictureUrl}
-                className={clsx(styles.group, item.className)}
-              >
-                <Image
-                  src={item.pictureUrl}
-                  alt={''}
-                  width={426}
-                  height={416}
-                />
+              <div key={item.pictureUrl} className={clsx(styles.group, item.className)}>
+                <Image src={item.pictureUrl} alt={""} width={426} height={416} />
                 <div className={styles.description}>
                   <div className={styles.keypoint}>{item.keypoint}</div>
                   <div className={styles.other_points}>{item.otherPoints}</div>
@@ -147,9 +133,9 @@ export default function Section6() {
           <div className={styles.group}>
             <Image
               src={
-                'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2877.png?x-fds-process=image/resize,q_90'
+                "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2877.png?x-fds-process=image/resize,q_90"
               }
-              alt={''}
+              alt={""}
               width={998}
               height={301}
             />
@@ -169,9 +155,9 @@ export default function Section6() {
           <div className={styles.group}>
             <Image
               src={
-                'https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2353.png?x-fds-process=image/resize,q_90'
+                "https://cdn.cnbj1.fds.api.mi-img.com/product-images/xiaomi-13-Ulimited-edition1byfh9/2353.png?x-fds-process=image/resize,q_90"
               }
-              alt={''}
+              alt={""}
               width={426}
               height={301}
             />

@@ -1,25 +1,21 @@
-'use server';
+"use server";
 
-import { ProductOrderBy } from '@/enums/product';
-import { db } from '@/lib/db';
+import { ProductOrderBy } from "@/enums/product";
+import { db } from "@/lib/db";
 import {
   productCategories,
   productLabelRelations,
   productLabels,
   productReviews,
   products,
-  productSkus
-} from '@/lib/schema';
-import { createPaginationMeta } from '@/lib/utils';
-import { Page, PageRequest } from '@/types/common';
-import {
-  DetailProduct,
-  RecommendedProduct,
-  SearchProduct
-} from '@/types/product';
-import { and, desc, eq, gt, like, SQL, sql } from 'drizzle-orm';
-import { pick } from 'next/dist/lib/pick';
-import { cache } from 'react';
+  productSkus,
+} from "@/lib/schema";
+import { createPaginationMeta } from "@/lib/utils";
+import { Page, PageRequest } from "@/types/common";
+import { DetailProduct, RecommendedProduct, SearchProduct } from "@/types/product";
+import { and, desc, eq, gt, like, SQL, sql } from "drizzle-orm";
+import { pick } from "next/dist/lib/pick";
+import { cache } from "react";
 
 interface SearchRequest extends PageRequest {
   keyword: string;
@@ -30,7 +26,7 @@ interface SearchRequest extends PageRequest {
 }
 
 export async function searchProducts(
-  request: Partial<SearchRequest> = {}
+  request: Partial<SearchRequest> = {},
 ): Promise<Page<SearchProduct>> {
   // 构建查询条件
   const conditions = getSearchConditions(request);
@@ -38,14 +34,11 @@ export async function searchProducts(
   // 查询总数量
   const totalQuery = await db
     .select({
-      id: products.id
+      id: products.id,
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
-    .leftJoin(
-      productLabelRelations,
-      eq(products.id, productLabelRelations.productId)
-    )
+    .leftJoin(productLabelRelations, eq(products.id, productLabelRelations.productId))
     .where(conditions)
     .groupBy(products.id);
   const total = totalQuery.length;
@@ -65,14 +58,11 @@ export async function searchProducts(
       price: products.price,
       originalPrice: products.originalPrice,
       pictureUrl: products.pictureUrl,
-      pictureUrls: sql<string>`group_concat(distinct ${productSkus.pictureUrl})`
+      pictureUrls: sql<string>`group_concat(distinct ${productSkus.pictureUrl})`,
     })
     .from(products)
     .leftJoin(productSkus, eq(products.id, productSkus.productId))
-    .leftJoin(
-      productLabelRelations,
-      eq(products.id, productLabelRelations.productId)
-    )
+    .leftJoin(productLabelRelations, eq(products.id, productLabelRelations.productId))
     .where(conditions)
     .groupBy(products.id)
     .orderBy(orderBy)
@@ -85,18 +75,9 @@ export async function searchProducts(
     size,
     pages,
     data: list.map((product) => ({
-      ...pick(product, [
-        'id',
-        'name',
-        'slug',
-        'pictureUrl',
-        'price',
-        'originalPrice'
-      ]),
-      pictureUrls: product.pictureUrls
-        ? product.pictureUrls.split(',')
-        : [product.pictureUrl]
-    }))
+      ...pick(product, ["id", "name", "slug", "pictureUrl", "price", "originalPrice"]),
+      pictureUrls: product.pictureUrls ? product.pictureUrls.split(",") : [product.pictureUrl],
+    })),
   };
 }
 
@@ -146,7 +127,7 @@ export async function findProductCategories(parentId: number = 0) {
   return db
     .select({
       id: productCategories.id,
-      name: productCategories.name
+      name: productCategories.name,
     })
     .from(productCategories)
     .where(eq(productCategories.parentId, parentId));
@@ -156,7 +137,7 @@ export async function findProductLabels(categoryId: number) {
   return db
     .select({
       id: productLabels.id,
-      name: productLabels.name
+      name: productLabels.name,
     })
     .from(productLabels)
     .where(eq(productLabels.categoryId, categoryId));
@@ -173,9 +154,7 @@ export async function findHotProductNames(limits = 10) {
   return res.map((product) => product.name);
 }
 
-export async function findRecommendedProducts(
-  limits: number = 10
-): Promise<RecommendedProduct[]> {
+export async function findRecommendedProducts(limits: number = 10): Promise<RecommendedProduct[]> {
   return db
     .select({
       productId: products.id,
@@ -190,7 +169,7 @@ export async function findRecommendedProducts(
       reviews: sql<number>`(select count(*) 
             from ${productReviews} 
             where ${productReviews.productId} = ${products.id} 
-              and ${productReviews.rating} >= 3)`
+              and ${productReviews.rating} >= 3)`,
     })
     .from(products)
     .innerJoin(productSkus, eq(products.id, productSkus.productId))
@@ -200,37 +179,28 @@ export async function findRecommendedProducts(
     .limit(limits);
 }
 
-export const findProductDetails = cache(
-  async (idOrSlug: string): Promise<DetailProduct | null> => {
-    const filters: SQL[] = [];
-    if (isNumericId(idOrSlug)) {
-      filters.push(eq(products.id, Number(idOrSlug)));
-    } else {
-      filters.push(eq(products.slug, idOrSlug));
-    }
-    filters.push(eq(products.enabled, true));
-
-    const res = await db.query.products.findFirst({
-      where: (_, { and }) => and(...filters),
-      with: {
-        skus: true
-      }
-    });
-
-    if (!res) {
-      return null;
-    }
-
-    return pick(res, [
-      'id',
-      'name',
-      'slug',
-      'description',
-      'staticDetails',
-      'skus'
-    ]);
+export const findProductDetails = cache(async (idOrSlug: string): Promise<DetailProduct | null> => {
+  const filters: SQL[] = [];
+  if (isNumericId(idOrSlug)) {
+    filters.push(eq(products.id, Number(idOrSlug)));
+  } else {
+    filters.push(eq(products.slug, idOrSlug));
   }
-);
+  filters.push(eq(products.enabled, true));
+
+  const res = await db.query.products.findFirst({
+    where: (_, { and }) => and(...filters),
+    with: {
+      skus: true,
+    },
+  });
+
+  if (!res) {
+    return null;
+  }
+
+  return pick(res, ["id", "name", "slug", "description", "staticDetails", "skus"]);
+});
 
 function isNumericId(value: string) {
   return /^\d+$/.test(value);

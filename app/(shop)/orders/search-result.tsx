@@ -1,18 +1,14 @@
-'use client';
+"use client";
 
-import Pagination from '@/components/ui/pagination';
-import { Empty } from '@/components/ui/user-layout';
-import { Page } from '@/types/common';
-import type { Order } from '@/types/order';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use } from 'react';
-import OrderList from './order-list';
+import Pagination from "@/components/ui/pagination";
+import { Empty } from "@/components/ui/user-layout";
+import { Page } from "@/types/common";
+import type { Order } from "@/types/order";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { use } from "react";
+import OrderList from "./order-list";
 
-export default function SearchResult({
-  searchPromise
-}: {
-  searchPromise: Promise<Page<Order>>;
-}) {
+export default function SearchResult({ searchPromise }: { searchPromise: Promise<Page<Order>> }) {
   const { page, size, total, pages, data: orders } = use(searchPromise);
 
   const searchParams = useSearchParams();
@@ -21,7 +17,7 @@ export default function SearchResult({
 
   function switchPage(page: number) {
     const params = new URLSearchParams(searchParams);
-    params.set('page', page.toString());
+    params.set("page", page.toString());
     router.replace(`${pathname}?${params.toString()}`);
   }
 
@@ -33,12 +29,7 @@ export default function SearchResult({
     <>
       <OrderList orders={orders} />
       {pages > 1 && (
-        <Pagination
-          current={page}
-          pageSize={size}
-          totalSize={total}
-          onChange={switchPage}
-        />
+        <Pagination current={page} pageSize={size} totalSize={total} onChange={switchPage} />
       )}
     </>
   );

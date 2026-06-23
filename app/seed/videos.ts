@@ -1,10 +1,10 @@
-import { db } from '@/lib/db';
-import { videosData } from '@/lib/placeholder-data';
-import { videos } from '@/lib/schema';
+import { db } from "@/lib/db";
+import { videosData } from "@/lib/placeholder-data";
+import { videos } from "@/lib/schema";
 
 export async function seedVideos() {
   // 删除表
-  await db.execute('drop table if exists mishop.videos;');
+  await db.execute("drop table if exists mishop.videos;");
 
   // 创建表
   await db.execute(`
@@ -26,7 +26,7 @@ export async function seedVideos() {
   await db.insert(videos).values(
     videosData.map((video, index) => ({
       ...video,
-      sortNo: index + 1
-    }))
+      sortNo: index + 1,
+    })),
   );
 }

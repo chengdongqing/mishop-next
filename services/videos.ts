@@ -1,5 +1,5 @@
-import { db } from '@/lib/db';
-import { videos } from '@/lib/schema';
+import { db } from "@/lib/db";
+import { videos } from "@/lib/schema";
 
 export function findVideos(limit?: number) {
   return db

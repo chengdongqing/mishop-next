@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Input, { InputProps } from '@/components/ui/input';
-import toast from '@/components/ui/toast';
-import useCountdown from '@/hooks/useCountdown';
-import clsx from 'clsx';
-import { useRef, useState } from 'react';
-import styles from './styles.module.css';
+import Input, { InputProps } from "@/components/ui/input";
+import toast from "@/components/ui/toast";
+import useCountdown from "@/hooks/useCountdown";
+import clsx from "clsx";
+import { useRef, useState } from "react";
+import styles from "./styles.module.css";
 
 interface VerificationCodeInputProps extends InputProps {
   interval?: number;
@@ -16,7 +16,7 @@ interface VerificationCodeInputProps extends InputProps {
 export default function VerificationCodeInput({
   interval = 60,
   onSend,
-  placeholder = '验证码',
+  placeholder = "验证码",
   ...rest
 }: VerificationCodeInputProps) {
   const sending = useRef(false);
@@ -29,7 +29,7 @@ export default function VerificationCodeInput({
   function send() {
     if (!waiting && !sending.current) {
       sending.current = true;
-      const closeLoading = toast.loading('发送中...');
+      const closeLoading = toast.loading("发送中...");
       onSend()
         .finally(() => {
           closeLoading();
@@ -39,7 +39,7 @@ export default function VerificationCodeInput({
           start();
           setWaiting(true);
           hasSent.current = true;
-          toast.success('发送成功，请注意查收');
+          toast.success("发送成功，请注意查收");
         })
         .catch((e) => {
           if (e instanceof Error) {
@@ -51,19 +51,20 @@ export default function VerificationCodeInput({
 
   return (
     <Input
-      type={'number'}
+      type={"number"}
       placeholder={placeholder}
       suffix={
         <div
+          role={"button"}
           className={clsx(
-            'dark:!text-[#666]',
+            "dark:!text-[#666]",
             styles.btn_send,
-            waiting && !!seconds && styles.disabled
+            waiting && !!seconds && styles.disabled,
           )}
           onClick={send}
         >
-          {!hasSent.current ? '获取验证码' : '重新发送'}
-          {waiting && seconds ? ` ${seconds}s` : ''}
+          {!hasSent.current ? "获取验证码" : "重新发送"}
+          {waiting && seconds ? ` ${seconds}s` : ""}
         </div>
       }
       {...rest}

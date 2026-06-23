@@ -1,24 +1,24 @@
-import { db } from '@/lib/db';
+import { db } from "@/lib/db";
 import {
   productCategoriesData,
   productLabelRelationsData,
   productLabelsData,
   productReviewsData,
   productsData,
-  productSkusData
-} from '@/lib/placeholder-data';
+  productSkusData,
+} from "@/lib/placeholder-data";
 import {
   productCategories,
   productLabelRelations,
   productLabels,
   productReviews,
   products,
-  productSkus
-} from '@/lib/schema';
+  productSkus,
+} from "@/lib/schema";
 
 export async function seedProducts() {
   // 删除表
-  await db.execute('drop table if exists mishop.products;');
+  await db.execute("drop table if exists mishop.products;");
 
   // 创建表
   await db.execute(createTableSql);
@@ -30,8 +30,8 @@ export async function seedProducts() {
       categoryId: product.categoryId!,
       price: product.price.toString(),
       originalPrice: product.originalPrice?.toString(),
-      sortNo: index + 1
-    }))
+      sortNo: index + 1,
+    })),
   );
 }
 
@@ -62,7 +62,7 @@ const createTableSql = `
 
 export async function seedProductSkus() {
   // 删除表
-  await db.execute('drop table if exists mishop.product_skus;');
+  await db.execute("drop table if exists mishop.product_skus;");
 
   // 创建表
   await db.execute(createProductSkuTableSql);
@@ -72,8 +72,8 @@ export async function seedProductSkus() {
     productSkusData.map((sku) => ({
       ...sku,
       price: sku.price.toString(),
-      originalPrice: sku.originalPrice?.toString()
-    }))
+      originalPrice: sku.originalPrice?.toString(),
+    })),
   );
 }
 
@@ -99,7 +99,7 @@ const createProductSkuTableSql = `
 
 export async function seedProductCategories() {
   // 删除表
-  await db.execute('drop table if exists mishop.product_categories;');
+  await db.execute("drop table if exists mishop.product_categories;");
 
   // 创建表
   await db.execute(createCategoryTableSql);
@@ -115,13 +115,13 @@ export async function seedProductCategories() {
         sortNo: number;
       }[],
       category,
-      index
+      index,
     ) => {
       acc.push({
         id: category.id,
         name: category.name,
         pictureUrl: category.pictureUrl,
-        sortNo: index + 1
+        sortNo: index + 1,
       });
       category.children?.forEach((child, childIndex) => {
         acc.push({
@@ -129,12 +129,12 @@ export async function seedProductCategories() {
           name: child.name,
           pictureUrl: child.pictureUrl,
           parentId: category.id,
-          sortNo: childIndex + 1
+          sortNo: childIndex + 1,
         });
       });
       return acc;
     },
-    []
+    [],
   );
   await db.insert(productCategories).values(values);
 }
@@ -157,7 +157,7 @@ const createCategoryTableSql = `
 
 export async function seedProductLabels() {
   // 删除表
-  await db.execute('drop table if exists mishop.product_labels;');
+  await db.execute("drop table if exists mishop.product_labels;");
 
   // 创建表
   await db.execute(createLabelTableSql);
@@ -184,7 +184,7 @@ const createLabelTableSql = `
 
 export async function seedProductLabelRelations() {
   // 删除表
-  await db.execute('drop table if exists mishop.product_label_relations;');
+  await db.execute("drop table if exists mishop.product_label_relations;");
 
   // 创建表
   await db.execute(createProductLabelRelationTableSql);
@@ -210,7 +210,7 @@ const createProductLabelRelationTableSql = `
 
 export async function seedProductReviews() {
   // 删除表
-  await db.execute('drop table if exists mishop.product_reviews;');
+  await db.execute("drop table if exists mishop.product_reviews;");
 
   // 创建表
   await db.execute(createReviewTableSql);

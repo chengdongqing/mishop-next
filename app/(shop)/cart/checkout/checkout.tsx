@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { CartCheckout } from '@/types/cart';
-import { ShippingAddress } from '@/types/user';
-import { useState } from 'react';
-import CheckoutAddresses from './addresses';
-import CheckoutBar from './checkout-bar';
-import CheckoutProducts from './products';
-import CheckoutSummary from './submmary';
-import Title from './title';
+import { CartCheckout } from "@/types/cart";
+import { ShippingAddress } from "@/types/user";
+import { useState } from "react";
+import CheckoutAddresses from "./addresses";
+import CheckoutBar from "./checkout-bar";
+import CheckoutProducts from "./products";
+import CheckoutSummary from "./submmary";
+import Title from "./title";
 
 interface CheckoutProps {
   addresses: ShippingAddress[];
@@ -19,16 +19,12 @@ export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
 
   return (
     <>
-      <CheckoutAddresses
-        value={address}
-        onChange={setAddress}
-        addresses={addresses}
-      />
+      <CheckoutAddresses value={address} onChange={setAddress} addresses={addresses} />
       <CheckoutProducts products={checkoutData.products} />
       <Divider />
-      <section className={'flex h-[100] items-center'}>
-        <Title className={'!mb-0 w-[150]'}>配送方式</Title>
-        <span className={'text-primary'}>包邮</span>
+      <section className={"flex h-[100] items-center"}>
+        <Title className={"!mb-0 w-[150]"}>配送方式</Title>
+        <span className={"text-primary"}>包邮</span>
       </section>
       <Divider />
       <CheckoutSummary summary={checkoutData.summary} />
@@ -38,5 +34,5 @@ export default function Checkout({ addresses, checkoutData }: CheckoutProps) {
 }
 
 function Divider() {
-  return <div className={'border-primary border-t-1'} />;
+  return <div className={"border-primary border-t-1"} />;
 }

@@ -1,15 +1,15 @@
-import { Metadata } from 'next';
-import Title from '../title';
-import Privacy from './privacy';
+import { Metadata } from "next";
+import Title from "../title";
+import Privacy from "./privacy";
 
 export const metadata: Metadata = {
-  title: '隐私中心-小米账号'
+  title: "隐私中心-小米账号",
 };
 
 export default async function PrivacyPage({
-  searchParams
+  searchParams,
 }: {
-  searchParams: Promise<{ action?: 'delete' }>;
+  searchParams: Promise<{ action?: "delete" }>;
 }) {
   const { action } = await searchParams;
 

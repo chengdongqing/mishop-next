@@ -1,37 +1,32 @@
-'use server';
+"use server";
 
-import * as authService from '@/auth';
-import { db } from '@/lib/db';
-import {
-  EMAIL_REGEX,
-  PASSWORD_REGEX,
-  PHONE_REGEX,
-  VERIFICATION_CODE_REGEX
-} from '@/lib/regex';
-import { users } from '@/lib/schema';
-import { generateRandomCode } from '@/lib/utils';
+import * as authService from "@/auth";
+import { db } from "@/lib/db";
+import { EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX, VERIFICATION_CODE_REGEX } from "@/lib/regex";
+import { users } from "@/lib/schema";
+import { generateRandomCode } from "@/lib/utils";
 import {
   verifyEmailVerificationCode,
-  verifySmsVerificationCode
-} from '@/services/verification-code';
-import { ActionState } from '@/types/common';
-import bcrypt from 'bcryptjs';
-import { eq, or } from 'drizzle-orm';
-import { createInsertSchema } from 'drizzle-zod';
-import { z } from 'zod';
+  verifySmsVerificationCode,
+} from "@/services/verification-code";
+import { ActionState } from "@/types/common";
+import bcrypt from "bcryptjs";
+import { eq, or } from "drizzle-orm";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 const createUserSchema = createInsertSchema(users, {
-  phone: z.string().regex(PHONE_REGEX, '请输入正确的手机号'),
-  password: z.string().regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合')
+  phone: z.string().regex(PHONE_REGEX, "请输入正确的手机号"),
+  password: z.string().regex(PASSWORD_REGEX, "密码必须是 6-20 位字母和数字组合"),
 })
   .pick({ phone: true, password: true })
   .extend({
-    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误'),
-    confirmPassword: z.string()
+    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, "验证码错误"),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: '两次输入的密码不一致',
-    path: ['confirmPassword']
+    message: "两次输入的密码不一致",
+    path: ["confirmPassword"],
   });
 
 type SignupState = ActionState<{
@@ -44,20 +39,17 @@ type SignupState = ActionState<{
 /**
  * 用户注册
  */
-export async function signup(
-  _: SignupState,
-  formData: FormData
-): Promise<SignupState> {
+export async function signup(_: SignupState, formData: FormData): Promise<SignupState> {
   // 校验数据格式
   const validatedFields = createUserSchema.safeParse({
-    phone: formData.get('phone'),
-    verificationCode: formData.get('verificationCode'),
-    password: formData.get('password'),
-    confirmPassword: formData.get('confirmPassword')
+    phone: formData.get("phone"),
+    verificationCode: formData.get("verificationCode"),
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
   });
   if (validatedFields.error) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
@@ -68,8 +60,8 @@ export async function signup(
   if (!verified) {
     return {
       errors: {
-        verificationCode: ['验证码错误']
-      }
+        verificationCode: ["验证码错误"],
+      },
     };
   }
 
@@ -78,8 +70,8 @@ export async function signup(
   if (existing) {
     return {
       errors: {
-        phone: ['该手机号已被注册']
-      }
+        phone: ["该手机号已被注册"],
+      },
     };
   }
 
@@ -90,18 +82,18 @@ export async function signup(
     // 保存用户信息
     await db.insert(users).values({
       phone,
-      password: hashedPassword
+      password: hashedPassword,
     });
   } catch (e) {
     console.error(e);
     return {
       success: false,
-      message: '系统错误: 注册失败'
+      message: "系统错误: 注册失败",
     };
   }
 
   return {
-    success: true
+    success: true,
   };
 }
 
@@ -111,7 +103,7 @@ export async function signup(
 async function accountExists(identifier: string) {
   const existing = await db.query.users.findFirst({
     columns: { id: true },
-    where: or(eq(users.phone, identifier), eq(users.email, identifier))
+    where: or(eq(users.phone, identifier), eq(users.email, identifier)),
   });
 
   return !!existing;
@@ -123,10 +115,10 @@ const signInSchema = z.object({
       return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
     },
     {
-      message: '账号不存在'
-    }
+      message: "账号不存在",
+    },
   ),
-  password: z.string().regex(PASSWORD_REGEX, '密码错误')
+  password: z.string().regex(PASSWORD_REGEX, "密码错误"),
 });
 
 type AuthenticateState = ActionState<{
@@ -137,34 +129,31 @@ type AuthenticateState = ActionState<{
 /**
  * 根据手机号/邮箱+密码认证
  */
-export async function signIn(
-  _: AuthenticateState,
-  formData: FormData
-): Promise<AuthenticateState> {
+export async function signIn(_: AuthenticateState, formData: FormData): Promise<AuthenticateState> {
   // 校验数据格式
   const validatedFields = signInSchema.safeParse({
-    identifier: formData.get('identifier'),
-    password: formData.get('password')
+    identifier: formData.get("identifier"),
+    password: formData.get("password"),
   });
   if (validatedFields.error) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
   const { identifier, password } = validatedFields.data;
 
-  const isEmail = identifier.includes('@');
+  const isEmail = identifier.includes("@");
   try {
     const user = await db.query.users.findFirst({
-      where: isEmail ? eq(users.email, identifier) : eq(users.phone, identifier)
+      where: isEmail ? eq(users.email, identifier) : eq(users.phone, identifier),
     });
 
     if (!user) {
       return {
         errors: {
-          identifier: ['账号不存在']
-        }
+          identifier: ["账号不存在"],
+        },
       };
     }
 
@@ -172,25 +161,25 @@ export async function signIn(
     if (!passwordMatch) {
       return {
         errors: {
-          password: ['密码错误']
-        }
+          password: ["密码错误"],
+        },
       };
     }
 
-    await authService.signIn('credentials', {
+    await authService.signIn("credentials", {
       ...user,
-      redirect: false
+      redirect: false,
     });
   } catch (e) {
     console.error(e);
     return {
       success: false,
-      message: '系统错误: 登录失败'
+      message: "系统错误: 登录失败",
     };
   }
 
   return {
-    success: true
+    success: true,
   };
 }
 
@@ -200,10 +189,10 @@ const signInByCodeSchema = z.object({
       return PHONE_REGEX.test(val) || EMAIL_REGEX.test(val);
     },
     {
-      message: '请输入正确的手机号或邮箱'
-    }
+      message: "请输入正确的手机号或邮箱",
+    },
   ),
-  verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误')
+  verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, "验证码错误"),
 });
 
 type AuthenticateByCodeState = ActionState<{
@@ -216,16 +205,16 @@ type AuthenticateByCodeState = ActionState<{
  */
 export async function signInByCode(
   _: AuthenticateByCodeState,
-  formData: FormData
+  formData: FormData,
 ): Promise<AuthenticateByCodeState> {
   // 校验数据格式
   const validatedFields = signInByCodeSchema.safeParse({
-    phone: formData.get('phone'),
-    verificationCode: formData.get('verificationCode')
+    phone: formData.get("phone"),
+    verificationCode: formData.get("verificationCode"),
   });
   if (validatedFields.error) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
@@ -236,18 +225,18 @@ export async function signInByCode(
   if (!verified) {
     return {
       errors: {
-        verificationCode: ['验证码错误']
-      }
+        verificationCode: ["验证码错误"],
+      },
     };
   }
 
   const user = await db.query.users.findFirst({
-    where: eq(users.phone, phone)
+    where: eq(users.phone, phone),
   });
   if (user) {
-    await authService.signIn('credentials', {
+    await authService.signIn("credentials", {
       ...user,
-      redirect: false
+      redirect: false,
     });
   } else {
     // 不存在则自动注册
@@ -256,60 +245,58 @@ export async function signInByCode(
       const [{ insertId }] = await db.insert(users).values({
         phone,
         // 密码使用随机数，下次登录仅能继续通过验证码登录或重置密码
-        password: bcrypt.hashSync(generateRandomCode(), 10)
+        password: bcrypt.hashSync(generateRandomCode(), 10),
       });
 
-      await authService.signIn('credentials', {
+      await authService.signIn("credentials", {
         id: insertId,
-        redirect: false
+        redirect: false,
       });
     } catch (e) {
       console.error(e);
       return {
         success: false,
-        message: '系统错误: 自动注册失败'
+        message: "系统错误: 自动注册失败",
       };
     }
   }
 
   return {
-    success: true
+    success: true,
   };
 }
 
 const resetPasswordSchema = z
   .object({
-    type: z.enum(['phone', 'email'], {
-      error: '请选择类型'
+    type: z.enum(["phone", "email"], {
+      error: "请选择类型",
     }),
     identifier: z.string(),
-    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, '验证码错误'),
-    password: z
-      .string()
-      .regex(PASSWORD_REGEX, '密码必须是 6-20 位字母和数字组合'),
-    confirmPassword: z.string()
+    verificationCode: z.string().regex(VERIFICATION_CODE_REGEX, "验证码错误"),
+    password: z.string().regex(PASSWORD_REGEX, "密码必须是 6-20 位字母和数字组合"),
+    confirmPassword: z.string(),
   })
   .refine(
     (data) => {
-      return data.type === 'phone' ? PHONE_REGEX.test(data.identifier) : true;
+      return data.type === "phone" ? PHONE_REGEX.test(data.identifier) : true;
     },
     {
-      path: ['identifier'],
-      message: '手机号格式错误'
-    }
+      path: ["identifier"],
+      message: "手机号格式错误",
+    },
   )
   .refine(
     (data) => {
-      return data.type === 'email' ? EMAIL_REGEX.test(data.identifier) : true;
+      return data.type === "email" ? EMAIL_REGEX.test(data.identifier) : true;
     },
     {
-      path: ['identifier'],
-      message: '邮箱格式错误'
-    }
+      path: ["identifier"],
+      message: "邮箱格式错误",
+    },
   )
   .refine((data) => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: '两次输入的密码不一致'
+    path: ["confirmPassword"],
+    message: "两次输入的密码不一致",
   });
 
 export type ResetPasswordState = ActionState<{
@@ -324,32 +311,32 @@ export type ResetPasswordState = ActionState<{
  */
 export async function resetPassword(
   _: ResetPasswordState,
-  formData: FormData
+  formData: FormData,
 ): Promise<ResetPasswordState> {
   const validatedFields = resetPasswordSchema.safeParse({
-    type: formData.get('type'),
-    identifier: formData.get('identifier'),
-    verificationCode: formData.get('verificationCode'),
-    password: formData.get('password'),
-    confirmPassword: formData.get('confirmPassword')
+    type: formData.get("type"),
+    identifier: formData.get("identifier"),
+    verificationCode: formData.get("verificationCode"),
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
   });
   if (validatedFields.error) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors
+      errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
   const { identifier, verificationCode, password } = validatedFields.data;
 
   // 验证码是否正确
-  const res = await (identifier.includes('@')
+  const res = await (identifier.includes("@")
     ? verifyEmailVerificationCode(identifier, verificationCode)
     : verifySmsVerificationCode(identifier, verificationCode));
   if (!res) {
     return {
       errors: {
-        verificationCode: ['验证码错误']
-      }
+        verificationCode: ["验证码错误"],
+      },
     };
   }
 
@@ -358,8 +345,8 @@ export async function resetPassword(
   if (!exists) {
     return {
       errors: {
-        identifier: ['该账号不存在']
-      }
+        identifier: ["该账号不存在"],
+      },
     };
   }
 
@@ -373,7 +360,7 @@ export async function resetPassword(
     console.error(e);
     return {
       success: false,
-      message: '系统错误: 重置密码失败'
+      message: "系统错误: 重置密码失败",
     };
   }
 
@@ -386,6 +373,6 @@ export async function resetPassword(
 export async function signOut(redirect = false) {
   await authService.signOut({
     redirect,
-    redirectTo: redirect ? '/' : undefined
+    redirectTo: redirect ? "/" : undefined,
   });
 }

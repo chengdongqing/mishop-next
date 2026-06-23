@@ -1,8 +1,8 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from "react";
 
 export default function useVisible(
   target: HTMLElement | RefObject<HTMLElement | null>,
-  threshold = 0.2
+  threshold = 0.2,
 ) {
   const [visible, setVisible] = useState(false);
 
@@ -20,7 +20,7 @@ export default function useVisible(
         const { isIntersecting } = entries[0];
         setVisible(isIntersecting);
       },
-      { threshold }
+      { threshold },
     );
     if (element) {
       observer.observe(element);

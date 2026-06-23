@@ -1,8 +1,8 @@
-import { db } from '@/lib/db';
+import { db } from "@/lib/db";
 
 export async function seedOrders() {
   // 删除表
-  await db.execute('drop table if exists mishop.orders;');
+  await db.execute("drop table if exists mishop.orders;");
 
   // 创建表
   await db.execute(`
@@ -35,7 +35,7 @@ export async function seedOrders() {
 
 export async function seedOrderItems() {
   // 删除表
-  await db.execute('drop table if exists mishop.order_items;');
+  await db.execute("drop table if exists mishop.order_items;");
 
   // 创建表
   await db.execute(`
@@ -61,7 +61,7 @@ export async function seedOrderItems() {
 
 export async function seedOrderEvents() {
   // 删除表
-  await db.execute('drop table if exists mishop.order_events;');
+  await db.execute("drop table if exists mishop.order_events;");
 
   // 创建表
   await db.execute(`
@@ -85,7 +85,7 @@ export async function seedOrderEvents() {
 
 export async function seedOrderReviews() {
   // 删除表
-  await db.execute('drop table if exists mishop.order_reviews;');
+  await db.execute("drop table if exists mishop.order_reviews;");
 
   // 创建表
   await db.execute(`

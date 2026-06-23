@@ -1,19 +1,19 @@
-import Button from '@/components/ui/button';
-import useSetState from '@/hooks/useSetState';
-import clsx from 'clsx';
-import React, { useEffect, useState, useTransition } from 'react';
-import { Rect } from './resizable/types';
-import useDrag from './resizable/useDrag';
-import useResize from './resizable/useResize';
-import { LEFT_MOUSE_BUTTON } from './resizable/utils';
-import styles from './styles.module.css';
+import Button from "@/components/ui/button";
+import useSetState from "@/hooks/useSetState";
+import clsx from "clsx";
+import React, { useEffect, useState, useTransition } from "react";
+import { Rect } from "./resizable/types";
+import useDrag from "./resizable/useDrag";
+import useResize from "./resizable/useResize";
+import { LEFT_MOUSE_BUTTON } from "./resizable/utils";
+import styles from "./styles.module.css";
 
 const boxSize = 360;
 
 export default function CropPanel({
   file,
   onReset,
-  onChange
+  onChange,
 }: {
   file: File;
   onReset: () => void;
@@ -25,20 +25,20 @@ export default function CropPanel({
     x: 30,
     y: 30,
     w: 300,
-    h: 300
+    h: 300,
   });
 
   const [handleDragStart] = useDrag({
     styles: {
       left: rect.x,
-      top: rect.y
+      top: rect.y,
     },
     scale: 1,
     onDrag(e) {
       const { left, top } = e.style;
       const { x, y } = clampRect({ x: left, y: top, w: rect.w, h: rect.h });
       setRect({ x, y, w: rect.w, h: rect.h });
-    }
+    },
   });
 
   const [handleResizeStart] = useResize({
@@ -47,7 +47,7 @@ export default function CropPanel({
       top: rect.y,
       width: rect.w,
       height: rect.h,
-      rotationDeg: 0
+      rotationDeg: 0,
     },
     scale: 1,
     minHeight: 10,
@@ -59,10 +59,10 @@ export default function CropPanel({
         x: left,
         y: top,
         w: width,
-        h: height
+        h: height,
       });
       setRect({ x, y, w, h });
-    }
+    },
   });
 
   const [isPending, startTransition] = useTransition();
@@ -76,8 +76,8 @@ export default function CropPanel({
 
   return (
     <div>
-      <div className={'relative h-[360] w-[360]'}>
-        <svg width={'100%'} height={'100%'}>
+      <div className={"relative h-[360] w-[360]"}>
+        <svg width={"100%"} height={"100%"}>
           {!!src && <image href={src} width="100%" height="100%" />}
           <g>
             <rect
@@ -85,20 +85,14 @@ export default function CropPanel({
               y={0}
               fill="black"
               fillOpacity={0.5}
-              width={'100%'}
-              height={'100%'}
+              width={"100%"}
+              height={"100%"}
               mask={`url(#${maskId})`}
             />
             <defs>
               <mask id={maskId}>
-                <rect width={'100%'} height={'100%'} fill={'white'} />
-                <rect
-                  x={rect.x}
-                  y={rect.y}
-                  width={rect.w}
-                  height={rect.h}
-                  fill={'black'}
-                />
+                <rect width={"100%"} height={"100%"} fill={"white"} />
+                <rect x={rect.x} y={rect.y} width={rect.w} height={rect.h} fill={"black"} />
               </mask>
             </defs>
           </g>
@@ -110,7 +104,7 @@ export default function CropPanel({
             left: rect.x,
             top: rect.y,
             width: rect.w,
-            height: rect.h
+            height: rect.h,
           }}
           onMouseDown={(e) => {
             if (e.button !== LEFT_MOUSE_BUTTON) return;
@@ -120,36 +114,33 @@ export default function CropPanel({
           }}
         >
           <ResizeControl
-            className={'top-[-6] left-[-6] cursor-nw-resize'}
-            onResize={(e) => handleResizeStart(e, 'nw')}
+            className={"top-[-6] left-[-6] cursor-nw-resize"}
+            onResize={(e) => handleResizeStart(e, "nw")}
           />
           <ResizeControl
-            className={'top-[-6] right-[-6] cursor-ne-resize'}
-            onResize={(e) => handleResizeStart(e, 'ne')}
+            className={"top-[-6] right-[-6] cursor-ne-resize"}
+            onResize={(e) => handleResizeStart(e, "ne")}
           />
           <ResizeControl
-            className={'right-[-6] bottom-[-6] cursor-se-resize'}
-            onResize={(e) => handleResizeStart(e, 'se')}
+            className={"right-[-6] bottom-[-6] cursor-se-resize"}
+            onResize={(e) => handleResizeStart(e, "se")}
           />
           <ResizeControl
-            className={'bottom-[-6] left-[-6] cursor-sw-resize'}
-            onResize={(e) => handleResizeStart(e, 'sw')}
+            className={"bottom-[-6] left-[-6] cursor-sw-resize"}
+            onResize={(e) => handleResizeStart(e, "sw")}
           />
         </div>
       </div>
 
-      <div className={'mt-[30] flex gap-x-5'}>
-        <Button
-          className={'!h-[50] flex-1 rounded-sm !bg-[#bbb] !text-base'}
-          onClick={onReset}
-        >
+      <div className={"mt-[30] flex gap-x-5"}>
+        <Button className={"!h-[50] flex-1 rounded-sm !bg-[#bbb] !text-base"} onClick={onReset}>
           重新上传
         </Button>
         <Button
           disabled={!src}
           loading={isPending}
           onClick={handleCrop}
-          className={'!h-[50] flex-1 rounded-sm !text-base'}
+          className={"!h-[50] flex-1 rounded-sm !text-base"}
         >
           确定
         </Button>
@@ -160,14 +151,14 @@ export default function CropPanel({
 
 function ResizeControl({
   className,
-  onResize
+  onResize,
 }: {
   className: string;
   onResize: (e: MouseEvent) => void;
 }) {
   return (
     <span
-      className={clsx('border-primary absolute h-3 w-3 border-1', className)}
+      className={clsx("border-primary absolute h-3 w-3 border-1", className)}
       onMouseDown={(e) => {
         if (e.button !== LEFT_MOUSE_BUTTON) return;
         e.preventDefault();
@@ -201,7 +192,7 @@ async function cropImage(src: string, rect: Rect) {
   const aspectRatio = image.naturalWidth / image.naturalHeight;
 
   const canvas = new OffscreenCanvas(boxSize, boxSize);
-  const ctx = canvas.getContext('2d')!;
+  const ctx = canvas.getContext("2d")!;
 
   let x = rect.x * scaleX,
     y = rect.y * scaleY,
@@ -224,14 +215,14 @@ async function cropImage(src: string, rect: Rect) {
 
   ctx.drawImage(image, x, y, w, h, 0, 0, boxSize, boxSize);
 
-  const mimeType = 'image/webp';
+  const mimeType = "image/webp";
   const blob = await canvas.convertToBlob({
     type: mimeType,
-    quality: 0.9
+    quality: 0.9,
   });
 
   return new File([blob], `${Date.now()}.webp`, {
-    type: mimeType
+    type: mimeType,
   });
 }
 
